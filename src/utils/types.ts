@@ -1,0 +1,53 @@
+/* 時間割管理機能のデータモデル */
+type TimeTable = {
+    id: number;
+    name: string;
+    teacher: string;
+    classroom: string;
+    startTime: Date;
+    endTime: Date;
+    dayOfWeek: number; // Date.getDay()で得られる曜日の形式
+};
+
+type TimeTableList = {
+    timeTables: TimeTable[];
+};
+
+/* 課題管理機能のデータモデル */
+type Task = {
+    id: number;
+    title: string;
+    description: string;
+    deadline: Date; // 締め切り日時
+};
+
+type TaskList = {
+    tasks: Task[];
+};
+
+
+/* アルバイト管理機能のデータモデル */
+type Shift = {
+    id: number;
+    startTime: Date; // シフト開始日時
+    endTime: Date; // シフト終了日時
+    breakTime: number; // 休憩時間（分単位）
+};
+
+type ShiftList = {
+    shifts: Shift[];
+};
+
+/* 予定追加機能のデータモデル */
+type EventSchedule = {
+    id: number;
+    title: string;
+    description: string;
+    date: Date;
+    startTime: Date;
+    endTime: Date;
+};
+
+type EventScheduleList = {
+    eventSchedules: EventSchedule[];
+};
