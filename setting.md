@@ -52,37 +52,12 @@ npm install webpack ts-loader @webpack-cli/generators
 ```
 これは、Webpack本体と、TS Loaderというパッケージをインストールするものです。
 これでWebpackの機能が利用できるようになります。
-### Webpack-CLIで初期化する
-では、Webpackの初期化を行いましょう。ターミナルから以下のコマンドを実行してください。
+## Firebaseをインストールする
+### Firebase SDK の追加
+npm とモジュール バンドラ（webpack や Rollup など）をすでに使用している場合は、次のコマンドを実行して最新の SDK をインストールできます。[詳細](https://firebase.google.com/docs/web/learn-more?hl=ja&authuser=0#modular-version)
 ```
-npx webpack-cli init 
+npm add firebase
 ```
-これを実行すると、次々に質問が表示されていきます。これらを順に入力していってください。
-- **? Which of the following JS solutions do you want to use?**
-JavaScript関連のソリューションに対応させるためのものです。「Typescript」を選択してEnter/Returnしてください。
-- **? Do you want to use webpack-dev-server? (Y/n)**
-Webpackの開発サーバーを追加するかです。
-デフォルトでは追加します。そのままEnter/ Returnしてください。
-- **? Do you want to simplify the creation of HTML files for your bundle? (Y/n)**
-簡略化したHTMLファイルを生成するかどうかを示します。
-デフォルトでは簡素化したものを生成します。これもそのままEnter/Returnしましょう。
-- **? Do you want to add PWA support? (Y/n)**
-PWA(Progressive web apps)をサポートするか尋ねてきます。
-これもデフォルトのまま Enter/Returnしましょう。
-- **? Which of the following CSS solutions do you want to use? (Use arrow keys)**
-CSS関連ソリューションの対応を選択します。
-今回は特に使わないので「none」を選んだままEnter/Returnしましょう。
-- **? Do you like to install prettier to format generated configuration? (Y/n)**
-設定ファイルを見やすくフォーマットするものです。
-これもそのままEnter/Returnします。
-- **? Overwrite package.json? (ynaxdH)**
-package.jsonを上書きするか尋ねてきます。
-「y」をタイプし、Overwrite(上書き)を選択してください。
-- **? Overwrite tsconfig.json? (ynaxdH)**
-tsconfig.jsonを上書きするか尋ねてきます。
-「y」をタイプし、Overwrite(上書き)します。
-
-後は、しばらく待っていれば作業完了し、プロジェクトが設定されます。
 ## アプリケーションをビルドする
 ソースコードのファイルが用意できたら、ターミナルから以下のコマンドを実行してください。
 ```

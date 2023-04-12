@@ -26,7 +26,8 @@
     "workbox-webpack-plugin": "^6.5.3"
   },
   "dependencies": {
-    "@webpack-cli/generators": "^3.0.1"
+    "@webpack-cli/generators": "^3.0.1",
+    "firebase": "^9.19.1"
   },
   "repository": {
     "type": "git",
