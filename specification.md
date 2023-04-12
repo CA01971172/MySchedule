@@ -108,6 +108,7 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   └── IndexPage.ts             # トップページのコンポーネント
 │   ├── utils/
 │   │   ├── api.ts                   # APIとの通信を行うためのユーティリティ
+│   │   ├── domUtils.ts                   # DOM 操作用のユーティリティ
 │   │   ├── types.ts                 # 型定義
 │   │   └── constants.ts             # アプリ全体で使用される定数
 │   └── index.ts                     # アプリのエントリーポイント
