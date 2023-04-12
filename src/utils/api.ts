@@ -77,29 +77,29 @@ export class DbController {
     }
     
     async readData(): Promise<object> {
-        const response = await fetch(this.dbPath);
-    
-        if (!response.ok) {
-            throw new Error(`Failed to read data (status code: ${response.status})`);
-        }
-    
-        const data = await response.json();
-        this.data = data;
-        return data;
+            const response = await fetch(this.dbPath);
+        
+            if (!response.ok) {
+                throw new Error(`Failed to read data (status code: ${response.status})`);
+            }
+        
+            const data = await response.json();
+            this.data = data;
+            return data;
         }
     
         async updateData(data: object): Promise<void> {
-        const response = await fetch(this.dbPath, {
-            method: "PUT",
-            headers: {
-            "Content-Type": "application/json",
-        },
-            body: JSON.stringify(data),
-        });
-    
-        if (!response.ok) {
-            throw new Error(`Failed to update data (status code: ${response.status})`);
-        }
+            const response = await fetch(this.dbPath, {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+            },
+                body: JSON.stringify(data),
+            });
+        
+            if (!response.ok) {
+                throw new Error(`Failed to update data (status code: ${response.status})`);
+            }
     }
     
     async deleteData(id: string): Promise<void> {
