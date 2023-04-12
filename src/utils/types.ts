@@ -1,3 +1,12 @@
+/* firebase関連の型定義 */
+export type UserInfo = {
+    name:string,
+    email:string,
+    password:string
+}
+
+export type ContentType = "timetable"|"task"|"shift"|"event"
+
 /* 時間割管理機能のデータモデル */
 type TimeTable = {
     id: number; // new Date().getTime().toString(16) によってタイムスタンプで作成する一意キー

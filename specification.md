@@ -122,6 +122,29 @@ UI（ユーザーインターフェース）を構成する最小単位の部品
 
 ただし、トップページとカレンダーページに関しては入力プログラムを作成する必要がないため、  
 直接コンポーネントを用意する形となります。
+## データベースのディレクトリ構造
+### ディレクトリ構造
+```bash
+└── https://myschedule-c0a49-default-rtdb.firebaseio.com/
+    └── users/
+        ├── user0Id
+        │   ├── timetable.json
+        │   ├── task.json
+        │   ├── shift.json
+        │   └── event.json
+        └── user1Id
+            ├── timetable.json
+            ├── task.json
+            ├── shift.json
+            └── event.json
+```
+### 補足
+- データベース操作について  
+データベース操作については、  
+firebaseのメールアドレス認証を用いてuserのuidを取得し、  
+ユーザーごとに作成したディレクトリ以下のjsonファイル(timetable.json,task.json,shift.json,event.json)それぞれに、  
+api.tsよりDbControllerをインスタンス化してCRUD操作を行う。  
+(timetable.jsonに対してはtimetable用のインスタンスを作成するなど)
 ## 設計の補足等
 実装するクラスや関数の機能についての補足を行う。
 - api.ts  
