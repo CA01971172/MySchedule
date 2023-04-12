@@ -1,0 +1,1 @@
+export const dbUrl:string="https://myschedule-c0a49-default-rtdb.firebaseio.com"
