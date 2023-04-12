@@ -108,8 +108,13 @@ export class AppUser {
 
     async setUserProperty():Promise<void>{//ユーザーの認証情報を取得してid等をフィールドに代入するメソッド
         const authState=await this.getAuthState()
-        this.uid=authState.uid
-        this.userInfo.email=authState.email
+        if(authState){
+            this.uid=authState.uid
+            if(authState.email){
+                this.userInfo.email=authState.email
+            }
+            
+        }
     }
 }
 
@@ -138,7 +143,7 @@ export class DbController {
         this._data = data;
     }
 
-    async createData(data: object): Promise<void> {
+    async createData(data: object): Promise<void> {//データベースにデータを作成する
         const response = await fetch(this.dbPath, {
         method: "POST",
         headers: {
@@ -152,7 +157,7 @@ export class DbController {
         }
     }
     
-    async readData(): Promise<object> {
+    async readData(): Promise<object> {//データベースからデータを読み出す
             const response = await fetch(this.dbPath);
         
             if (!response.ok) {
@@ -164,7 +169,7 @@ export class DbController {
             return data;
         }
     
-        async updateData(data: object): Promise<void> {
+        async updateData(data: object): Promise<void> {//データベースのデータを更新する
             const response = await fetch(this.dbPath, {
                 method: "PUT",
                 headers: {
@@ -178,7 +183,7 @@ export class DbController {
             }
     }
     
-    async deleteData(id: string): Promise<void> {
+    async deleteData(id: string): Promise<void> {//データベースのデータを削除する
         const response = await fetch(this.dbPath, {
             method: "DELETE",
         });
