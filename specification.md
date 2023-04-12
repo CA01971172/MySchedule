@@ -77,9 +77,6 @@ Firebase
 Github Pages
 ### 補足
 - SCSSについて  
-SCSSについては、拡張機能Live Sass Compilerを導入し、  
-style/style.scssをSCSS記法で書き、  
-VSCodeの画面右下からWatch Sassをクリックしてstyle.cssファイルにコンパイルする。  
 scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 ## ディレクトリ
 ### ディレクトリ構造
