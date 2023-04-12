@@ -8,7 +8,7 @@ import {
     signOut,
     onAuthStateChanged,
     User
-    } from 'firebase/auth'
+} from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 
 export class AppUser {
