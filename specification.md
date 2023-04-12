@@ -85,6 +85,8 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 ### ディレクトリ構造
 ```bash
 ├── src/
+│   ├── scss/
+│   │   └── style.scss               # 全体のスタイルシートのSCSS
 │   ├── components/
 │   │   ├── Timetable/
 │   │   │   ├── TimetableForm.ts     # 時間割入力フォームのコンポーネント
@@ -114,10 +116,6 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   └── index.ts                     # アプリのエントリーポイント
 ├── dist/
 │   ├── index.html                   # メインページのHTML
-│   ├── style/
-│   │   ├── style.css                # 全体のスタイルシート
-│   │   ├── style.css.map            # 全体のスタイルシートのソースマップ
-│   │   └── style.scss               # 全体のスタイルシートのSCSS
 │   └── favicon.ico                  # アプリのアイコン
 ├── package.json                     # アプリの依存関係やスクリプトの定義
 ├── tsconfig.json                    # TypeScriptのコンパイル設定

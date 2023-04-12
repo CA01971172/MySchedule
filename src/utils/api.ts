@@ -1,7 +1,7 @@
 import { UserInfo,ContentType } from "./types"
 import { dbUrl } from "./constants"
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
-import { FirebaseError } from '@firebase/util'
+// import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+// import { FirebaseError } from '@firebase/util'
 
 export class User {
     private _uid: string;
@@ -38,20 +38,20 @@ export class User {
         this._userInfo = userInfo;
     }
 
-    test(email:string, password:string){
-        const auth = getAuth();
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential:any) => {
-            // Signed in
-            const user = userCredential.user;
-            // ...
-        })
-        .catch((error:any) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-        });
-    }
+    // test(email:string, password:string){
+    //     const auth = getAuth();
+    //     createUserWithEmailAndPassword(auth, email, password)
+    //     .then((userCredential:any) => {
+    //         // Signed in
+    //         const user = userCredential.user;
+    //         // ...
+    //     })
+    //     .catch((error:any) => {
+    //         const errorCode = error.code;
+    //         const errorMessage = error.message;
+    //         // ..
+    //     });
+    // }
 }
 
 export class DbController {
