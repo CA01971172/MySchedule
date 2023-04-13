@@ -113,6 +113,7 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   ├── LoginPage.ts             # ログインページのコンポーネント
 │   │   └── IndexPage.ts             # トップページのコンポーネント
 │   ├── utils/
+│   │   ├── application .ts          # アプリ立ち上げ用のユーティリティ
 │   │   ├── api.ts                   # APIとの通信を行うためのユーティリティ
 │   │   ├── domUtils.ts              # DOM 操作用のユーティリティ
 │   │   ├── types.ts                 # 型定義
