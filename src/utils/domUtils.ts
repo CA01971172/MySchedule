@@ -49,13 +49,13 @@ export class DomUtils {//DOM操作用のクラス
 
 import { PageType, PageModeType } from "./types";
 /* ページを作成する手続きをまとめた各関数をimportする */
-// import { createIndexPage } from './../pages/IndexPage';
-// import { createLoginPage } from './../pages/LoginPage';
-// import { createTimetablePage } from './../containers/TimetableContainer';
-// import { createTaskPage } from './../containers/TaskContainer';
-// import { createShiftPage } from './../containers/ShiftContainer';
-// import { createEventPage } from './../containers/EventContainer';
-// import { createCalenderPage } from './../pages/CalenderPage';
+// import { IndexPage } from './../pages/IndexPage';
+// import { LoginPage } from './../pages/LoginPage';
+// import { TimetablePage } from './../containers/TimetableContainer';
+// import { TaskPage } from './../containers/TaskContainer';
+// import { ShiftPage } from './../containers/ShiftContainer';
+// import { EventPage } from './../containers/EventContainer';
+// import { CalenderPage } from './../pages/CalenderPage';
 export class PageUtils {//それぞれのページごとの内容を作成するなど、ページを扱うためのクラス
   private _pageType: PageType|undefined//初期値はundefined
   private _modeType: PageModeType|undefined
@@ -127,31 +127,38 @@ export class PageUtils {//それぞれのページごとの内容を作成する
 
   createContentByPageType():void{//ページの種類ごとにページの中身を作成するメソッド
     if(this.pageType === undefined)return
-    switch(this.pageType){
+    switch (this.pageType) {
       case null://トップページを作成する
-        //createIndexPage()
-        break
+        // const indexPage: IndexPage = new IndexPage();
+        // indexPage.create();
+        break;
       case "login"://ログインページを作成する
-        //createLoginPage()
-        break
+        // const loginPage: LoginPage = new LoginPage();
+        // loginPage.create();
+        break;
       case "timetable"://時間割管理ページを作成する
-        //createTimetablePage()
-        break
+        // const timetablePage: TimetablePage = new TimetablePage();
+        // timetablePage.create();
+        break;
       case "task"://課題管理ページを作成する
-        //createTaskPage()
-        break
+        // const taskPage: TaskPage = new TaskPage();
+        // taskPage.create();
+        break;
       case "shift"://アルバイト管理ページを作成する
-        //createShiftPage()
-        break
+        // const shiftPage: ShiftPage = new ShiftPage();
+        // shiftPage.create();
+        break;
       case "event"://予定管理ページを作成する
-        // createEventPage()
-        break
+        // const eventPage: EventPage = new EventPage();
+        // eventPage.create();
+        break;
       case "calendar"://カレンダーページを作成する
-        //createCalenderPage()
-        break
+        // const calendarPage: CalendarPage = new CalendarPage();
+        // calendarPage.create();
+        break;
       default:
         //例外処理
-        break
+        break;
     }
   }
 }
