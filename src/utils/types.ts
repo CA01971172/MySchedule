@@ -6,6 +6,10 @@ export type UserInfo = {
 
 export type ContentType = "timetable"|"task"|"shift"|"event"
 
+/* ページ操作関連の型定義 */
+export type PageType = null|"login"|ContentType|"calendar"//nullはindexページ(メニューページ)
+export type PageModeType = null|"edit"//nullはカレンダーページなどの入力フォームが存在しない画面
+
 /* 時間割管理機能のデータモデル */
 type TimeTable = {
     id: number; // new Date().getTime().toString(16) によってタイムスタンプで作成する一意キー
