@@ -108,7 +108,7 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   └── IndexPage.ts             # トップページのコンポーネント
 │   ├── utils/
 │   │   ├── api.ts                   # APIとの通信を行うためのユーティリティ
-│   │   ├── domUtils.ts                   # DOM 操作用のユーティリティ
+│   │   ├── domUtils.ts              # DOM 操作用のユーティリティ
 │   │   ├── types.ts                 # 型定義
 │   │   └── constants.ts             # アプリ全体で使用される定数
 │   └── index.ts                     # アプリのエントリーポイント
@@ -188,3 +188,24 @@ api.tsよりDbControllerをインスタンス化してCRUD操作を行う。
     - Fetch APIを用いたFirebaseとのCRUD操作
     - Firebaseによる、メールアドレスとパスワードを用いたユーザー認証
     - ユーザーのメールアドレスを用いたメール送信
+- ユーザーの認証状態について
+    - appUser.signIn()をしなくても、一度サインインをすれば認証状態が保持される  
+    そのため、ユーザーの認証状態を確認し、認証状態でなければログインページにリダイレクトし、  
+    ログインページでappUser.signIn()やappUser.signUp()を行うことになる。
+- クエリ文字列(URLパラメータ)について
+    - クエリ文字列とは
+    例えば、基本のURLが「https://○△×□.jp/」だとして、  
+    基本のURLにクエリ文字列（URLパラメーター）を加えると  「https://○△×□.jp/?●=▲×■&○=△×□」となります。 
+    - 動的なページ結果の表示(アクティブパラメーター)
+    今回のWebアプリにおいては、  
+    パラメーターをつけ加えて、Webサイトの表示内容を変更するためにクエリ文字列を使用します。  
+    (詳しいコードはdomUtils.tsのPageUtilsクラスを参照)  
+    以下は、今回使用するクエリ文字列の例です
+        - トップページ
+        https://CA01971172.github.io/MySchedule/dist/index.html
+        - ログインページ
+        https://CA01971172.github.io/MySchedule/dist/index.html?page=login
+        - 時間割管理ページ(一覧表示)
+        https://CA01971172.github.io/MySchedule/dist/index.html?page=timetable
+        - 時間割管理ページ(入力フォーム)
+        https://CA01971172.github.io/MySchedule/dist/index.html?page=timetable&mode=edit
