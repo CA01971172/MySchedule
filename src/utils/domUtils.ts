@@ -56,7 +56,7 @@ import { PageType, PageModeType } from "./types";
 // import { createShiftPage } from './../containers/ShiftContainer';
 // import { createEventPage } from './../containers/EventContainer';
 // import { createCalenderPage } from './../pages/CalenderPage';
-export class PageUtils {//それぞれのページごとの内容を作成するクラス
+export class PageUtils {//それぞれのページごとの内容を作成するなど、ページを扱うためのクラス
   private _pageType: PageType|undefined//初期値はundefined
   private _modeType: PageModeType|undefined
 
@@ -107,7 +107,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
     }
   }
 
-  private getQuery(paramName:string):string|null{//クエリ文字列(URLパラメータ)を取得するメソッド
+  getQuery(paramName:string):string|null{//クエリ文字列(URLパラメータ)を取得するメソッド
     const pageUrl=window.location.href//今開いているページのパス
     paramName=paramName.replace(/[\[\]]/g,"\\$&");
     const regex=new RegExp("[?&]"+paramName+"(=([^&#]*)|&|#|$)"),
@@ -115,6 +115,14 @@ export class PageUtils {//それぞれのページごとの内容を作成する
     if(!results)return null
     if(!results[2])return ""
     return decodeURIComponent(results[2].replace(/\+/g," "))
+  }
+
+  matchQuery(paramName:string,value:string|null){//クエリ文字列が指定された値と合致するかどうか調べるメソッド
+    if(this.getQuery(paramName) === value){
+      return true
+    }else{
+      return false
+    }
   }
 
   createContentByPageType():void{//ページの種類ごとにページの中身を作成するメソッド

@@ -11,6 +11,7 @@ import {
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 
+import { PageUtils } from "./domUtils"
 export class AppUser {
     private _uid: string = "";
     private _userInfo: UserInfo = {
@@ -114,6 +115,18 @@ export class AppUser {
                 this.userInfo.email=authState.email
             }
             
+        }
+    }
+
+    async redirect(indexPageUrl:string,loginPageUrl:string):Promise<void>{//認証状態に合わせて正しいページにリダイレクトするメソッド
+        const authState=await this.getAuthState()
+        const queryGetter:PageUtils = new PageUtils()
+        if((authState) && (queryGetter.matchQuery("page","login"))){//ユーザーが認証されている、かつログインページの場合
+            location.href=indexPageUrl//トップページにリダイレクトする
+        }else if((!authState) && (!queryGetter.matchQuery("page","login"))){//ユーザーが認証されていない、かつログインページではない
+            location.href=loginPageUrl
+        }else{
+            //認証状態とページの組み合わせが正しい場合は処理を実行しない
         }
     }
 }
