@@ -53,6 +53,13 @@
     - カレンダー表示用のUIの作成
     - 各種スケジュールのデータの統合処理
     - カレンダー表示機能の実装
+1. その他ページ作成
+    - ログインページのUIの作成
+    - トップページのUIの作成
+1. Firebase操作
+    - CRUD操作の実装
+    - ログイン機能の実装
+    - メール送信機能の実装
 1. デザイン性の高いUI
     - デザインの設計
     - CSSを用いたUIの実装
@@ -75,10 +82,14 @@ Github Pages
 そして、その機能の画面ごとに手続きを選び、index.tsで最終的に実行する。
 - UI作成
 DOM操作を行うことによって、index.htmlの中身を作成し、それぞれの画面の機能を実装する。
+- SCSSについて  
+scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 ## ディレクトリ
 ### ディレクトリ構造
 ```bash
 ├── src/
+│   ├── scss/
+│   │   └── style.scss               # 全体のスタイルシートのSCSS
 │   ├── components/
 │   │   ├── Timetable/
 │   │   │   ├── TimetableForm.ts     # 時間割入力フォームのコンポーネント
@@ -99,18 +110,16 @@ DOM操作を行うことによって、index.htmlの中身を作成し、それ�
 │   │   └── EventContainer.ts        # 予定管理機能のコンテナ
 │   ├── pages/
 │   │   ├── CalendarPage.ts          # カレンダーページのコンポーネント
+│   │   ├── LoginPage.ts             # ログインページのコンポーネント
 │   │   └── IndexPage.ts             # トップページのコンポーネント
 │   ├── utils/
 │   │   ├── api.ts                   # APIとの通信を行うためのユーティリティ
+│   │   ├── domUtils.ts                   # DOM 操作用のユーティリティ
 │   │   ├── types.ts                 # 型定義
 │   │   └── constants.ts             # アプリ全体で使用される定数
 │   └── index.ts                     # アプリのエントリーポイント
 ├── dist/
 │   ├── index.html                   # メインページのHTML
-│   ├── style/
-│   │   ├── style.css                # 全体のスタイルシート
-│   │   ├── style.css.map            # 全体のスタイルシートのソースマップ
-│   │   └── style.scss               # 全体のスタイルシートのSCSS
 │   └── favicon.ico                  # アプリのアイコン
 ├── package.json                     # アプリの依存関係やスクリプトの定義
 ├── tsconfig.json                    # TypeScriptのコンパイル設定
@@ -123,12 +132,39 @@ UI（ユーザーインターフェース）を構成する最小単位の部品
 - コンテナ  
 コンポーネントをまとめ、UI全体を構成するためのもので、通常は複数のコンポーネントを組み合わせたり、またはコンポーネントとロジックを組み合わせたりすることができます。
 
-要するに、TimetableForm.ts(時間割管理の入力プログラム)とTimetableList.ts(時間割管理の一覧表示プログラム)を作成して、  
+要するに、例えば時間割管理機能に焦点を当てると、  
+TimetableForm.ts(時間割管理の入力プログラム)とTimetableList.ts(時間割管理の一覧表示プログラム)を作成して、  
 それらを組み合わせて、TimetableContainer.tsを動作させることによって、  
 時間割管理機能を実装していく形です。
 
-ただし、トップページとカレンダーページに関しては入力プログラムを作成する必要がないため、  
+ただし、トップページ,ログインページ,カレンダーページに関しては入力プログラムを作成する必要がないため、  
 直接コンポーネントを用意する形となります。
+## データベースのディレクトリ構造
+### ディレクトリ構造
+```bash
+└── https://myschedule-c0a49-default-rtdb.firebaseio.com/
+    └── users/
+        ├── user0Id
+        │   ├── timetable.json
+        │   ├── task.json
+        │   ├── shift.json
+        │   └── event.json
+        └── user1Id
+            ├── timetable.json
+            ├── task.json
+            ├── shift.json
+            └── event.json
+```
+### 補足
+- データベース操作について  
+データベース操作については、  
+firebaseのメールアドレス認証を用いてuserのuidを取得し、  
+ユーザーごとに作成したディレクトリ以下のjsonファイル(timetable.json,task.json,shift.json,event.json)それぞれに、  
+api.tsよりDbControllerをインスタンス化してCRUD操作を行う。  
+(timetable.jsonに対してはtimetable用のインスタンスを作成するなど)
+- ユーザー操作について  
+ユーザー操作については、  
+api.tsよりUserをインスタンス化してログイン処理やメール送信等を行う。
 ## データベースのディレクトリ構造
 ### ディレクトリ構造
 ```bash

@@ -44,6 +44,34 @@ const config = {
   },
 };
 
+
+/* SCSS */
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
+
+module.exports = {
+	mode: 'development',
+	entry: './src/scss/style.scss',
+	module: {
+		rules: [
+			{
+				test: /\.s[ac]ss$/i,
+				use: [
+					MiniCssExtractPlugin.loader,
+					'css-loader',
+					'sass-loader',
+				],
+			}
+		],
+	},
+	plugins: [
+		new MiniCssExtractPlugin({
+			filename: 'style.css'
+		}),
+		new FixStyleOnlyEntriesPlugin(),
+	],
+};
+
 module.exports = () => {
   if (isProduction) {
     config.mode = "production";

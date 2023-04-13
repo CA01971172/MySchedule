@@ -1,2 +1,4 @@
-console.log("Hello World!");
-document.getElementById("root").innerHTML="<div>hoge</div>"
+/* firebaseをinitializeする */
+import { FirebaseInitializer } from "./lib/firebase/firebase"
+const firebaseInitializer = new FirebaseInitializer()
+firebaseInitializer.initialize()

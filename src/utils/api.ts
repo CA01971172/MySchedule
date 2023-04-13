@@ -1,15 +1,26 @@
 import { UserInfo,ContentType } from "./types"
 import { dbUrl } from "./constants"
+import {
+    createUserWithEmailAndPassword,
+    sendEmailVerification ,
+    signInWithEmailAndPassword,
+    getAuth,
+    signOut,
+    onAuthStateChanged,
+    User
+} from 'firebase/auth'
+import { FirebaseError } from '@firebase/util'
 
-export class User {
-    private _uid: string;
-    private _displayName: string;
-    private _userInfo: UserInfo;
+export class AppUser {
+    private _uid: string = "";
+    private _userInfo: UserInfo = {
+        email:"",
+        password:""
+    } as UserInfo;
+    //ここにはないけどgetterによって実質的なフィールドとしてisLoginプロパティを用意している
 
-    constructor(uid: string = "", displayName: string = "", userInfo: UserInfo = {} as UserInfo) {
-        this._uid = uid;
-        this._displayName = displayName;
-            this._userInfo = userInfo;
+    constructor() {
+
     }
 
     get uid(): string {
@@ -20,20 +31,90 @@ export class User {
         this._uid = uid;
     }
 
-    get displayName(): string {
-        return this._displayName;
-    }
-
-    set displayName(displayName: string) {
-        this._displayName = displayName;
-    }
-
     get userInfo(): UserInfo {
         return this._userInfo;
     }
 
     set userInfo(userInfo: UserInfo) {
         this._userInfo = userInfo;
+    }
+
+    setUserInfo(email: string, password: string){//フィールドuserInfoにプロパティを代入するメソッド
+        const userInfo:UserInfo={} as UserInfo
+        userInfo.email=email
+        userInfo.password=password
+        this.userInfo=userInfo
+    }
+
+    async signUp():Promise<void>{//サインアップするメソッド
+        try {
+            const auth = getAuth()
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                this.userInfo.email,
+                this.userInfo.password
+            )
+            await sendEmailVerification(userCredential.user)
+            console.log("email sended")
+        } catch (e) {
+            if (e instanceof FirebaseError) {
+                console.log(e)
+            }
+        }
+    }
+
+    async signIn():Promise<void>{//サインインするメソッド
+        try {
+            const auth = getAuth()
+            await signInWithEmailAndPassword(
+                auth,
+                this.userInfo.email,
+                this.userInfo.password
+            )
+        } catch (e) {
+            if (e instanceof FirebaseError) {
+                console.log(e)
+            }
+        }
+    }
+
+    async signOut():Promise<void>{//サインアウトするメソッド
+        try {
+            const auth = getAuth()
+            await signOut(auth)
+        } catch (e) {
+            if (e instanceof FirebaseError) {
+                console.log(e)
+            }
+        }
+    }
+
+    async getAuthState():Promise<User | null>{//ユーザーの認証情報を取得するメソッド
+        return new Promise((resolve, reject) => {
+            const auth = getAuth();
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // User is signed in, see docs for a list of available properties
+                    // https://firebase.google.com/docs/reference/js/firebase.User
+                    const uid = user.uid;
+                    resolve(user);
+                } else {
+                    // User is signed out
+                    resolve(null);
+                }
+            });
+        });
+    }
+
+    async setUserProperty():Promise<void>{//ユーザーの認証情報を取得してid等をフィールドに代入するメソッド
+        const authState=await this.getAuthState()
+        if(authState){
+            this.uid=authState.uid
+            if(authState.email){
+                this.userInfo.email=authState.email
+            }
+            
+        }
     }
 }
 
@@ -62,7 +143,7 @@ export class DbController {
         this._data = data;
     }
 
-    async createData(data: object): Promise<void> {
+    async createData(data: object): Promise<void> {//データベースにデータを作成する
         const response = await fetch(this.dbPath, {
         method: "POST",
         headers: {
@@ -76,7 +157,7 @@ export class DbController {
         }
     }
     
-    async readData(): Promise<object> {
+    async readData(): Promise<object> {//データベースからデータを読み出す
             const response = await fetch(this.dbPath);
         
             if (!response.ok) {
@@ -88,7 +169,7 @@ export class DbController {
             return data;
         }
     
-        async updateData(data: object): Promise<void> {
+        async updateData(data: object): Promise<void> {//データベースのデータを更新する
             const response = await fetch(this.dbPath, {
                 method: "PUT",
                 headers: {
@@ -102,7 +183,7 @@ export class DbController {
             }
     }
     
-    async deleteData(id: string): Promise<void> {
+    async deleteData(id: string): Promise<void> {//データベースのデータを削除する
         const response = await fetch(this.dbPath, {
             method: "DELETE",
         });
@@ -112,5 +193,3 @@ export class DbController {
         }
     }
 }
-
-
