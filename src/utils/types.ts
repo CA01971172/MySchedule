@@ -17,7 +17,7 @@ type TimeTable = {
     dayOfWeek: number; // Date.getDay()で得られる曜日の形式
 };
 
-type TimeTableList = {
+export type TimeTableList = {
     timeTables: TimeTable[];
 };
 
@@ -29,7 +29,7 @@ type Task = {
     deadline: Date; // 締め切り日時
 };
 
-type TaskList = {
+export type TaskList = {
     tasks: Task[];
 };
 
@@ -42,7 +42,7 @@ type Shift = {
     breakTime: number; // 休憩時間（分単位）
 };
 
-type ShiftList = {
+export type ShiftList = {
     shifts: Shift[];
 };
 
@@ -56,6 +56,6 @@ type EventSchedule = {
     endTime: Date;
 };
 
-type EventScheduleList = {
+export type EventScheduleList = {
     eventSchedules: EventSchedule[];
 };
