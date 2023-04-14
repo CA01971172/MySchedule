@@ -111,6 +111,7 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   ├── pages/
 │   │   ├── CalendarPage.ts          # カレンダーページのコンポーネント
 │   │   ├── LoginPage.ts             # ログインページのコンポーネント
+│   │   ├── RegisterPage.ts          # ユーザー登録ページのコンポーネント
 │   │   └── IndexPage.ts             # トップページのコンポーネント
 │   ├── utils/
 │   │   ├── application .ts          # アプリ立ち上げ用のユーティリティ

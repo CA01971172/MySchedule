@@ -51,6 +51,7 @@ import { PageType, PageModeType } from "./types";
 /* ページを作成する手続きをまとめた各関数をimportする */
 // import { IndexPage } from './../pages/IndexPage';
 // import { LoginPage } from './../pages/LoginPage';
+// import { RegisterPage } from './../pages/RegisterPage';
 // import { TimetablePage } from './../containers/TimetableContainer';
 // import { TaskPage } from './../containers/TaskContainer';
 // import { ShiftPage } from './../containers/ShiftContainer';
@@ -86,6 +87,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
     if (//queryがPageTypeに合致するかどうか
         pageQuery === null ||
         pageQuery === "login" ||
+        pageQuery === "register" ||
         pageQuery === "timetable" ||
         pageQuery === "task" ||
         pageQuery === "shift" ||
@@ -146,6 +148,10 @@ export class PageUtils {//それぞれのページごとの内容を作成する
       case "login"://ログインページを作成する
         // const loginPage: LoginPage = new LoginPage();
         // loginPage.create();
+        break;
+      case "register"://ユーザー登録ページを作成する
+        // const registerPage: RegisterPage = new RegisterPage();
+        // registerPage.create();
         break;
       case "timetable"://時間割管理ページを作成する
         // const timetablePage: TimetablePage = new TimetablePage();
