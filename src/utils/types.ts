@@ -16,8 +16,8 @@ type TimeTable = {
     name: string;
     teacher: string;
     classroom: string;
-    startTime: Date;
-    endTime: Date;
+    startTime: number;
+    endTime: number;
     dayOfWeek: number; // Date.getDay()で得られる曜日の形式
 };
 
@@ -30,20 +30,25 @@ type Task = {
     id: number; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
-    deadline: Date; // 締め切り日時
+    deadline: number; // 締め切り日時
+};
+
+type AlertSettings = {
+    enabled: boolean; // アラートの有効/無効を管理するプロパティ
+    daysBeforeDeadline: number; // 課題提出期限の何日前にアラートを送信するかを管理するプロパティ
 };
 
 export type TaskList = {
     tasks: Task[];
-    enableAlert: Boolean;
+    alertSettings: AlertSettings;
 };
 
 
 /* アルバイト管理機能のデータモデル */
 type Shift = {
     id: number; // タイムスタンプで作成する一意キー
-    startTime: Date; // シフト開始日時
-    endTime: Date; // シフト終了日時
+    startTime: number; // シフト開始日時
+    endTime: number; // シフト終了日時
     breakTime: number; // 休憩時間（分単位）
 };
 
@@ -56,9 +61,9 @@ type EventSchedule = {
     id: number; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
-    date: Date;
-    startTime: Date;
-    endTime: Date;
+    date: number;
+    startTime: number;
+    endTime: number;
 };
 
 export type EventScheduleList = {

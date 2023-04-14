@@ -146,15 +146,22 @@ TimetableForm.ts(時間割管理の入力プログラム)とTimetableList.ts(時
 └── https://myschedule-c0a49-default-rtdb.firebaseio.com/
     └── users/
         ├── user0Id
-        │   ├── timetable.json
-        │   ├── task.json
-        │   ├── shift.json
-        │   └── event.json
+        │   ├── timetable
+        │   │   └── timeTables #配列
+        │   ├── task
+        │   │   ├── tasks #配列
+        │   │   └── alertSettings
+        │   │       ├── enabled #プロパティ
+        │   │       └── daysBeforeDeadline #プロパティ
+        │   ├── shift
+        │   │   └── shifts #配列
+        │   └── event
+        │   │   └── eventSchedules #配列
         └── user1Id
-            ├── timetable.json
-            ├── task.json
-            ├── shift.json
-            └── event.json
+            ├── timetable
+            ├── task
+            ├── shift
+            └── event
 ```
 ### 補足
 - データベース操作について  
@@ -193,3 +200,17 @@ api.tsよりUserをインスタンス化してログイン処理やメール送�
         https://CA01971172.github.io/MySchedule/dist/index.html?page=timetable
         - 時間割管理ページ(入力フォーム)
         https://CA01971172.github.io/MySchedule/dist/index.html?page=timetable&mode=edit
+- 日付データの取り扱いについて
+    データベースに保存する日付データについては、
+    DateオブジェクトのgetTime()メソッドを使用し、number型の日付データで取得したものをアップロードすること。
+    ```ts
+    const deadlineDate: Date = new Date(2023, 6, 30);
+    let deadlineTimestamp: number = 0;
+    deadlineTimestamp = deadlineDate.getTime();
+    ```
+    逆に、データベースからダウンロードしたタイムスタンプは以下のように変換し、扱うこと。
+    ```ts
+    const deadlineTimestamp: number = 1696089600000; // 2023/7/1 00:00:00
+    const deadlineDate: Date = new Date(deadlineTimestamp);
+    console.log(deadlineDate); // 結果: Fri Jun 30 2023 15:00:00 GMT-0900 (日本標準時)
+    ```
