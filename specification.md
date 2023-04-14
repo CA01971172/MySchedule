@@ -173,7 +173,7 @@ TimetableForm.ts(時間割管理の入力プログラム)とTimetableList.ts(時
 - input要素とlabel要素の間のmargin  
     8px
 - button要素のpadding  
-    水平方向16px,垂直方向8px
+    水平方向12px,垂直方向8px
 - 画面下のサイドメニュー(ログアウトボタンなどが表示されているメニューバー)のheight
     14px(フォント)+8px(ボタンのpadding)×2+10px(各要素のmargin)×2  
     =40px
