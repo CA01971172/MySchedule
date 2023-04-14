@@ -61,15 +61,22 @@ npm install css-loader sass-loader sass mini-css-extract-plugin webpack-fix-styl
 - **sass**: sass-loaderではDart SassかNode Sassをインストールする必要がある（Dart Sassが強く推奨されている）
 - **mini-css-extract-plugin**: CSSを別ファイルに保存するためのもの
 - **webpack-fix-style-only-entries**: 不要なファイルを（jsファイル）を削除するためのもの
-### webpackでSCSSをCSSにコンパイルする
+#### webpackでSCSSをCSSにコンパイルする
 scssファイルをCSSにコンパイルしてみます。  
 以下のコマンドを実行しましょう。
 ```
 npx webpack
 ```
 するとdistフォルダが作られ、そのなかにstyle.cssファイルが出力されます。
-## Firebaseをインストールする
-### Firebase SDK の追加
+### Bootstrapを導入するために必要なライブラリをインストール
+npmコマンドを使用してbootstrapとjqueryのパッケージをインストールします。
+```
+npm install bootstrap bootstrap-icons jquery style-loader css-loader --save-dev
+```
+style-loaderとcss-loaderは、webpackでCSSファイルをロードするための必要なローダーです。  
+ちなみにcss-loaderはSassコンパイル用パッケージのインストールでインストールしてるのでinstallに含めなくてもいいです。
+### Firebaseをインストールする
+#### Firebase SDK の追加
 npm とモジュール バンドラ（webpack や Rollup など）をすでに使用している場合は、次のコマンドを実行して最新の SDK をインストールできます。[詳細](https://firebase.google.com/docs/web/learn-more?hl=ja&authuser=0#modular-version)
 ```
 npm add firebase

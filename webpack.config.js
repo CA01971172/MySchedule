@@ -3,12 +3,18 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+//const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 
 const isProduction = process.env.NODE_ENV == "production";
 
-const config = {
-  entry: "./src/index.ts",
+module.exports = {
+  mode: isProduction ? 'production' : 'development',
+  entry: {
+    main: './src/index.ts'
+  },
   output: {
+    filename: 'bundle.js',
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
@@ -17,11 +23,16 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "index.html",
+      template: 'index.html',
+      filename: 'index.html'
     }),
 
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+    new MiniCssExtractPlugin({
+      filename: 'style.css'
+    }),
+    //new FixStyleOnlyEntriesPlugin(),
   ],
   module: {
     rules: [
@@ -34,51 +45,34 @@ const config = {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: "asset",
       },
-
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          // inject CSS to page
+          'style-loader',
+          // convert CSS to JS module
+          'css-loader',
+          // compile SCSS to CSS
+          'sass-loader'
+        ]
+      },
+      {
+        test: /bootstrap\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ]
+      },
     ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
   },
-};
-
-
-/* SCSS */
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
-
-module.exports = {
-	mode: 'development',
-	entry: './src/scss/style.scss',
-	module: {
-		rules: [
-			{
-				test: /\.s[ac]ss$/i,
-				use: [
-					MiniCssExtractPlugin.loader,
-					'css-loader',
-					'sass-loader',
-				],
-			}
-		],
-	},
-	plugins: [
-		new MiniCssExtractPlugin({
-			filename: 'style.css'
-		}),
-		new FixStyleOnlyEntriesPlugin(),
-	],
-};
-
-module.exports = () => {
-  if (isProduction) {
-    config.mode = "production";
-
-    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
-  } else {
-    config.mode = "development";
-  }
-  return config;
 };

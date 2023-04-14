@@ -1,0 +1,18 @@
+$main-color: aqua;
+ 
+.oya {
+  width: 300px;
+  background-color: $main-color;
+  padding: 30px;
+  box-sizing: border-box;
+  
+  .ko{
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+  }
+ 
+  p{
+    text-align: center;
+  }
+}
