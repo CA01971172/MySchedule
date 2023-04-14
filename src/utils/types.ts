@@ -35,6 +35,7 @@ type Task = {
 
 export type TaskList = {
     tasks: Task[];
+    enableAlert: Boolean;
 };
 
 
