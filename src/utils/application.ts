@@ -19,7 +19,6 @@ export class Application{//アプリの立ち上げなどを行うクラス
         this._appUser = value;
     }
 
-
     run():void{//アプリを立ち上げるためのメソッド
         this.initializeFirebase()
         this.redirect()
