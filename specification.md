@@ -163,6 +163,21 @@ TimetableForm.ts(時間割管理の入力プログラム)とTimetableList.ts(時
             ├── shift
             └── event
 ```
+### デザイン設計
+- font-size  
+    基本16px,大文字24px
+- 各要素間のmargin  
+    基本10px,大間隔15px
+- input要素のpadding  
+    水平方向8px,垂直方向4px
+- input要素とlabel要素の間のmargin  
+    8px
+- button要素のpadding  
+    水平方向16px,垂直方向8px
+- 画面下のサイドメニュー(ログアウトボタンなどが表示されているメニューバー)のheight
+    14px(フォント)+8px(ボタンのpadding)×2+10px(各要素のmargin)×2  
+    =40px
+
 ### 補足
 - データベース操作について  
 データベース操作については、  
