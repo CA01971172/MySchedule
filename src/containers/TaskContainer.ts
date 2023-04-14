@@ -4,8 +4,6 @@ import { PageUtils } from "./../utils/domUtils"
 import { PageModeType } from "./../utils/types"
 
 export class TaskPage{//タスクのページを作成するクラス
-    private readonly pageUtils: PageUtils = new PageUtils()
-
     create(): void {// タスクのページを作成するメソッド
         const pageMode: PageModeType = PageUtils.checkPageType();
         const page: TaskList | TaskForm = this.createPage(pageMode);
