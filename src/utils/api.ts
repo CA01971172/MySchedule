@@ -119,11 +119,11 @@ export class AppUser {
     }
 
     async redirect(indexPageUrl:string,loginPageUrl:string):Promise<void>{//認証状態に合わせて正しいページにリダイレクトするメソッド
-        const authState=await this.getAuthState()
-        const queryGetter:PageUtils = new PageUtils()
-        if((authState) && (queryGetter.matchQuery("page","login"))){//ユーザーが認証されている、かつログインページの場合
+        const authState = await this.getAuthState()
+        const isLoginPage = PageUtils.matchQuery("page","login")
+        if(authState && isLoginPage){//ユーザーが認証されている、かつログインページの場合
             location.href=indexPageUrl//トップページにリダイレクトする
-        }else if((!authState) && (!queryGetter.matchQuery("page","login"))){//ユーザーが認証されていない、かつログインページではない
+        }else if(!authState && !isLoginPage){//ユーザーが認証されていない、かつログインページではない
             location.href=loginPageUrl
         }else{
             //認証状態とページの組み合わせが正しい場合は処理を実行しない

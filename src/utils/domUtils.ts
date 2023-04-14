@@ -82,7 +82,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
 
   setPageType():void{//現在開いているページの種類を取得してフィールドに代入する関数
     //クエリ文字列のパラメータ"page"の値を取得する
-    const pageQuery:string|null = this.getQuery("page")
+    const pageQuery:string|null = PageUtils.getQuery("page")
     if (//queryがPageTypeに合致するかどうか
         pageQuery === null ||
         pageQuery === "login" ||
@@ -94,7 +94,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
       ) {
         this.pageType = pageQuery as PageType
         //クエリ文字列のパラメータ"mode"の値を取得する
-        const modeQuery:string|null = this.getQuery("mode")
+        const modeQuery:string|null = PageUtils.getQuery("mode")
         if (//queryがModeTypeに合致するかどうか
           modeQuery === null ||
           modeQuery === "edit"
@@ -107,7 +107,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
     }
   }
 
-  getQuery(paramName:string):string|null{//クエリ文字列(URLパラメータ)を取得するメソッド
+  public static getQuery(paramName:string): string | null {//クエリ文字列(URLパラメータ)を取得するメソッド
     const pageUrl=window.location.href//今開いているページのパス
     paramName=paramName.replace(/[\[\]]/g,"\\$&");
     const regex=new RegExp("[?&]"+paramName+"(=([^&#]*)|&|#|$)"),
@@ -117,12 +117,23 @@ export class PageUtils {//それぞれのページごとの内容を作成する
     return decodeURIComponent(results[2].replace(/\+/g," "))
   }
 
-  matchQuery(paramName:string,value:string|null){//クエリ文字列が指定された値と合致するかどうか調べるメソッド
-    if(this.getQuery(paramName) === value){
+  public static matchQuery(paramName:string,value:string|null){//クエリ文字列が指定された値と合致するかどうか調べるメソッド
+    const pageQuery: string | null =PageUtils.getQuery(paramName)
+    if(pageQuery === value){
       return true
     }else{
       return false
     }
+  }
+
+  public static checkPageType(): PageModeType{//ページの種類(一覧表示/入力フォーム)を取得するメソッド
+    //入力フォームがないページのクエリ文字列はnull固定
+    let result: PageModeType = null
+    const modeQuery: string | null = PageUtils.getQuery("mode")
+    if(modeQuery === "edit"){
+        result = modeQuery
+    }
+    return result
   }
 
   createContentByPageType():void{//ページの種類ごとにページの中身を作成するメソッド
