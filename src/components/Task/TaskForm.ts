@@ -1,5 +1,5 @@
 export class TaskForm{//タスク入力フォームのページを作成するクラス
-    create(){
+    create(){//タスク入力フォームのページを作成するメソッド
         
     }
 }
