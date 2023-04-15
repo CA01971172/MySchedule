@@ -100,9 +100,16 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   ├── Shift/
 │   │   │   ├── ShiftForm.ts         # アルバイトシフト入力フォームのコンポーネント
 │   │   │   └── ShiftList.ts         # アルバイトシフト一覧表示のコンポーネント
-│   │   └── Event/
-│   │       ├── EventForm.ts         # 予定入力フォームのコンポーネント
-│   │       └── EventForm.ts         # 予定一覧表示のコンポーネント
+│   │   ├── Event/
+│   │   │   ├── EventForm.ts         # 予定入力フォームのコンポーネント
+│   │   │   └── EventForm.ts         # 予定一覧表示のコンポーネント
+│   │   └── Ui/
+│   │       ├── Input.ts             # input要素のコンポーネント
+│   │       ├── Label.ts             # label要素のコンポーネント
+│   │       ├── LabeledInput.ts      # input要素とlabel要素のコンポーネント
+│   │       ├── Button.ts            # button要素のコンポーネント
+│   │       ├── SubmitButton.ts      # submitボタン要素のコンポーネント
+│   │       └── Form.ts              # form要素のコンポーネント
 │   ├── containers/
 │   │   ├── TimetableContainer.ts    # 時間割管理機能のコンテナ
 │   │   ├── TaskContainer.ts         # 課題管理機能のコンテナ
@@ -117,6 +124,7 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   ├── application .ts          # アプリ立ち上げ用のユーティリティ
 │   │   ├── api.ts                   # APIとの通信を行うためのユーティリティ
 │   │   ├── domUtils.ts              # DOM 操作用のユーティリティ
+│   │   ├── pageUtils.ts             # ページ操作用のユーティリティ
 │   │   ├── types.ts                 # 型定義
 │   │   └── constants.ts             # アプリ全体で使用される定数
 │   └── index.ts                     # アプリのエントリーポイント
