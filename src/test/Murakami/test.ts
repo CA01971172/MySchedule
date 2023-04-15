@@ -1,4 +1,5 @@
-import {AppUser,DbController} from "./../../utils/api"
+import {AppUser} from "./../../utils/AppUser"
+import {DbController} from "./../../utils/DbController"
 export async function test(){
     /* リダイレクトやクエリ文字列のテストコード */
     const hogeLink="http://localhost:8080/index.html?page=timetable&mode=edit"
@@ -9,8 +10,8 @@ export async function test(){
     const hogeUser:AppUser = new AppUser()
     hogeUser.setUserInfo("CA01971172@st.kawahara.ac.jp","hogefuga0123")
     //hogeUser.signUp()
-    hogeUser.signIn()
-    //hogeUser.signOut()
+    //hogeUser.signIn()
+    hogeUser.signOut()
 
     /* データベース操作のテストコード */
     var x = await hogeUser.getAuthState()

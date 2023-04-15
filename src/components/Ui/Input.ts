@@ -1,4 +1,4 @@
-export interface InputOptions {//Inputクラスのコンストラクターに渡すオブジェク
+interface InputOptions {//Inputクラスのコンストラクターに渡すオブジェク
     name: string;
     type: string;
     readonly?: boolean;

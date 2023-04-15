@@ -1,7 +1,7 @@
 import { PageType, PageModeType } from "./types";
 /* ページを作成する手続きをまとめた各関数をimportする */
 // import { IndexPage } from './../pages/IndexPage';
-// import { LoginPage } from './../pages/LoginPage';
+import { LoginPage } from './../pages/LoginPage';
 // import { RegisterPage } from './../pages/RegisterPage';
 // import { TimetablePage } from './../containers/TimetableContainer';
 // import { TaskPage } from './../containers/TaskContainer';
@@ -97,8 +97,8 @@ import { PageType, PageModeType } from "./types";
             // indexPage.create();
             break;
         case "login"://ログインページを作成する
-            // const loginPage: LoginPage = new LoginPage();
-            // loginPage.create();
+            const loginPage: LoginPage = new LoginPage();
+            loginPage.create();
             break;
         case "register"://ユーザー登録ページを作成する
             // const registerPage: RegisterPage = new RegisterPage();

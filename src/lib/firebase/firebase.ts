@@ -59,5 +59,6 @@ export class FirebaseInitializer{//firebaseをinitializeするためのクラス
     this.app = initializeApp(this.firebaseConfig);
     this.analytics = getAnalytics(this.app);
     console.log("firebase initialized")
+    return
   }
 }

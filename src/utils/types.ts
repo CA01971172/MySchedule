@@ -10,6 +10,17 @@ export type ContentType = "timetable"|"task"|"shift"|"event"
 export type PageType = null|"login"|"register"|ContentType|"calendar"//nullはindexページ(メニューページ)
 export type PageModeType = null|"edit"//nullはカレンダーページなどの入力フォームが存在しない画面
 
+/* ユーザー管理関連のデータモデル */
+export type LoginData = {
+    email: string;
+    password: string;
+}
+export type RegisterData = {
+    email: string;
+    password: string;
+    passwordCheck: string;
+}
+
 /* 時間割管理機能のデータモデル */
 type TimeTable = {
     id: number; // new Date().getTime().toString(16) によってタイムスタンプで作成する一意キー

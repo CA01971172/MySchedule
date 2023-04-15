@@ -1,4 +1,4 @@
-export interface LabelOptions {//Labelクラスのコンストラクターに渡すオブジェクト
+interface LabelOptions {//Labelクラスのコンストラクターに渡すオブジェクト
     label: string;
     name: string;
 }

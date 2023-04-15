@@ -1,7 +1,7 @@
 import { Input } from "./Input"
 import { Label } from "./Label"
 
-export interface LabeledInputOptions {//LabeledInputクラスのコンストラクターに渡すオブジェク
+interface LabeledInputOptions {//LabeledInputクラスのコンストラクターに渡すオブジェク
     label: string;
     name: string;
     type: string;
@@ -24,6 +24,7 @@ export class LabeledInput {//label要素とinput要素をまとめたものを�
         const div = document.createElement('div');
         div.classList.add('labeled-input');
         div.appendChild(this.label.render());
+        div.appendChild(document.createElement("br"));
         div.appendChild(this.input.render());
         return div;
     }
