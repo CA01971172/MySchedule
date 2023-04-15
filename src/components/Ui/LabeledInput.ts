@@ -10,8 +10,8 @@ interface LabeledInputOptions {//LabeledInputクラスのコンストラクタ�
 }
 
 export class LabeledInput {//label要素とinput要素をまとめたものを作成するクラス
-    private label: Label;
-    private input: Input;
+    protected label: Label;
+    protected input: Input;
 
     constructor(options: LabeledInputOptions) {
         const { label, name, type, readonly = false, required = false } = options;

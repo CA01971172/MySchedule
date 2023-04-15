@@ -1,4 +1,5 @@
 import { LabeledInput } from './LabeledInput';
+import { PasswordInput } from './PasswordInput';
 import { Form } from './Form';
 
 export class LoginForm extends Form {//ログイン用のform要素を作成するクラス
@@ -15,13 +16,7 @@ export class LoginForm extends Form {//ログイン用のform要素を作成す�
             required: true
         });
 
-        this.passwordInput = new LabeledInput({
-            label: 'パスワード',
-            name: 'password',
-            type: 'password',
-            readonly: false,
-            required: true
-        });
+        this.passwordInput =  new PasswordInput();
 
         this.addInputs([this.emailInput, this.passwordInput]);
     }

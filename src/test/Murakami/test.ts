@@ -2,9 +2,9 @@ import {AppUser} from "./../../utils/AppUser"
 import {DbController} from "./../../utils/DbController"
 export async function test(){
     /* リダイレクトやクエリ文字列のテストコード */
-    const hogeLink="http://localhost:8080/index.html?page=timetable&mode=edit"
+/*     const hogeLink="http://localhost:8080/index.html?page=timetable&mode=edit"
     if(location.href !== hogeLink)location.href="./index.html?page=timetable&mode=edit"
-    console.log(location.href)
+    console.log(location.href) */
 
     /* サインインなどのテストコード */
     const hogeUser:AppUser = new AppUser()
