@@ -45,7 +45,7 @@ export class AppUser {
         this.userInfo=userInfo
     }
 
-    async signUp():Promise<void>{//サインアップするメソッド
+    async signUp(redirectLink?: string):Promise<void>{//サインアップするメソッド
         try {
             const auth = getAuth()
             const userCredential = await createUserWithEmailAndPassword(
@@ -55,9 +55,14 @@ export class AppUser {
             )
             await sendEmailVerification(userCredential.user)
             console.log("email sended")
+            window.alert("メールアドレスに登録確認メールを送信しました。")
+            if(redirectLink){
+                location.href = redirectLink
+            }
         } catch (e) {
             if (e instanceof FirebaseError) {
                 console.log(e)
+                window.alert("ユーザー登録に失敗しました。\n既にメールアドレスが使用されている可能性があります。")
             }
         }
     }

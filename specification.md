@@ -107,9 +107,12 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │       ├── Input.ts             # input要素のコンポーネント
 │   │       ├── Label.ts             # label要素のコンポーネント
 │   │       ├── LabeledInput.ts      # input要素とlabel要素のコンポーネント
+│   │       ├── PasswordInput.ts     # パスワードを入力するinput要素を含んだ要素のコンポーネント
 │   │       ├── Button.ts            # button要素のコンポーネント
 │   │       ├── SubmitButton.ts      # submitボタン要素のコンポーネント
-│   │       └── Form.ts              # form要素のコンポーネント
+│   │       ├── Form.ts              # form要素のコンポーネント
+│   │       ├── LoginForm.ts              # ログインページのform要素のコンポーネント
+│   │       └── RegisterForm.ts              # アカウント登録ページのform要素のコンポーネント
 │   ├── containers/
 │   │   ├── TimetableContainer.ts    # 時間割管理機能のコンテナ
 │   │   ├── TaskContainer.ts         # 課題管理機能のコンテナ
@@ -122,7 +125,8 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   └── IndexPage.ts             # トップページのコンポーネント
 │   ├── utils/
 │   │   ├── application .ts          # アプリ立ち上げ用のユーティリティ
-│   │   ├── api.ts                   # APIとの通信を行うためのユーティリティ
+│   │   ├── DbController.ts          # データベース操作用のユーティリティ
+│   │   ├── AppUser.ts               # ユーザー操作用のユーティリティ
 │   │   ├── domUtils.ts              # DOM 操作用のユーティリティ
 │   │   ├── pageUtils.ts             # ページ操作用のユーティリティ
 │   │   ├── types.ts                 # 型定義

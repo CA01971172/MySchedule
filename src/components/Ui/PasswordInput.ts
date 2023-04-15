@@ -1,17 +1,6 @@
-import { Input } from "./Input"
-import { Label } from "./Label"
-import { LabeledInput } from "./LabeledInput"
+import { LabeledInput, LabeledInputOptions } from "./LabeledInput"
 
 export class PasswordInput extends LabeledInput {
-    constructor() {
-        super({
-            label: "パスワード",
-            name: "password",
-            type: "password",
-            required: true,
-        });
-    }
-
     render(): HTMLDivElement {
         const passwordInput = this.input.render() as HTMLInputElement;
         const showPasswordButton = document.createElement("button");

@@ -16,7 +16,12 @@ export class LoginForm extends Form {//ログイン用のform要素を作成す�
             required: true
         });
 
-        this.passwordInput =  new PasswordInput();
+        this.passwordInput =  new PasswordInput({
+            label: "パスワード",
+            name: "password",
+            type: "password",
+            required: true,
+        });
 
         this.addInputs([this.emailInput, this.passwordInput]);
     }
