@@ -1,7 +1,7 @@
 import { FirebaseInitializer } from "./../lib/firebase/firebase"
 import { AppUser } from ".//api"
 import { indexPageUrl, loginPageUrl, registerPageUrl } from "./constants"
-import { PageUtils } from "./domUtils"
+import { PageUtils } from "./pageUtils"
 
 
 export class Application{//アプリの立ち上げなどを行うクラス

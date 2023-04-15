@@ -1,6 +1,6 @@
 import { TaskForm } from "./../components/Task/TaskForm"
 import { TaskList } from "./../components/Task/TaskList"
-import { PageUtils } from "./../utils/domUtils"
+import { PageUtils } from "./../utils/pageUtils"
 import { PageModeType } from "./../utils/types"
 
 export class TaskPage{//タスクのページを作成するクラス

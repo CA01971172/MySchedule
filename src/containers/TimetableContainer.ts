@@ -1,6 +1,6 @@
 import { TimetableForm } from "./../components/Timetable/TimetableForm"
 import { TimetableList } from "./../components/Timetable/TimetableList"
-import { PageUtils } from "./../utils/domUtils"
+import { PageUtils } from "./../utils/pageUtils"
 import { PageModeType } from "./../utils/types"
 
 export class TimetablePage{//時間割のページを作成するクラス

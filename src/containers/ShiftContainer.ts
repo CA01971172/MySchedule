@@ -1,6 +1,6 @@
 import { ShiftForm } from "./../components/Shift/ShiftForm";
 import { ShiftList } from "./../components/Shift/ShiftList";
-import { PageUtils } from "./../utils/domUtils";
+import { PageUtils } from "./../utils/pageUtils";
 import { PageModeType } from "./../utils/types";
 
 export class ShiftPage {//アルバイトシフトのページを作成するクラス

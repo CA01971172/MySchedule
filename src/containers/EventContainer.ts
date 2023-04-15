@@ -1,6 +1,6 @@
 import { EventForm } from "./../components/Event/EventForm"
 import { EventList } from "./../components/Event/EventList"
-import { PageUtils } from "./../utils/domUtils"
+import { PageUtils } from "./../utils/pageUtils"
 import { PageModeType } from "./../utils/types"
 
 export class EventPage {//予定のページを作成するクラス

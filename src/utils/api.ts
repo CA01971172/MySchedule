@@ -11,7 +11,7 @@ import {
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 
-import { PageUtils } from "./domUtils"
+import { PageUtils } from "./pageUtils"
 export class AppUser {
     private _uid: string = "";
     private _userInfo: UserInfo = {
