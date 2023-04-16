@@ -1,7 +1,7 @@
 import { Input } from "./Input"
 import { Label } from "./Label"
 
-interface LabeledInputOptions {//LabeledInputクラスのコンストラクターに渡すオブジェク
+export interface LabeledInputOptions {//LabeledInputクラスのコンストラクターに渡すオブジェク
     label: string;
     name: string;
     type: string;
