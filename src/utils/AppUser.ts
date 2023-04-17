@@ -3,6 +3,8 @@ import {
     createUserWithEmailAndPassword,
     sendEmailVerification ,
     signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    Auth,
     getAuth,
     signOut,
     onAuthStateChanged,
@@ -47,7 +49,7 @@ export class AppUser {
 
     async signUp():Promise<void>{//サインアップするメソッド
         try {
-            const auth = getAuth()
+            const auth: Auth = getAuth()
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 this.userInfo.email,
@@ -64,7 +66,7 @@ export class AppUser {
 
     async signIn(redirectLink?: string):Promise<void>{//サインインするメソッド
         try {
-            const auth = getAuth()
+            const auth: Auth = getAuth()
             await signInWithEmailAndPassword(
                 auth,
                 this.userInfo.email,
@@ -83,7 +85,7 @@ export class AppUser {
 
     async signOut():Promise<void>{//サインアウトするメソッド
         try {
-            const auth = getAuth()
+            const auth: Auth = getAuth()
             await signOut(auth)
         } catch (e) {
             if (e instanceof FirebaseError) {
@@ -92,9 +94,14 @@ export class AppUser {
         }
     }
 
+    resetEmail(email: string){ // パスワードをリセットするメソッド
+        const auth: Auth = getAuth()
+        sendPasswordResetEmail(auth, email); // パスワードリセットのEmailを送る
+    }
+
     async getAuthState():Promise<User | null>{//ユーザーの認証情報を取得するメソッド
         return new Promise((resolve, reject) => {
-            const auth = getAuth();
+            const auth: Auth = getAuth();
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                     // User is signed in, see docs for a list of available properties
@@ -110,7 +117,7 @@ export class AppUser {
     }
 
     async setUserProperty():Promise<void>{//ユーザーの認証情報を取得してid等をフィールドに代入するメソッド
-        const authState=await this.getAuthState()
+        const authState: User | null = await this.getAuthState()
         if(authState){
             this.uid=authState.uid
             if(authState.email){
@@ -121,9 +128,9 @@ export class AppUser {
     }
 
     async redirect(indexPageUrl:string,loginPageUrl:string,registerPageUrl:string):Promise<void>{//認証状態に合わせて正しいページにリダイレクトするメソッド
-        const authState = await this.getAuthState()
-        const isLoginPage = PageUtils.matchQuery("page","login")
-        const isRegisterPage = PageUtils.matchQuery("page","register")
+        const authState: User | null  = await this.getAuthState()
+        const isLoginPage: boolean = PageUtils.matchQuery("page","login")
+        const isRegisterPage: boolean = PageUtils.matchQuery("page","register")
         if(authState && (isLoginPage || isRegisterPage)){//ユーザーが認証されている、かつログイン/ユーザー登録ページの場合
             location.href=indexPageUrl//トップページにリダイレクトする
         }else if(!authState && !(isLoginPage || isRegisterPage)){//ユーザーが認証されていない、かつログインページでもユーザー登録ページでもない

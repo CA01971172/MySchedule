@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import 'firebase/auth';
+import { Auth, getAuth, sendPasswordResetEmail } from 'firebase/auth'
 
 import { Form } from "../components/Ui/Form"
 import { LoginForm } from "../components/Ui/LoginForm"
@@ -44,8 +44,8 @@ export class LoginPage{//ログインのページを作成するクラス
             //パスワードリセットのメールを送るために、アカウントのメールアドレスを求める
             const email = window.prompt("パスワードをリセットするためのメールを送ります。\nアカウントのメールアドレスを入力してください。", "");
             if(Form.mailCheck(email)){// 入力内容が正しいメールアドレス場合
-                //TODO パスワードリセット処理の実装
-                // firebase.auth().sendPasswordResetEmail(email); // パスワードリセットのEmailを送る
+                const appUser:AppUser = new AppUser()
+                appUser.resetEmail(email) // パスワードリセットのメールを送る
                 window.alert("パスワードリセットのメールを送りました。");
             }else{// 空の場合やキャンセルした場合は警告ダイアログを表示
                 window.alert("正しいメールアドレスを入力してください。");
