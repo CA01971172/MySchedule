@@ -6,15 +6,15 @@ export class PasswordInput extends LabeledInput {
         const showPasswordButton = document.createElement("button");
         showPasswordButton.type = "button";
         showPasswordButton.classList.add("btn", "btn-outline-secondary", "show-password-button");
-        showPasswordButton.innerHTML = "<i class='bi bi-eye-slash'></i>";
+        showPasswordButton.innerHTML = "<i class='bi bi-eye'></i>";
 
         const togglePasswordVisibility = () => {
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
-                showPasswordButton.innerHTML = "<i class='bi bi-eye'></i>";
+                showPasswordButton.innerHTML = "<i class='bi bi-eye-slash'></i>";
             } else {
                 passwordInput.type = "password";
-                showPasswordButton.innerHTML = "<i class='bi bi-eye-slash'></i>";
+                showPasswordButton.innerHTML = "<i class='bi bi-eye'></i>";
             }
         };
 
