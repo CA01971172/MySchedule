@@ -1,14 +1,12 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
 import { Form } from "../components/Ui/Form"
 import { LoginForm } from "../components/Ui/LoginForm"
+import { Header } from "../components/Ui/Header"
 import { indexPageUrl, registerPageUrl, rootDiv } from "../utils/constants";
 import { LoginData } from "../utils/types";
 import { DomUtils } from "./../utils/domUtils"
 import { AppUser } from "./../utils/AppUser"
 export class LoginPage{//ログインのページを作成するクラス
-    create() :void{
+    render(): HTMLElement[]{
         const login = (data: LoginData) => {//ボタンに適用する、ログインする処理
             console.log(data);
             const appUser:AppUser = new AppUser()
@@ -20,8 +18,13 @@ export class LoginPage{//ログインのページを作成するクラス
         const domUtils: DomUtils = new DomUtils(rootDiv)
 
         //ヘッダーを作成
+        const header:Header = new Header("login")
         const headerElm: HTMLElement = domUtils.createElement("header","","MySchedule")
         result.push(headerElm)
+
+        //タイトルを作成
+        const titleElm: HTMLElement = domUtils.createElement("h1","","ログイン")
+        result.push(titleElm)
 
         //ログインフォームを作成
         const form: LoginForm = new LoginForm(login)
@@ -44,8 +47,8 @@ export class LoginPage{//ログインのページを作成するクラス
             //パスワードリセットのメールを送るために、アカウントのメールアドレスを求める
             const email = window.prompt("パスワードをリセットするためのメールを送ります。\nアカウントのメールアドレスを入力してください。", "");
             if(Form.mailCheck(email)){// 入力内容が正しいメールアドレス場合
-                //TODO パスワードリセット処理の実装
-                // firebase.auth().sendPasswordResetEmail(email); // パスワードリセットのEmailを送る
+                const appUser:AppUser = new AppUser()
+                appUser.resetEmail(email) // パスワードリセットのメールを送る
                 window.alert("パスワードリセットのメールを送りました。");
             }else{// 空の場合やキャンセルした場合は警告ダイアログを表示
                 window.alert("正しいメールアドレスを入力してください。");
@@ -53,7 +56,6 @@ export class LoginPage{//ログインのページを作成するクラス
         });
         result.push(passwordResetElm);
 
-        //完成した要素群をrootのdiv要素に全て追加する
-        domUtils.appendChildMultiple(rootDiv,result)
+        return result
     }
 }

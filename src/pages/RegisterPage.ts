@@ -4,7 +4,7 @@ import { RegisterData } from "../utils/types";
 import { DomUtils } from "./../utils/domUtils"
 import { AppUser } from "./../utils/AppUser"
 export class RegisterPage{//ユーザー登録のページを作成するクラス
-    create() :void{
+    render() :void{
         const register = (data: RegisterData) => {//ボタンに適用する、ログインする処理
             console.log(data);
             const appUser:AppUser = new AppUser()

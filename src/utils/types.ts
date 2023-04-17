@@ -8,7 +8,11 @@ export type ContentType = "timetable"|"task"|"shift"|"event"
 
 /* ページ操作関連の型定義 */
 export type PageType = null|"login"|"register"|ContentType|"calendar"//nullはindexページ(メニューページ)
-export type PageModeType = null|"edit"//nullはカレンダーページなどの入力フォームが存在しない画面
+export type PageStructure = {
+    header: HTMLElement;
+    content: HTMLElement;
+    footer?: HTMLElement;
+}
 
 /* ユーザー管理関連のデータモデル */
 export type LoginData = {

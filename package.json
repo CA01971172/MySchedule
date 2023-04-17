@@ -18,6 +18,7 @@
     "@types/form-data": "^2.5.0",
     "@types/node": "^18.15.11",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.4",
     "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
     "jquery": "^3.6.4",
@@ -37,7 +38,6 @@
   "dependencies": {
     "@types/firebase": "^3.2.1",
     "@webpack-cli/generators": "^3.0.1",
-    "bootstrap-icons": "^1.10.4",
     "firebase": "^9.19.1"
   },
   "repository": {
