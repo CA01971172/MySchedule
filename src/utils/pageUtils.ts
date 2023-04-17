@@ -1,6 +1,6 @@
 import { PageType, PageStructure } from "./types";
 import { rootDiv } from "./constants";
-import { Page } from "./../components/Ui/Page"
+import { Page } from "../containers/Page/Page"
 
 export class PageUtils {//それぞれのページごとの内容を作成するなど、ページを扱うためのクラス
     public static getPageType(): PageType{//現在開いているページの種類を取得する関数

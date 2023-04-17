@@ -89,55 +89,58 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 ```bash
 ├── src/
 │   ├── scss/
-│   │   └── style.scss               # 全体のスタイルシートのSCSS
+│   │   └── style.scss                   # 全体のスタイルシートのSCSS
 │   ├── components/
-│   │   ├── Timetable/
-│   │   │   ├── TimetableForm.ts     # 時間割入力フォームのコンポーネント
-│   │   │   └── TimetableList.ts     # 時間割一覧表示のコンポーネント
-│   │   ├── Task/
-│   │   │   ├── TaskForm.ts          # 課題入力フォームのコンポーネント
-│   │   │   └── TaskList.ts          # 課題一覧表示のコンポーネント
-│   │   ├── Shift/
-│   │   │   ├── ShiftForm.ts         # アルバイトシフト入力フォームのコンポーネント
-│   │   │   └── ShiftList.ts         # アルバイトシフト一覧表示のコンポーネント
-│   │   ├── Event/
-│   │   │   ├── EventForm.ts         # 予定入力フォームのコンポーネント
-│   │   │   └── EventForm.ts         # 予定一覧表示のコンポーネント
+│   │   ├── Timetable/                   # 時間割機能のコンポーネントを入れるディレクトリ
+│   │   ├── Task/                        # 課題機能のコンポーネントを入れるディレクトリ
+│   │   ├── Shift/                       # アルバイトシフト機能のコンポーネントを入れるディレクトリ
+│   │   ├── Event/                       # 予定機能のコンポーネントを入れるディレクトリ
+│   │   ├── Calender/                    # カレンダー機能のコンポーネントを入れるディレクトリ
+│   │   ├── Login/                       # ログイン機能のコンポーネントを入れるディレクトリ
+│   │   ├── Register/                    # アカウント登録機能のコンポーネントを入れるディレクトリ
 │   │   └── Ui/
-│   │       ├── Input.ts             # input要素のコンポーネント
-│   │       ├── Label.ts             # label要素のコンポーネント
-│   │       ├── LabeledInput.ts      # input要素とlabel要素のコンポーネント
-│   │       ├── PasswordInput.ts     # パスワードを入力するinput要素を含んだ要素のコンポーネント
-│   │       ├── Button.ts            # button要素のコンポーネント
-│   │       ├── SubmitButton.ts      # submitボタン要素のコンポーネント
-│   │       ├── Form.ts              # form要素のコンポーネント
-│   │       ├── LoginForm.ts              # ログインページのform要素のコンポーネント
-│   │       └── RegisterForm.ts              # アカウント登録ページのform要素のコンポーネント
+│   │       ├── Input.ts                 # input要素のコンポーネント
+│   │       ├── Label.ts                 # label要素のコンポーネント
+│   │       ├── LabeledInput.ts          # input要素とlabel要素のコンポーネント
+│   │       ├── PasswordInput.ts         # パスワードを入力するinput要素を含んだ要素のコンポーネント
+│   │       ├── Button.ts                # button要素のコンポーネント
+│   │       ├── SubmitButton.ts          # submitボタン要素のコンポーネント
+│   │       ├── Form.ts                  # form要素のコンポーネント
+│   │       ├── LoginForm.ts             # ログインページのform要素のコンポーネント
+│   │       └── RegisterForm.ts          # アカウント登録ページのform要素のコンポーネント
 │   ├── containers/
-│   │   ├── TimetableContainer.ts    # 時間割管理機能のコンテナ
-│   │   ├── TaskContainer.ts         # 課題管理機能のコンテナ
-│   │   ├── ShiftContainer.ts        # アルバイト管理機能のコンテナ
-│   │   └── EventContainer.ts        # 予定管理機能のコンテナ
-│   ├── pages/
-│   │   ├── CalendarPage.ts          # カレンダーページのコンポーネント
-│   │   ├── LoginPage.ts             # ログインページのコンポーネント
-│   │   ├── RegisterPage.ts          # ユーザー登録ページのコンポーネント
-│   │   └── IndexPage.ts             # トップページのコンポーネント
+│   │   ├── Content/
+│   │   │   ├── TimetableContainer.ts    # 時間割管理ページのコンテナ
+│   │   │   ├── TaskContainer.ts         # 課題管理ページのコンテナ
+│   │   │   ├── ShiftContainer.ts        # アルバイト管理ページのコンテナ
+│   │   │   ├── ShiftContainer.ts        # アルバイト管理ページのコンテナ
+│   │   │   ├── EventContainer.ts        # 予定管理ページのコンテナ
+│   │   │   ├── CalenderContainer.ts     # カレンダーページのコンテナ
+│   │   │   ├── LoginContainer.ts        # ログインページのコンテナ
+│   │   │   └── RegisterContainer.ts     # アカウント登録ページのコンテナ
+│   │   └── Page/
+│   │       ├── Header.ts                # タブバーのコンポーネント
+│   │       ├── Content.ts               # コンテンツのコンポーネント
+│   │       ├── Footer.ts                # 操作ボタンのコンポーネント
+│   │       └── Page.ts                  # ページのコンポーネント
+│   ├── lib/
+│   │   └── firebase/
+│   │       └── firebase.ts              # firebaseのライブラリ
 │   ├── utils/
-│   │   ├── application .ts          # アプリ立ち上げ用のユーティリティ
-│   │   ├── DbController.ts          # データベース操作用のユーティリティ
-│   │   ├── AppUser.ts               # ユーザー操作用のユーティリティ
-│   │   ├── domUtils.ts              # DOM 操作用のユーティリティ
-│   │   ├── pageUtils.ts             # ページ操作用のユーティリティ
-│   │   ├── types.ts                 # 型定義
-│   │   └── constants.ts             # アプリ全体で使用される定数
-│   └── index.ts                     # アプリのエントリーポイント
+│   │   ├── application .ts              # アプリ立ち上げ用のユーティリティ
+│   │   ├── DbController.ts              # データベース操作用のユーティリティ
+│   │   ├── AppUser.ts                   # ユーザー操作用のユーティリティ
+│   │   ├── domUtils.ts                  # DOM 操作用のユーティリティ
+│   │   ├── pageUtils.ts                 # ページ操作用のユーティリティ
+│   │   ├── types.ts                     # 型定義
+│   │   └── constants.ts                 # アプリ全体で使用される定数
+│   └── index.ts                         # アプリのエントリーポイント
 ├── dist/
-│   ├── index.html                   # メインページのHTML
-│   └── favicon.ico                  # アプリのアイコン
-├── package.json                     # アプリの依存関係やスクリプトの定義
-├── tsconfig.json                    # TypeScriptのコンパイル設定
-└── webpack.config.js                # Webpackの設定
+│   ├── index.html                       # メインページのHTML
+│   └── favicon.ico                      # アプリのアイコン
+├── package.json                         # アプリの依存関係やスクリプトの定義
+├── tsconfig.json                        # TypeScriptのコンパイル設定
+└── webpack.config.js                    # Webpackの設定
 ```
 ### 用語説明
 - コンポーネント  

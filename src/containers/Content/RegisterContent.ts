@@ -1,16 +1,16 @@
-import { RegisterForm } from "../components/Ui/RegisterForm"
-import { indexPageUrl, loginPageUrl, rootDiv } from "../utils/constants";
-import { RegisterData } from "../utils/types";
-import { DomUtils } from "./../utils/domUtils"
-import { AppUser } from "./../utils/AppUser"
-export class RegisterPage{//ユーザー登録のページを作成するクラス
+import { RegisterForm } from "../../components/Ui/RegisterForm"
+import { IndexContentUrl, LoginContentUrl, rootDiv } from "../../utils/constants";
+import { RegisterData } from "../../utils/types";
+import { DomUtils } from "../../utils/domUtils"
+import { AppUser } from "../../utils/AppUser"
+export class RegisterContent{//ユーザー登録のページを作成するクラス
     render() :HTMLElement[]{
         const register = (data: RegisterData) => {//ボタンに適用する、ログインする処理
             console.log(data);
             const appUser:AppUser = new AppUser()
             if(data.password === data.passwordCheck){
                 appUser.setUserInfo(data.email,data.password)
-                appUser.signUp(indexPageUrl)
+                appUser.signUp(IndexContentUrl)
             }else{
                 window.alert("パスワードが間違っています。")
             }
@@ -36,7 +36,7 @@ export class RegisterPage{//ユーザー登録のページを作成するクラ�
         loginDiv.appendChild(loginText);
 
         const loginLink: HTMLAnchorElement = domUtils.createElement("a", "","こちら") as HTMLAnchorElement;
-        loginLink.href = loginPageUrl;
+        loginLink.href = LoginContentUrl;
         loginDiv.appendChild(loginLink);
         result.push(loginDiv);
 

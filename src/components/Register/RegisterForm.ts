@@ -1,6 +1,6 @@
-import { LabeledInput } from './LabeledInput';
-import { PasswordInput } from './PasswordInput';
-import { Form } from './Form';
+import { LabeledInput } from '../Ui/LabeledInput';
+import { PasswordInput } from '../Ui/PasswordInput';
+import { Form } from '../Ui/Form';
 
 export class RegisterForm extends Form {//アカウント登録用のform要素を作成するクラス
     private emailInput: LabeledInput;

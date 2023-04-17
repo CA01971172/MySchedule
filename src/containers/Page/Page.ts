@@ -1,6 +1,6 @@
-import { PageType, PageStructure } from "./../../utils/types";
-import { Header } from "./../../components/Ui/Header"
-import { Content } from "./../../components/Ui/Content"
+import { PageType, PageStructure } from "../../utils/types";
+import { Header } from "./Header"
+import { Content } from "./Content"
 //import { Footer } from "./../../components/Ui/Footer"
 
 export class Page{

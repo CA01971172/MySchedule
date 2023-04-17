@@ -1,4 +1,4 @@
-import { PageType } from "./../../utils/types"
+import { PageType } from "../../utils/types"
 import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils"
 

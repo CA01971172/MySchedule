@@ -1,17 +1,17 @@
-import { Form } from "../components/Ui/Form"
-import { LoginForm } from "../components/Ui/LoginForm"
+import { Form } from "../../components/Ui/Form"
+import { LoginForm } from "../../components/Login/LoginForm"
 import { Header } from "../components/Ui/Header"
-import { indexPageUrl, registerPageUrl, rootDiv } from "../utils/constants";
-import { LoginData } from "../utils/types";
-import { DomUtils } from "./../utils/domUtils"
-import { AppUser } from "./../utils/AppUser"
-export class LoginPage{//ログインのページを作成するクラス
+import { IndexContentUrl, RegisterContentUrl, rootDiv } from "../../utils/constants";
+import { LoginData } from "../../utils/types";
+import { DomUtils } from "../../utils/domUtils"
+import { AppUser } from "../../utils/AppUser"
+export class LoginContent{//ログインのページを作成するクラス
     render(): HTMLElement[]{
         const login = (data: LoginData) => {//ボタンに適用する、ログインする処理
             console.log(data);
             const appUser:AppUser = new AppUser()
             appUser.setUserInfo(data.email,data.password)
-            appUser.signIn(indexPageUrl)
+            appUser.signIn(IndexContentUrl)
         }
 
         const result: HTMLElement[] = new Array
@@ -29,7 +29,7 @@ export class LoginPage{//ログインのページを作成するクラス
         //ユーザー登録ページへのリンクを作成
         const registerLinkElm: HTMLAnchorElement = domUtils.createElement("a","","アカウントを作成") as HTMLAnchorElement;
         registerLinkElm.id = "register"
-        registerLinkElm.href = registerPageUrl;
+        registerLinkElm.href = RegisterContentUrl;
         result.push(registerLinkElm);
 
         const br0: HTMLElement = domUtils.createElement("br");

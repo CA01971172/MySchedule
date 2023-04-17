@@ -11,7 +11,7 @@ import {
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import { UserInfo } from "./types"
-import { indexPageUrl, loginPageUrl } from "./constants"
+import { IndexContentUrl, LoginContentUrl } from "./constants"
 import { PageUtils } from "./pageUtils"
 export class AppUser {
     private _uid: string = "";
@@ -135,12 +135,12 @@ export class AppUser {
 
     async redirect():Promise<void>{//認証状態に合わせて正しいページにリダイレクトするメソッド
         const authState: User | null  = await this.getAuthState()
-        const isLoginPage: boolean = PageUtils.matchQuery("page","login")
-        const isRegisterPage: boolean = PageUtils.matchQuery("page","register")
-        if(authState && (isLoginPage || isRegisterPage)){//ユーザーが認証されている、かつログイン/ユーザー登録ページの場合
-            location.href=indexPageUrl//トップページにリダイレクトする
-        }else if(!authState && !(isLoginPage || isRegisterPage)){//ユーザーが認証されていない、かつログインページでもユーザー登録ページでもない
-            location.href=loginPageUrl
+        const isLoginContent: boolean = PageUtils.matchQuery("page","login")
+        const isRegisterContent: boolean = PageUtils.matchQuery("page","register")
+        if(authState && (isLoginContent || isRegisterContent)){//ユーザーが認証されている、かつログイン/ユーザー登録ページの場合
+            location.href=IndexContentUrl//トップページにリダイレクトする
+        }else if(!authState && !(isLoginContent || isRegisterContent)){//ユーザーが認証されていない、かつログインページでもユーザー登録ページでもない
+            location.href=LoginContentUrl
         }else{
             //認証状態とページの組み合わせが正しい場合は処理を実行しない
         }
