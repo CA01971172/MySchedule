@@ -112,14 +112,14 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │       └── RegisterForm.ts          # アカウント登録ページのform要素のコンポーネント
 │   ├── containers/
 │   │   ├── Content/
-│   │   │   ├── TimetableContainer.ts    # 時間割管理ページのコンテナ
-│   │   │   ├── TaskContainer.ts         # 課題管理ページのコンテナ
-│   │   │   ├── ShiftContainer.ts        # アルバイト管理ページのコンテナ
-│   │   │   ├── ShiftContainer.ts        # アルバイト管理ページのコンテナ
-│   │   │   ├── EventContainer.ts        # 予定管理ページのコンテナ
-│   │   │   ├── CalendarContainer.ts     # カレンダーページのコンテナ
-│   │   │   ├── LoginContainer.ts        # ログインページのコンテナ
-│   │   │   └── RegisterContainer.ts     # アカウント登録ページのコンテナ
+│   │   │   ├── TimetableContent.ts    # 時間割管理ページのコンテナ
+│   │   │   ├── TaskContent.ts         # 課題管理ページのコンテナ
+│   │   │   ├── ShiftContent.ts        # アルバイト管理ページのコンテナ
+│   │   │   ├── ShiftContent.ts        # アルバイト管理ページのコンテナ
+│   │   │   ├── EventContent.ts        # 予定管理ページのコンテナ
+│   │   │   ├── CalendarContent.ts     # カレンダーページのコンテナ
+│   │   │   ├── LoginContent.ts        # ログインページのコンテナ
+│   │   │   └── RegisterContent.ts     # アカウント登録ページのコンテナ
 │   │   └── Page/
 │   │       ├── Page.ts                  # ページ関連のコンポーネント
 │   │       ├── Header.ts                # タブバーのコンポーネント
@@ -154,7 +154,7 @@ UI（ユーザーインターフェース）を構成する最小単位の部品
 
 要するに、例えば時間割管理機能に焦点を当てると、  
 TimetableForm.ts(時間割管理の入力プログラム)とTimetableList.ts(時間割管理の一覧表示プログラム)を作成して、  
-それらを組み合わせて、TimetableContainer.tsを動作させることによって、  
+それらを組み合わせて、TimetableContent.tsを動作させることによって、  
 時間割管理機能を実装していく形です。
 
 ただし、トップページ,ログインページ,カレンダーページに関しては入力プログラムを作成する必要がないため、  

@@ -2,11 +2,11 @@ import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils";
 import { Page } from "./Page"
 /* ページを作成する手続きをまとめた各関数をimportする */
-// import { TimetableContent } from './../Content/TimetableContainer';
-// import { TaskContent } from './../Content/TaskContainer';
-// import { ShiftContent } from './../Content/ShiftContainer';
-// import { EventContent } from './../Content/EventContainer';
-// import { CalendarContent } from './../Content/CalendarContent';
+import { TimetableContent } from './../Content/TimetableContent';
+import { TaskContent } from './../Content/TaskContent';
+import { ShiftContent } from './../Content/ShiftContent';
+import { EventContent } from './../Content/EventContent';
+import { CalendarContent } from './../Content/CalendarContent';
 import { LoginContent } from './../Content/LoginContent';
 import { RegisterContent } from './../Content/RegisterContent';
 
@@ -26,25 +26,25 @@ export class Content extends Page{
                 content = registerContent.render();
                 break;
             case "timetable"://時間割管理ページを作成する
-                // const timetableContent: TimetableContent = new TimetableContent();
-                // content = timetableContent.render();
+                const timetableContent: TimetableContent = new TimetableContent();
+                content = timetableContent.render();
                 break;
             case "task"://課題管理ページを作成する
-                // const taskContent: TaskContent = new TaskContent();
-                // content = taskContent.render();
+                const taskContent: TaskContent = new TaskContent();
+                content = taskContent.render();
                 break;
             case "shift"://アルバイト管理ページを作成する
-                // const shiftContent: ShiftContent = new ShiftContent();
-                // content = shiftContent.render();
+                const shiftContent: ShiftContent = new ShiftContent();
+                content = shiftContent.render();
                 break;
             case "event"://予定管理ページを作成する
-                // const eventContent: EventContent = new EventContent();
-                // content = eventContent.render();
+                const eventContent: EventContent = new EventContent();
+                content = eventContent.render();
                 break;
             case null:
             case "calendar"://カレンダーページを作成する
-                // const calendarContent: CalendarContent = new CalendarContent();
-                // content = calendarContent.render();
+                const calendarContent: CalendarContent = new CalendarContent();
+                content = calendarContent.render();
                 break;
             default:
                 //例外処理

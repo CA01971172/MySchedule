@@ -1,7 +1,8 @@
 import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils"
 import { Page } from "./Page"
-import { ContentType } from "../../utils/types"
+import { PageType } from "../../utils/types"
+import { Content } from "./Content"
 
 export class Header extends Page{ // ヘッダーを作成するクラス
     render(): HTMLElement{ // ヘッダーを作成するメソッド
@@ -103,5 +104,10 @@ export class Header extends Page{ // ヘッダーを作成するクラス
         this.pageType = nextPageType
         nextElement.classList.add("enableTab");
         nextElement.innerHTML = '<b>' + nextElement.innerHTML + '</b>';
+        // コンテンツの中身を挿げ替える
+        const nowContentElm: HTMLElement = rootDiv.querySelector(".content")
+        const nextContent: Content = new Content(nextPageType)
+        const nextContentElm = nextContent.render()
+        rootDiv.replaceChild(nextContentElm, nowContentElm);
     }
 }
