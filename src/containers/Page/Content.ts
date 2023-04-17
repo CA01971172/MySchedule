@@ -2,14 +2,13 @@ import { PageType } from "../../utils/types";
 import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils";
 /* ページを作成する手続きをまとめた各関数をimportする */
-// import { IndexContent } from './../../pages/IndexContent';
-import { LoginContent } from '../Content/LoginContent';
-// import { RegisterContent } from './../../pages/RegisterContent';
-// import { TimetableContent } from './../../containers/TimetableContainer';
-// import { TaskContent } from './../../containers/TaskContainer';
-// import { ShiftContent } from './../../containers/ShiftContainer';
-// import { EventContent } from './../../containers/EventContainer';
-// import { CalenderContent } from './../../pages/CalenderContent';
+// import { TimetableContent } from './../Content/TimetableContainer';
+// import { TaskContent } from './../Content/TaskContainer';
+// import { ShiftContent } from './../Content/ShiftContainer';
+// import { EventContent } from './../Content/EventContainer';
+// import { CalenderContent } from './../Content/CalenderContent';
+import { LoginContent } from './../Content/LoginContent';
+import { RegisterContent } from './../Content/RegisterContent';
 
 export class Content{
     private pageType: PageType
@@ -29,8 +28,8 @@ export class Content{
                 content = loginContent.render();
                 break;
             case "register"://ユーザー登録ページを作成する
-                // const registerContent: RegisterContent = new RegisterContent();
-                // content = registerContent.render();
+                const registerContent: RegisterContent = new RegisterContent();
+                content = registerContent.render();
                 break;
             case "timetable"://時間割管理ページを作成する
                 // const timetableContent: TimetableContent = new TimetableContent();
