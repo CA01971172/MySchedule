@@ -9,8 +9,12 @@ export class RegisterContent{//ユーザー登録のページを作成するク�
             console.log(data);
             const appUser:AppUser = new AppUser()
             if(data.password === data.passwordCheck){
-                appUser.setUserInfo(data.email,data.password)
-                appUser.signUp(IndexPageUrl)
+                if(data.password.length >= 6){
+                    appUser.setUserInfo(data.email,data.password)
+                    appUser.signUp(IndexPageUrl)
+                }else{
+                    window.alert("パスワードは6文字以上必要です。")
+                }
             }else{
                 window.alert("パスワードが間違っています。")
             }
@@ -18,10 +22,6 @@ export class RegisterContent{//ユーザー登録のページを作成するク�
 
         const result: HTMLElement[] = new Array
         const domUtils: DomUtils = new DomUtils(rootDiv)
-
-        //ヘッダーを作成
-        const headerElm: HTMLElement = domUtils.createElement("header","","MySchedule")
-        result.push(headerElm)
 
         //ユーザー登録フォームを作成
         const form: RegisterForm = new RegisterForm(register)

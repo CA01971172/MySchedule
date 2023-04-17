@@ -26,7 +26,7 @@ export class RegisterForm extends Form {//アカウント登録用のform要素�
         });
 
         this.passwordCheckInput = new PasswordInput({
-            label: 'パスワード確認',
+            label: 'パスワード (確認)',
             name: 'passwordCheck',
             type: 'password',
             readonly: false,
