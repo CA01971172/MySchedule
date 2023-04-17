@@ -19,10 +19,6 @@ export class RegisterContent{//ユーザー登録のページを作成するク�
         const result: HTMLElement[] = new Array
         const domUtils: DomUtils = new DomUtils(rootDiv)
 
-        //ヘッダーを作成
-        const headerElm: HTMLElement = domUtils.createElement("header","","MySchedule")
-        result.push(headerElm)
-
         //ユーザー登録フォームを作成
         const form: RegisterForm = new RegisterForm(register)
         const formElm:HTMLFormElement  = form.render()
