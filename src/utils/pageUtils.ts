@@ -3,21 +3,10 @@ import { rootDiv } from "./constants";
 import { Page } from "./../components/Ui/Page"
 
 export class PageUtils {//それぞれのページごとの内容を作成するなど、ページを扱うためのクラス
-    private pageType: PageType
-
-    constructor(pageType?: PageType){
-        if(pageType){
-            this.pageType = pageType
-        }else{
-            this.pageType = PageUtils.getPageType()
-        }
-    }
-
     public static getPageType(): PageType{//現在開いているページの種類を取得する関数
         //クエリ文字列のパラメータ"page"の値を取得する
         let result: PageType
-        const pageUtils: PageUtils = new PageUtils()
-        const pageQuery:string|null = pageUtils.getQuery("page")
+        const pageQuery:string|null = PageUtils.getQuery("page")
         if (//queryがPageTypeに合致するかどうか
             pageQuery === null ||
             pageQuery === "login" ||
@@ -36,7 +25,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
         }
     }
 
-    private getQuery(paramName: string): string | null {//クエリ文字列(URLパラメータ)を取得するメソッド
+    private static getQuery(paramName: string): string | null {//クエリ文字列(URLパラメータ)を取得するメソッド
         const pageUrl=window.location.href//今開いているページのパス
         paramName=paramName.replace(/[\[\]]/g,"\\$&");
         const regex=new RegExp("[?&]"+paramName+"(=([^&#]*)|&|#|$)"),
@@ -47,8 +36,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
     }
 
     public static matchQuery(paramName: string, value: string | null){//クエリ文字列が指定された値と合致するかどうか調べるメソッド
-        const pageUtils: PageUtils = new PageUtils()
-        const pageQuery: string | null = pageUtils.getQuery(paramName)
+        const pageQuery: string | null = PageUtils.getQuery(paramName)
         if(pageQuery === value){
             return true
         }else{
@@ -57,7 +45,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
     }
 
     createPage(): void{ // ページを作成するメソッド
-        const page: Page = new Page(this.pageType)
+        const page: Page = new Page(PageUtils.getPageType())
         const pageStructure: PageStructure = page.render()
         for (const [key, value] of Object.entries(pageStructure)) {
             rootDiv.appendChild(value) // pageStructureの全プロパティをrootのdiv要素に全て追加する
