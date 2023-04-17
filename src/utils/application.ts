@@ -1,6 +1,5 @@
 import { FirebaseInitializer } from "./../lib/firebase/firebase"
 import { AppUser } from "./AppUser"
-import { indexPageUrl, loginPageUrl, registerPageUrl } from "./constants"
 import { PageUtils } from "./pageUtils";
 
 export class Application{ // アプリの立ち上げなどを行うクラス
@@ -31,7 +30,7 @@ export class Application{ // アプリの立ち上げなどを行うクラス
 
     redirect(): void{ // ユーザーの認証状態に合わせて正しいページにリダイレクトするメソッド
         this.appUser = new AppUser()
-        this.appUser.redirect(indexPageUrl, loginPageUrl ,registerPageUrl)
+        this.appUser.redirect()
     }
 
     createPage(): void{ // ページを作成するメソッド

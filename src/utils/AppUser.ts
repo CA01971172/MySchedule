@@ -1,4 +1,3 @@
-import { UserInfo } from "./types"
 import {
     createUserWithEmailAndPassword,
     sendEmailVerification ,
@@ -11,6 +10,8 @@ import {
     User
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
+import { UserInfo } from "./types"
+import { indexPageUrl, loginPageUrl } from "./constants"
 import { PageUtils } from "./pageUtils"
 export class AppUser {
     private _uid: string = "";
@@ -132,7 +133,7 @@ export class AppUser {
         }
     }
 
-    async redirect(indexPageUrl:string,loginPageUrl:string,registerPageUrl:string):Promise<void>{//認証状態に合わせて正しいページにリダイレクトするメソッド
+    async redirect():Promise<void>{//認証状態に合わせて正しいページにリダイレクトするメソッド
         const authState: User | null  = await this.getAuthState()
         const isLoginPage: boolean = PageUtils.matchQuery("page","login")
         const isRegisterPage: boolean = PageUtils.matchQuery("page","register")

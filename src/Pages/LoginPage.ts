@@ -17,11 +17,6 @@ export class LoginPage{//ログインのページを作成するクラス
         const result: HTMLElement[] = new Array
         const domUtils: DomUtils = new DomUtils(rootDiv)
 
-        //ヘッダーを作成
-        const header:Header = new Header("login")
-        const headerElm: HTMLElement = domUtils.createElement("header","","MySchedule")
-        result.push(headerElm)
-
         //タイトルを作成
         const titleElm: HTMLElement = domUtils.createElement("h1","","ログイン")
         result.push(titleElm)

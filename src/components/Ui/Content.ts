@@ -20,8 +20,9 @@ export class Content{
 
     render(): HTMLElement{//ページの種類ごとにページの中身を作成するメソッド
         const domUtils: DomUtils = new DomUtils(rootDiv)
-        let result: HTMLElement = domUtils.createElement("div",".content")
+        let result: HTMLElement = domUtils.createElement("div","content")
         let content: HTMLElement[] = new Array
+
         switch (this.pageType) {
             case null://トップページを作成する
                 // const indexPage: IndexPage = new IndexPage();
@@ -59,6 +60,7 @@ export class Content{
                 //例外処理
                 break;
         }
+
         domUtils.appendChildMultiple(result, content)
         return result
     }

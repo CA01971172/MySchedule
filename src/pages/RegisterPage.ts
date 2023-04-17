@@ -4,7 +4,7 @@ import { RegisterData } from "../utils/types";
 import { DomUtils } from "./../utils/domUtils"
 import { AppUser } from "./../utils/AppUser"
 export class RegisterPage{//ユーザー登録のページを作成するクラス
-    render() :void{
+    render() :HTMLElement[]{
         const register = (data: RegisterData) => {//ボタンに適用する、ログインする処理
             console.log(data);
             const appUser:AppUser = new AppUser()
@@ -40,7 +40,6 @@ export class RegisterPage{//ユーザー登録のページを作成するクラ�
         loginDiv.appendChild(loginLink);
         result.push(loginDiv);
 
-        //完成した要素群をrootのdiv要素に全て追加する
-        domUtils.appendChildMultiple(rootDiv,result)
+        return result
     }
 }
