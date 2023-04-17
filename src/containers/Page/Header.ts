@@ -1,14 +1,8 @@
-import { PageType } from "../../utils/types"
 import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils"
+import { Page } from "./Page"
 
-export class Header{ // ヘッダーを作成するクラス
-    private pageType: PageType
-
-    constructor(pageType: PageType){
-        this.pageType = pageType
-    }
-
+export class Header extends Page{ // ヘッダーを作成するクラス
     render(): HTMLElement{ // ヘッダーを作成するメソッド
         const domUtils: DomUtils = new DomUtils(rootDiv)
         const headerElm: HTMLElement = domUtils.createElement("header")
