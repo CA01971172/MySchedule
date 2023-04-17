@@ -1,6 +1,6 @@
-import { PageType } from "../../utils/types";
 import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils";
+import { Page } from "./Page"
 /* ページを作成する手続きをまとめた各関数をimportする */
 // import { TimetableContent } from './../Content/TimetableContainer';
 // import { TaskContent } from './../Content/TaskContainer';
@@ -10,13 +10,7 @@ import { DomUtils } from "../../utils/domUtils";
 import { LoginContent } from './../Content/LoginContent';
 import { RegisterContent } from './../Content/RegisterContent';
 
-export class Content{
-    private pageType: PageType
-
-    constructor(pageType: PageType){
-        this.pageType = pageType
-    }
-
+export class Content extends Page{
     render(): HTMLElement{//ページの種類ごとにページの中身を作成するメソッド
         const domUtils: DomUtils = new DomUtils(rootDiv)
         let result: HTMLElement = domUtils.createElement("div","content")
