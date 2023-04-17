@@ -83,7 +83,7 @@ export class AppUser {
         } catch (e) {
             if (e instanceof FirebaseError) {
                 console.log(e)
-                window.alert("ログインに失敗しました。")
+                window.alert("ログインに失敗しました。\nパスワードが間違っているか、アカウントが存在しない可能性があります。")
             }
         }
     }
