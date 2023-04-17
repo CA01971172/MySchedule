@@ -9,8 +9,12 @@ export class RegisterContent{//ユーザー登録のページを作成するク�
             console.log(data);
             const appUser:AppUser = new AppUser()
             if(data.password === data.passwordCheck){
-                appUser.setUserInfo(data.email,data.password)
-                appUser.signUp(IndexContentUrl)
+                if(data.password.length >= 6){
+                    appUser.setUserInfo(data.email,data.password)
+                    appUser.signUp(IndexContentUrl)
+                }else{
+                    window.alert("パスワードは6文字以上必要です。")
+                }
             }else{
                 window.alert("パスワードが間違っています。")
             }
