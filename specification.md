@@ -95,9 +95,11 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   ├── Task/                        # 課題機能のコンポーネントを入れるディレクトリ
 │   │   ├── Shift/                       # アルバイトシフト機能のコンポーネントを入れるディレクトリ
 │   │   ├── Event/                       # 予定機能のコンポーネントを入れるディレクトリ
-│   │   ├── Calender/                    # カレンダー機能のコンポーネントを入れるディレクトリ
+│   │   ├── Calendar/                    # カレンダー機能のコンポーネントを入れるディレクトリ
 │   │   ├── Login/                       # ログイン機能のコンポーネントを入れるディレクトリ
+│   │   │   └── LoginForm.ts             # ログインページのform要素のコンポーネント
 │   │   ├── Register/                    # アカウント登録機能のコンポーネントを入れるディレクトリ
+│   │   │   └── RegisterForm.ts          # アカウント登録ページのform要素のコンポーネント
 │   │   └── Ui/
 │   │       ├── Input.ts                 # input要素のコンポーネント
 │   │       ├── Label.ts                 # label要素のコンポーネント
@@ -115,7 +117,7 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   │   ├── ShiftContainer.ts        # アルバイト管理ページのコンテナ
 │   │   │   ├── ShiftContainer.ts        # アルバイト管理ページのコンテナ
 │   │   │   ├── EventContainer.ts        # 予定管理ページのコンテナ
-│   │   │   ├── CalenderContainer.ts     # カレンダーページのコンテナ
+│   │   │   ├── CalendarContainer.ts     # カレンダーページのコンテナ
 │   │   │   ├── LoginContainer.ts        # ログインページのコンテナ
 │   │   │   └── RegisterContainer.ts     # アカウント登録ページのコンテナ
 │   │   └── Page/
