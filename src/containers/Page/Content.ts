@@ -6,7 +6,7 @@ import { DomUtils } from "../../utils/domUtils";
 // import { TaskContent } from './../Content/TaskContainer';
 // import { ShiftContent } from './../Content/ShiftContainer';
 // import { EventContent } from './../Content/EventContainer';
-// import { CalenderContent } from './../Content/CalenderContent';
+// import { CalendarContent } from './../Content/CalendarContent';
 import { LoginContent } from './../Content/LoginContent';
 import { RegisterContent } from './../Content/RegisterContent';
 
