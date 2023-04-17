@@ -1,7 +1,7 @@
 import { PageType, PageStructure } from "../../utils/types";
 import { Header } from "./Header"
 import { Content } from "./Content"
-//import { Footer } from "./../../components/Ui/Footer"
+import { Footer } from "./Footer"
 
 export class WebPage{
     private pageType: PageType
@@ -24,11 +24,11 @@ export class WebPage{
         result.content = contentElm
 
         // フッターを作成する
-/*         const footer = new Footer(this.pageType)
+        const footer = new Footer(this.pageType)
         const footerElm: HTMLElement = footer.render()
         if(footerElm){
             result.footer = footerElm
-        } */
+        }
 
         return result
     }

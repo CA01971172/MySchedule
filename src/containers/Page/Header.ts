@@ -96,7 +96,6 @@ export class Header extends Page{ // ヘッダーを作成するクラス
     private changeTab(nextPageType: PageType, nextElement: HTMLElement): void{ // タブを切り替えるメソッド
         const header: HTMLElement = rootDiv.querySelector("header")
         const enableTab: HTMLElement = header.querySelector(".enableTab")
-        console.log(enableTab)
         // 現在開いているタブの状態を元に戻す
         enableTab.classList.remove("enableTab");
         enableTab.innerHTML = enableTab.innerText;

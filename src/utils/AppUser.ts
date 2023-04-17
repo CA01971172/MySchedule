@@ -11,7 +11,7 @@ import {
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
 import { UserInfo } from "./types"
-import { IndexContentUrl, LoginContentUrl } from "./constants"
+import { IndexPageUrl, LoginPageUrl } from "./constants"
 import { PageUtils } from "./pageUtils"
 export class AppUser {
     private _uid: string = "";
@@ -89,10 +89,13 @@ export class AppUser {
         }
     }
 
-    async signOut():Promise<void>{//サインアウトするメソッド
+    async signOut(redirectLink?: string):Promise<void>{//サインアウトするメソッド
         try {
             const auth: Auth = getAuth()
             await signOut(auth)
+            if(redirectLink){
+                location.href = redirectLink
+            }
         } catch (e) {
             if (e instanceof FirebaseError) {
                 console.log(e)
@@ -138,9 +141,9 @@ export class AppUser {
         const isLoginContent: boolean = PageUtils.matchQuery("page","login")
         const isRegisterContent: boolean = PageUtils.matchQuery("page","register")
         if(authState && (isLoginContent || isRegisterContent)){//ユーザーが認証されている、かつログイン/ユーザー登録ページの場合
-            location.href=IndexContentUrl//トップページにリダイレクトする
+            location.href=IndexPageUrl//トップページにリダイレクトする
         }else if(!authState && !(isLoginContent || isRegisterContent)){//ユーザーが認証されていない、かつログインページでもユーザー登録ページでもない
-            location.href=LoginContentUrl
+            location.href=LoginPageUrl
         }else{
             //認証状態とページの組み合わせが正しい場合は処理を実行しない
         }

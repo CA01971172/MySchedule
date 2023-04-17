@@ -1,6 +1,6 @@
 import { Form } from "../../components/Ui/Form"
 import { LoginForm } from "../../components/Login/LoginForm"
-import { IndexContentUrl, RegisterContentUrl, rootDiv } from "../../utils/constants";
+import { IndexPageUrl, RegisterPageUrl, rootDiv } from "../../utils/constants";
 import { LoginData } from "../../utils/types";
 import { DomUtils } from "../../utils/domUtils"
 import { AppUser } from "../../utils/AppUser"
@@ -10,7 +10,7 @@ export class LoginContent{//ログインのページを作成するクラス
             console.log(data);
             const appUser:AppUser = new AppUser()
             appUser.setUserInfo(data.email,data.password)
-            appUser.signIn(IndexContentUrl)
+            appUser.signIn(IndexPageUrl)
         }
 
         const result: HTMLElement[] = new Array
@@ -28,7 +28,7 @@ export class LoginContent{//ログインのページを作成するクラス
         //ユーザー登録ページへのリンクを作成
         const registerLinkElm: HTMLAnchorElement = domUtils.createElement("a","","アカウントを作成") as HTMLAnchorElement;
         registerLinkElm.id = "register"
-        registerLinkElm.href = RegisterContentUrl;
+        registerLinkElm.href = RegisterPageUrl;
         result.push(registerLinkElm);
 
         const br0: HTMLElement = domUtils.createElement("br");
