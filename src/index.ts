@@ -5,5 +5,6 @@ import { Application } from "./utils/application";
 const app:Application = new Application();
 app.run();
 
-import { test } from './test/Murakami/test';
-//test()
+/* import {AppUser} from "./utils/AppUser"
+const hogeUser:AppUser = new AppUser()
+hogeUser.signOut() */
