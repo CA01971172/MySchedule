@@ -1,4 +1,4 @@
-import { RegisterForm } from "../../components/Ui/RegisterForm"
+import { RegisterForm } from "../../components/register/RegisterForm"
 import { IndexContentUrl, LoginContentUrl, rootDiv } from "../../utils/constants";
 import { RegisterData } from "../../utils/types";
 import { DomUtils } from "../../utils/domUtils"
