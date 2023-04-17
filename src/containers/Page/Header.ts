@@ -43,9 +43,9 @@ export class Header{ // ヘッダーを作成するクラス
                 const eventElm: HTMLElement = domUtils.createElement("div","event",eventName)
                 headerTab.push(eventElm)
                 // カレンダータブを作成する
-                const calenderName: string = "カレンダー";
-                const calenderElm: HTMLElement = domUtils.createElement("div","calender",calenderName)
-                headerTab.push(calenderElm)
+                const calendarName: string = "カレンダー";
+                const calendarElm: HTMLElement = domUtils.createElement("div","calendar",calendarName)
+                headerTab.push(calendarElm)
                 break;
         }
 

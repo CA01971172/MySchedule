@@ -1,4 +1,4 @@
-export class CalenderContent{//カレンダーのページを作成するクラス
+export class CalendarContent{//カレンダーのページを作成するクラス
     render(){
         
     }
