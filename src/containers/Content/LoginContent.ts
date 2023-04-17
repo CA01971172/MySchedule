@@ -1,6 +1,5 @@
 import { Form } from "../../components/Ui/Form"
 import { LoginForm } from "../../components/Login/LoginForm"
-import { Header } from "../components/Ui/Header"
 import { IndexContentUrl, RegisterContentUrl, rootDiv } from "../../utils/constants";
 import { LoginData } from "../../utils/types";
 import { DomUtils } from "../../utils/domUtils"
