@@ -1,6 +1,6 @@
 import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils"
-import { Page } from "../../components/Ui/Page"
+import { Page } from "./Page"
 import { PageType } from "../../utils/types"
 import { Content } from "./../../containers//Page/Content"
 
