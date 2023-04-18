@@ -5,7 +5,7 @@
 
 import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils"
-import { Page } from "./Page"
+import { Page } from "../../components/Ui/Page"
 import { PageType } from "../../utils/types"
 import { Content } from "./Content"
 import { AddButton } from "../../components/Ui/AddButton"
