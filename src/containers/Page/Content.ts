@@ -1,6 +1,6 @@
 import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils";
-import { Page } from "./Page"
+import { Page } from "../../components/Ui/Page"
 /* ページを作成する手続きをまとめた各関数をimportする */
 import { TimetableContent } from './../Content/TimetableContent';
 import { TaskContent } from './../Content/TaskContent';
