@@ -14,10 +14,9 @@ export class LoginContent{//ログインのページを作成するクラス
         }
 
         const result: HTMLElement[] = new Array
-        const domUtils: DomUtils = new DomUtils(rootDiv)
 
         //タイトルを作成
-        const titleElm: HTMLElement = domUtils.createElement("h1","","ログイン")
+        const titleElm: HTMLElement = DomUtils.createElement("h1","","ログイン")
         result.push(titleElm)
 
         //ログインフォームを作成
@@ -26,16 +25,16 @@ export class LoginContent{//ログインのページを作成するクラス
         result.push(formElm)
 
         //ユーザー登録ページへのリンクを作成
-        const registerLinkElm: HTMLAnchorElement = domUtils.createElement("a","","アカウントを作成") as HTMLAnchorElement;
+        const registerLinkElm: HTMLAnchorElement = DomUtils.createElement("a","","アカウントを作成") as HTMLAnchorElement;
         registerLinkElm.id = "register"
         registerLinkElm.href = RegisterPageUrl;
         result.push(registerLinkElm);
 
-        const br0: HTMLElement = domUtils.createElement("br");
+        const br0: HTMLElement = DomUtils.createElement("br");
         result.push(br0);
 
         //パスワードをリセット用リンクもどきを作成
-        const passwordResetElm: HTMLAnchorElement = domUtils.createElement("a","","パスワードを忘れた場合") as HTMLAnchorElement;
+        const passwordResetElm: HTMLAnchorElement = DomUtils.createElement("a","","パスワードを忘れた場合") as HTMLAnchorElement;
         passwordResetElm.id = "passwordReset"
         passwordResetElm.addEventListener("click", function() {
             //パスワードリセットのメールを送るために、アカウントのメールアドレスを求める

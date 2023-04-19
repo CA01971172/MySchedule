@@ -20,8 +20,7 @@ export class Footer extends Page{ // フッターを作成するクラス
             case "shift":
             case "event":
             case "calendar":
-                const domUtils: DomUtils = new DomUtils(rootDiv)
-                const footerElm: HTMLElement = domUtils.createElement("footer")
+                const footerElm: HTMLElement = DomUtils.createElement("footer")
                 const footerContents: HTMLElement[] = new Array
         
                 // ログアウトボタンを作成する
@@ -35,7 +34,7 @@ export class Footer extends Page{ // フッターを作成するクラス
                 const addButtonElm: HTMLElement = addButton.render()
                 footerContents.push(addButtonElm)
         
-                domUtils.appendChildMultiple(footerElm,footerContents)
+                DomUtils.appendChildMultiple(footerElm,footerContents)
                 return footerElm;
             default:
                 // ログインページなどでは操作ボタン(フッター)は作成しない

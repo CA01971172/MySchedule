@@ -12,8 +12,7 @@ import { RegisterContent } from './../Content/RegisterContent';
 
 export class Content extends Page{
     render(): HTMLElement{//ページの種類ごとにページの中身を作成するメソッド
-        const domUtils: DomUtils = new DomUtils(rootDiv)
-        let result: HTMLElement = domUtils.createElement("div","content")
+        let result: HTMLElement = DomUtils.createElement("div","content")
         let content: HTMLElement[] = new Array
 
         switch (this.pageType) {
@@ -51,7 +50,7 @@ export class Content extends Page{
                 break;
         }
 
-        domUtils.appendChildMultiple(result, content)
+        DomUtils.appendChildMultiple(result, content)
         return result
     }
 }

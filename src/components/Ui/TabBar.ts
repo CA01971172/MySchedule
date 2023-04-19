@@ -6,12 +6,10 @@ import { Content } from "./../../containers//Page/Content"
 
 export class TabBar extends Page{ // タブバーを作成するクラス
     private tabBarElm: HTMLElement
-    private domUtils :DomUtils
 
     constructor(pageType: PageType){
         super(pageType)
-        this.domUtils = new DomUtils(rootDiv)
-        this.tabBarElm = this.domUtils.createElement("div", "tabBar")
+        this.tabBarElm = DomUtils.createElement("div", "tabBar")
     }
 
     render(): HTMLElement{ // タブバーを作成するメソッド
@@ -21,7 +19,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
             case "login":
             case "register":
                 const titleName: string = "MySchedule";
-                const titleElm: HTMLElement = this.domUtils.createElement("div","title",titleName)
+                const titleElm: HTMLElement = DomUtils.createElement("div","title",titleName)
                 titleElm.innerHTML = '<b>' + titleElm.innerHTML + '</b>';
                 tabs.push(titleElm)
                 break;
@@ -33,7 +31,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
             case "calendar":
                 // 時間割タブを作成する
                 const timetableName: string = "時間割";
-                const timetableElm: HTMLElement = this.domUtils.createElement("div","timetable",timetableName)
+                const timetableElm: HTMLElement = DomUtils.createElement("div","timetable",timetableName)
                 if(this.pageType === "timetable"){
                     timetableElm.innerHTML = '<b>' + timetableElm.innerHTML + '</b>';
                     timetableElm.classList.add("enableTab");
@@ -45,7 +43,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
                 // 課題タブを作成する
                 const taskName: string = "課題";
-                const taskElem: HTMLElement = this.domUtils.createElement("div","task",taskName)
+                const taskElem: HTMLElement = DomUtils.createElement("div","task",taskName)
                 if(this.pageType === "task"){
                     taskElem.innerHTML = '<b>' + taskElem.innerHTML + '</b>';
                     taskElem.classList.add("enableTab");
@@ -57,7 +55,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
                 // バイトタブを作成する
                 const shiftName: string = "バイト";
-                const shiftElm: HTMLElement = this.domUtils.createElement("div","shift",shiftName)
+                const shiftElm: HTMLElement = DomUtils.createElement("div","shift",shiftName)
                 if(this.pageType === "shift"){
                     shiftElm.innerHTML = '<b>' + shiftElm.innerHTML + '</b>';
                     shiftElm.classList.add("enableTab");
@@ -69,7 +67,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
                 // 予定タブを作成する
                 const eventName: string = "予定";
-                const eventElm: HTMLElement = this.domUtils.createElement("div","event",eventName)
+                const eventElm: HTMLElement = DomUtils.createElement("div","event",eventName)
                 tabs.push(eventElm)
                 if(this.pageType === "event"){
                     eventElm.innerHTML = '<b>' + eventElm.innerHTML + '</b>';
@@ -81,7 +79,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
                 // カレンダータブを作成する
                 const calendarName: string = "カレンダー";
-                const calendarElm: HTMLElement = this.domUtils.createElement("div","calendar",calendarName)
+                const calendarElm: HTMLElement = DomUtils.createElement("div","calendar",calendarName)
                 if((this.pageType === "calendar")||(this.pageType === null)){
                     calendarElm.innerHTML = '<b>' + calendarElm.innerHTML + '</b>';
                     calendarElm.classList.add("enableTab");
@@ -96,7 +94,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
                 break;
         }
 
-        this.domUtils.appendChildMultiple(this.tabBarElm,tabs)
+        DomUtils.appendChildMultiple(this.tabBarElm,tabs)
         return this.tabBarElm
     }
 

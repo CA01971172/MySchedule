@@ -21,7 +21,6 @@ export class RegisterContent{//ユーザー登録のページを作成するク�
         }
 
         const result: HTMLElement[] = new Array
-        const domUtils: DomUtils = new DomUtils(rootDiv)
 
         //ユーザー登録フォームを作成
         const form: RegisterForm = new RegisterForm(register)
@@ -29,13 +28,13 @@ export class RegisterContent{//ユーザー登録のページを作成するク�
         result.push(formElm)
 
         //ログインページへのリンクを作成
-        const loginDiv: HTMLDivElement = domUtils.createElement("div", "","") as HTMLDivElement;
+        const loginDiv: HTMLDivElement = DomUtils.createElement("div", "","") as HTMLDivElement;
         loginDiv.id = "login";
 
         const loginText: Text = document.createTextNode("既にアカウントを持っている方は ");
         loginDiv.appendChild(loginText);
 
-        const loginLink: HTMLAnchorElement = domUtils.createElement("a", "","こちら") as HTMLAnchorElement;
+        const loginLink: HTMLAnchorElement = DomUtils.createElement("a", "","こちら") as HTMLAnchorElement;
         loginLink.href = LoginPageUrl;
         loginDiv.appendChild(loginLink);
         result.push(loginDiv);

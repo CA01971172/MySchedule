@@ -1,3 +1,4 @@
+import { DomUtils } from "../../utils/domUtils"
 import { Button } from "./Button"
 
 export class AddButton extends Button { // ページ編集用の追加動作用button要素を作成するクラス
@@ -7,8 +8,7 @@ export class AddButton extends Button { // ページ編集用の追加動作用b
 
         // 「+」マークを追加する
         const contentValue:HTMLElement = document.createElement("i")
-        contentValue.classList.add("bi");
-        contentValue.classList.add("bi-plus-lg");
+        contentValue.classList.add("bi", "bi-plus-lg");
         this.button.appendChild(contentValue)
     }
 
