@@ -4,9 +4,21 @@ export type UserInfo = {
     password:string
 }
 
-export type ContentType = "timetable"|"task"|"shift"|"event"
+/* SendGrid関連の型定義 */
+export type EmailData = {
+    to: string;
+    bcc: string;
+    from: string;
+    subject: string;
+    text: string;
+}
+export type SendGridSettings = {
+    APIKey: string;
+    fromEmail: string;
+}
 
 /* ページ操作関連の型定義 */
+export type ContentType = "timetable"|"task"|"shift"|"event"
 export type PageType = null|"login"|"register"|ContentType|"calendar"//nullはindexページ(メニューページ)
 export type PageStructure = {
     header: HTMLElement;

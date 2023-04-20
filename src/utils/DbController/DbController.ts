@@ -1,12 +1,11 @@
-import { ContentType } from "./types"
-import { dbUrl } from "./constants"
+import { dbUrl } from "../constants"
 
-export class DbController {
-    private _dbPath: string;
-    private _data: object;
+export class DbController { // Firebaseのデータを取り扱うためのクラス
+    protected _dbPath: string;
+    protected _data: object;
 
-    constructor(userId: string, content: ContentType, data: object = {}) {
-        this._dbPath = `${dbUrl}/users/${userId}/${content}.json`;
+    constructor(contentLink: string, data: object = {}) {
+        this._dbPath = `${dbUrl}/${contentLink}.json`;
         this._data = data;
     }
 

@@ -1,5 +1,5 @@
 import {AppUser} from "./../../utils/AppUser"
-import {DbController} from "./../../utils/DbController"
+import {UserDbController} from "./../../utils/DbController/UserDbController"
 export async function test(){
     /* リダイレクトやクエリ文字列のテストコード */
 /*     const hogeLink="http://localhost:8080/index.html?page=timetable&mode=edit"
@@ -18,7 +18,7 @@ export async function test(){
     console.log(x)
     const userId=x?.uid
     if(userId){
-        const hogeController:DbController=new DbController(userId,"event")
+        const hogeController:UserDbController=new UserDbController(userId,"event")
         await hogeController.updateData({name:"hoge"})
         await hogeController.readData()
         console.log(hogeController.data)

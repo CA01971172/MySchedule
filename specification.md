@@ -131,7 +131,7 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │       └── firebase.ts              # firebaseのライブラリ
 │   ├── utils/
 │   │   ├── application .ts              # アプリ立ち上げ用のユーティリティ
-│   │   ├── DbController.ts              # データベース操作用のユーティリティ
+│   │   ├── UserDbController.ts              # データベース操作用のユーティリティ
 │   │   ├── AppUser.ts                   # ユーザー操作用のユーティリティ
 │   │   ├── domUtils.ts                  # DOM 操作用のユーティリティ
 │   │   ├── pageUtils.ts                 # ページ操作用のユーティリティ
@@ -210,7 +210,7 @@ TimetableForm.ts(時間割管理の入力プログラム)とTimetableList.ts(時
 データベース操作については、  
 firebaseのメールアドレス認証を用いてuserのuidを取得し、  
 ユーザーごとに作成したディレクトリ以下のjsonファイル(timetable.json,task.json,shift.json,event.json)それぞれに、  
-api.tsよりDbControllerをインスタンス化してCRUD操作を行う。  
+api.tsよりUserDbControllerをインスタンス化してCRUD操作を行う。  
 (timetable.jsonに対してはtimetable用のインスタンスを作成するなど)
 - ユーザー操作について  
 ユーザー操作については、  
