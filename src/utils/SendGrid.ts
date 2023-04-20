@@ -25,10 +25,10 @@ export class SendGrid { // SendGridでメール送信を行うためのクラス
             sendgrid.setApiKey(this.APIKey);
             //TODO CORSの処理を良い感じにしてクライアントからメールを送れるようにする
             try {
-                    const [response] = await sendgrid.send(emailData) // メールを送信する
-                    console.info(response)
-                } catch(error) {
-                    console.error(error)
+                const [response] = await sendgrid.send(emailData) // メールを送信する
+                console.info(response)
+            } catch(error) {
+                console.error(error)
             }
         }else{
             throw new Error("SendGridクラスはsetAPIKey()で初期化してください");
