@@ -10,9 +10,10 @@ import {
     User
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
-import { UserInfo } from "./types"
+import { EmailDataWithoutFrom, UserInfo } from "./types"
 import { IndexPageUrl, LoginPageUrl } from "./constants"
 import { PageUtils } from "./pageUtils"
+import { SendGrid } from "./SendGrid"
 export class AppUser {
     private _uid: string = "";
     private _userInfo: UserInfo = {
@@ -106,6 +107,22 @@ export class AppUser {
     resetEmail(email: string){ // パスワードをリセットするメソッド
         const auth: Auth = getAuth()
         sendPasswordResetEmail(auth, email); // パスワードリセットのEmailを送る
+    }
+
+    async sendEmail(subject: string, text: string){
+        if(this.userInfo.email){
+            const emailData: EmailDataWithoutFrom = {
+                to: this.userInfo.email,
+                bcc: "",
+                subject: subject,
+                text: text
+            }
+            const sendGrid: SendGrid = new SendGrid()
+            await sendGrid.setAPIKey()
+            await sendGrid.sendEmail(emailData)
+        }else{
+            throw new Error("ユーザーのメールアドレスが設定されていません");
+        }
     }
 
     async getAuthState():Promise<User | null>{//ユーザーの認証情報を取得するメソッド

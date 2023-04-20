@@ -12,6 +12,13 @@ export type EmailData = {
     subject: string;
     text: string;
 }
+export type EmailDataWithoutFrom = {
+    to: string;
+    bcc: string;
+    from?: string;
+    subject: string;
+    text: string;
+}
 export type SendGridSettings = {
     APIKey: string;
     fromEmail: string;
