@@ -20,6 +20,9 @@ module.exports = {
   devServer: {
     open: true,
     host: "localhost",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -74,5 +77,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
+    fallback: {
+      fs: false,
+      path: require.resolve('path-browserify'),
+    },
   },
 };

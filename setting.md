@@ -86,6 +86,12 @@ SendGrid(メール送信サービス)が提供してくれているモジュー�
 ```
 npm install @sendgrid/mail
 ```
+ただし、これをそのまま```import sendgrid from '@sendgrid/mail'```とかしてしまうと、Webpackでバンドルする際にエラーが発生しています。
+fs および path モジュールはNode.jsのコアモジュールであり、ブラウザ環境では利用できないためです。
+この問題を解決するには、Webpackでこれらのモジュールのポリフィルを設定する必要があります。具体的には、Webpackの resolve.fallback オプションを使用して、path モジュールをポリフィル化する必要があります。
+```
+npm install path-browserify --save-dev
+```
 ## アプリケーションをビルドする
 ソースコードのファイルが用意できたら、ターミナルから以下のコマンドを実行してください。
 ```
