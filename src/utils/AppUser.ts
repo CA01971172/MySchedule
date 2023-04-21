@@ -22,10 +22,6 @@ export class AppUser {
     } as UserInfo;
     //ここにはないけどgetterによって実質的なフィールドとしてisLoginプロパティを用意している
 
-    constructor() {
-
-    }
-
     get uid(): string {
         return this._uid;
     }
@@ -47,6 +43,16 @@ export class AppUser {
         userInfo.email=email
         userInfo.password=password
         this.userInfo=userInfo
+    }
+
+    async assignUserInfo():Promise<void>{ // ユーザーの認証情報を取得してid等をフィールドに代入するメソッド
+        const authState: User | null = await this.getAuthState()
+        if(authState){
+            this.uid=authState.uid
+            if(authState.email){
+                this.userInfo.email=authState.email
+            }
+        }
     }
 
     async signUp(redirectLink?: string):Promise<void>{//サインアップするメソッド
@@ -109,7 +115,7 @@ export class AppUser {
         sendPasswordResetEmail(auth, email); // パスワードリセットのEmailを送る
     }
 
-    async sendEmail(subject: string, text: string){
+    async sendEmail(subject: string, text: string){ // ユーザーのメールアドレスにメールを送信するメソッド
         if(this.userInfo.email){
             const emailData: EmailData = {
                 to: this.userInfo.email,
@@ -123,7 +129,7 @@ export class AppUser {
         }
     }
 
-    async getAuthState():Promise<User | null>{//ユーザーの認証情報を取得するメソッド
+    async getAuthState():Promise<User | null>{ // ユーザーの認証情報を取得するメソッド
         return new Promise((resolve, reject) => {
             const auth: Auth = getAuth();
             onAuthStateChanged(auth, (user) => {
@@ -140,18 +146,7 @@ export class AppUser {
         });
     }
 
-    async setUserProperty():Promise<void>{//ユーザーの認証情報を取得してid等をフィールドに代入するメソッド
-        const authState: User | null = await this.getAuthState()
-        if(authState){
-            this.uid=authState.uid
-            if(authState.email){
-                this.userInfo.email=authState.email
-            }
-            
-        }
-    }
-
-    async redirect():Promise<void>{//認証状態に合わせて正しいページにリダイレクトするメソッド
+    async redirect():Promise<void>{ // 認証状態に合わせて正しいページにリダイレクトするメソッド
         const authState: User | null  = await this.getAuthState()
         const isLoginContent: boolean = PageUtils.matchQuery("page","login")
         const isRegisterContent: boolean = PageUtils.matchQuery("page","register")

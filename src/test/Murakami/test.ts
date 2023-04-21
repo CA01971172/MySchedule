@@ -14,30 +14,7 @@ export function test(){
 
 async function testProcess(){
     /* メール送信のテストコード */
-    const sendGrid: SendGrid = new SendGrid()
-    sendGrid.sendEmail({
-        to: "sorera620@gmail.com",
-        subject:"テストメール",
-        text:"こんにちは。こちらMyScheduleです。"
-    })
-}
-
-async function testProcess2() {
-    const sendEmail = async () => {
-        const data = {
-            to: 'sorera620@gmail.com',
-            subject: 'Test Email',
-            text: 'This is a test email sent from the client'
-        };
-        const response = await fetch('http://localhost:3000/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        const result = await response.text();
-        console.log(result);
-        };
-        sendEmail()
+    const appUser: AppUser = new AppUser
+    await appUser.assignUserInfo()
+    appUser.sendEmail("テストメール","こんにちは。こちらMyScheduleです。")
 }

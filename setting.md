@@ -93,6 +93,8 @@ fs および path モジュールはNode.jsのコアモジュールであり、�
 npm install path-browserify --save-dev
 ```
 #### メール送信用のサーバーを立ち上げる
+サーバーを立ち上げたい場合はお好みで以下のコマンドを実行し、サーバー起動用のプログラムserver.jsを立ち上げてください。
+以下はSendGridを使用してメールを送信するためのバックエンドプログラムを実行するサーバーのためのインストールコマンドであり、一部必要がないものも含まれています。
 ```
 npm install express cors @sendgrid/mail
 ```
