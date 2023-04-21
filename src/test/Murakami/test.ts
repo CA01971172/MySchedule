@@ -4,31 +4,16 @@ import { ApiDbController } from "../../utils/DbController/ApiDbController"
 import { SendGrid } from "../../utils/SendGrid"
 import { SendGridSettings,EmailData } from "./../../utils/types"
 import axios from 'axios';
-export async function test(){
-    /* リダイレクトやクエリ文字列のテストコード */
-/*     const hogeLink="http://localhost:8080/index.html?page=timetable&mode=edit"
-    if(location.href !== hogeLink)location.href="./index.html?page=timetable&mode=edit"
-    console.log(location.href) */
+import { Button } from './../../components/Ui/Button';
+import { rootDiv } from './../../utils/constants';
+export function test(){
+    const testButton:Button = new Button("テスト", testProcess)
+    const testButtonElm = testButton.render()
+    rootDiv.appendChild(testButtonElm)
+}
 
-    /* サインインなどのテストコード */
-    //const hogeUser:AppUser = new AppUser()
-    //hogeUser.setUserInfo("CA01971172@st.kawahara.ac.jp","hogefuga0123")
-    //hogeUser.signUp()
-    //hogeUser.signIn()
-    //hogeUser.signOut()
-
-    /* データベース操作のテストコード */
-/*     var x = await hogeUser.getAuthState()
-    console.log(x)
-    const userId=x?.uid
-    if(userId){
-        const hogeController:UserDbController=new UserDbController(userId,"event")
-        await hogeController.updateData({name:"hoge"})
-        await hogeController.readData()
-        console.log(hogeController.data)
-    } */
-
-    /* メール送信のテストコード */
+async function testProcess(){
+        /* メール送信のテストコード */
 /*     const sendGrid: SendGrid = new SendGrid()
     await sendGrid.setAPIKey()
     sendGrid.sendEmail({
@@ -42,14 +27,15 @@ export async function test(){
     const sendGridSettings: SendGridSettings = await dbController.readData() as SendGridSettings
     const APIKey = sendGridSettings.APIKey
     const fromEmail = sendGridSettings.fromEmail
-
     const sendEmail = async (data:any) => {
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${APIKey}`,
             'Access-Control-Allow-Origin': '*'
         };
-        const url = 'https://cors-anywhere.herokuapp.com/https://api.sendgrid.com/v3/mail/send';
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const sendGridUrl = 'https://api.sendgrid.com/v3/mail/send';
+        const url = proxyUrl + sendGridUrl;
         const response = await axios.post(url, data, { headers });
         console.log(response.data);
     }
@@ -74,4 +60,8 @@ export async function test(){
     };
 
     await sendEmail(data);
+}
+
+async function testProcess2() {
+
 }
