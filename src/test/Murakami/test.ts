@@ -7,21 +7,19 @@ import axios from 'axios';
 import { Button } from './../../components/Ui/Button';
 import { rootDiv } from './../../utils/constants';
 export function test(){
-    const testButton:Button = new Button("テスト", testProcess2)
+    const testButton:Button = new Button("テスト", testProcess)
     const testButtonElm = testButton.render()
     rootDiv.appendChild(testButtonElm)
 }
 
 async function testProcess(){
-        /* メール送信のテストコード */
-/*     const sendGrid: SendGrid = new SendGrid()
-    await sendGrid.setAPIKey()
+    /* メール送信のテストコード */
+    const sendGrid: SendGrid = new SendGrid()
     sendGrid.sendEmail({
         to: "sorera620@gmail.com",
-        bcc:"",
-        subject:"hoge",
-        text:"This is hoge."
-    }) */
+        subject:"テストメール",
+        text:"こんにちは。こちらMyScheduleです。"
+    })
 }
 
 async function testProcess2() {
