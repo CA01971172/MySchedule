@@ -64,7 +64,7 @@ async function testProcess(){
 
 async function testProcess2() {
     const sendEmail = async (data:any) => {
-        const response = await axios.post('/send-email', data);
+        const response = await axios.post('http://localhost:3000/send-email', data);
         console.log(response.data);
       };
       
