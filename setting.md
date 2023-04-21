@@ -92,6 +92,10 @@ fs および path モジュールはNode.jsのコアモジュールであり、�
 ```
 npm install path-browserify --save-dev
 ```
+#### メール送信用のサーバーを立ち上げる
+```
+npm install express cors @sendgrid/mail
+```
 ## アプリケーションをビルドする
 ソースコードのファイルが用意できたら、ターミナルから以下のコマンドを実行してください。
 ```

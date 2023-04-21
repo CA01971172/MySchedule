@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Button } from './../../components/Ui/Button';
 import { rootDiv } from './../../utils/constants';
 export function test(){
-    const testButton:Button = new Button("テスト", testProcess)
+    const testButton:Button = new Button("テスト", testProcess2)
     const testButtonElm = testButton.render()
     rootDiv.appendChild(testButtonElm)
 }
@@ -63,5 +63,16 @@ async function testProcess(){
 }
 
 async function testProcess2() {
-
+    const sendEmail = async (data:any) => {
+        const response = await axios.post('/send-email', data);
+        console.log(response.data);
+      };
+      
+      const data = {
+        to: 'hoge@gmail.com',
+        subject: 'Hello, world!',
+        text: 'Hello, world!',
+      };
+      
+      sendEmail(data);
 }
