@@ -7,7 +7,6 @@ import { AppUser } from "../../utils/AppUser"
 export class LoginContent{//ログインのページを作成するクラス
     render(): HTMLElement[]{
         const login = (data: LoginData) => {//ボタンに適用する、ログインする処理
-            console.log(data);
             const appUser:AppUser = new AppUser()
             appUser.setUserInfo(data.email,data.password)
             appUser.signIn(IndexPageUrl)
