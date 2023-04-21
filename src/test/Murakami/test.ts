@@ -63,16 +63,21 @@ async function testProcess(){
 }
 
 async function testProcess2() {
-    const sendEmail = async (data:any) => {
-        const response = await axios.post('http://localhost:3000/send-email', data);
-        console.log(response.data);
-      };
-      
-      const data = {
-        to: 'hoge@gmail.com',
-        subject: 'Hello, world!',
-        text: 'Hello, world!',
-      };
-      
-      sendEmail(data);
+    const sendEmail = async () => {
+        const data = {
+            to: 'sorera620@gmail.com',
+            subject: 'Test Email',
+            text: 'This is a test email sent from the client'
+        };
+        const response = await fetch('http://localhost:3000/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await response.text();
+        console.log(result);
+        };
+        sendEmail()
 }
