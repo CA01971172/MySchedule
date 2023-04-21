@@ -1,7 +1,7 @@
 import { EmailData  } from './types';
 
 export class SendGrid { // SendGridでメール送信を行うためのクラス
-    private readonly serverLink: string = "http://localhost:3000/send-email"
+    private readonly serverLink: string = "http://x-omasa.top:3000/send-email"
 
     async sendEmail(emailData: EmailData){
         const response = await fetch(this.serverLink, {
