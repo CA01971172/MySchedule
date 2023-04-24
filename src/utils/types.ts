@@ -56,14 +56,15 @@ type Task = {
     deadline: number; // 締め切り日時
 };
 
-type AlertSettings = {
+type TaskSettings = {
     enabled: boolean; // アラートの有効/無効を管理するプロパティ
     daysBeforeDeadline: number; // 課題提出期限の何日前にアラートを送信するかを管理するプロパティ
+    autoTaskDelete: boolean;
 };
 
 export type TaskList = {
     tasks: Task[];
-    alertSettings: AlertSettings;
+    taskSettings: TaskSettings;
 };
 
 
