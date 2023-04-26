@@ -7,21 +7,10 @@ export type UserInfo = {
 /* SendGrid関連の型定義 */
 export type EmailData = {
     to: string;
-    bcc: string;
-    from: string;
-    subject: string;
-    text: string;
-}
-export type EmailDataWithoutFrom = {
-    to: string;
-    bcc: string;
+    bcc?: string;
     from?: string;
     subject: string;
     text: string;
-}
-export type SendGridSettings = {
-    APIKey: string;
-    fromEmail: string;
 }
 
 /* ページ操作関連の型定義 */
@@ -67,14 +56,15 @@ type Task = {
     deadline: number; // 締め切り日時
 };
 
-type AlertSettings = {
+type TaskSettings = {
     enabled: boolean; // アラートの有効/無効を管理するプロパティ
     daysBeforeDeadline: number; // 課題提出期限の何日前にアラートを送信するかを管理するプロパティ
+    autoTaskDelete: boolean;
 };
 
 export type TaskList = {
     tasks: Task[];
-    alertSettings: AlertSettings;
+    taskSettings: TaskSettings;
 };
 
 

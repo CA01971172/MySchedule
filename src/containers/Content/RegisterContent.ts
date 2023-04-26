@@ -6,7 +6,6 @@ import { AppUser } from "../../utils/AppUser"
 export class RegisterContent{//ユーザー登録のページを作成するクラス
     render() :HTMLElement[]{
         const register = (data: RegisterData) => {//ボタンに適用する、ログインする処理
-            console.log(data);
             const appUser:AppUser = new AppUser()
             if(data.password === data.passwordCheck){
                 if(data.password.length >= 6){

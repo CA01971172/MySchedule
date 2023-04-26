@@ -20,6 +20,7 @@ module.exports = {
   devServer: {
     open: true,
     host: "localhost",
+    port: 8090,
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
