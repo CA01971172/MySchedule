@@ -88,6 +88,7 @@ type EventSchedule = {
     date: number;
     startTime: number;
     endTime: number;
+    isAllDay: boolean;
 };
 
 export type EventScheduleList = {
