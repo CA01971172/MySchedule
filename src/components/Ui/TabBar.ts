@@ -20,7 +20,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
             case "register":
                 const titleName: string = "MySchedule";
                 const titleElm: HTMLElement = DomUtils.createElement("div",["title"],titleName)
-                titleElm.innerHTML = '<b>' + titleElm.innerHTML + '</b>';
+                titleElm.classList.add("fw-bold")
                 tabs.push(titleElm)
                 break;
             case null:
@@ -33,8 +33,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
                 const timetableName: string = "時間割";
                 const timetableElm: HTMLElement = DomUtils.createElement("div",["timetable"],timetableName)
                 if(this.pageType === "timetable"){
-                    timetableElm.innerHTML = '<b>' + timetableElm.innerHTML + '</b>';
-                    timetableElm.classList.add("enableTab");
+                    timetableElm.classList.add("fw-bold","enable-tab")
                 }
                 timetableElm.addEventListener("click", () => {
                     this.changeTab("timetable", timetableElm)
@@ -45,8 +44,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
                 const taskName: string = "課題";
                 const taskElem: HTMLElement = DomUtils.createElement("div",["task"],taskName)
                 if(this.pageType === "task"){
-                    taskElem.innerHTML = '<b>' + taskElem.innerHTML + '</b>';
-                    taskElem.classList.add("enableTab");
+                    taskElem.classList.add("fw-bold","enable-tab")
                 }
                 taskElem.addEventListener("click", () => {
                     this.changeTab("task", taskElem)
@@ -57,8 +55,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
                 const shiftName: string = "バイト";
                 const shiftElm: HTMLElement = DomUtils.createElement("div",["shift"],shiftName)
                 if(this.pageType === "shift"){
-                    shiftElm.innerHTML = '<b>' + shiftElm.innerHTML + '</b>';
-                    shiftElm.classList.add("enableTab");
+                    shiftElm.classList.add("fw-bold","enable-tab")
                 }
                 shiftElm.addEventListener("click", () => {
                     this.changeTab("shift", shiftElm)
@@ -70,8 +67,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
                 const eventElm: HTMLElement = DomUtils.createElement("div",["event"],eventName)
                 tabs.push(eventElm)
                 if(this.pageType === "event"){
-                    eventElm.innerHTML = '<b>' + eventElm.innerHTML + '</b>';
-                    eventElm.classList.add("enableTab");
+                    eventElm.classList.add("fw-bold","enable-tab")
                 }
                 eventElm.addEventListener("click", () => {
                     this.changeTab("event", eventElm)
@@ -81,8 +77,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
                 const calendarName: string = "カレンダー";
                 const calendarElm: HTMLElement = DomUtils.createElement("div",["calendar"],calendarName)
                 if((this.pageType === "calendar")||(this.pageType === null)){
-                    calendarElm.innerHTML = '<b>' + calendarElm.innerHTML + '</b>';
-                    calendarElm.classList.add("enableTab");
+                    calendarElm.classList.add("fw-bold","enable-tab")
                 }
                 calendarElm.addEventListener("click", () => {
                     this.changeTab("calendar", calendarElm)
@@ -99,17 +94,15 @@ export class TabBar extends Page{ // タブバーを作成するクラス
     }
 
     private changeTab(nextPageType: PageType, nextElement: HTMLElement): void{ // タブを切り替えるメソッド
-        const enableTab: HTMLElement | null = this.tabBarElm.querySelector(".enableTab")
+        const enableTab: HTMLElement | null = this.tabBarElm.querySelector(".enable-tab")
         if(enableTab){
         // 現在開いているタブの状態を元に戻す
-        enableTab.classList.remove("enableTab");
-        enableTab.innerHTML = enableTab.innerText;
+        enableTab.classList.remove("fw-bold","enable-tab");
         }
 
         // 次に開くタブを有効化する
         this.pageType = nextPageType
-        nextElement.classList.add("enableTab");
-        nextElement.innerHTML = '<b>' + nextElement.innerHTML + '</b>';
+        nextElement.classList.add("fw-bold","enable-tab");
 
         // コンテンツの中身を挿げ替える
         const nowContentElm: HTMLElement | null = rootDiv.querySelector(".content")
