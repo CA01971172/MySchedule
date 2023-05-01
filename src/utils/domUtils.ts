@@ -6,11 +6,16 @@ export class DomUtils {//DOM操作用のクラス
   }
 
   /* ここから下はAIで用意した要るかどうかわからんメソッド共 */
-  public static createElement(tagName: keyof HTMLElementTagNameMap, className?: string[], innerText?: string): HTMLElement {
+  public static createElement(tagName: keyof HTMLElementTagNameMap, className?: string|string[], innerText?: string): HTMLElement {
     const element = document.createElement(tagName);
     if (className) {
-      for(let i in className){
-        element.classList.add(className[i]);
+      if(typeof className === "string"){
+        element.classList.add(className)
+      }else if(typeof className === "object"){
+        for(let i in className){
+          if(className[i] === "")break
+          element.classList.add(className[i]);
+        }
       }
     }
     if (innerText) {
@@ -41,7 +46,7 @@ export class DomUtils {//DOM操作用のクラス
     });
   }
 
-  appendElement(tagName: keyof HTMLElementTagNameMap, className?: string[], innerText?: string): void {
+  appendElement(tagName: keyof HTMLElementTagNameMap, className?: string|string[], innerText?: string): void {
     const element = DomUtils.createElement(tagName, className, innerText);
     if(this.parentElement)DomUtils.appendChild(this.parentElement, element);
   }

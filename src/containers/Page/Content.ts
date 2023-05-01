@@ -11,7 +11,7 @@ import { RegisterContent } from './../Content/RegisterContent';
 
 export class Content extends Page{
     render(): HTMLElement{//ページの種類ごとにページの中身を作成するメソッド
-        let result: HTMLElement = DomUtils.createElement("div",["content"])
+        let result: HTMLElement = DomUtils.createElement("div","content")
         let content: HTMLElement[] = new Array
 
         switch (this.pageType) {

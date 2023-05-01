@@ -9,7 +9,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
     constructor(pageType: PageType){
         super(pageType)
-        this.tabBarElm = DomUtils.createElement("div", ["tabBar","bg-primary"])
+        this.tabBarElm = DomUtils.createElement("div", ["tabBar","bg-primary","text-white"])
     }
 
     render(): HTMLElement{ // タブバーを作成するメソッド
@@ -19,8 +19,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
             case "login":
             case "register":
                 const titleName: string = "MySchedule";
-                const titleElm: HTMLElement = DomUtils.createElement("div",["title"],titleName)
-                titleElm.classList.add("fw-bold")
+                const titleElm: HTMLElement = DomUtils.createElement("div",["title","fw-bold"],titleName)
                 tabs.push(titleElm)
                 break;
             case null:
@@ -31,7 +30,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
             case "calendar":
                 // 時間割タブを作成する
                 const timetableName: string = "時間割";
-                const timetableElm: HTMLElement = DomUtils.createElement("div",["timetable"],timetableName)
+                const timetableElm: HTMLElement = DomUtils.createElement("div","timetable",timetableName)
                 if(this.pageType === "timetable"){
                     timetableElm.classList.add("fw-bold","enable-tab")
                 }
@@ -42,7 +41,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
                 // 課題タブを作成する
                 const taskName: string = "課題";
-                const taskElem: HTMLElement = DomUtils.createElement("div",["task"],taskName)
+                const taskElem: HTMLElement = DomUtils.createElement("div","task",taskName)
                 if(this.pageType === "task"){
                     taskElem.classList.add("fw-bold","enable-tab")
                 }
@@ -53,7 +52,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
                 // バイトタブを作成する
                 const shiftName: string = "バイト";
-                const shiftElm: HTMLElement = DomUtils.createElement("div",["shift"],shiftName)
+                const shiftElm: HTMLElement = DomUtils.createElement("div","shift",shiftName)
                 if(this.pageType === "shift"){
                     shiftElm.classList.add("fw-bold","enable-tab")
                 }
@@ -64,7 +63,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
                 // 予定タブを作成する
                 const eventName: string = "予定";
-                const eventElm: HTMLElement = DomUtils.createElement("div",["event"],eventName)
+                const eventElm: HTMLElement = DomUtils.createElement("div","event",eventName)
                 tabs.push(eventElm)
                 if(this.pageType === "event"){
                     eventElm.classList.add("fw-bold","enable-tab")
@@ -75,7 +74,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
                 // カレンダータブを作成する
                 const calendarName: string = "カレンダー";
-                const calendarElm: HTMLElement = DomUtils.createElement("div",["calendar"],calendarName)
+                const calendarElm: HTMLElement = DomUtils.createElement("div","calendar",calendarName)
                 if((this.pageType === "calendar")||(this.pageType === null)){
                     calendarElm.classList.add("fw-bold","enable-tab")
                 }
