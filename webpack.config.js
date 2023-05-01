@@ -30,7 +30,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
-      filename: 'index.html'
+      filename: 'index.html',
+      title: 'MySchedule',
+      favicon: './favicon.svg',
     }),
 
     // Add your plugins here
