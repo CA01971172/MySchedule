@@ -9,7 +9,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
     constructor(pageType: PageType){
         super(pageType)
-        this.tabBarElm = DomUtils.createElement("div", ["tabBar"])
+        this.tabBarElm = DomUtils.createElement("div", ["tabBar","bg-primary"])
     }
 
     render(): HTMLElement{ // タブバーを作成するメソッド

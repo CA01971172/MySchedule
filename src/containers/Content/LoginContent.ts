@@ -15,7 +15,7 @@ export class LoginContent{//ログインのページを作成するクラス
         const result: HTMLElement[] = new Array
 
         //タイトルを作成
-        const titleElm: HTMLElement = DomUtils.createElement("h1",[],"ログイン")
+        const titleElm: HTMLElement = DomUtils.createElement("div",["m-2"],"ログイン")
         result.push(titleElm)
 
         //ログインフォームを作成

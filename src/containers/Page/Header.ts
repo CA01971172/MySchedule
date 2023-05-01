@@ -4,7 +4,7 @@ import { TabBar } from "./../../components/Ui/TabBar"
 
 export class Header extends Page{ // ヘッダーを作成するクラス
     render(): HTMLElement{ // ヘッダーを作成するメソッド
-        const headerElm: HTMLElement = DomUtils.createElement("header",["row"])
+        const headerElm: HTMLElement = DomUtils.createElement("header")
         const headers: HTMLElement[] = new Array
 
         // タブバーを作成する
