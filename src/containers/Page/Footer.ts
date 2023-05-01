@@ -1,11 +1,10 @@
 import { DomUtils } from "../../utils/domUtils"
 import { Page } from "../../components/Ui/Page"
 import { AddButton } from "../../components/Ui/AddButton"
-import { LogoutButton } from "../../components/Ui/LogoutButton"
 
 export class Footer extends Page{ // フッターを作成するクラス
     render(): HTMLElement{ // フッターを作成するメソッド
-        const footerElm: HTMLElement = DomUtils.createElement("footer")
+        const footerElm: HTMLElement = DomUtils.createElement("footer",["d-flex", "justify-content-end", "fixed-bottom","m-2"])
         switch(this.pageType){
             case "login":
             case "register":
@@ -20,11 +19,6 @@ export class Footer extends Page{ // フッターを作成するクラス
             case "calendar":
                 const footerContents: HTMLElement[] = new Array
 
-                // ログアウトボタンを作成する
-                const logoutButton: LogoutButton = new LogoutButton()
-                const logoutButtonElm: HTMLElement = logoutButton.render()
-                footerContents.push(logoutButtonElm)
-        
                 // ページ編集用の追加動作用button要素を作成する
                 const hoge: (() => void) = function(){console.log("hoge")}
                 const addButton: AddButton = new AddButton(hoge)
