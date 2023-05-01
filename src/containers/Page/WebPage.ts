@@ -6,7 +6,7 @@ import { DomUtils } from "../../utils/domUtils";
 
 export class WebPage extends Page{
     render(): HTMLElement{// ページを作成するメソッド
-        const result:HTMLElement = DomUtils.createElement("div","container")
+        const result:HTMLElement = DomUtils.createElement("div")
 
         // ヘッダーを作成する
         const header = new Header(this.pageType)

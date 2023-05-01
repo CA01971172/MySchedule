@@ -5,16 +5,21 @@ import { LogoutButton } from "../../components/Ui/LogoutButton"
 
 export class Footer extends Page{ // フッターを作成するクラス
     render(): HTMLElement{ // フッターを作成するメソッド
+        const footerElm: HTMLElement = DomUtils.createElement("footer")
         switch(this.pageType){
+            case "login":
+            case "register":
+                // ログインページなどでは操作ボタン(フッター)は作成しない
+                break;
+            default:
             case null:
             case "timetable":
             case "task":
             case "shift":
             case "event":
             case "calendar":
-                const footerElm: HTMLElement = DomUtils.createElement("footer")
                 const footerContents: HTMLElement[] = new Array
-        
+
                 // ログアウトボタンを作成する
                 const logoutButton: LogoutButton = new LogoutButton()
                 const logoutButtonElm: HTMLElement = logoutButton.render()
@@ -27,10 +32,8 @@ export class Footer extends Page{ // フッターを作成するクラス
                 footerContents.push(addButtonElm)
         
                 DomUtils.appendChildMultiple(footerElm,footerContents)
-                return footerElm;
-            default:
-                // ログインページなどでは操作ボタン(フッター)は作成しない
-                return;
+                break;
         }
+        return footerElm;
     }
 }

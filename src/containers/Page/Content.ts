@@ -39,13 +39,11 @@ export class Content extends Page{
                 const eventContent: EventContent = new EventContent();
                 content = eventContent.render();
                 break;
+            default: // 例外処理
             case null:
             case "calendar"://カレンダーページを作成する
                 const calendarContent: CalendarContent = new CalendarContent();
                 content = calendarContent.render();
-                break;
-            default:
-                //例外処理
                 break;
         }
 
