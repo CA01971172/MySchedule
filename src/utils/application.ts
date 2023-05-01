@@ -23,17 +23,17 @@ export class Application{ // アプリの立ち上げなどを行うクラス
         this.createPage()
     }
 
-    initializeFirebase(): void{ // firebaseをinitializeするメソッド
+    private initializeFirebase(): void{ // firebaseをinitializeするメソッド
         const firebaseInitializer = new FirebaseInitializer()
         firebaseInitializer.initialize()
     }
 
-    redirect(): void{ // ユーザーの認証状態に合わせて正しいページにリダイレクトするメソッド
+    private redirect(): void{ // ユーザーの認証状態に合わせて正しいページにリダイレクトするメソッド
         this.appUser = new AppUser()
         this.appUser.redirect()
     }
 
-    createPage(): void{ // ページを作成するメソッド
+    private createPage(): void{ // ページを作成するメソッド
         const pageUtils = new PageUtils()
         pageUtils.createPage()
     }

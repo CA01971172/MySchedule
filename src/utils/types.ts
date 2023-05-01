@@ -83,8 +83,14 @@ type EventSchedule = {
     date: number;
     startTime: number;
     endTime: number;
+    isAllDay: boolean;
+};
+
+type EventSettings = {
+    hidePassedEvent: boolean; // 過去の予定をひひょうじにするかどうか
 };
 
 export type EventScheduleList = {
     eventSchedules: EventSchedule[];
+    eventSettings: EventSettings;
 };
