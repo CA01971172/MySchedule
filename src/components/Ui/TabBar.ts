@@ -12,7 +12,7 @@ export class TabBar extends Page{ // タブバーを作成するクラス
         this.tabBarElm = DomUtils.createElement("div", ["tabBar","bg-primary","text-white"])
     }
 
-    render(): HTMLElement{ // タブバーを作成するメソッド
+    rend(): HTMLElement{ // タブバーを作成するメソッド
         const tabs: HTMLElement[] = new Array
 
         switch(this.pageType){
@@ -90,6 +90,44 @@ export class TabBar extends Page{ // タブバーを作成するクラス
 
         DomUtils.appendChildMultiple(this.tabBarElm,tabs)
         return this.tabBarElm
+    }
+
+    render(): HTMLElement{ // タブバーを作成するメソッド
+        const navElm1:HTMLElement = DomUtils.createElement("nav", ["navbar","navbar-expand-sm","navbar-dark","bg-dark","mt-3","mb-3"])
+        const navElm=DomUtils.createElement("div")
+        navElm.innerHTML=`
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+            <a class="navbar-brand d-none d-md-block" href="#">Navbar</a>
+            <div class="navbar-collapse justify-content-center">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        `
+        return navElm
+    }
+
+    private renderTab(title :string, pageType: PageType, isEnabled: boolean): HTMLElement{//タブを1つ作成するメソッド
+        // カレンダータブを作成する
+        const tabLi: HTMLElement = DomUtils.createElement("li", ["nav-item", pageType])
+        const tabA: HTMLElement = DomUtils.createElement("a", "", title)
+        tabLi.appendChild(tabA)
+        if(isEnabled){
+            tabLi.classList.add("active")
+        }
+        tabLi.addEventListener("click", () => {
+            this.changeTab(pageType, tabLi)
+        })
+        return tabLi
     }
 
     private changeTab(nextPageType: PageType, nextElement: HTMLElement): void{ // タブを切り替えるメソッド
