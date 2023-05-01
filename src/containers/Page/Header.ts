@@ -1,11 +1,10 @@
-import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils"
 import { Page } from "../../components/Ui/Page"
 import { TabBar } from "./../../components/Ui/TabBar"
 
 export class Header extends Page{ // ヘッダーを作成するクラス
     render(): HTMLElement{ // ヘッダーを作成するメソッド
-        const headerElm: HTMLElement = DomUtils.createElement("header")
+        const headerElm: HTMLElement = DomUtils.createElement("header",["row"])
         const headers: HTMLElement[] = new Array
 
         // タブバーを作成する
