@@ -23,7 +23,7 @@ export class FirebaseInitializer{//firebaseをinitializeするためのクラス
     this._firebaseConfig = config
   }
 
-  public get firebaseConfig(): object {
+  private get firebaseConfig(): object {
     return this._firebaseConfig;
   }
 
@@ -31,23 +31,23 @@ export class FirebaseInitializer{//firebaseをinitializeするためのクラス
     this._firebaseConfig = value;
   }
 
-  public get app(): FirebaseApp {
+  private get app(): FirebaseApp {
     return this._app;
   }
 
-  public set app(value: FirebaseApp) {
+  private set app(value: FirebaseApp) {
     this._app = value;
   }
 
-  public get analytics(): Analytics {
+  private get analytics(): Analytics {
     return this._analytics;
   }
 
-  public set analytics(value: Analytics) {
+  private set analytics(value: Analytics) {
     this._analytics = value;
   }
 
-  initialize():void{
+  public initialize():void{
     this.app = initializeApp(this.firebaseConfig);
     this.analytics = getAnalytics(this.app);
     console.log("firebase initialized")
