@@ -80,14 +80,13 @@ type EventSchedule = {
     id: number; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
-    date: number;
     startTime: number;
     endTime: number;
-    isAllDay: boolean;
+    isAllDay: boolean; // 終日予定かどうか
 };
 
 type EventSettings = {
-    hidePassedEvent: boolean; // 過去の予定をひひょうじにするかどうか
+    hidePassedEvent: boolean; // 過去の予定を非表示にするかどうか
 };
 
 export type EventScheduleList = {
