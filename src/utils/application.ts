@@ -3,7 +3,7 @@ import { AppUser } from "./AppUser"
 import { PageUtils } from "./pageUtils";
 
 export class Application{ // アプリの立ち上げなどを行うクラス
-    public _appUser: AppUser
+    private _appUser: AppUser
 
     constructor() {
         // 初期化処理など
