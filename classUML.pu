@@ -1,5 +1,5 @@
-@startuml hoge
-title テスト用クラス図
+@startuml MySchedule
+title MySchedule クラス図
 skinparam dpi 150
 
 ' クラスAの定義
