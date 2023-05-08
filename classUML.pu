@@ -22,10 +22,10 @@ class AppUser {
     - _uid: string
     - _userInfo: UserInfo
 
-    get uid(): string
-    set uid(uid: string): void
-    get userInfo(): UserInfo
-    set userInfo(userInfo: UserInfo): void
+    - get uid(): string
+    - set uid(uid: string): void
+    - get userInfo(): UserInfo
+    - set userInfo(userInfo: UserInfo): void
 }
 
 class PageUtils {

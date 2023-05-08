@@ -22,19 +22,19 @@ export class AppUser {
     } as UserInfo;
     //ここにはないけどgetterによって実質的なフィールドとしてisLoginプロパティを用意している
 
-    get uid(): string {
+    private get uid(): string {
         return this._uid;
     }
 
-    set uid(uid: string) {
+    private set uid(uid: string) {
         this._uid = uid;
     }
 
-    get userInfo(): UserInfo {
+    private get userInfo(): UserInfo {
         return this._userInfo;
     }
 
-    set userInfo(userInfo: UserInfo) {
+    private set userInfo(userInfo: UserInfo) {
         this._userInfo = userInfo;
     }
 
