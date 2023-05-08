@@ -9,7 +9,7 @@ export class Application{ // アプリの立ち上げなどを行うクラス
         // 初期化処理など
     }
 
-    public get appUser(): AppUser {
+    private get appUser(): AppUser {
         return this._appUser;
     }
     
