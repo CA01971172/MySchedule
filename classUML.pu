@@ -53,6 +53,9 @@ class AppUser {
 }
 
 class PageUtils {
+  + static getPageType(): PageType
+  - static getQuery(paramName: string): string | null
+  + static matchQuery(paramName: string, value: string | null)
   + createPage(): void
 }
 
