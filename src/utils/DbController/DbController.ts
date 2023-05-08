@@ -1,11 +1,10 @@
-import { dbUrl } from "../constants"
-
 export class DbController { // Firebaseのデータを取り扱うためのクラス
+    protected readonly dbUrl: string = "https://myschedule-c0a49-default-rtdb.firebaseio.com"
     protected _dbPath: string;
     protected _data: object;
 
     constructor(contentLink: string, data: object = {}) {
-        this._dbPath = `${dbUrl}/${contentLink}.json`;
+        this._dbPath = `${this.dbUrl}/${contentLink}.json`;
         this._data = data;
     }
 

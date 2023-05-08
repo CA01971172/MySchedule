@@ -1,6 +1,3 @@
-/* データベース関連 */
-export const dbUrl:string="https://myschedule-c0a49-default-rtdb.firebaseio.com"
-
 /* ページ関連 */
 export const IndexPageUrl:string="./index.html"
 export const LoginPageUrl:string="./index.html?page=login"
