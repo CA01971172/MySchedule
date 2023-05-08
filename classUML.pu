@@ -6,7 +6,7 @@ class Application {
   - _appUser: AppUser
 
   - get appUser(): AppUser
-  - set appUser(value: AppUser): void
+  - set appUser(value: AppUser)
 
   + run(): void
   - initializeFirebase(): void
@@ -15,6 +15,20 @@ class Application {
 }
 
 class FirebaseInitializer {
+  - readonly defaultConfig: object
+  - _firebaseConfig: object
+  - _app:FirebaseApp
+  - _analytics:Analytics
+
+  - get firebaseConfig(): object
+  - set firebaseConfig(value: object)
+  - get app(): FirebaseApp
+  - set app(value: FirebaseApp)
+  - get analytics(): Analytics
+  - set analytics(value: Analytics)
+
+  + constructor(config?: object)
+
   + initialize(): void
 }
 
