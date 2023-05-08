@@ -1,11 +1,9 @@
 export class DbController { // Firebaseのデータを取り扱うためのクラス
     protected readonly dbUrl: string = "https://myschedule-c0a49-default-rtdb.firebaseio.com"
     protected _dbPath: string;
-    protected _data: object;
 
-    constructor(contentLink: string, data: object = {}) {
+    constructor(contentLink: string) {
         this._dbPath = `${this.dbUrl}/${contentLink}.json`;
-        this._data = data;
     }
 
     get dbPath(): string {
@@ -14,14 +12,6 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
 
     set dbPath(dbPath: string) {
         this._dbPath = dbPath;
-    }
-
-    get data(): object {
-        return this._data;
-    }
-
-    set data(data: object) {
-        this._data = data;
     }
 
     async createData(data: object): Promise<void> {//データベースにデータを作成する
@@ -46,7 +36,6 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
             }
         
             const data = await response.json();
-            this.data = data;
             return data;
         }
 
