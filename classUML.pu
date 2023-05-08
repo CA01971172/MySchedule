@@ -26,6 +26,16 @@ class AppUser {
     - set uid(uid: string): void
     - get userInfo(): UserInfo
     - set userInfo(userInfo: UserInfo): void
+
+    + setUserInfo(email: string, password: string): void
+    + async assignUserInfo(): Promise<void>
+    + async signUp(redirectLink?: string): Promise<void>
+    + async signIn(redirectLink?: string): Promise<void>
+    + async signOut(redirectLink?: string): Promise<void>
+    + resetEmail(email: string): void
+    + async sendEmail(subject: string, text: string): Promise<void>
+    + async getAuthState(): Promise<User | null>
+    + async redirect():Promise<void>
 }
 
 class PageUtils {

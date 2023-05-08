@@ -38,7 +38,7 @@ export class AppUser {
         this._userInfo = userInfo;
     }
 
-    setUserInfo(email: string, password: string){//フィールドuserInfoにプロパティを代入するメソッド
+    setUserInfo(email: string, password: string): void{//フィールドuserInfoにプロパティを代入するメソッド
         const userInfo:UserInfo={} as UserInfo
         userInfo.email=email
         userInfo.password=password
@@ -110,12 +110,12 @@ export class AppUser {
         }
     }
 
-    resetEmail(email: string){ // パスワードをリセットするメソッド
+    resetEmail(email: string): void{ // パスワードをリセットするメソッド
         const auth: Auth = getAuth()
         sendPasswordResetEmail(auth, email); // パスワードリセットのEmailを送る
     }
 
-    async sendEmail(subject: string, text: string){ // ユーザーのメールアドレスにメールを送信するメソッド
+    async sendEmail(subject: string, text: string): Promise<void>{ // ユーザーのメールアドレスにメールを送信するメソッド
         if(this.userInfo.email){
             const emailData: EmailData = {
                 to: this.userInfo.email,
