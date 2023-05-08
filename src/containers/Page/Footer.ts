@@ -1,33 +1,24 @@
-/* <button type="button" class="btn btn-outline-danger">ログアウト</button>
-<button type="button" class="btn btn-primary">
-    <i class="bi bi-plus-lg"></i> 
-</button> */
-
-import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils"
 import { Page } from "../../components/Ui/Page"
-import { PageType } from "../../utils/types"
-import { Content } from "./Content"
 import { AddButton } from "../../components/Ui/AddButton"
-import { LogoutButton } from "../../components/Ui/LogoutButton"
 
 export class Footer extends Page{ // フッターを作成するクラス
     render(): HTMLElement{ // フッターを作成するメソッド
+        const footerElm: HTMLElement = DomUtils.createElement("footer",["d-flex", "justify-content-end", "fixed-bottom","m-2"])
         switch(this.pageType){
+            case "login":
+            case "register":
+                // ログインページなどでは操作ボタン(フッター)は作成しない
+                break;
+            default:
             case null:
             case "timetable":
             case "task":
             case "shift":
             case "event":
             case "calendar":
-                const footerElm: HTMLElement = DomUtils.createElement("footer")
                 const footerContents: HTMLElement[] = new Array
-        
-                // ログアウトボタンを作成する
-                const logoutButton: LogoutButton = new LogoutButton()
-                const logoutButtonElm: HTMLElement = logoutButton.render()
-                footerContents.push(logoutButtonElm)
-        
+
                 // ページ編集用の追加動作用button要素を作成する
                 const hoge: (() => void) = function(){console.log("hoge")}
                 const addButton: AddButton = new AddButton(hoge)
@@ -35,10 +26,8 @@ export class Footer extends Page{ // フッターを作成するクラス
                 footerContents.push(addButtonElm)
         
                 DomUtils.appendChildMultiple(footerElm,footerContents)
-                return footerElm;
-            default:
-                // ログインページなどでは操作ボタン(フッター)は作成しない
-                return;
+                break;
         }
+        return footerElm;
     }
 }

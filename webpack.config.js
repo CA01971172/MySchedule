@@ -10,12 +10,14 @@ const isProduction = process.env.NODE_ENV == "production";
 
 module.exports = {
   mode: isProduction ? 'production' : 'development',
+  devtool: 'source-map',
   entry: {
     main: './src/index.ts'
   },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, "dist"),
+    publicPath: '',
   },
   devServer: {
     open: true,
@@ -28,7 +30,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
-      filename: 'index.html'
+      filename: 'index.html',
+      title: 'MySchedule',
+      favicon: './favicon.svg',
     }),
 
     // Add your plugins here

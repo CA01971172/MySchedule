@@ -8,6 +8,7 @@ export class LoginForm extends Form {//ログイン用のform要素を作成す�
 
     constructor(onSubmit: (data: any) => void) {
         super('register-form', 'ログイン', onSubmit);
+        this.form.classList.add("border","rounded");
         this.emailInput = new LabeledInput({
             label: 'メールアドレス',
             name: 'email',

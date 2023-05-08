@@ -16,11 +16,6 @@ export type EmailData = {
 /* ページ操作関連の型定義 */
 export type ContentType = "timetable"|"task"|"shift"|"event"
 export type PageType = null|"login"|"register"|ContentType|"calendar"//nullはindexページ(メニューページ)
-export type PageStructure = {
-    header: HTMLElement;
-    content: HTMLElement;
-    footer?: HTMLElement;
-}
 
 /* ユーザー管理関連のデータモデル */
 export type LoginData = {
@@ -85,11 +80,16 @@ type EventSchedule = {
     id: number; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
-    date: number;
     startTime: number;
     endTime: number;
+    isAllDay: boolean; // 終日予定かどうか
+};
+
+type EventSettings = {
+    hidePassedEvent: boolean; // 過去の予定を非表示にするかどうか
 };
 
 export type EventScheduleList = {
     eventSchedules: EventSchedule[];
+    eventSettings: EventSettings;
 };

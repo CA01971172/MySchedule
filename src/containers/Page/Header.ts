@@ -1,4 +1,3 @@
-import { rootDiv } from "../../utils/constants"
 import { DomUtils } from "../../utils/domUtils"
 import { Page } from "../../components/Ui/Page"
 import { TabBar } from "./../../components/Ui/TabBar"

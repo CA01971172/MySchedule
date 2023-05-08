@@ -9,6 +9,7 @@ export class RegisterForm extends Form {//アカウント登録用のform要素�
 
     constructor(onSubmit: (data: any) => void) {
         super('register-form', 'アカウント登録', onSubmit);
+        this.form.classList.add("border","rounded");
         this.emailInput = new LabeledInput({
             label: 'メールアドレス',
             name: 'email',

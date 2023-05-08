@@ -1,4 +1,4 @@
-import { PageType, PageStructure } from "./types";
+import { PageType } from "./types";
 import { rootDiv } from "./constants";
 import { WebPage } from "../containers/Page/WebPage"
 
@@ -46,9 +46,7 @@ export class PageUtils {//それぞれのページごとの内容を作成する
 
     createPage(): void{ // ページを作成するメソッド
         const page: WebPage = new WebPage(PageUtils.getPageType())
-        const pageStructure: PageStructure = page.render()
-        for (const [key, value] of Object.entries(pageStructure)) {
-            rootDiv.appendChild(value) // pageStructureの全プロパティをrootのdiv要素に全て追加する
-        }
+        const pageElm: HTMLElement = page.render()
+        rootDiv.appendChild(pageElm) // pageの要素をrootのdiv要素に追加する
     }
 }
