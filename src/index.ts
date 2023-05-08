@@ -14,7 +14,6 @@ import { LoginPageUrl } from "./utils/constants";
 declare global {
     interface Window {
         logout(): void;
-        getApp(): void;
     }
 }
 window.logout = function (): void{
@@ -23,10 +22,4 @@ window.logout = function (): void{
         const appUser:AppUser = new AppUser()
         appUser.signOut(LoginPageUrl)
     }
-}
-window.getApp = async function (): Promise<void>{
-    console.log(app)
-    console.log(app.appUser)
-    await app.appUser.assignUserInfo()
-    console.log(app.appUser)
 }
