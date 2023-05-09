@@ -1,10 +1,11 @@
+import { PageContent } from "./PageContent"
 import { Form } from "../../components/Ui/Form"
 import { LoginForm } from "../../components/Login/LoginForm"
 import { IndexPageUrl, RegisterPageUrl, rootDiv } from "../../utils/constants";
 import { LoginData } from "../../utils/types";
 import { DomUtils } from "../../utils/domUtils"
 import { AppUser } from "../../utils/AppUser"
-export class LoginContent{//ログインのページを作成するクラス
+export class LoginContent implements PageContent{//ログインのページを作成するクラス
     render(): HTMLElement[]{
         const login = (data: LoginData) => {//ボタンに適用する、ログインする処理
             const appUser:AppUser = new AppUser()
