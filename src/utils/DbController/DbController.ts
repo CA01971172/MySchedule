@@ -54,7 +54,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
     }
 
     async deleteData(id: string): Promise<void> {//データベースのデータを削除する
-        const response = await fetch(this.dbPath, {
+        const response = await fetch(this.dbPath, {//TODO id関係は作りかけ
             method: "DELETE",
         });
 
