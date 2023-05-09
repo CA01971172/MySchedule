@@ -15,7 +15,7 @@ export function test(){
 
 async function testProcess(){
     /* メール送信のテストコード */
-    const appUser: AppUser = new AppUser
+/*     const appUser: AppUser = new AppUser
     await appUser.assignUserInfo()
-    appUser.sendEmail("テストメール","こんにちは。こちらMyScheduleです。")
+    appUser.sendEmail("テストメール","こんにちは。こちらMyScheduleです。") */
 }

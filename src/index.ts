@@ -24,9 +24,3 @@ window.logout = function (): void{
         appUser.signOut(LoginPageUrl)
     }
 }
-window.getApp = async function (): Promise<void>{
-    console.log(app)
-    console.log(app.appUser)
-    await app.appUser.assignUserInfo()
-    console.log(app.appUser)
-}
