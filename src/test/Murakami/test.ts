@@ -14,8 +14,10 @@ export function test(){
 }
 
 async function testProcess(){
-    /* メール送信のテストコード */
-    const appUser: AppUser = new AppUser
-    await appUser.assignUserInfo()
-    appUser.sendEmail("テストメール","こんにちは。こちらMyScheduleです。")
+    const url = `https://myschedule-c0a49-default-rtdb.firebaseio.com/users/hogeUser012/event/eventSchedules.json?orderBy="id"&equalTo="abcd"`
+    let data
+    fetch(url).then(response=>response.json()).then(respondedData=>{
+        data = respondedData
+        console.log(data)
+    })
 }

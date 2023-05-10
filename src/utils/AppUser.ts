@@ -20,32 +20,31 @@ export class AppUser {
         email:"",
         password:""
     } as UserInfo;
-    //ここにはないけどgetterによって実質的なフィールドとしてisLoginプロパティを用意している
 
-    get uid(): string {
+    private get uid(): string {
         return this._uid;
     }
 
-    set uid(uid: string) {
+    private set uid(uid: string) {
         this._uid = uid;
     }
 
-    get userInfo(): UserInfo {
+    private get userInfo(): UserInfo {
         return this._userInfo;
     }
 
-    set userInfo(userInfo: UserInfo) {
+    private set userInfo(userInfo: UserInfo) {
         this._userInfo = userInfo;
     }
 
-    setUserInfo(email: string, password: string){//フィールドuserInfoにプロパティを代入するメソッド
+    public setUserInfo(email: string, password: string){//フィールドuserInfoにプロパティを代入するメソッド
         const userInfo:UserInfo={} as UserInfo
         userInfo.email=email
         userInfo.password=password
         this.userInfo=userInfo
     }
 
-    async assignUserInfo():Promise<void>{ // ユーザーの認証情報を取得してid等をフィールドに代入するメソッド
+    public async assignUserInfo():Promise<void>{ // ユーザーの認証情報を取得してid等をフィールドに代入するメソッド
         const authState: User | null = await this.getAuthState()
         if(authState){
             this.uid=authState.uid
@@ -55,7 +54,7 @@ export class AppUser {
         }
     }
 
-    async signUp(redirectLink?: string):Promise<void>{//サインアップするメソッド
+    public async signUp(redirectLink?: string):Promise<void>{//サインアップするメソッド
         try {
             const auth: Auth = getAuth()
             const userCredential = await createUserWithEmailAndPassword(
@@ -77,7 +76,7 @@ export class AppUser {
         }
     }
 
-    async signIn(redirectLink?: string):Promise<void>{//サインインするメソッド
+    public async signIn(redirectLink?: string):Promise<void>{//サインインするメソッド
         try {
             const auth: Auth = getAuth()
             await signInWithEmailAndPassword(
@@ -96,7 +95,7 @@ export class AppUser {
         }
     }
 
-    async signOut(redirectLink?: string):Promise<void>{//サインアウトするメソッド
+    public async signOut(redirectLink?: string):Promise<void>{//サインアウトするメソッド
         try {
             const auth: Auth = getAuth()
             await signOut(auth)
@@ -110,12 +109,12 @@ export class AppUser {
         }
     }
 
-    resetEmail(email: string){ // パスワードをリセットするメソッド
+    public resetEmail(email: string): void{ // パスワードをリセットするメソッド
         const auth: Auth = getAuth()
         sendPasswordResetEmail(auth, email); // パスワードリセットのEmailを送る
     }
 
-    async sendEmail(subject: string, text: string){ // ユーザーのメールアドレスにメールを送信するメソッド
+/*     async sendEmail(subject: string, text: string){ // ユーザーのメールアドレスにメールを送信するメソッド
         if(this.userInfo.email){
             const emailData: EmailData = {
                 to: this.userInfo.email,
@@ -127,9 +126,9 @@ export class AppUser {
         }else{
             throw new Error("ユーザーのメールアドレスが設定されていません");
         }
-    }
+    } */
 
-    async getAuthState():Promise<User | null>{ // ユーザーの認証情報を取得するメソッド
+    private async getAuthState():Promise<User | null>{ // ユーザーの認証情報を取得するメソッド
         return new Promise((resolve, reject) => {
             const auth: Auth = getAuth();
             onAuthStateChanged(auth, (user) => {
@@ -146,7 +145,7 @@ export class AppUser {
         });
     }
 
-    async redirect():Promise<void>{ // 認証状態に合わせて正しいページにリダイレクトするメソッド
+    public async redirect():Promise<void>{ // 認証状態に合わせて正しいページにリダイレクトするメソッド
         const authState: User | null  = await this.getAuthState()
         const isLoginContent: boolean = PageUtils.matchQuery("page","login")
         const isRegisterContent: boolean = PageUtils.matchQuery("page","register")

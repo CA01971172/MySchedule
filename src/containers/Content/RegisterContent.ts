@@ -1,9 +1,10 @@
+import { PageContent } from "./PageContent"
 import { RegisterForm } from "../../components/register/RegisterForm"
 import { IndexPageUrl, LoginPageUrl, rootDiv } from "../../utils/constants";
 import { RegisterData } from "../../utils/types";
 import { DomUtils } from "../../utils/domUtils"
 import { AppUser } from "../../utils/AppUser"
-export class RegisterContent{//ユーザー登録のページを作成するクラス
+export class RegisterContent implements PageContent{//ユーザー登録のページを作成するクラス
     render() :HTMLElement[]{
         const register = (data: RegisterData) => {//ボタンに適用する、ログインする処理
             const appUser:AppUser = new AppUser()
