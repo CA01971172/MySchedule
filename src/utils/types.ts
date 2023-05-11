@@ -31,7 +31,7 @@ export type RegisterData = {
 /* 時間割管理機能のデータモデル */
 type TimeTable = {
     id: number; // new Date().getTime().toString(16) によってタイムスタンプで作成する一意キー
-    name: string;
+    title: string;
     teacher: string;
     classroom: string;
     startTime: number;
@@ -52,7 +52,7 @@ type Task = {
 };
 
 type TaskSettings = {
-    enabled: boolean; // アラートの有効/無効を管理するプロパティ
+    enabledAlert: boolean; // アラートの有効/無効を管理するプロパティ
     daysBeforeDeadline: number; // 課題提出期限の何日前にアラートを送信するかを管理するプロパティ
     autoTaskDelete: boolean;
 };

@@ -170,7 +170,7 @@ TimetableForm.ts(時間割管理の入力プログラム)とTimetableList.ts(時
         │   ├── task
         │   │   ├── tasks #配列
         │   │   └── taskSettings
-        │   │       ├── enabled #プロパティ
+        │   │       ├── enabledAlert #プロパティ
         │   │       ├── daysBeforeDeadline #プロパティ
         │   │       └── autoTaskDelete #プロパティ
         │   ├── shift
