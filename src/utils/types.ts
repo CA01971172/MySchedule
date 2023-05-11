@@ -76,7 +76,7 @@ export type ShiftList = {
 };
 
 /* 予定追加機能のデータモデル */
-type EventSchedule = {
+type Event = {
     id: number; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
@@ -89,7 +89,7 @@ type EventSettings = {
     hidePassedEvent: boolean; // 過去の予定を非表示にするかどうか
 };
 
-export type EventScheduleList = {
-    eventSchedules: EventSchedule[];
+export type EventList = {
+    events: Event[];
     eventSettings: EventSettings;
 };
