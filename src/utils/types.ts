@@ -93,3 +93,14 @@ export type EventList = {
     events: Event[];
     eventSettings: EventSettings;
 };
+
+/* その他 */
+export type Weekday = { // どの曜日を含めた曜日欄を作成するか決定するための型
+    sun: boolean,
+    mon: boolean,
+    tue: boolean,
+    wed: boolean,
+    thu: boolean,
+    fri: boolean,
+    sat: boolean
+}

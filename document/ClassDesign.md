@@ -30,8 +30,6 @@ Firebase を初期化するためのプライベートメソッドです。
 ページを作成するためのプライベートメソッドです。
 `PageUtils` インスタンスを生成して、`createPage()` メソッドを呼び出します。
 
-
-
 ### Class: FirebaseInitializer
 `FirebaseInitializer` クラスは、Firebase を初期化するためのクラスです。
 
@@ -57,8 +55,6 @@ Firebase の設定を引数で受け取り、初期化するためのコンス�
 * `public initialize(): void`
 Firebase を初期化するためのパブリックメソッドです。
 `initializeApp()`、`getAnalytics()` の各メソッドを呼び出し、`FirebaseApp` インスタンスと `Analytics` インスタンスを生成します。
-
-
 
 ### Class: AppUser
 `AppUser` クラスは、Firebaseのユーザー認証などを行うためのクラスです。
@@ -109,8 +105,6 @@ string型の `email` と `password` プロパティを保有するオブジェ�
 パスワードをリセットするメソッドです。
 ユーザーがログイン時にパスワードを忘れてログインできない場合に使用します。
 ユーザーにはアカウントのメールアドレスを要求し、受け取ったメールアドレス宛にパスワードリセットのメールを送信します。
-
-
 
 ### Class: DbController
 `DbController` クラスは、Firebaseからのデータを扱うためのクラスです。
@@ -167,8 +161,6 @@ idが `id` と一致するデータがない場合は `createData()` メソッ�
 データベースからデータを削除するパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 string型のidパラメータを受け取り、idが一致するデータを削除します。
-
-
 
 ### Class: TimetableDbController
 `TimetableDbController` クラスは、Firebaseからの時間割データを扱うためのクラスです。
@@ -231,8 +223,6 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 親クラスの`deleteData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`deleteData()`に渡します。
 
-
-
 ### Interface: PageContent
 `PageContent` は、ページのメインコンテンツを作成するためのインターフェースです。
 ハンバーガーメニューや検索バーより下の、メインコンテンツ部分を作成します。
@@ -244,8 +234,6 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 * `render(): HTMLElement[]`
 ページのメインコンテンツの要素群を作成するメソッドです。
 曜日欄やカレンダー欄などのHTML要素をまとめて配列に格納し、戻り値として出力します。
-
-
 
 ### Class: CalendarContent
 `CalendarContent` クラスは、カレンダーページのメインコンテンツを作成するためのクラスです。
@@ -268,26 +256,13 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 * `private renderWeekday(): HTMLElement`
 曜日欄のHTML要素を作成するプライベートメソッドです。
 `WeekdayColumn` クラスの `render()` メソッドを呼び出すことで曜日欄のHTML要素を作成します。
-インスタンス化する際、コンストラクターの引数には、 `sun` や `mon` などの全てのパラメータが `true` になった `WeekDay` 型の以下のようなオブジェクトを渡します。
-```
-{
-    sun: true,
-    mon: true,
-    tue: true,
-    wed: true,
-    thu: true,
-    fri: true,
-    sat: true
-}
-```
+インスタンス化する際、コンストラクターの引数には、 `sun` や `mon` などの全てのパラメータが `true` になった `WeekDay` 型のオブジェクトを渡します。
 
 * `private renderCalendar(): HTMLElement`
 時間割欄のHTML要素を作成するプライベートメソッドです。
 `CalendarColumn` クラスをインスタンス化し、
 インスタンスから `render()` メソッドを呼び出すことで作成します。
 インスタンス化の際には、`CalendarColumn` クラスのコンストラクターの引数である `year` と `month` に、Dateオブジェクトを利用して取得した現在の年と月を渡します。
-
-
 
 ### Class: WeekdayColumn
 
@@ -299,8 +274,6 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 
 #### Methods
 * `public render(): HTMLElement`
-
-
 
 ### Class: CalendarColumn
 `CalendarColumn` クラスは、カレンダーやアルバイトシフトページのカレンダー欄を作成するためのクラスです。
@@ -362,8 +335,6 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 `EventDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Event[]` 型のデータを返します。
 `readDataByRange()` の引数には、 `tag` には "startTime" を、 `startAt` と `endAt` にはそれぞれ `year` フィールドと `month` フィールドから算出した適切なデータを渡します。
 
-
-
 ### Class: TimetableContent
 `TimetableContent` クラスは、時間割ページのメインコンテンツを作成するためのクラスです。
 `PageContent` インターフェースを実装して作成するクラスです。
@@ -378,32 +349,20 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 #### Methods
 * `public render(): HTMLElement[]`
 時間割ページのメインコンテンツの要素群を作成するパブリックメソッドです。
-メインコンテンツ部分となる、曜日欄と時間割欄の合計二つのHTML要素を作成し、それらをまとめて配列に格納し、戻り値として出力します。
+メインコンテンツ部分となる、曜日欄と時間割欄のHTML要素をそれぞれ作成し、作成した合計2つの要素を配列に格納し、戻り値として出力します。
 曜日欄の要素は`renderWeekday()`メソッドを呼び出すことで作成します。
 時間割欄の要素は`renderTimetable()`メソッドを呼び出すことで作成します。
 
 * `private renderWeekday(): HTMLElement`
 曜日欄のHTML要素を作成するプライベートメソッドです。
 `WeekdayColumn` クラスの `render()` メソッドを呼び出すことで曜日欄のHTML要素を作成します。
-インスタンス化する際、コンストラクターの引数には以下のようなWeekDay型のオブジェクトを渡します。これは、時間割ページの曜日欄には日曜日と月曜日が存在しないためです。
-```
-{
-    sun: false,
-    mon: true,
-    tue: true,
-    wed: true,
-    thu: true,
-    fri: true,
-    sat: false
-}
-```
+インスタンス化する際、コンストラクターの引数には`sun`プロパティと`sat`プロパティのみfalseで、それ以外の5つのプロパティがtrueとなった`WeekDay`型のオブジェクトを渡します。
+これは、時間割ページの曜日欄には日曜日と月曜日が存在しないためです。
 
 * `private renderTimetable(): HTMLElement`
 時間割欄のHTML要素を作成するプライベートメソッドです。
-`timetableColumn` クラスをインスタンス化し、
+`TimetableColumn` クラスをインスタンス化し、
 インスタンスから `render()` メソッドを呼び出すことで作成します。
-
-
 
 ### Class: TimetableColumn
 `TimetableColumn` クラスは、時間割ページの時間割欄を作成するためのクラスです。
@@ -430,71 +389,49 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 データベースから時間割のデータを配列型で取得するプライベートメソッドです。
 `TimetableDbController` クラスの `readData()` メソッドを呼び出して得られた `Timetable[]` 型のデータを返します。
 
-
-
 ### Class: TaskContent
+`TaskContent` クラスは、課題ページのメインコンテンツを作成するためのクラスです。
 `PageContent` インターフェースを実装して作成するクラスです。
-`TaskContent` クラスは、課題のページを表示させるクラスです。
-`HTMLElement` の作成を主な役割としています。
+ハンバーガーメニューや検索バーより下の、メインコンテンツ部分を作成します。
+
 #### Properties
-* `private tasks:Task[]`
-課題のデータを格納するプライベートプロパティです。
+* `TaskContent` クラスは、フィールドを持ちません。
 
 #### Constructor
 * `TaskContent` クラスは、コンストラクターで引数を受け取る必要はありません。
-`taskData`変数を用意して、`getTasks()`を代入して、それを`tasks`フィールドに代入する。
 
 #### Methods
-* `render(): HTMLElement`
+* `public render(): HTMLElement[]`
 課題ページのメインコンテンツの要素群を作成するパブリックメソッドです。
-課題欄のHTML要素を作成し、配列にして格納し、返り値として出力します。
-課題欄の要素は`renderTask()`を呼び出すことで作成します。
-
-
-* `getTasks():Task[]`
-`TaskDbController` クラスから、`readData()`を呼んで、Task[]型データを取得して、そのデータを戻り値として、`Task[]`型として返す
-
-
+メインコンテンツ部分となる、課題欄のHTML要素を作成し、作成した合計1つの要素を配列に格納し、戻り値として出力します。
+課題欄の要素は`renderTask()`メソッドを呼び出すことで作成します。
 
 * `private renderTask(): HTMLElement`
 課題欄のHTML要素を作成するプライベートメソッドです。
 `TaskColumn` クラスをインスタンス化し、
-インスタンスから `render()` メソッドを呼び出すことで作成します。
-
-
+インスタンスから `render()` メソッドを呼び出すことでHTML要素を作成します。
 
 ### Class: TaskColumn
+`TaskColumn` クラスは、課題ページの課題欄を作成するためのクラスです。
+
 #### Properties
-* `private tasks:Task[]`
+* `private tasks: Task[]`
+課題のデータを格納するためのプライベートフィールドです。
+`getTasks()` メソッドによりデータベースから受け取った課題のデータが代入されます。
+
 #### Constructor
+* `TaskColumn` クラスは、コンストラクターで引数を受け取る必要はありません。
+`getTasks()` メソッドを呼び出して得られた時間割のデータを `tasks` フィールドに代入し、初期化します。
 
 #### Methods
 * `public render(): HTMLElement`
-* `private getTasks():Task[]`
+課題欄のHTML要素を作成して戻り値として返すパブリックメソッドです。
+課題欄の中に入るデータとして、自身のフィールドである`tasks` フィールドを使用します。
+`TaskCard` クラスを、データごとに(`tasks`に格納されている課題の配列データの中身の値1つごとに)インスタンス化します。
+コンストラクターには、`tasks`フィールドに格納されている課題割の配列データの中身の`Task`型オブジェクトを渡します。
+そして、インスタンスから`render()`メソッドを呼び出して、課題データを表すカードの要素をそれぞれ作成します。
+最後に、それぞれ作成したカードの要素を使用して、適切に要素を構成し、その一番上の親要素を戻り値として返します。
 
-
-
-### Class:Card
-このカードは、カードを作成するクラスです
-
-#### Properties
-* `title`:string
-* `endTime`:Date
-* `text`  :string
-* `bgColor`:title 
-カードを作るためのプライベートのフィールドです。
-`title`では、カードのタイトルを入力します
-`endTime`では、終わる時間を入力します
-`text`では、詳細を入力します
-`bgColor`では、カードの背景色を入力します
-課題のフォームから入力されたデータがこのクラスに代入され、カードを作ります。
-
-#### Constructor
-* `constructor(title,endTime,text,bg)`
-
-`constructor`にデータが入力されると、プロパティの数字が初期化され、入力された数字が代入されます。
-#### Methods
-* `getElement()`:HTMLElement
-`getElement()`メソッドでは、`createCard()`メソッドで、作られたものを返すメソッドです
-* `createCard()`:HTMLElement
-`createCard()`メソッドは、カードを作るためのプライベートのメソッドです。
+* `private getTasks(): Task[]`
+データベースから課題割のデータを配列型で取得するプライベートメソッドです。
+`TaskDbController` クラスの `readData()` メソッドを呼び出して得られた `Task[]` 型のデータを返します。
