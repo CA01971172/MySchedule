@@ -12,7 +12,7 @@ import {
 import { FirebaseError } from '@firebase/util'
 import { EmailData, UserInfo } from "./types"
 import { IndexPageUrl, LoginPageUrl } from "./constants"
-import { PageUtils } from "./pageUtils"
+import { QueryUtils } from "./QueryUtils"
 import { SendGrid } from "./SendGrid"
 export class AppUser {
     private _uid: string = "";
@@ -147,8 +147,8 @@ export class AppUser {
 
     public async redirect():Promise<void>{ // 認証状態に合わせて正しいページにリダイレクトするメソッド
         const authState: User | null  = await this.getAuthState()
-        const isLoginContent: boolean = PageUtils.matchQuery("page","login")
-        const isRegisterContent: boolean = PageUtils.matchQuery("page","register")
+        const isLoginContent: boolean = QueryUtils.matchQuery("page","login")
+        const isRegisterContent: boolean = QueryUtils.matchQuery("page","register")
         if(authState && (isLoginContent || isRegisterContent)){//ユーザーが認証されている、かつログイン/ユーザー登録ページの場合
             location.href=IndexPageUrl//トップページにリダイレクトする
         }else if(!authState && !(isLoginContent || isRegisterContent)){//ユーザーが認証されていない、かつログインページでもユーザー登録ページでもない

@@ -3,10 +3,7 @@ title MySchedule クラス図
 skinparam dpi 150
 
 class Application {
-  - _appUser: AppUser
-
-  - get appUser(): AppUser
-  - set appUser(value: AppUser): void
+  - appUser: AppUser
 
   + run(): void
   - initializeFirebase(): void
@@ -15,15 +12,18 @@ class Application {
 }
 
 class FirebaseInitializer {
+  - readonly defaultConfig: object
+  - firebaseConfig: object
+  - app: FirebaseApp
+  - analytics: Analytics
+
   + initialize(): void
 }
 
 class AppUser {
-    - _uid: string
-    - _userInfo: UserInfo
+    - uid: string
+    - userInfo: UserInfo
 
-    - get uid(): string
-    - set uid(uid: string): void
     - get userInfo(): UserInfo
     - set userInfo(userInfo: UserInfo): void
 }
