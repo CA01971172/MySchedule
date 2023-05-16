@@ -1,0 +1,52 @@
+@startuml MySchedule
+title MySchedule クラス図
+skinparam dpi 150
+
+class Application {
+  - appUser: AppUser
+
+  + run(): void
+  - initializeFirebase(): void
+  - redirect(): void
+  - createPage(): void
+}
+
+class FirebaseInitializer {
+  - readonly defaultConfig: object
+  - firebaseConfig: object
+  - app: FirebaseApp
+  - analytics: Analytics
+
+  + initialize(): void
+}
+
+class AppUser {
+    - uid: string
+    - userInfo: UserInfo
+
+    - get userInfo(): UserInfo
+    - set userInfo(userInfo: UserInfo): void
+
+    + setUserInfo(email: string, password: string): void
+    + async assignUserInfo(): Promise<void>
+    + async signUp(redirectLink?: string): Promise<void>
+    + async signIn(redirectLink?: string): Promise<void>
+    + async signOut(redirectLink?: string): Promise<void>
+    + resetEmail(email: string): void
+    + async sendEmail(subject: string, text: string): Promise<void>
+    + async getAuthState(): Promise<User | null>
+    + async redirect():Promise<void>
+}
+
+class PageUtils {
+  + static getPageType(): PageType
+  - static getQuery(paramName: string): string | null
+  + static matchQuery(paramName: string, value: string | null)
+  + createPage(): void
+}
+
+Application --> FirebaseInitializer
+Application --> AppUser
+Application --> PageUtils
+
+@enduml
