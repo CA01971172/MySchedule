@@ -44,7 +44,7 @@ export type TimeTableList = {
 };
 
 /* 課題管理機能のデータモデル */
-type Task = {
+export type Task = {
     id: string; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
