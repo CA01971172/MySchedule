@@ -1,6 +1,6 @@
 # 「MySchedule」設計書
 ## 型設計
-[types.ts](/src/utils/types.ts)を参照。
+[types.ts](../src/utils/types.ts)を参照。
 
 ## クラス設計
 ### Class: Application
@@ -222,6 +222,58 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 親クラスの`deleteData()`メソッドを呼び出すことによって操作を行います。
 親クラスの`deleteData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`deleteData()`に渡します。
+
+
+
+### Class: DomUtils
+`DomUtils` クラスは、HTML要素を扱うためのクラスです。
+基本的に静的メソッドのみ使用するため、このクラスをインスタンス化することはありません。
+
+#### Properties
+* `private parentElement: HTMLElement`
+このクラスが扱う親要素が格納されるプライベートフィールドです。
+このクラスの静的メソッド以外で使用します。
+
+#### Constructor
+* `constructor(parentElement: HTMLElement)`
+コンストラクターの引数として`parentElement`プロパティを受け取り、自身の`parentElement` フィールドに代入して初期化します。
+
+#### Methods
+* `public static createElement(tagName: keyof HTMLElementTagNameMap, className?: string|string[], innerText?: string): HTMLElement`
+HTML要素を作成するための静的メソッドです。
+tagNameには要素のタグ名を文字列型で渡します。
+classNameには要素に付与するクラス名を文字列型で渡します。文字列型配列で渡すと、作成する要素に複数のクラス名を付与できます。
+クラスを付与しない場合は、空文字列を代入します。ただし、innerTextを指定しない場合にクラスを付与しない場合は、classNameにプロパティを渡す必要はありません。
+innerTextには要素の中に入れるテキストを指定します。
+最終的に、作成した要素をHTMLElement型で返します。
+```html
+<p class="text-start">Start aligned text on all viewport sizes.</p>
+```
+のような要素を作成するには、
+```js
+DomUtils.createElement("p","text-start","Start aligned text on all viewport sizes.")
+```
+のように指定します。
+
+* `public static createImg(src: string, alt?: string, className?: string): HTMLImageElement`
+
+* `public static appendChild(parent: HTMLElement, child: HTMLElement): void`
+親要素に子要素を追加するメソッドです。
+引数のparentには、子要素を追加するHTML要素を指定します。
+引数のchildには、親要素に追加するHTML要素を指定します。
+最終的に、parent要素にchild要素を追加します。
+~~ appendChildメソッドはそもそもHTMLElementのメソッドとして用意されてるのでそっち使ってもいいです ~~
+
+* `public static appendChildMultiple(parent: HTMLElement, children: HTMLElement[]): void`
+親要素に複数の子要素を追加するメソッドです。
+引数のparentには、子要素群を追加するHTML要素を指定します。
+引数のchildには、親要素に追加する複数のHTML要素を配列型で指定します。
+最終的に、parent要素に全てのchild要素を追加します。
+
+* `public appendElement(tagName: keyof HTMLElementTagNameMap, className?: string|string[], innerText?: string): void`
+
+* `public appendImg(src: string, alt?: string, className?: string): void`
+
 
 ### Interface: PageContent
 `PageContent` は、ページのメインコンテンツを作成するためのインターフェースです。
