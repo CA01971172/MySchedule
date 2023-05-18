@@ -112,7 +112,7 @@ string型の `email` と `password` プロパティを保有するオブジェ�
 #### Properties
 * `protected readonly baseDbUrl: string`
 Firebase Realtime DatabaseのベースとなるURLを表すフィールドです。
-"https://myapp-rtdb.firebaseio.com/" のような文字列が代入されます。
+"https://myapp-rtdb.firebaseio.com" のような文字列が代入されます。
 
 #### Constructor
 * `DbController` クラスは、コンストラクターで引数を受け取る必要はありません。
@@ -127,42 +127,216 @@ IDを指定しない場合はリソース名だけでURLを生成します。
 * `protected generateUniqueKey(): string`
 タイムスタンプから一意キーを作成するメソッドです。
 
-* `public async createData(url: string, data: object): Promise<void>`
+* `protected async createData(url: string, data: object): Promise<void>`
 データベースにデータを作成するパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 object型の `data` パラメータを受け取り、受け取ったデータをデータベースに作成します。
 ただし、データに `id` パラメータが付与されていない場合、タイムスタンプから一意キーを作成して `id` パラメータをデータに設定して作成します。
 
-* `public async readData(url: string, id?: string): Promise<object>`
+* `protected async readData(url: string, id?: string): Promise<object>`
 データベースからデータを読み出すパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 object型のデータを返します。
 `id` パラメータを受け取った場合は、 `readDataByTag()` メソッドを使用して、id(一意キー)でデータの絞り込みを行います。 `readDataByTag()` メソッドの引数には、`tag` には "id" という文字列を、 `value` には `readData()` メソッドの引数である `id` の値を渡します。
 `id` パラメータを受け取らなかった場合は、全データを返します。
 
-* `public async readDataByTag(url: string, tag: string, value: string): Promise<object>`
+* `protected async readDataByTag(url: string, tag: string, value: string): Promise<object>`
 指定された一致条件でデータを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 指定された `tag` パラメータと一致する `value` の値を持つ、object型のデータを返します。
 
-* `public async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>`
+* `protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>`
 指定された範囲条件でデータを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 指定された `tag` パラメータが `startAt` パラメータと `endAt` パラメータの間に収まる、object型のデータを返します。
 
-* `public async updateData(url: string, data: object, id: string): Promise<void>`
+* `protected async updateData(url: string, data: object, id: string): Promise<void>`
 データベースのデータを更新するパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 object型の `data` パラメータと、データの一意キーを表す `id` パラメータを受け取り、idが `id` と一致するデータを `data` パラメータのデータで上書きします。
 idが `id` と一致するデータがない場合は `createData()` メソッドを呼び出し、データを上書きする代わりに新規作成します。
 ただし、`data` パラメータに格納されたデータのidが `id` と一致しない場合は、エラーを返します。
 
-* `public async deleteData(url: string, id: string): Promise<void>`
+* `protected async deleteData(url: string, id: string): Promise<void>`
 データベースからデータを削除するパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 string型のidパラメータを受け取り、idが一致するデータを削除します。
 
 ### Class: TimetableDbController
+`TimetableDbController` クラスは、Firebaseからの時間割データを扱うためのクラスです。
+`DbController` クラスを継承して作成されます。
+
+#### Properties
+* `protected readonly baseDbUrl: string`
+親クラスのフィールドです。
+
+* `private readonly resource: string`
+このクラスが扱うリソース名を表すフィールドです。
+"user/${uid}/timetable/timetables" のような文字列が代入されます。
+
+* `private dbUrl: string`
+このクラスがアクセスするデータベースのURLです。
+コンストラクターにより初期化され、 "https://myapp-rtdb.firebaseio.com/user/${uid}/timetable/timetables.json" のような文字列が代入されます。
+
+#### Constructor
+* `constructor(uid: string)`
+ユーザーIDを表す `uid` パラメータを引数で受け取り、`dbUrl` フィールドを初期化するためのコンストラクタです。
+`buildUrl()` メソッドを呼び出すことにより完全なURLを作成し、自身の `dbUrl` フィールドに代入することによって初期化します。
+`buildUrl()` メソッドの引数には、`uid` にコンストラクターの引数である `uid` を、 `resource` に `resource` フィールドを渡します。
+
+#### Methods
+* `protected buildUrl(uid: string, resource: string, id?: string): string`
+* `protected generateUniqueKey(): string`
+親クラスのメソッドです。オーバーライドはありません。
+
+* `public async createData(data: Timetable): Promise<void>`
+データベースに時間割データを作成するパブリックメソッドです。
+親クラスの`createData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
+
+* `public async readData(id?: string): Promise<Timetable[]>`
+データベースから時間割データを読み出すパブリックメソッドです。
+親クラスの`readData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readData()`メソッドの引数である、`url`パラメータには`dbUrl`フィールドを渡します。
+また、このメソッドの引数で`id`パラメータを受け取っている場合、親クラスの`readData()`メソッドの引数`id`には、このメソッドの引数で受け取った`id`パラメータをそのまま渡します。受け取っていない場合は渡しません。
+
+* `public async readDataByTag(tag: string, value: string): Promise<Timetable[]>`
+指定された一致条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
+親クラスの`readDataByTag()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readDataByTag()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
+
+* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Timetable[]>`
+指定された範囲条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
+親クラスの`readDataByRange()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readDataByRange()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`tag`,`startAt`,`endAt`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
+
+* `public async updateData(data: Timetable, id: string): Promise<void>`
+データベースの時間割データを更新するパブリックメソッドです。
+親クラスの`updateData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`updateData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`data`,`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`updateData()`に渡します。
+
+* `public async deleteData(id: string): Promise<void>`
+データベースから時間割データを削除するパブリックメソッドです。
+親クラスの`deleteData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`deleteData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`deleteData()`に渡します。
+
+
+### Class: TaskDbController
+`TaskDbController` クラスは、Firebaseからの課題データを扱うためのクラスです。
+`DbController` クラスを継承して作成されます。
+
+#### Properties
+* `protected readonly baseDbUrl: string`
+親クラスのフィールドです。
+
+* `private readonly resource: string`
+このクラスが扱うリソース名を表すフィールドです。
+"user/${uid}/task/task" のような文字列が代入されます。
+
+* `private dbUrl: string`
+このクラスがアクセスするデータベースのURLです。
+コンストラクターにより初期化され、 "https://myapp-rtdb.firebaseio.com/user/${uid}/task/tasks.json" のような文字列が代入されます。
+
+#### Constructor
+* `constructor(uid: string)`
+ユーザーIDを表す `uid` パラメータを引数で受け取り、`dbUrl` フィールドを初期化するためのコンストラクタです。
+`buildUrl()` メソッドを呼び出すことにより完全なURLを作成し、自身の `dbUrl` フィールドに代入することによって初期化します。
+`buildUrl()` メソッドの引数には、`uid` にコンストラクターの引数である `uid` を、 `resource` に `resource` フィールドを渡します。
+
+#### Methods
+* `protected buildUrl(uid: string, resource: string, id?: string): string`
+* `protected generateUniqueKey(): string`
+親クラスのメソッドです。オーバーライドはありません。
+
+* `public async createData(data: Task): Promise<void>`
+データベースに課題データを作成するパブリックメソッドです。
+親クラスの`createData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
+
+* `public async readData(id?: string): Promise<Task[]>`
+データベースから課題データを読み出すパブリックメソッドです。
+親クラスの`readData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readData()`メソッドの引数である、`url`パラメータには`dbUrl`フィールドを渡します。
+また、このメソッドの引数で`id`パラメータを受け取っている場合、親クラスの`readData()`メソッドの引数`id`には、このメソッドの引数で受け取った`id`パラメータをそのまま渡します。受け取っていない場合は渡しません。
+
+* `public async readDataByTag(tag: string, value: string): Promise<Task[]>`
+指定された一致条件で課題データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
+親クラスの`readDataByTag()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readDataByTag()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
+
+* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Task[]>`
+指定された範囲条件で課題データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
+親クラスの`readDataByRange()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readDataByRange()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`tag`,`startAt`,`endAt`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
+
+* `public async updateData(data: Task, id: string): Promise<void>`
+データベースの課題データを更新するパブリックメソッドです。
+親クラスの`updateData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`updateData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`data`,`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`updateData()`に渡します。
+
+* `public async deleteData(id: string): Promise<void>`
+データベースから課題データを削除するパブリックメソッドです。
+親クラスの`deleteData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`deleteData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`deleteData()`に渡します。
+
+
+
+### Class: TaskSettingsDbController
+`TaskSettingsDbController` クラスは、Firebaseからの課題の設定データを扱うためのクラスです。
+`DbController` クラスを継承して作成されます。
+
+#### Properties
+* `protected readonly baseDbUrl: string`
+親クラスのフィールドです。
+
+* `private readonly resource: string`
+このクラスが扱うリソース名を表すフィールドです。
+"user/${uid}/task/taskSettings" のような文字列が代入されます。
+
+* `private uid: string`
+データベースのユーザーの一意キーを表す文字列型のプライベートフィールドです。
+コンストラクターで初期化されます。
+
+#### Constructor
+* `constructor(uid: string)`
+`uid` フィールドを初期化するためのコンストラクタです。
+ユーザーIDを表す `uid` パラメータを引数で受け取り、`uid`
+
+#### Methods
+* `protected buildUrl(uid: string, resource: string, id?: string): string`
+* `protected generateUniqueKey(): string`
+* `public async createData(url: string, data: object): Promise<void>`
+* `protected async readData(url: string, id?: string): Promise<object>`
+* `protected async readDataByTag(url: string, tag: string, value: string): Promise<object>`
+* `protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>`
+* `protected async updateData(url: string, data: object, id: string): Promise<void>`
+* `protected async deleteData(url: string, id: string): Promise<void>`
+親クラスのメソッドです。オーバーライドはありません。
+
+* `public async getEnabledAlert(): Promise<boolean>`
+課題の期限が迫ったらメールで通知するかどうかを表すプロパティ`enabledAlert`の値を、データベースの`taskSettings`から取得するメソッドです。
+まず、このクラスのプライベートフィールド`resource`に`"/enabledAlert"`という文字列を結合させた文字列を作成します。
+そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
+データベースの`enabledAlert`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/enabledAlert.json"のような文字列が作成されます。
+そして最後に、親クラスの`readData()`メソッドの`url`引数に作成したURLを渡し、`id`引数は無指定の状態で、
+`readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
+
+* `public async setEnabledAlert(enabledAlert: boolean): Promise<boolean>`
+
+
+
+//TODO途中
+<!-- ### Class: ShiftDbController
 `TimetableDbController` クラスは、Firebaseからの時間割データを扱うためのクラスです。
 `DbController` クラスを継承して作成されます。
 
@@ -222,6 +396,141 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 親クラスの`deleteData()`メソッドを呼び出すことによって操作を行います。
 親クラスの`deleteData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`deleteData()`に渡します。
+
+
+### Class: EventDbController
+`TimetableDbController` クラスは、Firebaseからの時間割データを扱うためのクラスです。
+`DbController` クラスを継承して作成されます。
+
+#### Properties
+* `protected readonly baseDbUrl: string`
+親クラスのフィールドです。
+* `private readonly resource: string`
+このクラスが扱うリソース名を表すフィールドです。
+"user/timetable/timetables.json" のような文字列が代入されます。
+* `private dbUrl: string`
+このクラスがアクセスするデータベースのURLです。
+コンストラクターにより初期化され、 "https://myapp-rtdb.firebaseio.com/user/${uid}/timetable/timetables.json" のような文字列が代入されます。
+
+#### Constructor
+* `constructor(uid: string)`
+ユーザーIDを表す `uid` パラメータを引数で受け取り、`dbUrl` フィールドを初期化するためのコンストラクタです。
+`buildUrl()` メソッドを呼び出すことにより完全なURLを作成し、自身の `dbUrl` フィールドに代入することによって初期化します。
+`buildUrl()` メソッドの引数には、`uid` にコンストラクターの引数である `uid` を、 `resource` に `resource` フィールドを渡します。
+
+#### Methods
+* `protected buildUrl(uid: string, resource: string, id?: string): string`
+* `protected generateUniqueKey(): string`
+親クラスのメソッドです。オーバーライドはありません。
+
+* `public async createData(data: Timetable): Promise<void>`
+データベースに時間割データを作成するパブリックメソッドです。
+親クラスの`createData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
+
+* `public async readData(id?: string): Promise<Timetable[]>`
+データベースから時間割データを読み出すパブリックメソッドです。
+親クラスの`readData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readData()`メソッドの引数である、`url`パラメータには`dbUrl`フィールドを渡します。
+また、このメソッドの引数で`id`パラメータを受け取っている場合、親クラスの`readData()`メソッドの引数`id`には、このメソッドの引数で受け取った`id`パラメータをそのまま渡します。受け取っていない場合は渡しません。
+
+* `public async readDataByTag(tag: string, value: string): Promise<Timetable[]>`
+指定された一致条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
+親クラスの`readDataByTag()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readDataByTag()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
+
+* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Timetable[]>`
+指定された範囲条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
+親クラスの`readDataByRange()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readDataByRange()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`tag`,`startAt`,`endAt`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
+
+* `public async updateData(data: Timetable, id: string): Promise<void>`
+データベースの時間割データを更新するパブリックメソッドです。
+親クラスの`updateData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`updateData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`data`,`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`updateData()`に渡します。
+
+* `public async deleteData(id: string): Promise<void>`
+データベースから時間割データを削除するパブリックメソッドです。
+親クラスの`deleteData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`deleteData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`deleteData()`に渡します。
+
+
+### Class: EventSettingsDbController
+`TimetableDbController` クラスは、Firebaseからの時間割データを扱うためのクラスです。
+`DbController` クラスを継承して作成されます。
+
+#### Properties
+* `protected readonly baseDbUrl: string`
+親クラスのフィールドです。
+* `private readonly resource: string`
+このクラスが扱うリソース名を表すフィールドです。
+"user/timetable/timetables.json" のような文字列が代入されます。
+* `private dbUrl: string`
+このクラスがアクセスするデータベースのURLです。
+コンストラクターにより初期化され、 "https://myapp-rtdb.firebaseio.com/user/${uid}/timetable/timetables.json" のような文字列が代入されます。
+
+#### Constructor
+* `constructor(uid: string)`
+ユーザーIDを表す `uid` パラメータを引数で受け取り、`dbUrl` フィールドを初期化するためのコンストラクタです。
+`buildUrl()` メソッドを呼び出すことにより完全なURLを作成し、自身の `dbUrl` フィールドに代入することによって初期化します。
+`buildUrl()` メソッドの引数には、`uid` にコンストラクターの引数である `uid` を、 `resource` に `resource` フィールドを渡します。
+
+#### Methods
+* `protected buildUrl(uid: string, resource: string, id?: string): string`
+* `protected generateUniqueKey(): string`
+親クラスのメソッドです。オーバーライドはありません。
+
+* `public async createData(data: Timetable): Promise<void>`
+データベースに時間割データを作成するパブリックメソッドです。
+親クラスの`createData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
+
+* `public async readData(id?: string): Promise<Timetable[]>`
+データベースから時間割データを読み出すパブリックメソッドです。
+親クラスの`readData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readData()`メソッドの引数である、`url`パラメータには`dbUrl`フィールドを渡します。
+また、このメソッドの引数で`id`パラメータを受け取っている場合、親クラスの`readData()`メソッドの引数`id`には、このメソッドの引数で受け取った`id`パラメータをそのまま渡します。受け取っていない場合は渡しません。
+
+* `public async readDataByTag(tag: string, value: string): Promise<Timetable[]>`
+指定された一致条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
+親クラスの`readDataByTag()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readDataByTag()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
+
+* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Timetable[]>`
+指定された範囲条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
+親クラスの`readDataByRange()`メソッドを呼び出すことによって操作を行います。
+親クラスの`readDataByRange()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`tag`,`startAt`,`endAt`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
+
+* `public async updateData(data: Timetable, id: string): Promise<void>`
+データベースの時間割データを更新するパブリックメソッドです。
+親クラスの`updateData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`updateData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`data`,`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`updateData()`に渡します。
+
+* `public async deleteData(id: string): Promise<void>`
+データベースから時間割データを削除するパブリックメソッドです。
+親クラスの`deleteData()`メソッドを呼び出すことによって操作を行います。
+親クラスの`deleteData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
+`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`deleteData()`に渡します。
+
+
+
+
+
+
+
+
+
+
+ -->
 
 
 

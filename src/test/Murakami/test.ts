@@ -20,4 +20,10 @@ async function testProcess(){
         data = respondedData
         console.log(data)
     })
+    const url2 = "https://myschedule-c0a49-default-rtdb.firebaseio.com/users/hogeUser012/event/eventSchedules/0/description.json"
+    let data2
+    fetch(url2).then(response=>response.json()).then(respondedData=>{
+        data2 = respondedData
+        console.log(typeof data2,data2)
+    })
 }
