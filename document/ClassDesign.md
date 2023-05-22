@@ -681,12 +681,18 @@ DomUtils.createElement("p","text-start","Start aligned text on all viewport size
 
 #### Properties
 * `private weekday: Weekday`
+どの曜日が有効であるかを保管する`Weekday`型のオブジェクトが格納されるプライベートフィールドです。
+Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、論理型の値が格納されます。
 
 #### Constructor
 * `constructor(weekday: Weekday)`
+`Weekday`型のプロパティ`weekday`を受け取り、受け取ったプロパティで自身のフィールド`weekday`を初期化します。
 
 #### Methods
 * `public render(): HTMLElement`
+曜日欄のHTML要素を作成して戻り値として返すパブリックメソッドです。
+`weekday`フィールドを参照し、キーが`true`になっている曜日を含んだ曜日欄を作成します。(`mon`が`true`なら月曜日を含んだ曜日欄を作成します)
+また、日曜日と土曜日の要素を作成する際は、それぞれ文字色を赤色と青色に着色します。
 
 ### Class: CalendarColumn
 `CalendarColumn` クラスは、カレンダーやアルバイトシフトページのカレンダー欄を作成するためのクラスです。
