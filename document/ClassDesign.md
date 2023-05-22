@@ -827,35 +827,46 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 
 * `private renderTask(): HTMLElement`
 課題欄のHTML要素を作成するプライベートメソッドです。
-`TaskColumn` クラスをインスタンス化し、
+`CardListColumn` クラスに`"task"`文字列を渡してインスタンス化し、
 インスタンスから `render()` メソッドを呼び出すことでHTML要素を作成します。
 
-### Class: TaskColumn
-`TaskColumn` クラスは、課題ページの課題欄を作成するためのクラスです。
+### Class: CardListColumn
+`CardListColumn` クラスは、データが縦並びで表示されるページのデータ欄を作成するためのクラスです。
+課題欄と予定欄で使用します。
 
 #### Properties
-* `private tasks: Task[]`
-課題のデータを格納するためのプライベートフィールドです。
-`getTasks()` メソッドによりデータベースから受け取った課題のデータが代入されます。
+* `private data: Task[]|Event[]`
+データを格納するためのプライベートフィールドです。
+`getTasks()` や`getEvents()`メソッドによりデータベースから受け取ったデータで初期化されます。
+
+* `private columnType: "task"|"event"`
+データ欄の種類を表すプライベートフィールドです。
+コンストラクターで初期化されます。
+データを表すカードの要素を作成するのに必要です。
 
 #### Constructor
-* `TaskColumn` クラスは、コンストラクターで引数を受け取る必要はありません。
-`getTasks()` メソッドを呼び出して得られた時間割のデータを `tasks` フィールドに代入し、初期化します。
+* `constructor(columnType: "task"|"event")`
+`columnType`フィールドを受け取った`columnType`引数で初期化します。
+また、`data`フィールドをデータベースから受け取ったデータで初期化します。
+そのために、`columnType`が`"task"`なら`getTasks()`を、`"event"`なら`getEvents()`を呼び出し、
+得られたデータを `data` フィールドに代入し、初期化します。
 
 #### Methods
 * `public render(): HTMLElement`
-課題欄のHTML要素を作成して戻り値として返すパブリックメソッドです。
-課題欄の中に入るデータとして、自身のフィールドである`tasks` フィールドを使用します。
-`TaskCard` クラスを、データごとに(`tasks`に格納されている課題の配列データの中身の値1つごとに)インスタンス化します。
-コンストラクターには、`tasks`フィールドに格納されている課題割の配列データの中身の`Task`型オブジェクトを渡します。
-そして、インスタンスから`render()`メソッドを呼び出して、課題データを表すカードの要素をそれぞれ作成します。
+データ欄のHTML要素を作成して戻り値として返すパブリックメソッドです。
+データ欄の中に入るデータとして、自身のフィールドである`data` フィールドを使用します。
+`TandemCard` クラスを、データごとに(`data`に格納されている課題の配列データの中身の値1つごとに)インスタンス化します。
+`TandemCard` クラスのコンストラクターは、`data`には、`data`フィールドに格納されている配列データの中身の`Task`あるいは`Event`型オブジェクトを渡します。`cardType`には自身の`columnType`フィールドを渡します。
+そして、インスタンスから`render()`メソッドを呼び出して、データを表すカードの要素をそれぞれ作成します。
 最後に、それぞれ作成したカードの要素を使用して、適切に要素を構成し、その一番上の親要素を戻り値として返します。
 
 * `private getTasks(): Task[]`
 データベースから課題割のデータを配列型で取得するプライベートメソッドです。
 `TaskDbController` クラスの `readData()` メソッドを呼び出して得られた `Task[]` 型のデータを返します。
 
-
+* `private getEvents(): Event[]`
+データベースから予定のデータを配列型で取得するプライベートメソッドです。
+`EventDbController` クラスの `readData()` メソッドを呼び出して得られた `Event[]` 型のデータを返します。
 
 
 ### Class: ShiftContent
@@ -863,9 +874,6 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 
 ### Class: EventContent
 <!-- TODO EventContentの設計 -->
-
-### Class: CardListColumn
-<!-- TODO CardListColumnの設計 -->
 
 ### Class: Card
 <!-- TODO Cardの設計 -->
