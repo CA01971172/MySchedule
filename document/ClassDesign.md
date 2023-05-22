@@ -854,3 +854,124 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 * `private getTasks(): Task[]`
 データベースから課題割のデータを配列型で取得するプライベートメソッドです。
 `TaskDbController` クラスの `readData()` メソッドを呼び出して得られた `Task[]` 型のデータを返します。
+
+
+
+
+### Class: ShiftContent
+<!-- TODO ShiftContentの設計 -->
+
+### Class: EventContent
+<!-- TODO EventContentの設計 -->
+
+### Class: CardListColumn
+<!-- TODO CardListColumnの設計 -->
+
+### Class: Card
+<!-- TODO Cardの設計 -->
+
+### Class: CalendarCard
+<!-- TODO CalendarCardの設計 -->
+
+### Class: CalendarTaskCard
+<!-- TODO Cardの設計 -->
+
+### Class: TandemCard
+<!-- TODO TandemCardの設計 -->
+
+### Class: TimetableCard
+<!-- TODO TimetableCardの設計 -->
+
+### Class: UiBarColumn
+<!-- TODO UiBarColumnの設計 -->
+
+### Class: CalendarUiBarColumn
+<!-- TODO CalendarUiBarColumnの設計 -->
+
+### Class: CardListUiBarColumn
+<!-- TODO CardListUiBarColumnの設計 -->
+
+### Class: MenuOverlay
+<!-- TODO MenuOverlayの設計 -->
+
+### Class: CalendarMenuOverlay
+<!-- TODO CalendarMenuOverlayの設計 -->
+
+### Class: TimetableMenuOverlay
+<!-- TODO TimetableMenuOverlayの設計 -->
+
+### Class: TaskMenuOverlay
+<!-- TODO TaskMenuOverlayの設計 -->
+
+### Class: ShiftMenuOverlay
+<!-- TODO ShiftMenuOverlayの設計 -->
+
+### Class: EventMenuOverlay
+<!-- TODO EventMenuOverlayの設計 -->
+
+### Class: ViewContent
+<!-- TODO ViewContentの設計 -->
+
+### Class: EditContent
+<!-- TODO EditContentの設計 -->
+
+## 完成済みのクラス
+### Class: PageUtils
+<!-- TODO PageUtilsの書き起こし -->
+
+### Class: QueryUtils
+<!-- TODO QueryUtilsの書き起こし -->
+
+### Class: Header
+<!-- TODO Headerの書き起こし -->
+
+### Class: Content
+<!-- TODO Contentの書き起こし -->
+
+### Class: Footer
+<!-- TODO Footerの書き起こし -->
+
+### Class: WebPage
+<!-- TODO WebPageの書き起こし -->
+
+### Class: LoginContent
+<!-- TODO LoginContentの書き起こし -->
+
+### Class: RegisterContent
+<!-- TODO RegisterContentの書き起こし -->
+
+### Class: TabBar
+<!-- TODO TabBarの書き起こし -->
+
+### Class: Button
+<!-- TODO Buttonの書き起こし -->
+
+### Class: AddButton
+<!-- TODO AddButtonの書き起こし・設計 -->
+
+### Class: LogoutButton
+<!-- TODO LogoutButtonの書き起こし -->
+
+### Class: SubmitButton
+<!-- TODO SubmitButtonの書き起こし -->
+
+### Class: Form
+<!-- TODO Formの書き起こし -->
+
+### Class: LoginForm
+<!-- TODO LoginFormの書き起こし -->
+
+### Class: RegisterForm
+<!-- TODO RegisterFormの書き起こし -->
+
+### Class: Label
+<!-- TODO Labelの書き起こし -->
+
+### Class: Input
+<!-- TODO Inputの書き起こし -->
+
+### Class: PasswordInput
+<!-- TODO PasswordInputの書き起こし -->
+
+### Class: LabeledInput
+<!-- TODO LabeledInputの書き起こし -->
