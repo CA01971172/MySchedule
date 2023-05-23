@@ -718,6 +718,18 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 予定のデータを格納するためのプライベートフィールドです。
 `getEvents()` メソッドによりデータベースから受け取った予定のデータが代入されます。
 
+* `private taskCards: HTMLElement[] | undefined`
+課題カードの要素を格納するためのプライベートフィールドです。
+`render()` メソッドで作成したカードの要素が格納されます。`hideCard()`メソッドで使用します。
+
+* `private shiftCards: HTMLElement[] | undefined`
+アルバイトシフトカードの要素を格納するためのプライベートフィールドです。
+`render()` メソッドで作成したカードの要素が格納されます。`hideCard()`メソッドで使用します。
+
+* `private eventCards: HTMLElement[] | undefined`
+予定カードの要素を格納するためのプライベートフィールドです。
+`render()` メソッドで作成したカードの要素が格納されます。`hideCard()`メソッドで使用します。
+
 #### Constructor
 * `constructor(year: number, month: number, enableTask: boolean, enableShift: boolean, enableEvent: boolean)`
 `year` パラメータと `month` パラメータを受け取り、自身の`year` フィールドと `month` フィールドをそれぞれ初期化します。
@@ -732,10 +744,11 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 カレンダー欄の中に入るデータとして、自身のフィールドである`tasks` `shifts` `events` の中から、値が未定義でないものを使用します。
 それらのフィールドにデータが格納されている場合は、`CalendarCard`のコンストラクターの引数`cardType`にそれぞれ `task`, `shift`,`event`という文字列を渡して、データごとに(`events`に予定データが格納されているなら予定1つごとに)`data`引数に渡してインスタンス化します。
 そして、インスタンスから`render()`メソッドを呼び出して、データを表すカードの要素をそれぞれ作成します。
+作成したカードの要素は、プライベートフィールド`taskCards`,`shiftCards`,`eventCards`に格納しておきます。
 
 * `public hideCard(enableTask: boolean, enableShift: boolean, enableEvent: boolean): void`
 カレンダー欄の中に入っているデータを非表示にするメソッドです。
-カレンダー欄の中に入っているデータを表すカードの要素を取得し、
+カレンダー欄の中に入っているデータを表すカードの要素をプライベートフィールド`taskCards`,`shiftCards`,`eventCards`から取得し、
 それらのカードにの要素にhtmlの属性を付与し、ユーザーが非表示にした種類のカードを非表示にします。
 ただし、コンストラクターの引数で有効にされなかった種類のデータについては、表示されることはありません。これは、最初からデータベースから取得されていないためです。
 
