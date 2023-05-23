@@ -654,7 +654,7 @@ DomUtils.createElement("p","text-start","Start aligned text on all viewport size
 ハンバーガーメニューや検索バーより下の、メインコンテンツ部分を作成します。
 
 #### Properties
-`CalendarColumn` クラスには、プロパティは存在しません。
+`CalendarContent` クラスには、プロパティは存在しません。
 
 #### Constructor
 * `CalendarContent` クラスは、コンストラクターで引数を受け取る必要はありません。
@@ -664,7 +664,7 @@ DomUtils.createElement("p","text-start","Start aligned text on all viewport size
 カレンダーページのメインコンテンツの要素群を作成するパブリックメソッドです。
 メインコンテンツ部分となる、曜日欄とカレンダー欄の合計二つのHTML要素を作成し、それらをまとめて配列に格納し、戻り値として出力します。
 曜日欄の要素は`renderWeekday()`メソッドを呼び出すことで作成します。
-時間割欄の要素は`renderCalendar()`メソッドを呼び出すことで作成します。
+カレンダー欄の要素は`renderCalendar()`メソッドを呼び出すことで作成します。
 
 * `private renderWeekday(): HTMLElement`
 曜日欄のHTML要素を作成するプライベートメソッドです。
@@ -672,10 +672,10 @@ DomUtils.createElement("p","text-start","Start aligned text on all viewport size
 インスタンス化する際、コンストラクターの引数には、 `sun` や `mon` などの全てのパラメータが `true` になった `WeekDay` 型のオブジェクトを渡します。
 
 * `private renderCalendar(): HTMLElement`
-時間割欄のHTML要素を作成するプライベートメソッドです。
+カレンダー欄のHTML要素を作成するプライベートメソッドです。
 `CalendarColumn` クラスをインスタンス化し、
 インスタンスから `render()` メソッドを呼び出すことで作成します。
-インスタンス化の際には、`CalendarColumn` クラスのコンストラクターの引数である `year` と `month` に、Dateオブジェクトを利用して取得した現在の年と月を渡します。
+インスタンス化の際には、`CalendarColumn` クラスのコンストラクターの引数である `year` と `month` に、Dateオブジェクトを利用して取得した現在の年と月を渡します。`enableTask`,`enableShift`,`enableEvent`には、全て`true`を渡します。
 
 ### Class: WeekdayColumn
 
@@ -870,7 +870,33 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 
 
 ### Class: ShiftContent
-<!-- TODO ShiftContentの設計 -->
+`ShiftContent` クラスは、アルバイトシフトページのメインコンテンツを作成するためのクラスです。
+`PageContent` インターフェースを実装して作成するクラスです。
+ハンバーガーメニューや検索バーより下の、メインコンテンツ部分を作成します。
+
+#### Properties
+`ShiftContent` クラスには、プロパティは存在しません。
+
+#### Constructor
+* `ShiftContent` クラスは、コンストラクターで引数を受け取る必要はありません。
+
+#### Methods
+* `public render(): HTMLElement[]`
+アルバイトシフトページのメインコンテンツの要素群を作成するパブリックメソッドです。
+メインコンテンツ部分となる、曜日欄とアルバイトシフト欄の合計二つのHTML要素を作成し、それらをまとめて配列に格納し、戻り値として出力します。
+曜日欄の要素は`renderWeekday()`メソッドを呼び出すことで作成します。
+アルバイトシフト欄の要素は`renderShift()`メソッドを呼び出すことで作成します。
+
+* `private renderWeekday(): HTMLElement`
+曜日欄のHTML要素を作成するプライベートメソッドです。
+`WeekdayColumn` クラスの `render()` メソッドを呼び出すことで曜日欄のHTML要素を作成します。
+インスタンス化する際、コンストラクターの引数には、 `sun` や `mon` などの全てのパラメータが `true` になった `WeekDay` 型のオブジェクトを渡します。
+
+* `private renderShift(): HTMLElement`
+アルバイトシフト欄のHTML要素を作成するプライベートメソッドです。
+`CalendarColumn` クラスをインスタンス化し、
+インスタンスから `render()` メソッドを呼び出すことで作成します。
+インスタンス化の際には、`CalendarColumn` クラスのコンストラクターの引数である `year` と `month` に、Dateオブジェクトを利用して取得した現在の年と月を渡します。`enableTask`,`enableShift`,`enableEvent`には、`enableShift`にのみ`true`を渡し、他には`false`を渡します。
 
 ### Class: EventContent
 `EventContent` クラスは、予定ページのメインコンテンツを作成するためのクラスです。
