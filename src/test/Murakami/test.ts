@@ -6,6 +6,7 @@ import { EmailData } from "./../../utils/types"
 import axios from 'axios';
 import { Button } from './../../components/Ui/Button';
 import { rootDiv } from './../../utils/constants';
+import { DbController } from "../../utils/DbController/DbController"
 
 export function test(){
     const testButton:Button = new Button("テスト", testProcess)
@@ -26,4 +27,12 @@ async function testProcess(){
         data2 = respondedData
         console.log(typeof data2,data2)
     })
+}
+
+async function create() {
+    const appUser: AppUser = new AppUser()
+    appUser.assignUserInfo()
+    const uid: string = appUser.uid
+    const dbController: DbController = new DbController()
+    const url: string =  dbController.buildUrl()
 }
