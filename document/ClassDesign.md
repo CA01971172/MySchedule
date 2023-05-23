@@ -873,7 +873,26 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 <!-- TODO ShiftContentの設計 -->
 
 ### Class: EventContent
-<!-- TODO EventContentの設計 -->
+`EventContent` クラスは、予定ページのメインコンテンツを作成するためのクラスです。
+`PageContent` インターフェースを実装して作成するクラスです。
+ハンバーガーメニューや検索バーより下の、メインコンテンツ部分を作成します。
+
+#### Properties
+* `EventContent` クラスは、フィールドを持ちません。
+
+#### Constructor
+* `EventContent` クラスは、コンストラクターで引数を受け取る必要はありません。
+
+#### Methods
+* `public render(): HTMLElement[]`
+予定ページのメインコンテンツの要素群を作成するパブリックメソッドです。
+メインコンテンツ部分となる、予定欄のHTML要素を作成し、作成した合計1つの要素を配列に格納し、戻り値として出力します。
+課題欄の要素は`renderEvent()`メソッドを呼び出すことで作成します。
+
+* `private renderEvent(): HTMLElement`
+予定欄のHTML要素を作成するプライベートメソッドです。
+`CardListColumn` クラスに`"event"`文字列を渡してインスタンス化し、
+インスタンスから `render()` メソッドを呼び出すことでHTML要素を作成します。
 
 ### Class: Card
 <!-- TODO Cardの設計 -->
