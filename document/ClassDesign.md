@@ -144,11 +144,17 @@ object型のデータを返します。
 指定された範囲条件でデータを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 指定された `tag` パラメータが `startAt` パラメータと `endAt` パラメータの間に収まる、object型のデータを返します。
+`startAt`や`endAt`に空文字列を受け取った場合は、その部分のクエリ文字列を作成しません。
 
-* `protected async updateData(url: string, data: object): Promise<void>`
-データベースのデータを更新するパブリックメソッドです。
+* `protected async overrideData(url: string, data: object): Promise<void>`
+データベースのデータを上書きするパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 object型の `data` パラメータを受け取り、データベース上のデータを、受け取った`data`で上書きします。
+
+* `protected async updateData(url: string, data: object): Promise<void>`
+データベースのデータを部分的に更新するパブリックメソッドです。
+`url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
+object型の `data` パラメータを受け取り、データベース上のデータの`data`と一致する部分のみを、受け取った`data`で部分的に上書きします。
 
 * `protected async deleteData(url: string): Promise<void>`
 データベースからデータを削除するパブリックメソッドです。
@@ -311,6 +317,7 @@ URLで指定されたデータベース上のデータを削除します。
 * `protected async readData(url: string): Promise<object>`
 * `protected async readDataByTag(url: string, tag: string, value: string): Promise<object>`
 * `protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>`
+* `protected async overrideData(url: string, data: object): Promise<void>`
 * `protected async updateData(url: string, data: object): Promise<void>`
 * `protected async deleteData(url: string): Promise<void>`
 親クラスのメソッドです。オーバーライドはありません。

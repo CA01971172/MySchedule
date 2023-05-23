@@ -30,7 +30,6 @@ export type RegisterData = {
 
 /* 時間割管理機能のデータモデル */
 export type TimeTable = {
-    id: string; // new Date().getTime().toString(16) によってタイムスタンプで作成する一意キー
     title: string;
     teacher: string;
     classroom: string;
@@ -49,7 +48,6 @@ export type TimeTableList = {
 
 /* 課題管理機能のデータモデル */
 export type Task = {
-    id: string; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
     deadline: number; // 締め切り日時
@@ -73,7 +71,6 @@ export type TaskList = {
 
 /* アルバイト管理機能のデータモデル */
 export type Shift = {
-    id: string; // タイムスタンプで作成する一意キー
     startTime: number; // シフト開始日時
     endTime: number; // シフト終了日時
     breakTime: number; // 休憩時間（分単位）
@@ -89,7 +86,6 @@ export type ShiftList = {
 
 /* 予定追加機能のデータモデル */
 export type Event = {
-    id: string; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
     startTime: number;
