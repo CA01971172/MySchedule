@@ -730,7 +730,7 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 * `public render(): HTMLElement`
 カレンダー欄のHTML要素を作成して戻り値として返すパブリックメソッドです。
 カレンダー欄の中に入るデータとして、自身のフィールドである`tasks` `shifts` `events` の中から、値が未定義でないものを使用します。
-それらのフィールドにデータが格納されている場合は、それぞれ `CalendarTaskCard` クラス, `CalendarShiftCard` クラス, `CalendarEventCard` クラスを、データごとに(`events`に予定データが格納されているなら予定1つごとに)インスタンス化します。
+それらのフィールドにデータが格納されている場合は、`CalendarCard`のコンストラクターの引数`cardType`にそれぞれ `task`, `shift`,`event`という文字列を渡して、データごとに(`events`に予定データが格納されているなら予定1つごとに)`data`引数に渡してインスタンス化します。
 そして、インスタンスから`render()`メソッドを呼び出して、データを表すカードの要素をそれぞれ作成します。
 
 * `public hideCard(enableTask: boolean, enableShift: boolean, enableEvent: boolean): void`
