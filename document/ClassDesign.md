@@ -749,7 +749,7 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 * `public hideCard(enableTask: boolean, enableShift: boolean, enableEvent: boolean): void`
 カレンダー欄の中に入っているデータを非表示にするメソッドです。
 カレンダー欄の中に入っているデータを表すカードの要素をプライベートフィールド`taskCards`,`shiftCards`,`eventCards`から取得し、
-それらのカードにの要素にhtmlの属性を付与し、ユーザーが非表示にした種類のカードを非表示にします。
+それらのカードにの要素にhtmlの属性を付与・剥奪し、ユーザーが非表示にした種類のカードの表示・非表示を切り替えます。
 ただし、コンストラクターの引数で有効にされなかった種類のデータについては、表示されることはありません。これは、最初からデータベースから取得されていないためです。
 
 * `private getTasks(): Task[]`
