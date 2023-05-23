@@ -29,7 +29,7 @@ export type RegisterData = {
 }
 
 /* 時間割管理機能のデータモデル */
-export type TimeTable = {
+export type Timetable = {
     title: string;
     teacher: string;
     classroom: string;
@@ -38,12 +38,12 @@ export type TimeTable = {
     dayOfWeek: number; // Date.getDay()で得られる曜日の形式
 };
 
-export interface TimeTables{
-    [id: string]: TimeTable;
+export interface Timetables{
+    [id: string]: Timetable;
 }
 
-export type TimeTableList = {
-    timeTables: TimeTables;
+export type TimetableList = {
+    timeTables: Timetables;
 };
 
 /* 課題管理機能のデータモデル */

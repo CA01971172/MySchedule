@@ -4,7 +4,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
     constructor() {
     }
 
-    public buildUrl(uid: string, resource: string, id?: string): string{
+    protected buildUrl(uid: string, resource: string, id?: string): string{
         let result: string = ""
         let idSelect: string = ""
         if (id){
@@ -14,7 +14,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         return result;
     }
 
-    public async createData(url: string, data: object): Promise<void>{
+    protected async createData(url: string, data: object): Promise<void>{
         await fetch(url, {
             method:'POST', 
             mode: 'cors', 
@@ -28,20 +28,20 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         // console.log(result)
     }
 
-    public async readData(url: string): Promise<object>{
+    protected async readData(url: string): Promise<object>{
         const response = await fetch(url)
         const result: object = await response.json()
         return result
     }
 
-    public async readDataByTag(url: string, tag: string, value: string): Promise<object>{
+    protected async readDataByTag(url: string, tag: string, value: string): Promise<object>{
         const query: string = `?orderBy="${tag}"&equalTo="${value}"`
         const completeUrl: string = url + query
         const result: object = await this.readData(completeUrl)
         return result
     }
 
-    public async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>{
+    protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>{
         let queryStartAt: string = "";
         if(startAt !== ""){
             queryStartAt = `&startAt="${startAt}"`
@@ -56,7 +56,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         return result
     }
 
-    public async overrideData(url: string, data: object): Promise<void>{
+    protected async overrideData(url: string, data: object): Promise<void>{
         await fetch(url, {
             method:'PUT', 
             mode: 'cors', 
@@ -70,7 +70,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         // console.log(result)
     }
 
-    public async updateData(url: string, data: object): Promise<void>{
+    protected async updateData(url: string, data: object): Promise<void>{
         await fetch(url, {
             method:'PATCH', 
             mode: 'cors', 
@@ -84,7 +84,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         // console.log(result)
     }
 
-    public async deleteData(url: string): Promise<void>{
+    protected async deleteData(url: string): Promise<void>{
         await fetch(url, {
             method:'DELETE'
         })
