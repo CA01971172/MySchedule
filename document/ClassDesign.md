@@ -203,19 +203,19 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
 
-* `public async readData(id?: string): Promise<Timetable[]>`
+* `public async readData(id?: string): Promise<Timetables>`
 データベースから時間割データを読み出すパブリックメソッドです。
 親クラスの`readData()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readData()`メソッドの引数である、`url`パラメータには`dbUrl`フィールドを渡します。
 また、このメソッドの引数で`id`パラメータを受け取っている場合、親クラスの`readData()`メソッドの引数`id`には、このメソッドの引数で受け取った`id`パラメータをそのまま渡します。受け取っていない場合は渡しません。
 
-* `public async readDataByTag(tag: string, value: string): Promise<Timetable[]>`
+* `public async readDataByTag(tag: string, value: string): Promise<Timetables>`
 指定された一致条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 親クラスの`readDataByTag()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readDataByTag()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
 
-* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Timetable[]>`
+* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Timetables>`
 指定された範囲条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 親クラスの`readDataByRange()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readDataByRange()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
@@ -228,7 +228,7 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 `data`,`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`updateData()`に渡します。
 `id`を引数で受け取らなかった場合、このメソッドで受け取った引数をそのまま`updateDataAll()`メソッドに渡して呼び出します。
 
-* `public async updateDataAll(url: string, data: Timetable[]): Promise<void>`
+* `public async updateDataAll(url: string, data: Timetables): Promise<void>`
 データベースの時間割データを上書きするパブリックメソッドです。
 親クラスの`updateDataAll()`メソッドを呼び出すことによって操作を行います。
 親クラスの`updateDataAll()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
@@ -274,19 +274,19 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
 
-* `public async readData(id?: string): Promise<Task[]>`
+* `public async readData(id?: string): Promise<Tasks>`
 データベースから課題データを読み出すパブリックメソッドです。
 親クラスの`readData()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readData()`メソッドの引数である、`url`パラメータには`dbUrl`フィールドを渡します。
 また、このメソッドの引数で`id`パラメータを受け取っている場合、親クラスの`readData()`メソッドの引数`id`には、このメソッドの引数で受け取った`id`パラメータをそのまま渡します。受け取っていない場合は渡しません。
 
-* `public async readDataByTag(tag: string, value: string): Promise<Task[]>`
+* `public async readDataByTag(tag: string, value: string): Promise<Tasks>`
 指定された一致条件で課題データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 親クラスの`readDataByTag()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readDataByTag()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
 
-* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Task[]>`
+* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Tasks>`
 指定された範囲条件で課題データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 親クラスの`readDataByRange()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readDataByRange()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
@@ -299,7 +299,7 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 `data`,`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`updateData()`に渡します。
 `id`を引数で受け取らなかった場合、このメソッドで受け取った引数をそのまま`updateDataAll()`メソッドに渡して呼び出します。
 
-* `public async updateDataAll(url: string, data: Task[]): Promise<void>`
+* `public async updateDataAll(url: string, data: Tasks): Promise<void>`
 データベースの課題データを上書きするパブリックメソッドです。
 親クラスの`updateDataAll()`メソッドを呼び出すことによって操作を行います。
 親クラスの`updateDataAll()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
@@ -426,19 +426,19 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
 
-* `public async readData(id?: string): Promise<Shift[]>`
+* `public async readData(id?: string): Promise<Shifts>`
 データベースからアルバイトシフトデータを読み出すパブリックメソッドです。
 親クラスの`readData()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readData()`メソッドの引数である、`url`パラメータには`dbUrl`フィールドを渡します。
 また、このメソッドの引数で`id`パラメータを受け取っている場合、親クラスの`readData()`メソッドの引数`id`には、このメソッドの引数で受け取った`id`パラメータをそのまま渡します。受け取っていない場合は渡しません。
 
-* `public async readDataByTag(tag: string, value: string): Promise<Shift[]>`
+* `public async readDataByTag(tag: string, value: string): Promise<Shifts>`
 指定された一致条件でアルバイトシフトデータを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 親クラスの`readDataByTag()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readDataByTag()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
 
-* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Shift[]>`
+* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Shifts>`
 指定された範囲条件でアルバイトシフトデータを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 親クラスの`readDataByRange()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readDataByRange()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
@@ -451,7 +451,7 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 `data`,`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`updateData()`に渡します。
 `id`を引数で受け取らなかった場合、このメソッドで受け取った引数をそのまま`updateDataAll()`メソッドに渡して呼び出します。
 
-* `public async updateDataAll(url: string, data: Shift[]): Promise<void>`
+* `public async updateDataAll(url: string, data: Shifts): Promise<void>`
 データベースのアルバイトシフトデータを上書きするパブリックメソッドです。
 親クラスの`updateDataAll()`メソッドを呼び出すことによって操作を行います。
 親クラスの`updateDataAll()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
@@ -496,19 +496,19 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
 
-* `public async readData(id?: string): Promise<Event[]>`
+* `public async readData(id?: string): Promise<Events>`
 データベースから予定データを読み出すパブリックメソッドです。
 親クラスの`readData()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readData()`メソッドの引数である、`url`パラメータには`dbUrl`フィールドを渡します。
 また、このメソッドの引数で`id`パラメータを受け取っている場合、親クラスの`readData()`メソッドの引数`id`には、このメソッドの引数で受け取った`id`パラメータをそのまま渡します。受け取っていない場合は渡しません。
 
-* `public async readDataByTag(tag: string, value: string): Promise<Event[]>`
+* `public async readDataByTag(tag: string, value: string): Promise<Events>`
 指定された一致条件で予定データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 親クラスの`readDataByTag()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readDataByTag()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
 `tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`readDataByTag()`に渡します。
 
-* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Event[]>`
+* `public async readDataByRange(tag: string, startAt: string, endAt: string): Promise<Events>`
 指定された範囲条件で予定データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 親クラスの`readDataByRange()`メソッドを呼び出すことによって操作を行います。
 親クラスの`readDataByRange()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
@@ -521,7 +521,7 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 `data`,`id`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`updateData()`に渡します。
 `id`を引数で受け取らなかった場合、このメソッドで受け取った引数をそのまま`updateDataAll()`メソッドに渡して呼び出します。
 
-* `public async updateDataAll(url: string, data: Timetable[]): Promise<void>`
+* `public async updateDataAll(url: string, data: Timetables): Promise<void>`
 データベースの予定データを上書きするパブリックメソッドです。
 親クラスの`updateDataAll()`メソッドを呼び出すことによって操作を行います。
 親クラスの`updateDataAll()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
@@ -706,15 +706,15 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 どの月のカレンダー欄を作成するのかを指定するためのプライベートフィールドです。
 `year` フィールドと合わせて、データベースからデータを取得する際の、データの範囲指定で使用します。
 
-* `private tasks: Task[] | undefined`
+* `private tasks: Tasks | undefined`
 課題のデータを格納するためのプライベートフィールドです。
 `getTasks()` メソッドによりデータベースから受け取った課題のデータが代入されます。
 
-* `private shifts: Shift[] | undefined`
+* `private shifts: Shifts | undefined`
 アルバイトシフトのデータを格納するためのプライベートフィールドです。
 `getShifts()` メソッドによりデータベースから受け取ったアルバイトシフトのデータが代入されます。
 
-* `private events: Event[] | undefined`
+* `private events: Events | undefined`
 予定のデータを格納するためのプライベートフィールドです。
 `getEvents()` メソッドによりデータベースから受け取った予定のデータが代入されます。
 
@@ -739,19 +739,19 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 それらのカードにの要素にhtmlの属性を付与し、ユーザーが非表示にした種類のカードを非表示にします。
 ただし、コンストラクターの引数で有効にされなかった種類のデータについては、表示されることはありません。これは、最初からデータベースから取得されていないためです。
 
-* `private getTasks(): Task[]`
+* `private getTasks(): Tasks`
 データベースから課題のデータを配列型で取得するプライベートメソッドです。
-`TaskDbController` クラスの `readDataByRange()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Task[]` 型のデータを返します。
+`TaskDbController` クラスの `readDataByRange()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Tasks` 型のデータを返します。
 `readDataByRange()` の引数には、 `tag` には "deadline" を、 `startAt` と `endAt` にはそれぞれ `year` フィールドと `month` フィールドから算出した適切なデータを渡します。
 
-* `private getShifts(): Shift[]`
+* `private getShifts(): Shifts`
 データベースからアルバイトシフトのデータを配列型で取得するプライベートメソッドです。
-`ShiftDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Shift[]` 型のデータを返します。
+`ShiftDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Shifts` 型のデータを返します。
 `readDataByRange()` の引数には、 `tag` には "startTime" を、 `startAt` と `endAt` にはそれぞれ `year` フィールドと `month` フィールドから算出した適切なデータを渡します。
 
-* `private getEvents(): Event[]`
+* `private getEvents(): Events`
 データベースから予定のデータを配列型で取得するプライベートメソッドです。
-`EventDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Event[]` 型のデータを返します。
+`EventDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Events` 型のデータを返します。
 `readDataByRange()` の引数には、 `tag` には "startTime" を、 `startAt` と `endAt` にはそれぞれ `year` フィールドと `month` フィールドから算出した適切なデータを渡します。
 
 ### Class: TimetableContent
@@ -787,7 +787,7 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 `TimetableColumn` クラスは、時間割ページの時間割欄を作成するためのクラスです。
 
 #### Properties
-* `private timetables: Timetable[]`
+* `private timetables: Timetables`
 時間割のデータを格納するためのプライベートフィールドです。
 `getTimetables()` メソッドによりデータベースから受け取った時間割のデータが代入されます。
 
@@ -804,9 +804,9 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 そして、インスタンスから`render()`メソッドを呼び出して、データを表すカードの要素をそれぞれ作成します。
 最後に、それぞれ作成したカードの要素を使用して、適切に要素を構成し、、その一番上の親要素を戻り値として返します。
 
-* `private getTimetables(): Timetable[]`
+* `private getTimetables(): Timetables`
 データベースから時間割のデータを配列型で取得するプライベートメソッドです。
-`TimetableDbController` クラスの `readData()` メソッドを呼び出して得られた `Timetable[]` 型のデータを返します。
+`TimetableDbController` クラスの `readData()` メソッドを呼び出して得られた `Timetables` 型のデータを返します。
 
 ### Class: TaskContent
 `TaskContent` クラスは、課題ページのメインコンテンツを作成するためのクラスです。
@@ -835,7 +835,7 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 課題欄と予定欄で使用します。
 
 #### Properties
-* `private data: Task[]|Event[]`
+* `private data: Tasks|Events`
 データを格納するためのプライベートフィールドです。
 `getTasks()` や`getEvents()`メソッドによりデータベースから受け取ったデータで初期化されます。
 
@@ -860,13 +860,13 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 そして、インスタンスから`render()`メソッドを呼び出して、データを表すカードの要素をそれぞれ作成します。
 最後に、それぞれ作成したカードの要素を使用して、適切に要素を構成し、その一番上の親要素を戻り値として返します。
 
-* `private getTasks(): Task[]`
+* `private getTasks(): Tasks`
 データベースから課題割のデータを配列型で取得するプライベートメソッドです。
-`TaskDbController` クラスの `readData()` メソッドを呼び出して得られた `Task[]` 型のデータを返します。
+`TaskDbController` クラスの `readData()` メソッドを呼び出して得られた `Tasks` 型のデータを返します。
 
-* `private getEvents(): Event[]`
+* `private getEvents(): Events`
 データベースから予定のデータを配列型で取得するプライベートメソッドです。
-`EventDbController` クラスの `readData()` メソッドを呼び出して得られた `Event[]` 型のデータを返します。
+`EventDbController` クラスの `readData()` メソッドを呼び出して得られた `Events` 型のデータを返します。
 
 
 ### Class: ShiftContent

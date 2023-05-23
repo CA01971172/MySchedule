@@ -4,9 +4,9 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
     constructor() {
     }
 
-    protected buildUrl(uid: string, resource: string, id?: string): string{ // 完全なURLを生成する
+    public buildUrl(uid: string, resource: string, id?: string): string{ // 完全なURLを生成する
         let result: string = ""
-        result = `${this.baseDbUrl}/user/${uid}/${resource}.json`
+        result = `${this.baseDbUrl}/users/${uid}/${resource}.json`
         if(id){
             result += `?orderBy="id"&equalTo="${id}"`
         }
@@ -19,7 +19,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         return result;
     }
 
-    protected async createData(url: string, data: object): Promise<void>{
+    public async createData(url: string, data: object): Promise<void>{
         fetch(url,{
             method:'POST',
             mode:'cors',

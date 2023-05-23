@@ -6,7 +6,7 @@
         ├── ${uid} #ユーザーのid
         │   ├── timetable
         │   │   └── timeTables #時間割のデータ
-        │   │       └── ${配列番号}
+        │   │       └── ${id}
         │   │           ├── id #一意キー(string)
         │   │           ├── title #授業名(string)
         │   │           ├── teacher #講師名(string)
@@ -16,7 +16,7 @@
         │   │           └── dayOfWeek #曜日(number)
         │   ├── task
         │   │   ├── tasks #課題のデータ
-        │   │   │   └── ${配列番号}
+        │   │   │   └── ${id}
         │   │   │       ├── id #一意キー(string)
         │   │   │       ├── title #課題名(number)
         │   │   │       ├── description #課題の説明(string)
@@ -27,14 +27,14 @@
         │   │       └── autoTaskDelete #提出期限の過ぎた課題データを自動で削除するかどうか(boolean)
         │   ├── shift
         │   │   └── shifts #アルバイトシフトのデータ
-        │   │       └── ${配列番号}
+        │   │       └── ${id}
         │   │           ├── id #一意キー(string)
         │   │           ├── startTime #バイトの開始時間(number)
         │   │           ├── endTime #バイトの終了時間(number)
         │   │           └── breakTime #バイトの休憩時間(number)
         │   └── event
         │       ├── events #予定のデータ
-        │       │   └── ${配列番号}
+        │       │   └── ${id}
         │       │       ├── id #一意キー(string)
         │       │       ├── title #予定名(string)
         │       │       ├── description #予定の説明(string)
