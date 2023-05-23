@@ -124,21 +124,16 @@ Firebase Realtime DatabaseのベースとなるURLを表すフィールドです
 IDを指定しない場合はリソース名だけでURLを生成します。
 戻り値としてデータベースへの完全なURLを返します。
 
-* `protected generateUniqueKey(): string`
-タイムスタンプから一意キーを作成するメソッドです。
-
 * `protected async createData(url: string, data: object): Promise<void>`
 データベースにデータを作成するパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 object型の `data` パラメータを受け取り、受け取ったデータをデータベースに作成します。
-ただし、データに `id` パラメータが付与されていない場合、タイムスタンプから一意キーを作成して `id` パラメータをデータに設定して作成します。
+ただし、firebaseが自動で一意キーとなるidを作成し、その子ノードにデータが格納されることに注意してください。
 
-* `protected async readData(url: string, id?: string): Promise<object>`
+* `protected async readData(url: string): Promise<object>`
 データベースからデータを読み出すパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 object型のデータを返します。
-`id` パラメータを受け取った場合は、 `readDataByTag()` メソッドを使用して、id(一意キー)でデータの絞り込みを行います。 `readDataByTag()` メソッドの引数には、`tag` には "id" という文字列を、 `value` には `readData()` メソッドの引数である `id` の値を渡します。
-`id` パラメータを受け取らなかった場合は、全データを返します。
 
 * `protected async readDataByTag(url: string, tag: string, value: string): Promise<object>`
 指定された一致条件でデータを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
@@ -150,25 +145,15 @@ object型のデータを返します。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 指定された `tag` パラメータが `startAt` パラメータと `endAt` パラメータの間に収まる、object型のデータを返します。
 
-* `protected async updateData(url: string, data: object, id?: string): Promise<void>`
+* `protected async updateData(url: string, data: object): Promise<void>`
 データベースのデータを更新するパブリックメソッドです。
-`url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。URLで指定されるデータは、それぞれ`id`プロパティを持ったオブジェクト型の配列であることを前提とします。
-object型の `data` パラメータと、データの一意キーを表す `id` パラメータを受け取り、idが `id` と一致するデータを `data` パラメータのデータで上書きします。
-idが `id` と一致するデータがない場合は `createData()` メソッドを呼び出し、データを上書きする代わりに新規作成します。
-ただし、`data` パラメータに格納されたデータのidが `id` と一致しない場合は、エラーを返します。
-`id`引数が指定されない場合、このメソッドで受け取った引数をそのまま`updateDataAll()`メソッドに渡して実行します。
+`url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
+object型の `data` パラメータを受け取り、データベース上のデータを、受け取った`data`で上書きします。
 
-* `protected async updateDataAll(url: string, data: object|object[]): Promise<void>`
-データベースのデータを更新するパブリックメソッドです。
-`url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。`data`パラメータで受け取るデータは基本的に、、それぞれ`id`プロパティを持ったオブジェクト型の配列であることを前提とします。
-URLで指定されたデータベース上のデータを `data` パラメータのデータで上書きします。
-このとき、オブジェクト型配列のデータをオブジェクト型のデータで上書きできてしまうことに注意してください。
-上書きするデータが見つからない場合は、新たにデータを作成するはずです。これは、FetchAPIを用いて実装する予定のため、PUTリクエストでupsertするためです。
-
-* `protected async deleteData(url: string, id: string): Promise<void>`
+* `protected async deleteData(url: string): Promise<void>`
 データベースからデータを削除するパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
-string型のidパラメータを受け取り、idが一致するデータを削除します。
+URLで指定されたデータベース上のデータを削除します。
 
 ### Class: TimetableDbController
 `TimetableDbController` クラスは、Firebaseからの時間割データを扱うためのクラスです。
@@ -177,6 +162,10 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 #### Properties
 * `protected readonly baseDbUrl: string`
 親クラスのフィールドです。
+
+* `private uid: string`
+データベースのユーザーの一意キーを表す文字列型のプライベートフィールドです。
+コンストラクターで初期化されます。
 
 * `private readonly resource: string`
 このクラスが扱うリソース名を表すフィールドです。
@@ -188,20 +177,18 @@ string型のidパラメータを受け取り、idが一致するデータを削�
 
 #### Constructor
 * `constructor(uid: string)`
-ユーザーIDを表す `uid` パラメータを引数で受け取り、`dbUrl` フィールドを初期化するためのコンストラクタです。
-`buildUrl()` メソッドを呼び出すことにより完全なURLを作成し、自身の `dbUrl` フィールドに代入することによって初期化します。
-`buildUrl()` メソッドの引数には、`uid` にコンストラクターの引数である `uid` を、 `resource` に `resource` フィールドを渡します。
+ユーザーIDを表す `uid` パラメータを引数で受け取り、`uid` フィールドを初期化するためのコンストラクタです。
 
 #### Methods
 * `protected buildUrl(uid: string, resource: string, id?: string): string`
-* `protected generateUniqueKey(): string`
 親クラスのメソッドです。オーバーライドはありません。
 
 * `public async createData(data: Timetable): Promise<void>`
 データベースに時間割データを作成するパブリックメソッドです。
 親クラスの`createData()`メソッドを呼び出すことによって操作を行います。
-親クラスの`createData()`メソッドの引数には、`url`パラメータに`dbUrl`フィールドを渡します。
-`data`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま親クラスの`createData()`に渡します。
+まず、`buildUrl()`メソッドの`uid`,`resource`に自身のフィールドの`uid`,`resource`を渡して、データベースへのURLを作成します。
+そして、親クラスの`createData()`メソッドの引数である、`url`パラメータに作成したURLを渡します。
+`data`パラメータについては、このメソッドで受け取った`data`引数をそのまま親クラスの`createData()`に渡します。
 
 * `public async readData(id?: string): Promise<Timetables>`
 データベースから時間割データを読み出すパブリックメソッドです。
@@ -925,9 +912,6 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 
 ### Class: CalendarCard
 <!-- TODO CalendarCardの設計 -->
-
-### Class: CalendarTaskCard
-<!-- TODO Cardの設計 -->
 
 ### Class: TandemCard
 <!-- TODO TandemCardの設計 -->
