@@ -14,7 +14,6 @@ import { LoginPageUrl } from "./utils/constants";
 declare global {
     interface Window {
         logout(): void;
-        getApp(): void;
     }
 }
 window.logout = function (): void{

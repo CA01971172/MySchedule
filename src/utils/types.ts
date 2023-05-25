@@ -29,8 +29,7 @@ export type RegisterData = {
 }
 
 /* 時間割管理機能のデータモデル */
-type TimeTable = {
-    id: string; // new Date().getTime().toString(16) によってタイムスタンプで作成する一意キー
+export type Timetable = {
     title: string;
     teacher: string;
     classroom: string;
@@ -39,45 +38,54 @@ type TimeTable = {
     dayOfWeek: number; // Date.getDay()で得られる曜日の形式
 };
 
-export type TimeTableList = {
-    timeTables: TimeTable[];
+export interface Timetables{
+    [id: string]: Timetable;
+}
+
+export type TimetableList = {
+    timeTables: Timetables;
 };
 
 /* 課題管理機能のデータモデル */
 export type Task = {
-    id: string; // タイムスタンプで作成する一意キー
     title: string;
     description: string;
     deadline: number; // 締め切り日時
 };
 
-type TaskSettings = {
+export interface Tasks{
+    [id: string]: Task;
+}
+
+export type TaskSettings = {
     enabledAlert: boolean; // アラートの有効/無効を管理するプロパティ
     daysBeforeDeadline: number; // 課題提出期限の何日前にアラートを送信するかを管理するプロパティ
     autoTaskDelete: boolean;
 };
 
 export type TaskList = {
-    tasks: Task[];
+    tasks: Tasks;
     taskSettings: TaskSettings;
 };
 
 
 /* アルバイト管理機能のデータモデル */
-type Shift = {
-    id: string; // タイムスタンプで作成する一意キー
+export type Shift = {
     startTime: number; // シフト開始日時
     endTime: number; // シフト終了日時
     breakTime: number; // 休憩時間（分単位）
 };
 
+export interface Shifts{
+    [id: string]: Shift;
+}
+
 export type ShiftList = {
-    shifts: Shift[];
+    shifts: Shifts;
 };
 
 /* 予定追加機能のデータモデル */
-type Event = {
-    id: string; // タイムスタンプで作成する一意キー
+export type Event = {
     title: string;
     description: string;
     startTime: number;
@@ -85,11 +93,26 @@ type Event = {
     isAllDay: boolean; // 終日予定かどうか
 };
 
-type EventSettings = {
+export interface Events{
+    [id: string]: Event;
+}
+
+export type EventSettings = {
     hidePassedEvent: boolean; // 過去の予定を非表示にするかどうか
 };
 
 export type EventList = {
-    events: Event[];
+    events: Events;
     eventSettings: EventSettings;
 };
+
+/* その他 */
+export type Weekday = { // どの曜日を含めた曜日欄を作成するか決定するための型
+    sun: boolean,
+    mon: boolean,
+    tue: boolean,
+    wed: boolean,
+    thu: boolean,
+    fri: boolean,
+    sat: boolean
+}

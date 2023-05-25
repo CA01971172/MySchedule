@@ -1,77 +1,95 @@
-import { dbUrl } from "../constants"
-
 export class DbController { // Firebaseのデータを取り扱うためのクラス
-    protected _dbPath: string;
-    protected _data: object;
+    protected readonly baseDbUrl: string = "https://myschedule-c0a49-default-rtdb.firebaseio.com"
 
-    constructor(contentLink: string, data: object = {}) {
-        this._dbPath = `${dbUrl}/${contentLink}.json`;
-        this._data = data;
+    constructor() {
     }
 
-    get dbPath(): string {
-        return this._dbPath;
-    }
-
-    set dbPath(dbPath: string) {
-        this._dbPath = dbPath;
-    }
-
-    get data(): object {
-        return this._data;
-    }
-
-    set data(data: object) {
-        this._data = data;
-    }
-
-    async createData(data: object): Promise<void> {//データベースにデータを作成する
-        const response = await fetch(this.dbPath, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-    
-        if (!response.ok) {
-            throw new Error(`Failed to create data (status code: ${response.status})`);
+    protected buildUrl(uid: string, resource: string, id?: string): string{
+        let result: string = ""
+        let idSelect: string = ""
+        if (id){
+            idSelect = `/${id}`
         }
+        result = `${this.baseDbUrl}/users/${uid}/${resource}${idSelect}.json`
+        return result;
     }
 
-    async readData(): Promise<object> {//データベースからデータを読み出す
-            const response = await fetch(this.dbPath);
-        
-            if (!response.ok) {
-                throw new Error(`Failed to read data (status code: ${response.status})`);
-            }
-        
-            const data = await response.json();
-            this.data = data;
-            return data;
-        }
-
-        async updateData(data: object): Promise<void> {//データベースのデータを更新する
-            const response = await fetch(this.dbPath, {
-                method: "PUT",
-                headers: {
-                "Content-Type": "application/json",
-            },
-                body: JSON.stringify(data),
-            });
-        
-            if (!response.ok) {
-                throw new Error(`Failed to update data (status code: ${response.status})`);
-            }
+    protected async createData(url: string, data: object): Promise<void>{
+        await fetch(url, {
+            method:'POST', 
+            mode: 'cors', 
+            headers: { 
+                'Content-Type': 'application/json' 
+            }, 
+            body: JSON.stringify(data)
+        })
+        // const response = await fetch(url)
+        // const result = await response.json()
+        // console.log(result)
     }
 
-    async deleteData(id: string): Promise<void> {//データベースのデータを削除する
-        const response = await fetch(this.dbPath, {
-            method: "DELETE",
-        });
+    protected async readData(url: string): Promise<object>{
+        const response = await fetch(url)
+        const result: object = await response.json()
+        return result
+    }
 
-        if (!response.ok) {
-            throw new Error(`Failed to delete data (status code: ${response.status})`);
+    protected async readDataByTag(url: string, tag: string, value: string): Promise<object>{
+        const query: string = `?orderBy="${tag}"&equalTo="${value}"`
+        const completeUrl: string = url + query
+        const result: object = await this.readData(completeUrl)
+        return result
+    }
+
+    protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>{
+        let queryStartAt: string = "";
+        if(startAt !== ""){
+            queryStartAt = `&startAt="${startAt}"`
         }
+        let queryEndAt: string = "";
+        if(endAt !== ""){
+            queryEndAt = `&endAt="${endAt}"`
+        }
+        const query: string = `?orderBy="${tag}"${queryStartAt}${queryEndAt}`
+        const completeUrl: string = url + query
+        const result: object = await this.readData(completeUrl)
+        return result
+    }
+
+    protected async overrideData(url: string, data: object): Promise<void>{
+        await fetch(url, {
+            method:'PUT', 
+            mode: 'cors', 
+            headers: { 
+                'Content-Type': 'application/json' 
+            }, 
+            body: JSON.stringify(data)
+        })
+        // const response = await fetch(url)
+        // const result = await response.json()
+        // console.log(result)
+    }
+
+    protected async updateData(url: string, data: object): Promise<void>{
+        await fetch(url, {
+            method:'PATCH', 
+            mode: 'cors', 
+            headers: { 
+                'Content-Type': 'application/json' 
+            }, 
+            body: JSON.stringify(data)
+        })
+        // const response = await fetch(url)
+        // const result = await response.json()
+        // console.log(result)
+    }
+
+    protected async deleteData(url: string): Promise<void>{
+        await fetch(url, {
+            method:'DELETE'
+        })
+        // const response = await fetch(url)
+        // const result = await response.json()
+        // console.log(result)
     }
 }

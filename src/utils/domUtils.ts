@@ -36,22 +36,22 @@ export class DomUtils {//DOM操作用のクラス
     return img;
   }
 
-  public static appendChild(parent: HTMLElement, child: HTMLElement) {
+  public static appendChild(parent: HTMLElement, child: HTMLElement): void {
     parent.appendChild(child);
   }
 
-  public static appendChildMultiple(parent: HTMLElement, children: HTMLElement[]) {
+  public static appendChildMultiple(parent: HTMLElement, children: HTMLElement[]): void {
     children.forEach(child => {
       parent.appendChild(child);
     });
   }
 
-  appendElement(tagName: keyof HTMLElementTagNameMap, className?: string|string[], innerText?: string): void {
+  public appendElement(tagName: keyof HTMLElementTagNameMap, className?: string|string[], innerText?: string): void {
     const element = DomUtils.createElement(tagName, className, innerText);
     if(this.parentElement)DomUtils.appendChild(this.parentElement, element);
   }
 
-  appendImg(src: string, alt?: string, className?: string): void {
+  public appendImg(src: string, alt?: string, className?: string): void {
     const img = DomUtils.createImg(src, alt, className);
     if(this.parentElement)DomUtils.appendChild(this.parentElement, img);
   }
