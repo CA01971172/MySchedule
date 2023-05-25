@@ -330,7 +330,7 @@ URLで指定されたデータベース上のデータを削除します。
 そして最後に、`readData()`メソッドの`url`引数に作成したURLを渡し、
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
 
-* `public async setEnabledAlert(enabledAlert: boolean): Promise<boolean>`
+* `public async setEnabledAlert(enabledAlert: boolean): Promise<void>`
 課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`enabledAlert`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/enabledAlert"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
@@ -346,7 +346,7 @@ URLで指定されたデータベース上のデータを削除します。
 そして最後に、`readData()`メソッドの`url`引数に作成したURLを渡し、、
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
 
-* `public async setDaysBeforeDeadline(daysBeforeDeadline: number): Promise<boolean>`
+* `public async setDaysBeforeDeadline(daysBeforeDeadline: number): Promise<void>`
 課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`daysBeforeDeadline`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/daysBeforeDeadline"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
@@ -362,7 +362,7 @@ URLで指定されたデータベース上のデータを削除します。
 そして最後に、`readData()`メソッドの`url`引数に作成したURLを渡し、
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
 
-* `public async setAutoTaskDelete(autoTaskDelete: boolean): Promise<boolean>`
+* `public async setAutoTaskDelete(autoTaskDelete: boolean): Promise<void>`
 課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`autoTaskDelete`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/autoTaskDelete"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
@@ -542,7 +542,7 @@ URLで指定されたデータベース上のデータを削除します。
 そして最後に、親クラスの`readData()`メソッドの`url`引数に作成したURLを渡し、
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
 
-* `public async setHidePassedEvent(hidePassedEvent: boolean): Promise<boolean>`
+* `public async setHidePassedEvent(hidePassedEvent: boolean): Promise<void>`
 課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`hidePassedEvent`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/hidePassedEvent"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
@@ -644,6 +644,7 @@ DomUtils.createElement("p","text-start","Start aligned text on all viewport size
 インスタンス化の際には、`CalendarColumn` クラスのコンストラクターの引数である `year` と `month` に、Dateオブジェクトを利用して取得した現在の年と月を渡します。`enableTask`,`enableShift`,`enableEvent`には、全て`true`を渡します。
 
 ### Class: WeekdayColumn
+カレンダーページや時間割ページの、曜日欄の要素を作成するためのクラスです。
 
 #### Properties
 * `private weekday: Weekday`

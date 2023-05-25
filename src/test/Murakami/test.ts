@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Button } from './../../components/Ui/Button';
 import { rootDiv } from './../../utils/constants';
 import { TimetableDbController } from "../../utils/DbController/TimetableDbController"
+import { EventSettingsDbController } from "../../utils/DbController/EventSettingsDbController"
 
 export function test(){
     const testButton:Button = new Button("テスト", testProcess)
@@ -34,6 +35,14 @@ export function test(){
     const deleteButton:Button = new Button("Delete", deleteData)
     const deleteButtonElm = deleteButton.render()
     rootDiv.appendChild(deleteButtonElm)
+
+    const getButton:Button = new Button("settingGet", getData)
+    const getButtonElm = getButton.render()
+    rootDiv.appendChild(getButtonElm)
+
+    const setButton:Button = new Button("settingSet", setData)
+    const setButtonElm = setButton.render()
+    rootDiv.appendChild(setButtonElm)
 }
 
 async function testProcess(){
@@ -116,24 +125,20 @@ async function deleteData() {
     await dbController.deleteTimetable(id)
 }
 
+async function getData() {
+    const appUser: AppUser = new AppUser()
+    await appUser.assignUserInfo()
+    const uid: string = appUser.uid
+    const dbController: EventSettingsDbController = new EventSettingsDbController(uid)
+    const result: any = await dbController.getHidePassedEvent()
+    console.log(result)
+}
 
-const hoge ={
-    "rules": {
-        "users": {
-            ".read": true,
-            ".write": true,
-            "$uid": {
-                "timetable": {
-                    "timetables": {
-                        ".indexOn": "dayOfWeek"
-                    }
-                },
-                "event": {
-                    "events": {
-                        ".indexOn": "title"
-                    }
-                }
-            }
-        }
-    }
+async function setData() {
+    const appUser: AppUser = new AppUser()
+    await appUser.assignUserInfo()
+    const uid: string = appUser.uid
+    const dbController: EventSettingsDbController = new EventSettingsDbController(uid)
+    const hidePassedEvent = confirm("Which is hidePassedEvent, true or false?");
+    await dbController.setHidePassedEvent(hidePassedEvent)
 }
