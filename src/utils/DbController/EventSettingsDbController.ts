@@ -15,11 +15,7 @@ export class EventSettingsDbController extends DbController {
         const fullResource: string = `${this.resource}/hidePassedEvent`
         const url: string = this.buildUrl(this.uid, fullResource)
         const fetchedData: any = await this.readData(url)
-        console.log("fetchedData")
-        console.log(fetchedData)
         const result: any = fetchedData?.hidePassedEvent
-        console.log("result")
-        console.log(result)
         if(result){
             return result
         }else{
