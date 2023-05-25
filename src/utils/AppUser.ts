@@ -21,7 +21,7 @@ export class AppUser {
         password:""
     } as UserInfo;
 
-    private get uid(): string {
+    public get uid(): string {
         return this._uid;
     }
 

@@ -29,8 +29,7 @@ export type RegisterData = {
 }
 
 /* 時間割管理機能のデータモデル */
-type TimeTable = {
-    id: string; // new Date().getTime().toString(16) によってタイムスタンプで作成する一意キー
+export type Timetable = {
     title: string;
     teacher: string;
     classroom: string;
@@ -39,17 +38,24 @@ type TimeTable = {
     dayOfWeek: number; // Date.getDay()で得られる曜日の形式
 };
 
-export type TimeTableList = {
-    timeTables: TimeTable[];
+export interface Timetables{
+    [id: string]: Timetable;
+}
+
+export type TimetableList = {
+    timeTables: Timetables;
 };
 
 /* 課題管理機能のデータモデル */
-type Task = {
-    id: string; // タイムスタンプで作成する一意キー
+export type Task = {
     title: string;
     description: string;
     deadline: number; // 締め切り日時
 };
+
+export interface Tasks{
+    [id: string]: Task;
+}
 
 type TaskSettings = {
     enabledAlert: boolean; // アラートの有効/無効を管理するプロパティ
@@ -58,26 +64,28 @@ type TaskSettings = {
 };
 
 export type TaskList = {
-    tasks: Task[];
+    tasks: Tasks;
     taskSettings: TaskSettings;
 };
 
 
 /* アルバイト管理機能のデータモデル */
-type Shift = {
-    id: string; // タイムスタンプで作成する一意キー
+export type Shift = {
     startTime: number; // シフト開始日時
     endTime: number; // シフト終了日時
     breakTime: number; // 休憩時間（分単位）
 };
 
+export interface Shifts{
+    [id: string]: Shift;
+}
+
 export type ShiftList = {
-    shifts: Shift[];
+    shifts: Shifts;
 };
 
 /* 予定追加機能のデータモデル */
-type Event = {
-    id: string; // タイムスタンプで作成する一意キー
+export type Event = {
     title: string;
     description: string;
     startTime: number;
@@ -85,12 +93,16 @@ type Event = {
     isAllDay: boolean; // 終日予定かどうか
 };
 
+export interface Events{
+    [id: string]: Event;
+}
+
 type EventSettings = {
     hidePassedEvent: boolean; // 過去の予定を非表示にするかどうか
 };
 
 export type EventList = {
-    events: Event[];
+    events: Events;
     eventSettings: EventSettings;
 };
 
