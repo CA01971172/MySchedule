@@ -890,6 +890,46 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 <!-- TODO Cardの設計 -->
 
 ### Class: CalendarCard
+カレンダーページ内のデータを表すカードを作成するためのクラスです。
+Cardクラスを継承して作成します。
+
+#### Properties
+* `private id: string`
+データの一意キーを表す文字列型プライベートフィールドです。
+カレンダー内のデータのカードをクリックするとそのデータの詳細ページに遷移するのに必要です。
+
+* `private title: string`
+カードの中に入るテキストを表す文字列型プライベートフィールドです。
+
+* `private cardType: "task"|"shift"|"event"`
+カードの種類を表すプライベートフィールドです。
+
+* `private bgColor: string`
+カードの背景色を表す文字列型プライベートフィールドです。
+CSSのクラスを設定します。
+
+* `private readonly calenderCardClass: string`
+カレンダーカード用のcssのクラスを表す読み取り専用プライベートフィールドです。
+
+#### Constructor
+* `constructor(cardType: "task"|"shift"|"event", id: string, title: string)`
+`id`と`title`と`cardType`フィールドをコンストラクターで受け取った引数で初期化します。
+`bgColor`フィールドには、受け取った引数`cardType`の値が`"task"`なら`"bg-task"`を、`"shift"`なら`"bg-shift"`を、`"event"`なら`"bg-event"`を代入して初期化します。
+
+#### Methods
+* `render(): HTMLElement`
+カレンダー用カードの要素を作成するメソッドです。
+要素には、`bgColor`フィールドと`calenderCardClass`フィールドで指定されたCSSのクラスを付与します。
+要素のtextContentは`title`フィールドになるように作成します。
+また、カードをクリックしたときに`cardOnClickEvent()`メソッドが実行されるような処理を、要素に適用します。
+
+* `cardOnClickEvent(): void`
+カードをクリックしたときの処理を代入するメソッドです。`render()`メソッド内で、カードに`cardOnClickEvent()`メソッドの処理を適用します。
+このメソッドの処理としては、以下のような処理を実行します。
+`cardType`と`id`フィールドを使用してデータを取得し、カードが表すデータの詳細ページに現在のページを挿げ替えます。
+データの取得方法は、例えば`cardType`フィールドが`"task"`なら、`TaskDbController`クラスの`readTask()`メソッドの`id`引数に`id`フィールドを渡して取得します。
+挿げ替え方法は、`tabBar`クラスの`changeTab()`メソッドを参考にしてください。<!-- TODO タブ切り替えの実装 -->
+
 <!-- TODO CalendarCardの設計 -->
 
 ### Class: TandemCard
