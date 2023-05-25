@@ -331,12 +331,12 @@ URLで指定されたデータベース上のデータを削除します。
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
 ただし、データベースにデータが存在しなかった場合は、初期値として`true`を返します。
 
-* `public async setEnabledAlert(enabledAlert: boolean): Promise<void>`
+* `public async setEnabledAlert(value: boolean): Promise<void>`
 課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`enabledAlert`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/enabledAlert"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`enabledAlert`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/enabledAlert.json"のような文字列が作成されます。
-次に、`enableAlert`のみをキーに持つオブジェクトを作成し、`enableAlert`の値にはこのメソッドの引数で受け取った論理型の値を代入します。
+次に、`enableAlert`のみをキーに持つオブジェクトを作成し、`enableAlert`の値にはこのメソッドの引数で受け取った論理型の値`value`を代入します。
 そして最後に、`updateData()`メソッドの`url`引数に作成したURLを渡し、`data`引数に作成したオブジェクトを渡して呼び出します。
 
 * `public async getDaysBeforeDeadline(): Promise<number>`
@@ -348,12 +348,12 @@ URLで指定されたデータベース上のデータを削除します。
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
 ただし、データベースにデータが存在しなかった場合は、初期値として`3`を返します。
 
-* `public async setDaysBeforeDeadline(daysBeforeDeadline: number): Promise<void>`
+* `public async setDaysBeforeDeadline(value: number): Promise<void>`
 何日前に提出期限間近の課題のアラートを行うかを表すデータベース上のプロパティ`daysBeforeDeadline`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/daysBeforeDeadline"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`daysBeforeDeadline`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/daysBeforeDeadline.json"のような文字列が作成されます。
-次に、`daysBeforeDeadline`のみをキーに持つオブジェクトを作成し、`daysBeforeDeadline`の値にはこのメソッドの引数で受け取った数値型の値を代入します。
+次に、`daysBeforeDeadline`のみをキーに持つオブジェクトを作成し、`daysBeforeDeadline`の値にはこのメソッドの引数で受け取った数値型の値`value`を代入します。
 そして最後に、`updateData()`メソッドの`url`引数に作成したURLを渡し、`data`引数に作成したオブジェクトを渡して呼び出します。
 
 * `public async getAutoTaskDelete(): Promise<boolean>`
@@ -365,12 +365,12 @@ URLで指定されたデータベース上のデータを削除します。
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
 ただし、データベースにデータが存在しなかった場合は、初期値として`false`を返します。
 
-* `public async setAutoTaskDelete(autoTaskDelete: boolean): Promise<void>`
+* `public async setAutoTaskDelete(value: boolean): Promise<void>`
 課題の期限が過ぎたら課題データを自動で削除するどうかを表すデータベース上のプロパティ`autoTaskDelete`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/autoTaskDelete"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`autoTaskDelete`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/enabledAlert.json"のような文字列が作成されます。
-次に、`autoTaskDelete`のみをキーに持つオブジェクトを作成し、`autoTaskDelete`の値にはこのメソッドの引数で受け取った論理型の値を代入します。
+次に、`autoTaskDelete`のみをキーに持つオブジェクトを作成し、`autoTaskDelete`の値にはこのメソッドの引数で受け取った論理型の値`value`を代入します。
 そして最後に、`updateData()`メソッドの`url`引数に作成したURLを渡し、`data`引数に作成したオブジェクトを渡して呼び出します。
 
 
@@ -546,12 +546,12 @@ URLで指定されたデータベース上のデータを削除します。
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
 ただし、データベースにデータが存在しなかった場合は、初期値として`false`を返します。
 
-* `public async setHidePassedEvent(hidePassedEvent: boolean): Promise<void>`
+* `public async setHidePassedEvent(value: boolean): Promise<void>`
 課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`hidePassedEvent`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/hidePassedEvent"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`hidePassedEvent`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/hidePassedEvent.json"のような文字列が作成されます。
-次に、`hidePassedEvent`のみをキーに持つオブジェクトを作成し、`hidePassedEvent`の値にはこのメソッドの引数で受け取った論理型の値を代入します。
+次に、`hidePassedEvent`のみをキーに持つオブジェクトを作成し、`hidePassedEvent`の値にはこのメソッドの引数で受け取った論理型の値`value`を代入します。
 そして最後に、親クラスの`updateData()`メソッドの`url`引数に作成したURLを渡し、`data`引数に作成したオブジェクトを渡して呼び出します。
 
 
