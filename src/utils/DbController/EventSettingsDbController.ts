@@ -10,12 +10,21 @@ export class EventSettingsDbController extends DbController {
         this.uid = uid
     }
 
-    public async getHidePassedEvent(): Promise<boolean>{
+    public async getHidePassedEvent(): Promise<any>{
+        const defaultData: boolean = false
         const fullResource: string = `${this.resource}/hidePassedEvent`
         const url: string = this.buildUrl(this.uid, fullResource)
-        const fetchedData: EventSettings = await this.readData(url) as EventSettings
-        const result: boolean = fetchedData.hidePassedEvent
-        return result
+        const fetchedData: any = await this.readData(url)
+        console.log("fetchedData")
+        console.log(fetchedData)
+        const result: any = fetchedData?.hidePassedEvent
+        console.log("result")
+        console.log(result)
+        if(result){
+            return result
+        }else{
+            return defaultData
+        }
     }
 
     public async setHidePassedEvent(hidePassedEvent: boolean): Promise<void>{

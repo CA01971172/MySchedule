@@ -130,7 +130,7 @@ async function getData() {
     await appUser.assignUserInfo()
     const uid: string = appUser.uid
     const dbController: EventSettingsDbController = new EventSettingsDbController(uid)
-    const result: boolean = await dbController.getHidePassedEvent()
+    const result: any = await dbController.getHidePassedEvent()
     console.log(result)
 }
 
