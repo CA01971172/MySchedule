@@ -329,45 +329,48 @@ URLで指定されたデータベース上のデータを削除します。
 データベースの`enabledAlert`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/enabledAlert.json"のような文字列が作成されます。
 そして最後に、`readData()`メソッドの`url`引数に作成したURLを渡し、
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
+ただし、データベースにデータが存在しなかった場合は、初期値として`true`を返します。
 
-* `public async setEnabledAlert(enabledAlert: boolean): Promise<void>`
+* `public async setEnabledAlert(value: boolean): Promise<void>`
 課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`enabledAlert`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/enabledAlert"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`enabledAlert`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/enabledAlert.json"のような文字列が作成されます。
-次に、`enableAlert`のみをキーに持つオブジェクトを作成し、`enableAlert`の値にはこのメソッドの引数で受け取った論理型の値を代入します。
+次に、`enableAlert`のみをキーに持つオブジェクトを作成し、`enableAlert`の値にはこのメソッドの引数で受け取った論理型の値`value`を代入します。
 そして最後に、`updateData()`メソッドの`url`引数に作成したURLを渡し、`data`引数に作成したオブジェクトを渡して呼び出します。
 
 * `public async getDaysBeforeDeadline(): Promise<number>`
-課題の期限が迫ったらメールで通知するかどうかを表すプロパティ`daysBeforeDeadline`の値を、データベースの`taskSettings`から取得するメソッドです。
+何日前に提出期限間近の課題のアラートを行うかを表すプロパティ`daysBeforeDeadline`の値を、データベースの`taskSettings`から取得するメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/daysBeforeDeadline"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`daysBeforeDeadline`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/daysBeforeDeadline.json"のような文字列が作成されます。
 そして最後に、`readData()`メソッドの`url`引数に作成したURLを渡し、、
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
+ただし、データベースにデータが存在しなかった場合は、初期値として`3`を返します。
 
-* `public async setDaysBeforeDeadline(daysBeforeDeadline: number): Promise<void>`
-課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`daysBeforeDeadline`の値を、引数で上書きするメソッドです。
+* `public async setDaysBeforeDeadline(value: number): Promise<void>`
+何日前に提出期限間近の課題のアラートを行うかを表すデータベース上のプロパティ`daysBeforeDeadline`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/daysBeforeDeadline"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`daysBeforeDeadline`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/daysBeforeDeadline.json"のような文字列が作成されます。
-次に、`daysBeforeDeadline`のみをキーに持つオブジェクトを作成し、`daysBeforeDeadline`の値にはこのメソッドの引数で受け取った数値型の値を代入します。
+次に、`daysBeforeDeadline`のみをキーに持つオブジェクトを作成し、`daysBeforeDeadline`の値にはこのメソッドの引数で受け取った数値型の値`value`を代入します。
 そして最後に、`updateData()`メソッドの`url`引数に作成したURLを渡し、`data`引数に作成したオブジェクトを渡して呼び出します。
 
 * `public async getAutoTaskDelete(): Promise<boolean>`
-課題の期限が迫ったらメールで通知するかどうかを表すプロパティ`autoTaskDelete`の値を、データベースの`taskSettings`から取得するメソッドです。
+課題の期限が過ぎたら課題データを自動で削除するどうかを表すプロパティ`autoTaskDelete`の値を、データベースの`taskSettings`から取得するメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/autoTaskDelete"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`autoTaskDelete`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/autoTaskDelete.json"のような文字列が作成されます。
 そして最後に、`readData()`メソッドの`url`引数に作成したURLを渡し、
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
+ただし、データベースにデータが存在しなかった場合は、初期値として`false`を返します。
 
-* `public async setAutoTaskDelete(autoTaskDelete: boolean): Promise<void>`
-課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`autoTaskDelete`の値を、引数で上書きするメソッドです。
+* `public async setAutoTaskDelete(value: boolean): Promise<void>`
+課題の期限が過ぎたら課題データを自動で削除するどうかを表すデータベース上のプロパティ`autoTaskDelete`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/autoTaskDelete"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`autoTaskDelete`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/enabledAlert.json"のような文字列が作成されます。
-次に、`autoTaskDelete`のみをキーに持つオブジェクトを作成し、`autoTaskDelete`の値にはこのメソッドの引数で受け取った論理型の値を代入します。
+次に、`autoTaskDelete`のみをキーに持つオブジェクトを作成し、`autoTaskDelete`の値にはこのメソッドの引数で受け取った論理型の値`value`を代入します。
 そして最後に、`updateData()`メソッドの`url`引数に作成したURLを渡し、`data`引数に作成したオブジェクトを渡して呼び出します。
 
 
@@ -541,13 +544,14 @@ URLで指定されたデータベース上のデータを削除します。
 データベースの`hidePassedEvent`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/event/eventSettings/hidePassedEvent.json"のような文字列が作成されます。
 そして最後に、親クラスの`readData()`メソッドの`url`引数に作成したURLを渡し、
 `readData()`メソッドを呼び出して取得した戻り値を、そのままこのメソッドの戻り値として返します。
+ただし、データベースにデータが存在しなかった場合は、初期値として`false`を返します。
 
-* `public async setHidePassedEvent(hidePassedEvent: boolean): Promise<void>`
+* `public async setHidePassedEvent(value: boolean): Promise<void>`
 課題の期限が迫ったらメールで通知するかどうかを表すデータベース上のプロパティ`hidePassedEvent`の値を、引数で上書きするメソッドです。
 まず、このクラスのプライベートフィールド`resource`に`"/hidePassedEvent"`という文字列を結合させた文字列を作成します。
 そして、作成した文字列を`buildUrl()`メソッドの`resource`引数に渡し、`uid`フィールドを`uid`引数に渡すことで、
 データベースの`hidePassedEvent`プロパティにアクセスするための完全なURLを文字列型で作成します。"https://myapp-rtdb.firebaseio.com/user/${uid}/task/taskSettings/hidePassedEvent.json"のような文字列が作成されます。
-次に、`hidePassedEvent`のみをキーに持つオブジェクトを作成し、`hidePassedEvent`の値にはこのメソッドの引数で受け取った論理型の値を代入します。
+次に、`hidePassedEvent`のみをキーに持つオブジェクトを作成し、`hidePassedEvent`の値にはこのメソッドの引数で受け取った論理型の値`value`を代入します。
 そして最後に、親クラスの`updateData()`メソッドの`url`引数に作成したURLを渡し、`data`引数に作成したオブジェクトを渡して呼び出します。
 
 
@@ -685,6 +689,18 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 予定のデータを格納するためのプライベートフィールドです。
 `getEvents()` メソッドによりデータベースから受け取った予定のデータが代入されます。
 
+* `private taskCards: HTMLElement[] | undefined`
+課題カードの要素を格納するためのプライベートフィールドです。
+`render()` メソッドで作成したカードの要素が格納されます。`hideCard()`メソッドで使用します。
+
+* `private shiftCards: HTMLElement[] | undefined`
+アルバイトシフトカードの要素を格納するためのプライベートフィールドです。
+`render()` メソッドで作成したカードの要素が格納されます。`hideCard()`メソッドで使用します。
+
+* `private eventCards: HTMLElement[] | undefined`
+予定カードの要素を格納するためのプライベートフィールドです。
+`render()` メソッドで作成したカードの要素が格納されます。`hideCard()`メソッドで使用します。
+
 #### Constructor
 * `constructor(year: number, month: number, enableTask: boolean, enableShift: boolean, enableEvent: boolean)`
 `year` パラメータと `month` パラメータを受け取り、自身の`year` フィールドと `month` フィールドをそれぞれ初期化します。
@@ -697,13 +713,14 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 * `public render(): HTMLElement`
 カレンダー欄のHTML要素を作成して戻り値として返すパブリックメソッドです。
 カレンダー欄の中に入るデータとして、自身のフィールドである`tasks` `shifts` `events` の中から、値が未定義でないものを使用します。
-それらのフィールドにデータが格納されている場合は、それぞれ `CalendarTaskCard` クラス, `CalendarShiftCard` クラス, `CalendarEventCard` クラスを、データごとに(`events`に予定データが格納されているなら予定1つごとに)インスタンス化します。
+それらのフィールドにデータが格納されている場合は、`CalendarCard`のコンストラクターの引数`cardType`にそれぞれ `task`, `shift`,`event`という文字列を渡して、データごとに(`events`に予定データが格納されているなら予定1つごとに)`data`引数に渡してインスタンス化します。
 そして、インスタンスから`render()`メソッドを呼び出して、データを表すカードの要素をそれぞれ作成します。
+作成したカードの要素は、プライベートフィールド`taskCards`,`shiftCards`,`eventCards`に格納しておきます。
 
 * `public hideCard(enableTask: boolean, enableShift: boolean, enableEvent: boolean): void`
 カレンダー欄の中に入っているデータを非表示にするメソッドです。
-カレンダー欄の中に入っているデータを表すカードの要素を取得し、
-それらのカードにの要素にhtmlの属性を付与し、ユーザーが非表示にした種類のカードを非表示にします。
+カレンダー欄の中に入っているデータを表すカードの要素をプライベートフィールド`taskCards`,`shiftCards`,`eventCards`から取得し、
+それらのカードにの要素にhtmlの属性を付与・剥奪し、ユーザーが非表示にした種類のカードの表示・非表示を切り替えます。
 ただし、コンストラクターの引数で有効にされなかった種類のデータについては、表示されることはありません。これは、最初からデータベースから取得されていないためです。
 
 * `private getTasks(): Tasks`
@@ -713,12 +730,12 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 
 * `private getShifts(): Shifts`
 データベースからアルバイトシフトのデータを配列型で取得するプライベートメソッドです。
-`ShiftDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Shifts` 型のデータを返します。
+`ShiftDbController` クラスの `readShits()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Shifts` 型のデータを返します。
 `readDataByRange()` の引数には、 `tag` には "startTime" を、 `startAt` と `endAt` にはそれぞれ `year` フィールドと `month` フィールドから算出した適切なデータを渡します。
 
 * `private getEvents(): Events`
 データベースから予定のデータを配列型で取得するプライベートメソッドです。
-`EventDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Events` 型のデータを返します。
+`EventDbController` クラスの `readEvent()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Events` 型のデータを返します。
 `readDataByRange()` の引数には、 `tag` には "startTime" を、 `startAt` と `endAt` にはそれぞれ `year` フィールドと `month` フィールドから算出した適切なデータを渡します。
 
 ### Class: TimetableContent
@@ -827,13 +844,13 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 そして、インスタンスから`render()`メソッドを呼び出して、データを表すカードの要素をそれぞれ作成します。
 最後に、それぞれ作成したカードの要素を使用して、適切に要素を構成し、その一番上の親要素を戻り値として返します。
 
-* `private getTasks(): Tasks`
+* `private async getTasks(): Tasks`
 データベースから課題割のデータを配列型で取得するプライベートメソッドです。
-`TaskDbController` クラスの `readData()` メソッドを呼び出して得られた `Tasks` 型のデータを返します。
+`TaskDbController` クラスの `readTask()` メソッドを呼び出して得られた `Tasks` 型のデータを返します。
 
-* `private getEvents(): Events`
+* `private async getEvents(): Events`
 データベースから予定のデータを配列型で取得するプライベートメソッドです。
-`EventDbController` クラスの `readData()` メソッドを呼び出して得られた `Events` 型のデータを返します。
+`EventDbController` クラスの `readEvent()` メソッドを呼び出して得られた `Events` 型のデータを返します。
 
 
 ### Class: ShiftContent
@@ -887,12 +904,8 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 `CardListColumn` クラスに`"event"`文字列を渡してインスタンス化し、
 インスタンスから `render()` メソッドを呼び出すことでHTML要素を作成します。
 
-### Class: Card
-<!-- TODO Cardの設計 -->
-
-### Class: CalendarCard
-カレンダーページ内のデータを表すカードを作成するためのクラスです。
-Cardクラスを継承して作成します。
+### Abstract Class: Card
+カードの要素を作成するための抽象クラスです。
 
 #### Properties
 * `private id: string`
@@ -902,36 +915,65 @@ Cardクラスを継承して作成します。
 * `private title: string`
 カードの中に入るテキストを表す文字列型プライベートフィールドです。
 
-* `private cardType: "task"|"shift"|"event"`
+* `private cardType: PageType`
 カードの種類を表すプライベートフィールドです。
 
 * `private bgColor: string`
 カードの背景色を表す文字列型プライベートフィールドです。
 CSSのクラスを設定します。
 
-* `private readonly calenderCardClass: string`
-カレンダーカード用のcssのクラスを表す読み取り専用プライベートフィールドです。
-
 #### Constructor
-* `constructor(cardType: "task"|"shift"|"event", id: string, title: string)`
+* `constructor(cardType: PageType, id: string, title: string)`
 `id`と`title`と`cardType`フィールドをコンストラクターで受け取った引数で初期化します。
-`bgColor`フィールドには、受け取った引数`cardType`の値が`"task"`なら`"bg-task"`を、`"shift"`なら`"bg-shift"`を、`"event"`なら`"bg-event"`を代入して初期化します。
+`bgColor`フィールドには、受け取った引数`cardType`の値が`"task"`なら`"bg-task"`のような値を代入します。
 
 #### Methods
-* `render(): HTMLElement`
-カレンダー用カードの要素を作成するメソッドです。
-要素には、`bgColor`フィールドと`calenderCardClass`フィールドで指定されたCSSのクラスを付与します。
-要素のtextContentは`title`フィールドになるように作成します。
-また、カードをクリックしたときに`cardOnClickEvent()`メソッドが実行されるような処理を、要素に適用します。
+* `abstract render()`
+カードの要素を作成するための抽象メソッドです。
 
 * `cardOnClickEvent(): void`
 カードをクリックしたときの処理を代入するメソッドです。`render()`メソッド内で、カードに`cardOnClickEvent()`メソッドの処理を適用します。
 このメソッドの処理としては、以下のような処理を実行します。
 `cardType`と`id`フィールドを使用してデータを取得し、カードが表すデータの詳細ページに現在のページを挿げ替えます。
 データの取得方法は、例えば`cardType`フィールドが`"task"`なら、`TaskDbController`クラスの`readTask()`メソッドの`id`引数に`id`フィールドを渡して取得します。
-挿げ替え方法は、`tabBar`クラスの`changeTab()`メソッドを参考にしてください。<!-- TODO タブ切り替えの実装 -->
+要素の挿げ替え方法・作成方法については、以下を参考にしてください。
+    1. ".root"クラスが付与された要素を[constants.ts](src/utils/constants)から取得します。
+    2. コンテンツ部分である".content"クラスが付与された要素を取得します。
+    3. 取得したデータと`cardType`フィールドを`ViewContent`クラスに渡してインスタンス化し、`render()`メソッドを呼び出します。これにより、詳細ページの要素が作成されます。
+    4. 最後に、".root"クラスが付与された要素の一番最初の子要素の中身の、".content"クラスが付与された要素を、作成した詳細ページの要素で挿げ替えます。
+    `<1>.firstChild.replaceChild(<3>,<2>)`のような感じで実行します。
+<!-- TODO Cardの設計 -->
 
-<!-- TODO CalendarCardの設計 -->
+### Class: CalendarCard
+カレンダーページ内のデータを表すカードを作成するためのクラスです。
+Cardクラスを継承して作成します。
+
+#### Properties
+* `private id: string`
+* `private title: string`
+* `private cardType: PageType`
+* `private bgColor: string`
+親クラスのフィールドです。
+
+* `private readonly className: string`
+カレンダーカード用のcssのクラスを表す読み取り専用プライベートフィールドです。
+
+#### Constructor
+* `constructor(cardType: "task"|"shift"|"event", id: string, title: string)`
+`id`と`title`と`cardType`フィールドをコンストラクターで受け取った引数で初期化します。
+親クラスのコンストラクターにそのまま受け取った値を渡します。
+
+#### Methods
+* `cardOnClickEvent(): void`
+親クラスのメソッドです。
+
+* `render(): HTMLElement`
+カレンダー用カードの要素を作成するメソッドです。
+要素には、`bgColor`フィールドと`calenderCardClass`フィールドで指定されたCSSのクラスを付与します。
+要素のtextContentは`title`フィールドになるように作成します。
+また、カードをクリックしたときに`cardOnClickEvent()`メソッドが実行されるような処理を、要素に適用します。
+
+
 
 ### Class: TandemCard
 <!-- TODO TandemCardの設計 -->
