@@ -730,12 +730,12 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 
 * `private getShifts(): Shifts`
 データベースからアルバイトシフトのデータを配列型で取得するプライベートメソッドです。
-`ShiftDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Shifts` 型のデータを返します。
+`ShiftDbController` クラスの `readShits()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Shifts` 型のデータを返します。
 `readDataByRange()` の引数には、 `tag` には "startTime" を、 `startAt` と `endAt` にはそれぞれ `year` フィールドと `month` フィールドから算出した適切なデータを渡します。
 
 * `private getEvents(): Events`
 データベースから予定のデータを配列型で取得するプライベートメソッドです。
-`EventDbController` クラスの `readData()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Events` 型のデータを返します。
+`EventDbController` クラスの `readEvent()` メソッドを呼び出して得られた、一か月分に絞り込まれた `Events` 型のデータを返します。
 `readDataByRange()` の引数には、 `tag` には "startTime" を、 `startAt` と `endAt` にはそれぞれ `year` フィールドと `month` フィールドから算出した適切なデータを渡します。
 
 ### Class: TimetableContent
@@ -844,13 +844,13 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 そして、インスタンスから`render()`メソッドを呼び出して、データを表すカードの要素をそれぞれ作成します。
 最後に、それぞれ作成したカードの要素を使用して、適切に要素を構成し、その一番上の親要素を戻り値として返します。
 
-* `private getTasks(): Tasks`
+* `private async getTasks(): Tasks`
 データベースから課題割のデータを配列型で取得するプライベートメソッドです。
-`TaskDbController` クラスの `readData()` メソッドを呼び出して得られた `Tasks` 型のデータを返します。
+`TaskDbController` クラスの `readTask()` メソッドを呼び出して得られた `Tasks` 型のデータを返します。
 
-* `private getEvents(): Events`
+* `private async getEvents(): Events`
 データベースから予定のデータを配列型で取得するプライベートメソッドです。
-`EventDbController` クラスの `readData()` メソッドを呼び出して得られた `Events` 型のデータを返します。
+`EventDbController` クラスの `readEvent()` メソッドを呼び出して得られた `Events` 型のデータを返します。
 
 
 ### Class: ShiftContent
@@ -904,12 +904,8 @@ Weekday型のオブジェクトには、`sun`,`mon`,`tue`などのキーに、�
 `CardListColumn` クラスに`"event"`文字列を渡してインスタンス化し、
 インスタンスから `render()` メソッドを呼び出すことでHTML要素を作成します。
 
-### Class: Card
-<!-- TODO Cardの設計 -->
-
-### Class: CalendarCard
-カレンダーページ内のデータを表すカードを作成するためのクラスです。
-Cardクラスを継承して作成します。
+### Abstract Class: Card
+カードの要素を作成するための抽象クラスです。
 
 #### Properties
 * `private id: string`
@@ -919,27 +915,21 @@ Cardクラスを継承して作成します。
 * `private title: string`
 カードの中に入るテキストを表す文字列型プライベートフィールドです。
 
-* `private cardType: "task"|"shift"|"event"`
+* `private cardType: PageType`
 カードの種類を表すプライベートフィールドです。
 
 * `private bgColor: string`
 カードの背景色を表す文字列型プライベートフィールドです。
 CSSのクラスを設定します。
 
-* `private readonly calenderCardClass: string`
-カレンダーカード用のcssのクラスを表す読み取り専用プライベートフィールドです。
-
 #### Constructor
-* `constructor(cardType: "task"|"shift"|"event", id: string, title: string)`
+* `constructor(cardType: PageType, id: string, title: string)`
 `id`と`title`と`cardType`フィールドをコンストラクターで受け取った引数で初期化します。
-`bgColor`フィールドには、受け取った引数`cardType`の値が`"task"`なら`"bg-task"`を、`"shift"`なら`"bg-shift"`を、`"event"`なら`"bg-event"`を代入して初期化します。
+`bgColor`フィールドには、受け取った引数`cardType`の値が`"task"`なら`"bg-task"`のような値を代入します。
 
 #### Methods
-* `render(): HTMLElement`
-カレンダー用カードの要素を作成するメソッドです。
-要素には、`bgColor`フィールドと`calenderCardClass`フィールドで指定されたCSSのクラスを付与します。
-要素のtextContentは`title`フィールドになるように作成します。
-また、カードをクリックしたときに`cardOnClickEvent()`メソッドが実行されるような処理を、要素に適用します。
+* `abstract render()`
+カードの要素を作成するための抽象メソッドです。
 
 * `cardOnClickEvent(): void`
 カードをクリックしたときの処理を代入するメソッドです。`render()`メソッド内で、カードに`cardOnClickEvent()`メソッドの処理を適用します。
@@ -948,10 +938,42 @@ CSSのクラスを設定します。
 データの取得方法は、例えば`cardType`フィールドが`"task"`なら、`TaskDbController`クラスの`readTask()`メソッドの`id`引数に`id`フィールドを渡して取得します。
 要素の挿げ替え方法・作成方法については、以下を参考にしてください。
     1. ".root"クラスが付与された要素を[constants.ts](src/utils/constants)から取得します。
-    1. コンテンツ部分である".content"クラスが付与された要素を取得します。
-    2. 取得したデータと`cardType`フィールドを`ViewContent`クラスに渡してインスタンス化し、`render()`メソッドを呼び出します。これにより、詳細ページの要素が作成されます。
-    3. 最後に、".root"クラスが付与された要素の一番最初の子要素の中身の、".content"クラスが付与された要素を、作成した詳細ページの要素で挿げ替えます。
+    2. コンテンツ部分である".content"クラスが付与された要素を取得します。
+    3. 取得したデータと`cardType`フィールドを`ViewContent`クラスに渡してインスタンス化し、`render()`メソッドを呼び出します。これにより、詳細ページの要素が作成されます。
+    4. 最後に、".root"クラスが付与された要素の一番最初の子要素の中身の、".content"クラスが付与された要素を、作成した詳細ページの要素で挿げ替えます。
     `<1>.firstChild.replaceChild(<3>,<2>)`のような感じで実行します。
+<!-- TODO Cardの設計 -->
+
+### Class: CalendarCard
+カレンダーページ内のデータを表すカードを作成するためのクラスです。
+Cardクラスを継承して作成します。
+
+#### Properties
+* `private id: string`
+* `private title: string`
+* `private cardType: PageType`
+* `private bgColor: string`
+親クラスのフィールドです。
+
+* `private readonly className: string`
+カレンダーカード用のcssのクラスを表す読み取り専用プライベートフィールドです。
+
+#### Constructor
+* `constructor(cardType: "task"|"shift"|"event", id: string, title: string)`
+`id`と`title`と`cardType`フィールドをコンストラクターで受け取った引数で初期化します。
+親クラスのコンストラクターにそのまま受け取った値を渡します。
+
+#### Methods
+* `cardOnClickEvent(): void`
+親クラスのメソッドです。
+
+* `render(): HTMLElement`
+カレンダー用カードの要素を作成するメソッドです。
+要素には、`bgColor`フィールドと`calenderCardClass`フィールドで指定されたCSSのクラスを付与します。
+要素のtextContentは`title`フィールドになるように作成します。
+また、カードをクリックしたときに`cardOnClickEvent()`メソッドが実行されるような処理を、要素に適用します。
+
+
 
 ### Class: TandemCard
 <!-- TODO TandemCardの設計 -->
