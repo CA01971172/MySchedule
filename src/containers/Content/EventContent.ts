@@ -1,10 +1,19 @@
+import { CardListColumn } from "./CardListColumn";
 import { PageContent } from "./PageContent"
 import { rootDiv } from "./../../utils/constants"
 import { DomUtils } from "./../../utils/domUtils"
 
-export class EventContent  implements PageContent{//予定のページを作成するクラス
-    render(): HTMLElement[]{
-        const result: HTMLElement[] = new Array
-        return result
-    }
+export class EventContent implements PageContent {
+  constructor() {}
+
+  public render(): HTMLElement[] {
+    const eventElement = this.renderEvent();
+    return [eventElement];
+  }
+
+  private renderEvent(): HTMLElement {
+    const column = new CardListColumn( "event"); 
+    const eventElement = column.render();
+    return eventElement;
+  }
 }

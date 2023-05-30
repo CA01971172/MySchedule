@@ -10,7 +10,7 @@ export class CardListColumn {
 
 
   
-    constructor(data: Tasks | Events, columnType: "task" | "event") {
+    constructor( columnType: "task" | "event") {
       this.columnType = columnType;
 
       if(columnType === "task"){
