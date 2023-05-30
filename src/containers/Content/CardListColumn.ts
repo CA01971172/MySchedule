@@ -4,7 +4,7 @@ import { TandemCard } from "./TandemCard"
 import { Events, Task, Tasks } from "../../utils/types"
 import { Event } from "../../utils/types"
 
-class CardListColumn {
+export class CardListColumn {
     private data: Tasks | Events;
     private columnType: "task" | "event";
 
