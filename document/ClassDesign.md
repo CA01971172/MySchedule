@@ -926,7 +926,7 @@ CSSのクラスを設定します。
 * `constructor(id: string, data: Timetable|Task|Shift|Event cardType: ContentType)`
 `id`と`title`と`cardType`と`bgColor`フィールドを初期化するためのコンストラクターです。
 `id`と`cardType`フィールドはコンストラクターで受け取ったものをそのままフィールドに代入します。
-`title`フィールドには、`data`の型が`Timetable` `Task` `Event`のいずれかなら、`data`オブジェクトの`title`の値を代入します。`data`の型が`Shift`なら、`"バイト"`という文字列を代入します。なお、カスタム型の判別には、instanceof演算子を使うといいらしいです。
+`title`フィールドには、`data`の型が`Timetable` `Task` `Event`のいずれかなら(objectに`title`プロパティが存在するなら)、`data`オブジェクトの`title`の値を代入します。`data`の型が`Shift`なら(objectに`title`プロパティが存在しないなら)、`"バイト"`という文字列を代入します。
 また、`bgColor`フィールドには、受け取った引数`cardType`の値が`"task"`なら`"bg-task"`のような値を代入します。
 
 #### Methods
