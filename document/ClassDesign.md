@@ -960,11 +960,12 @@ Cardクラスを継承して作成します。
 
 * `private readonly className: string`
 カレンダーカード用のcssのクラスを表す読み取り専用プライベートフィールドです。
+`"card-calendar"`という文字列が格納されます。
 
 #### Constructor
 * `constructor(id: string, data: Task|Shift|Event cardType: "task"|"shift"|"event")`
 `id`と`title`と`cardType`と`bgColor`フィールドを初期化するためのコンストラクターです。
-親クラスのコンストラクターにそのまま受け取った値を渡します。
+親クラスのコンストラクターにそのまま受け取った値(`id`,`data`,`cardType`)を渡します。
 
 #### Methods
 * `cardOnClickEvent(): void`
@@ -972,7 +973,7 @@ Cardクラスを継承して作成します。
 
 * `render(): HTMLElement`
 カレンダー用カードの要素を作成するメソッドです。
-要素には、`bgColor`フィールドと`className`フィールドで指定されたCSSのクラスを付与します。
+要素には、`bgColor`フィールドと`className`フィールドで指定された、CSSのクラスを付与します。
 要素のtextContentは`title`フィールドになるように作成します。
 また、カードをクリックしたときに`cardOnClickEvent()`メソッドが実行されるような処理を、要素に適用します。
 
@@ -991,6 +992,7 @@ Cardクラスを継承して作成します。
 
 * `private readonly className: string`
 縦並びカード用のcssのクラスを表す読み取り専用プライベートフィールドです。
+`"card-tandem"`という文字列が格納されます。
 
 * `private symbol: string`
 カードデータのキャプション部分(5月27日など)の頭に付ける、「始」「終」「〆」などを格納するフィールドです。
@@ -1001,14 +1003,14 @@ Cardクラスを継承して作成します。
 #### Constructor
 * `constructor(id: string, data: Task|Event cardType: "task"|"event")`
 `id`,`title`,`cardType`,`bgColor`,`symbol`,`timeData`フィールドを初期化するためのコンストラクターです。
-`id`,`title`,`cardType`,`bgColor`フィールドを初期化するために、親クラスのコンストラクターにそのまま受け取った値を渡します。
+`id`,`title`,`cardType`,`bgColor`フィールドを初期化するために、親クラスのコンストラクターにそのまま受け取った値(`id`,`data`,`cardType`)を渡します。
 `symbol`フィールドには、`data`の型が`Task`なら、`"〆"`という文字列を代入します。`data`の型が`Event`なら、`"始"`という文字列を代入します。
 `timeData`フィールドには、`data`の型が`Task`なら、`data`の`deadline`プロパティを代入します。`data`の型が`Event`なら、`data`の`startTime`プロパティを代入します。
 
 #### Methods
 * `render(): HTMLElement`
 縦並びカードの要素を作成するメソッドです。
-要素には、`bgColor`フィールドと`className`フィールドで指定されたCSSのクラスを付与します。
+要素には、`bgColor`フィールドと`className`フィールドで指定された、CSSのクラスを付与します。
 また、日付のデータを取得するには、`timeData`を`Date`オブジェクトに渡してインスタンス化し、
 `Date`インスタンスから`getDate()`や`getMonth()`メソッド等を呼び出し、"月","日","時刻"を取得します。
 取得した日付データを使用して、要素を良い感じに構築してください。
@@ -1020,7 +1022,47 @@ Cardクラスを継承して作成します。
 
 
 ### Class: TimetableCard
-<!-- TODO TimetableCardの設計 -->
+時間割ページで使用するカードを作成するためのクラスです。
+Cardクラスを継承して作成します。
+
+#### Properties
+* `private id: string`
+* `private title: string`
+* `private cardType: PageType`
+* `private bgColor: string`
+親クラスのフィールドです。
+
+* `private readonly className: string`
+時間割カード用のcssのクラスを表す読み取り専用プライベートフィールドです。
+`"card-timetable"`という文字列が格納されます。
+
+* `private startTime: number`
+カードデータの授業開始時間の部分に使用する、`Date`オブジェクトを`number`型で格納するフィールドです。
+
+* `private endTime: number`
+カードデータの授業終了時間の部分に使用する、`Date`オブジェクトを`number`型で格納するフィールドです。
+
+* `private dayOfWeek: number`
+カードの配置に使用する、時間割データの持つ曜日データを`number`型で格納するフィールドです。
+
+#### Constructor
+* `constructor(id: string, data: Timetable)`
+`id`,`title`,`cardType`,`bgColor`,`startTime`,`endTime`フィールドを初期化するためのコンストラクターです。
+`id`,`title`,`cardType`,`bgColor`フィールドを初期化するために、親クラスのコンストラクターにそのまま受け取った値(`id`,`data`)を渡します。
+ただし、親コンストラクターの引数`cardType`には`"timetable"`という文字列を渡しておいてください。
+`startTime`フィールドには、`data`の`startTime`プロパティを代入します。
+`endTime`フィールドには、`data`の`endTime`プロパティを代入します。
+`dayOfWeek`フィールドには、`data`の`dayOfWeek`プロパティを代入します。
+
+#### Methods
+* `render(): HTMLElement`
+時間割カードの要素を作成するメソッドです。
+要素には、`bgColor`フィールドと`className`フィールドで指定された、CSSのクラスを付与します。
+また、日付のデータを取得するには、`startTime`や`endTime`フィールドを`Date`オブジェクトに渡してインスタンス化し、
+`Date`インスタンスから`getHours()`や`getMinutes()`メソッド等を呼び出し、"時刻"のみを抜き出して取得します。
+取得した日付データを使用して、要素を良い感じに構築してください。
+縦になっている`～`の部分については、CSS側で`writing-mode: vertical-rl;`を適用し、`～`の部分の要素を縦書きにすることによって実装できます。
+また、カードをクリックしたときに`cardOnClickEvent()`メソッドが実行されるような処理を、要素に適用します。
 
 ### Class: UiBarColumn
 <!-- TODO UiBarColumnの設計 -->
