@@ -1,5 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import "./style/app.scss"
 import App from "./App";
 
@@ -11,8 +13,9 @@ window.onload = async function(){
 };
 
 
+
 //テスト用ログアウトコード(コンソール上で実行)
-import { AppUser } from "./utils/AppUser";
+import AppUser from "./utils/AppUser";
 import { LoginPageUrl } from "./utils/constants";
 declare global {
     interface Window {

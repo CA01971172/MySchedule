@@ -13,7 +13,8 @@ import { FirebaseError } from '@firebase/util'
 import { IndexPageUrl, LoginPageUrl } from "./constants"
 import { UserInfo } from "./types"
 import { QueryUtils } from "./QueryUtils"
-export class AppUser {
+
+export default class AppUser {
     private static uid: string = "";
     private static userInfo: UserInfo = {
         email:"",
