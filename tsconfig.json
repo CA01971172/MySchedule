@@ -5,8 +5,11 @@
     "module": "es6",
     "target": "es5",
     "allowJs": true,
+    "strict": true,
+    "sourceMap": true,
+    "jsx": "react",
     "moduleResolution": "node",
     "lib": ["dom", "es6","dom.iterable"]
   },
-  "files": ["src/index.ts"]
+  "files": ["src/index.tsx"]
 }
