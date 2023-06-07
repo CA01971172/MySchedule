@@ -25,8 +25,8 @@ export default function LoginForm() {
                 name="email"
                 id="email"
                 required={false}
-                value={passwordValue}
-                onChange={(event) => setPasswordValue(event.target.value)}
+                value={emailValue}
+                onChange={(event) => setEmailValue(event.target.value)}
                 />
             </div>
             <div className="m-2">
@@ -38,8 +38,8 @@ export default function LoginForm() {
                     placeholder="パスワードを入力(6文字以上)"
                     name="password" id="password" required={false}
                     style={{ borderRadius: "0.25rem" }}
-                    value={emailValue}
-                    onChange={(event) => setEmailValue(event.target.value)}
+                    value={passwordValue}
+                    onChange={(event) => setPasswordValue(event.target.value)}
                     />
                     <span
                     className={`search-clear ${(hidePassword ? "bi bi-eye-fill" : "bi bi-eye-slash-fill")}`}
