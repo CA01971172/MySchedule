@@ -18,32 +18,42 @@ function convertTabContent(pageType: string | null): TabType{
     return result;
 }
 
+const tabTitleStyle = {
+    color: "white"
+};
+
+type keyAndTitle = {
+    key: "timetable"|"task"|"shift"|"event"|"calendar"
+    title: "時間割"|"課題"|"バイト"|"予定"|"カレンダー"
+}
+
 export default function AppPage({ pageType }: { pageType: PageType }){
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
     const [tabKey, setTabKey] = useState<string>(newTabKey);
+    const keysAndTitles: keyAndTitle[] = [
+        {key: "timetable", title: "時間割"},
+        {key: "task", title: "課題"},
+        {key: "shift", title: "バイト"},
+        {key: "event", title: "予定"},
+        {key: "calendar", title: "カレンダー"}
+    ]
 
     return (
         <Tabs
             id="mySchedule-tabs"
+            className="bg-primary"
             activeKey={tabKey}
             onSelect={(keyName) => setTabKey(keyName || "")}
         >
-            <Tab eventKey="timetable" title="時間割">
-                時間割のページ
-            </Tab>
-            <Tab eventKey="task" title="課題">
-                課題のページ
-            </Tab>
-            <Tab eventKey="shift" title="バイト">
-                バイトのページ
-            </Tab>
-            <Tab eventKey="event" title="予定">
-                予定のページ
-            </Tab>
-            <Tab eventKey="calendar" title="カレンダー">
-                カレンダーのページ
-            </Tab>
+            {keysAndTitles.map((value, index) => (
+                <Tab
+                    eventKey={value.key}
+                    title={<span className={((tabKey === value.key) ? "text-primary" : "text-white")}>{value.title}</span>}
+                >
+                    {value.title}のページ
+                </Tab>
+            ))}
         </Tabs>
     );
 }
