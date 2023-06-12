@@ -16,6 +16,7 @@ export type EmailData = {
 /* ページ操作関連の型定義 */
 export type ContentType = "timetable"|"task"|"shift"|"event"
 export type PageType = null|"login"|"register"|ContentType|"calendar"//nullはindexページ(メニューページ)
+export type TabType = ContentType|"calendar"
 
 /* ユーザー管理関連のデータモデル */
 export type LoginData = {
