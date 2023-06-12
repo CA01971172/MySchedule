@@ -23,7 +23,7 @@ const tabTitleStyle = {
 };
 
 type keyAndTitle = {
-    key: "timetable"|"task"|"shift"|"event"|"calendar"
+    key: TabType
     title: "時間割"|"課題"|"バイト"|"予定"|"カレンダー"
 }
 
