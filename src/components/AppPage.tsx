@@ -18,10 +18,6 @@ function convertTabContent(pageType: string | null): TabType{
     return result;
 }
 
-const tabTitleStyle = {
-    color: "white"
-};
-
 type keyAndTitle = {
     key: TabType
     title: "時間割"|"課題"|"バイト"|"予定"|"カレンダー"
