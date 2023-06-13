@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Tab, Tabs } from "react-bootstrap";
 import { PageType, TabType } from "../../utils/types"
+import TimetablePage from "./TimetablePage"
+import TaskPage from "./TaskPage"
+import ShiftPage from "./ShiftPage"
+import EventPage from "./EventPage"
+import CalendarPage from "./CalendarPage"
+
 
 // PageType等をタブの種類に変換する関数
 function convertTabContent(pageType: string | null): TabType{
@@ -47,7 +53,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                     eventKey={value.key}
                     title={<span className={((tabKey === value.key) ? "text-primary" : "text-white")}>{value.title}</span>}
                 >
-                    {value.title}のページ
+                    {(pageType === "timetable") && (<TimetablePage/>)}
                 </Tab>
             ))}
         </Tabs>

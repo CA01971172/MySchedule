@@ -15,7 +15,7 @@ import { UserInfo } from "./types"
 import { QueryUtils } from "./QueryUtils"
 
 export default class AppUser {
-    private static uid: string = "";
+    public static uid: string|null = null;
     private static userInfo: UserInfo = {
         email:"",
         password:""

@@ -1,20 +1,20 @@
 export class DbController { // Firebaseのデータを取り扱うためのクラス
-    protected readonly baseDbUrl: string = "https://myschedule-c0a49-default-rtdb.firebaseio.com"
+    protected static readonly baseDbUrl: string = "https://myschedule-c0a49-default-rtdb.firebaseio.com"
 
     constructor() {
     }
 
-    protected buildUrl(uid: string, resource: string, id?: string): string{
+    protected static buildUrl(uid: string, resource: string, id?: string): string{
         let result: string = ""
         let idSelect: string = ""
         if (id){
             idSelect = `/${id}`
         }
-        result = `${this.baseDbUrl}/users/${uid}/${resource}${idSelect}.json`
+        result = `${DbController.baseDbUrl}/users/${uid}/${resource}${idSelect}.json`
         return result;
     }
 
-    protected async createData(url: string, data: object): Promise<void>{
+    protected static async createData(url: string, data: object): Promise<void>{
         await fetch(url, {
             method:'POST', 
             mode: 'cors', 
@@ -28,20 +28,20 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         // console.log(result)
     }
 
-    protected async readData(url: string): Promise<object>{
+    protected static async readData(url: string): Promise<object>{
         const response = await fetch(url)
         const result: object = await response.json()
         return result
     }
 
-    protected async readDataByTag(url: string, tag: string, value: string): Promise<object>{
+    protected static async readDataByTag(url: string, tag: string, value: string): Promise<object>{
         const query: string = `?orderBy="${tag}"&equalTo="${value}"`
         const completeUrl: string = url + query
-        const result: object = await this.readData(completeUrl)
+        const result: object = await DbController.readData(completeUrl)
         return result
     }
 
-    protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>{
+    protected static async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>{
         let queryStartAt: string = "";
         if(startAt !== ""){
             queryStartAt = `&startAt="${startAt}"`
@@ -52,11 +52,11 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         }
         const query: string = `?orderBy="${tag}"${queryStartAt}${queryEndAt}`
         const completeUrl: string = url + query
-        const result: object = await this.readData(completeUrl)
+        const result: object = await DbController.readData(completeUrl)
         return result
     }
 
-    protected async overrideData(url: string, data: object): Promise<void>{
+    protected static async overrideData(url: string, data: object): Promise<void>{
         await fetch(url, {
             method:'PUT', 
             mode: 'cors', 
@@ -70,7 +70,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         // console.log(result)
     }
 
-    protected async updateData(url: string, data: object): Promise<void>{
+    protected static async updateData(url: string, data: object): Promise<void>{
         await fetch(url, {
             method:'PATCH', 
             mode: 'cors', 
@@ -84,7 +84,7 @@ export class DbController { // Firebaseのデータを取り扱うためのク�
         // console.log(result)
     }
 
-    protected async deleteData(url: string): Promise<void>{
+    protected static async deleteData(url: string): Promise<void>{
         await fetch(url, {
             method:'DELETE'
         })
