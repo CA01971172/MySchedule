@@ -1,50 +1,90 @@
 import { DbController } from "./DbController"
-import { Shift, Shifts } from "./../../utils/types"
+import { Shift, Shifts } from "./../types"
+import AppUser from "./../AppUser"
 
 export class ShiftDbController extends DbController {
-    private uid: string;
-    private readonly resource: string = 'shift/shifts';
-  
-    constructor(uid: string) {
-      super();
-      this.uid = uid;
-    }
-  
-    public async createShift(data: Shift): Promise<void> {
-      const url = this.buildUrl(this.uid, this.resource);
-      await this.createData(url, data);
+    private static readonly resource: string = "shift/shifts";
+
+    constructor() {
+        super()
     }
 
-    public async readShift(id?: string): Promise<Shift|Shifts>{
-        const url: string = this.buildUrl(this.uid, this.resource, id)
-        let result: Shift|Shifts
-        if(id){
-            result = await this.readData(url) as Shift
-        }else{
-            result = await this.readData(url) as Shifts
+    public static async createTimetable(data: Shift): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource);
+                await ShiftDbController.createData(url, data);
+            }
+        }catch(e){
+            throw new Error("バイトのデータを作成できませんでした")
         }
-        return result
     }
-    
-    public async readShiftByTag(tag: string, value: string): Promise<Shifts >{
-        const url: string = this.buildUrl(this.uid, this.resource)
-        const result: Shifts = await this.readDataByTag(url, tag, value) as Shifts
-        return result
+
+    public static async readTimetable(id?: string): Promise<Shift|Shifts>{
+        let result: Shift|Shifts = {}
+        try{
+            if(AppUser.uid){
+                const url: string = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource, id)
+                if(id){
+                    result = await ShiftDbController.readData(url) as Shift
+                }else{
+                    result = await ShiftDbController.readData(url) as Shifts
+                }
+            }
+        }catch(e){
+            throw new Error("バイトのデータを読み込めませんでした")
+        }finally{
+            return result
+        }
     }
-    
-    public async readShiftByRange(tag: string, startAt: string, endAt: string): Promise<Shifts>{
-        const url: string = this.buildUrl(this.uid, this.resource)
-        const result: Shifts = await this.readDataByRange(url, tag, startAt, endAt) as Shifts
-        return result
+
+    public static async readTimetableByTag(tag: string, value: string): Promise<Shifts>{
+        let result: Shifts = {}
+        try{
+            if(AppUser.uid){
+                const url: string = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource)
+                result = await ShiftDbController.readDataByTag(url, tag, value) as Shifts
+            }
+        }catch(e){
+            throw new Error("バイトのデータを読み込めませんでした")
+        }finally{
+            return result
+        }
     }
-   
-    public async updateShift(data: Shift, id: string): Promise<void> {
-      const url = this.buildUrl(this.uid, this.resource, id);
-      await this.updateData(url, data);
+
+    public static async readTimetableByRange(tag: string, startAt: string, endAt: string): Promise<Shifts>{
+        let result: Shifts = {}
+        try{
+            if(AppUser.uid){
+                const url: string = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource)
+                result = await ShiftDbController.readDataByRange(url, tag, startAt, endAt) as Shifts
+            }
+        }catch(e){
+            throw new Error("バイトのデータを読み込めませんでした")
+        }finally{
+            return result
+        }
     }
-  
-    public async deleteShift(id: string): Promise<void> {
-      const url = this.buildUrl(this.uid, this.resource, id);
-      await this.deleteData(url);
+
+    public static async updateTimetable(data: Shift, id: string): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource, id);
+                await ShiftDbController.updateData(url, data);
+            }
+        }catch(e){
+            throw new Error("バイトのデータを更新できませんでした")
+        }
     }
-  }
+
+    public static async deleteTimetable(id: string): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource, id);
+                await ShiftDbController.deleteData(url);
+            }
+        }catch(e){
+            throw new Error("バイトのデータを削除できませんでした")
+        }
+    }
+}
