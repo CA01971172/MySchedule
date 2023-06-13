@@ -1,80 +1,110 @@
 import { DbController } from "./DbController"
+import { TaskSettings } from "../types";
+import AppUser from "./../AppUser"
 
 export class TaskSettingsDbController extends DbController {
-    private uid: string;
-    private readonly resource: string = "task/taskSettings";
+    private static readonly resource: string = "task/taskSettings";
 
-    constructor(uid: string) {
+    constructor() {
         super()
-        this.uid = uid
     }
 
-    public async getEnabledAlert(): Promise<any>{
-        const defaultData: boolean = true
-        const fullResource: string = `${this.resource}/enabledAlert`
-        const url: string = this.buildUrl(this.uid, fullResource)
-        const fetchedData: any = await this.readData(url)
-        const result: any = fetchedData?.enabledAlert
-        if(result){
+    public static async getEnabledAlert(): Promise<boolean>{
+        let result: boolean = true;
+        try{
+            if(AppUser.uid){
+                const fullResource: string = `${TaskSettingsDbController.resource}/enabledAlert`
+                const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
+                const fetchedData: TaskSettings = await TaskSettingsDbController.readData(url) as TaskSettings
+                if(fetchedData.enabledAlert !== undefined){
+                    result = fetchedData.enabledAlert
+                }
+            }
+        }catch(e){
+            throw new Error("「提出期限が迫ったらアラートメールで通知する」かどうかを取得できませんでした")
+        }finally{
             return result
-        }else{
-            return defaultData
         }
     }
 
-    public async setEnabledAlert(enabledAlert: boolean): Promise<void>{
-        const fullResource: string = `${this.resource}/enabledAlert`
-        const url: string = this.buildUrl(this.uid, fullResource)
-
-        const sendData: object = {
-            enabledAlert
+    public static async setEnabledAlert(enabledAlert: boolean): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const fullResource: string = `${TaskSettingsDbController.resource}/enabledAlert`
+                const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
+                const sendData: TaskSettings = {
+                    enabledAlert
+                }
+                await TaskSettingsDbController.updateData(url, sendData)
+            }
+        }catch(e){
+            throw new Error("「提出期限が迫ったらアラートメールで通知する」かどうかを設定できませんでした")
         }
-        await this.updateData(url, sendData)
     }
     
-    public async getDaysBeforeDeadline(): Promise<number>{
-        const defaultData: number = 3
-        const fullResource: string = `${this.resource}/daysBeforeDeadline`
-        const url: string = this.buildUrl(this.uid, fullResource)
-        const fetchedData: any = await this.readData(url)
-        const result: any = fetchedData?.daysBeforeDeadline
-        if(result){
+    public static async getDaysBeforeDeadline(): Promise<number>{
+        let result: number = 3;
+        try{
+            if(AppUser.uid){
+                const fullResource: string = `${TaskSettingsDbController.resource}/daysBeforeDeadline`
+                const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
+                const fetchedData: TaskSettings = await TaskSettingsDbController.readData(url) as TaskSettings
+                if(fetchedData.daysBeforeDeadline !== undefined){
+                    result = fetchedData.daysBeforeDeadline
+                }
+            }
+        }catch(e){
+            throw new Error("「何日前に通知する」かを取得できませんでした")
+        }finally{
             return result
-        }else{
-            return defaultData
         }
     }
 
-    public async setDaysBeforeDeadline(daysBeforeDeadline: number): Promise<void>{
-        const fullResource: string = `${this.resource}/daysBeforeDeadline`
-        const url: string = this.buildUrl(this.uid, fullResource)
- 
-        const sendData: object = {
-            daysBeforeDeadline
+    public static async setDaysBeforeDeadline(daysBeforeDeadline: number): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const fullResource: string = `${TaskSettingsDbController.resource}/daysBeforeDeadline`
+                const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
+                const sendData: TaskSettings = {
+                    daysBeforeDeadline
+                }
+                await TaskSettingsDbController.updateData(url, sendData)
+            }
+        }catch(e){
+            throw new Error("「何日前に通知する」かを設定できませんでした")
         }
-        await this.updateData(url, sendData)
     }
 
-    public async getAutoTaskDelete(): Promise<boolean>{
-        const defaultData: boolean = false
-        const fullResource: string = `${this.resource}/autTaskDelete`
-        const url: string = this.buildUrl(this.uid, fullResource)
-        const fetchedData: any = await this.readData(url)
-        const result: any = fetchedData?.autTaskDelete
-        if(result){
+    public static async getAutoTaskDelete(): Promise<boolean>{
+        let result: boolean = false;
+        try{
+            if(AppUser.uid){
+                const fullResource: string = `${TaskSettingsDbController.resource}/autTaskDelete`
+                const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
+                const fetchedData: TaskSettings = await TaskSettingsDbController.readData(url)
+                if(fetchedData.autoTaskDelete !== undefined){
+                    result = fetchedData.autoTaskDelete
+                }
+            }
+        }catch(e){
+            throw new Error("「提出期限が過ぎた課題を自動で削除する」かどうかを取得できませんでした")
+        }finally{
             return result
-        }else{
-            return defaultData
         }
     }
 
-    public async setAutoTaskDelete(autoTaskDelete: boolean): Promise<void>{
-        const fullResource: string = `${this.resource}/autTaskDelete`
-        const url: string = this.buildUrl(this.uid, fullResource)
- 
-        const sendData: object = {
-            autoTaskDelete
+    public static async setAutoTaskDelete(autoTaskDelete: boolean): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const fullResource: string = `${TaskSettingsDbController.resource}/autTaskDelete`
+                const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
+                const sendData: TaskSettings = {
+                    autoTaskDelete
+                }
+                await TaskSettingsDbController.updateData(url, sendData)
+            }
+        }catch(e){
+            throw new Error("「提出期限が過ぎた課題を自動で削除する」かどうかを設定できませんでした")
         }
-        await this.updateData(url, sendData)
     }
 }

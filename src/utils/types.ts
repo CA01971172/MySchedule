@@ -59,9 +59,9 @@ export interface Tasks{
 }
 
 export type TaskSettings = {
-    enabledAlert: boolean; // アラートの有効/無効を管理するプロパティ
-    daysBeforeDeadline: number; // 課題提出期限の何日前にアラートを送信するかを管理するプロパティ
-    autoTaskDelete: boolean;
+    enabledAlert?: boolean; // アラートの有効/無効を管理するプロパティ
+    daysBeforeDeadline?: number; // 課題提出期限の何日前にアラートを送信するかを管理するプロパティ
+    autoTaskDelete?: boolean;
 };
 
 export type TaskList = {
@@ -99,7 +99,7 @@ export interface Events{
 }
 
 export type EventSettings = {
-    hidePassedEvent: boolean; // 過去の予定を非表示にするかどうか
+    hidePassedEvent?: boolean; // 過去の予定を非表示にするかどうか
 };
 
 export type EventList = {

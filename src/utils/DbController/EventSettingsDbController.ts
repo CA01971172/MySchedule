@@ -1,35 +1,45 @@
 import { DbController } from "./DbController"
 import { EventSettings } from "./../types"
+import AppUser from "./../AppUser"
 
 export class EventSettingsDbController extends DbController {
-    private uid: string;
-    private readonly resource: string = "event/eventSettings";
+    private static readonly resource: string = "event/eventSettings";
 
-    constructor(uid: string) {
+    constructor() {
         super()
-        this.uid = uid
     }
 
-    public async getHidePassedEvent(): Promise<any>{
-        const defaultData: boolean = false
-        const fullResource: string = `${this.resource}/hidePassedEvent`
-        const url: string = this.buildUrl(this.uid, fullResource)
-        const fetchedData: any = await this.readData(url)
-        const result: any = fetchedData?.hidePassedEvent
-        if(result){
+    public static async getHidePassedEvent(): Promise<boolean>{
+        let result: boolean = false;
+        try{
+            if(AppUser.uid){
+                const fullResource: string = `${EventSettingsDbController.resource}/hidePassedEvent`
+                const url: string = EventSettingsDbController.buildUrl(AppUser.uid, fullResource)
+                const fetchedData: EventSettings = await EventSettingsDbController.readData(url) as EventSettings
+                if(fetchedData.hidePassedEvent !== undefined){
+                    result = fetchedData.hidePassedEvent
+                }
+            }
+        }catch(e){
+            throw new Error("「過去の予定を非表示にする」かどうかを取得できませんでした")
+        }finally{
             return result
-        }else{
-            return defaultData
         }
     }
 
-    public async setHidePassedEvent(hidePassedEvent: boolean): Promise<void>{
-        const fullResource: string = `${this.resource}/hidePassedEvent`
-        const url: string = this.buildUrl(this.uid, fullResource)
-        // 引数hidePassedEventをsendData.hidePassedEventに代入したEventSettingsオブジェクトを作成する
-        const sendData: EventSettings = {
-            hidePassedEvent
+    public static async setHidePassedEvent(hidePassedEvent: boolean): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const fullResource: string = `${EventSettingsDbController.resource}/hidePassedEvent`
+                const url: string = EventSettingsDbController.buildUrl(AppUser.uid, fullResource)
+                // 引数hidePassedEventをsendData.hidePassedEventに代入したEventSettingsオブジェクトを作成する
+                const sendData: EventSettings = {
+                    hidePassedEvent
+                }
+                await EventSettingsDbController.updateData(url, sendData)
+            }
+        }catch(e){
+            throw new Error("「過去の予定を非表示にする」かどうかを設定できませんでした")
         }
-        await this.updateData(url, sendData)
     }
 }
