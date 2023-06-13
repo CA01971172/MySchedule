@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import UiBarColumn from '../UiBarColumn/UiBarColumn';
+import WeekdayColumn from '../Others/WeekdayColumn';
+import CalendarColumn from '../Others/CalendarColumn';
 
 export default function CalendarPage() {
     const [focusYear, setFocusYear] = useState<number>(2000);

@@ -133,7 +133,6 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │       ├── ShiftPage # バイトページ
 │   │       ├── EventPage # 予定ページ
 │   │       ├── CalendarPage # カレンダーページ
-│   │       ├── SearchPage # 検索ページ
 │   │       ├── ViewPage # 閲覧ページ
 │   │       └── EditPage # 編集ページ
 │   ├── lib/
