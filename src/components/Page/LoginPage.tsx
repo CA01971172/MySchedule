@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AppUser from "../../utils/AppUser"
-import LoginHeader from "../Login/LoginHeader"
-import LoginForm from "../Login/LoginForm"
+import AuthHeader from "../Others/AuthHeader"
+import LoginForm from "../Others/LoginForm"
 
 // メールを送信し、パスワードをリセットする関数
 function resetPassword(){
@@ -33,7 +33,7 @@ function mailCheck(email: string): boolean{
 export default function LoginPage() {
     return (
         <div>
-            <LoginHeader/>
+            <AuthHeader/>
             <div className="p-3">
                 <div className="text-center m-2">ログイン</div>
                 <LoginForm/>

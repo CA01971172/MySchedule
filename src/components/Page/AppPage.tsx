@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Tab, Tabs } from "react-bootstrap";
-import { PageType, TabType } from "./../utils/types"
+import { PageType, TabType } from "../../utils/types"
 
 // PageType等をタブの種類に変換する関数
 function convertTabContent(pageType: string | null): TabType{
@@ -18,7 +18,7 @@ function convertTabContent(pageType: string | null): TabType{
     return result;
 }
 
-type keyAndTitle = {
+type KeyAndTitle = {
     key: TabType
     title: "時間割"|"課題"|"バイト"|"予定"|"カレンダー"
 }
@@ -27,7 +27,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
     const [tabKey, setTabKey] = useState<string>(newTabKey);
-    const keysAndTitles: keyAndTitle[] = [
+    const keysAndTitles: KeyAndTitle[] = [
         {key: "timetable", title: "時間割"},
         {key: "task", title: "課題"},
         {key: "shift", title: "バイト"},

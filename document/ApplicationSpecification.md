@@ -127,11 +127,13 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   └── Page/
 │   │       ├── LoginPage # ログインページ
 │   │       ├── RegisterPage # アカウント登録ページ
+│   │       ├── AppPage # ユーザー認証後に表示されるページ
 │   │       ├── TimetablePage # 時間割ページ
 │   │       ├── TaskPage # 課題ページ
 │   │       ├── ShiftPage # バイトページ
 │   │       ├── EventPage # 予定ページ
 │   │       ├── CalendarPage # カレンダーページ
+│   │       ├── SearchPage # 検索ページ
 │   │       ├── ViewPage # 閲覧ページ
 │   │       └── EditPage # 編集ページ
 │   ├── lib/
