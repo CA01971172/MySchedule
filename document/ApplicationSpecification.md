@@ -97,29 +97,40 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 ```bash
 ├── src/
 │   ├── scss/
-│   │   └── style.scss                   # 全体のスタイルシートのSCSS
+│   │   └── style.scss # 全体のスタイルシートのSCSS
 │   ├── components/
-
+│   │   ├── App.tsx # コンポーネントのエントリーポイント
+│   │   ├── login/
+│   │   │   ├── LoginHeader # ログインページのヘッダー
+│   │   │   ├── LoginForm # ログインページのフォーム
+│   │   │   └── LoginPage # ログインページ
+│   │   ├── register/
+│   │   │   ├── RegisterHeader # ログインページのヘッダー
+│   │   │   ├── RegisterForm # ログインページのフォーム
+│   │   │   └── RegisterPage # ログインページ
 │   ├── lib/
 │   │   └── firebase/
-│   │       └── firebase.ts              # firebaseのライブラリ
+│   │       └── firebase.ts # firebaseのライブラリ
 │   ├── utils/
 │   │   ├── DbController/
-│   │   │   ├── DbController.ts              # データベース操作用のユーティリティ
-│   │   │   ├── UserDbController.ts              # データベース操作用のユーティリティ
-│   │   │   ├── UserDbController.ts              # データベース操作用のユーティリティ
-│   │   │   └── UserDbController.ts              # データベース操作用のユーティリティ
-│   │   ├── AppUser.ts                   # ユーザー操作用のユーティリティ
-│   │   ├── QueryUtils.ts                 # ページ操作用のユーティリティ
-│   │   ├── types.ts                     # 型定義
-│   │   └── constants.ts                 # アプリ全体で使用される定数
-│   └── index.ts                         # アプリのエントリーポイント
+│   │   │   ├── DbController.ts # データベース操作用のユーティリティ
+│   │   │   ├── TimetableDbController.ts # 時間割データ操作用のユーティリティ
+│   │   │   ├── TaskDbController.ts # 課題データ操作用のユーティリティ
+│   │   │   ├── TaskSettingsDbController.ts # 課題の設定データ操作用のユーティリティ
+│   │   │   ├── ShiftDbController.ts # バイトデータ操作用のユーティリティ
+│   │   │   ├── EventDbController.ts # 予定データ操作用のユーティリティ
+│   │   │   └── EventSettingsDbController.ts # 予定の設定データ操作用のユーティリティ
+│   │   ├── AppUser.ts # ユーザー操作用のユーティリティ
+│   │   ├── QueryUtils.ts # ページ操作用のユーティリティ
+│   │   ├── types.ts # 型定義
+│   │   └── constants.ts # アプリ全体で使用される定数
+│   └── index.ts # アプリのエントリーポイント
 ├── dist/
-│   ├── index.html                       # メインページのHTML
-│   └── favicon.ico                      # アプリのアイコン
-├── package.json                         # アプリの依存関係やスクリプトの定義
-├── tsconfig.json                        # TypeScriptのコンパイル設定
-└── webpack.config.js                    # Webpackの設定
+│   ├── index.html # メインページのHTML
+│   └── favicon.ico # アプリのアイコン
+├── package.json # アプリの依存関係やスクリプトの定義
+├── tsconfig.json # TypeScriptのコンパイル設定
+└── webpack.config.js # Webpackの設定
 ```
 
 ## デザイン設計
