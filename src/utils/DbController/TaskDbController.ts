@@ -1,50 +1,90 @@
 import { DbController } from "./DbController"
 import { Task, Tasks } from "../types"
+import AppUser from "./../AppUser"
 
 export class TaskDbController extends DbController {
-    private uid: string;
-    private readonly resource: string = 'task/tasks';
-  
-    constructor(uid: string) {
-      super();
-      this.uid = uid;
-    }
-  
-    public async createTask(data: Task): Promise<void> {
-      const url = this.buildUrl(this.uid, this.resource);
-      await this.createData(url, data);
+    private static readonly resource: string = "task/tasks";
+
+    constructor() {
+        super()
     }
 
-    public async readTask(id?: string): Promise<Task|Tasks>{
-        const url: string = this.buildUrl(this.uid, this.resource, id)
-        let result: Task|Tasks
-        if(id){
-            result = await this.readData(url) as Task
-        }else{
-            result = await this.readData(url) as Tasks
+    public static async createTimetable(data: Task): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
+                await TaskDbController.createData(url, data);
+            }
+        }catch(e){
+            throw new Error("課題のデータを作成できませんでした")
         }
-        return result
     }
-    
-    public async readTaskByTag(tag: string, value: string): Promise<Tasks >{
-        const url: string = this.buildUrl(this.uid, this.resource)
-        const result: Tasks = await this.readDataByTag(url, tag, value) as Tasks
-        return result
+
+    public static async readTimetable(id?: string): Promise<Task|Tasks>{
+        let result: Task|Tasks = {}
+        try{
+            if(AppUser.uid){
+                const url: string = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource, id)
+                if(id){
+                    result = await TaskDbController.readData(url) as Task
+                }else{
+                    result = await TaskDbController.readData(url) as Tasks
+                }
+            }
+        }catch(e){
+            throw new Error("課題のデータを読み込めませんでした")
+        }finally{
+            return result
+        }
     }
-    
-    public async readTaskByRange(tag: string, startAt: string, endAt: string): Promise<Tasks>{
-        const url: string = this.buildUrl(this.uid, this.resource)
-        const result: Tasks = await this.readDataByRange(url, tag, startAt, endAt) as Tasks
-        return result
+
+    public static async readTimetableByTag(tag: string, value: string): Promise<Tasks>{
+        let result: Tasks = {}
+        try{
+            if(AppUser.uid){
+                const url: string = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource)
+                result = await TaskDbController.readDataByTag(url, tag, value) as Tasks
+            }
+        }catch(e){
+            throw new Error("課題のデータを読み込めませんでした")
+        }finally{
+            return result
+        }
     }
-   
-    public async updateTask(data: Task, id: string): Promise<void> {
-      const url = this.buildUrl(this.uid, this.resource, id);
-      await this.updateData(url, data);
+
+    public static async readTimetableByRange(tag: string, startAt: string, endAt: string): Promise<Tasks>{
+        let result: Tasks = {}
+        try{
+            if(AppUser.uid){
+                const url: string = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource)
+                result = await TaskDbController.readDataByRange(url, tag, startAt, endAt) as Tasks
+            }
+        }catch(e){
+            throw new Error("課題のデータを読み込めませんでした")
+        }finally{
+            return result
+        }
     }
-  
-    public async deleteTask(id: string): Promise<void> {
-      const url = this.buildUrl(this.uid, this.resource, id);
-      await this.deleteData(url);
+
+    public static async updateTimetable(data: Task, id: string): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource, id);
+                await TaskDbController.updateData(url, data);
+            }
+        }catch(e){
+            throw new Error("課題のデータを更新できませんでした")
+        }
     }
-  }
+
+    public static async deleteTimetable(id: string): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource, id);
+                await TaskDbController.deleteData(url);
+            }
+        }catch(e){
+            throw new Error("課題のデータを削除できませんでした")
+        }
+    }
+}
