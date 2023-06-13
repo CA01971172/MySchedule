@@ -99,50 +99,18 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   ├── scss/
 │   │   └── style.scss                   # 全体のスタイルシートのSCSS
 │   ├── components/
-│   │   ├── Timetable/                   # 時間割機能のコンポーネントを入れるディレクトリ
-│   │   ├── Task/                        # 課題機能のコンポーネントを入れるディレクトリ
-│   │   ├── Shift/                       # アルバイトシフト機能のコンポーネントを入れるディレクトリ
-│   │   ├── Event/                       # 予定機能のコンポーネントを入れるディレクトリ
-│   │   ├── Calendar/                    # カレンダー機能のコンポーネントを入れるディレクトリ
-│   │   ├── Login/                       # ログイン機能のコンポーネントを入れるディレクトリ
-│   │   │   └── LoginForm.ts             # ログインページのform要素のコンポーネント
-│   │   ├── Register/                    # アカウント登録機能のコンポーネントを入れるディレクトリ
-│   │   │   └── RegisterForm.ts          # アカウント登録ページのform要素のコンポーネント
-│   │   └── Ui/
-│   │       ├── Input.ts                 # input要素のコンポーネント
-│   │       ├── Label.ts                 # label要素のコンポーネント
-│   │       ├── LabeledInput.ts          # input要素とlabel要素のコンポーネント
-│   │       ├── PasswordInput.ts         # パスワードを入力するinput要素を含んだ要素のコンポーネント
-│   │       ├── Button.ts                # button要素のコンポーネント
-│   │       ├── SubmitButton.ts          # submitボタン要素のコンポーネント
-│   │       ├── Form.ts                  # form要素のコンポーネント
-│   │       ├── LoginForm.ts             # ログインページのform要素のコンポーネント
-│   │       └── RegisterForm.ts          # アカウント登録ページのform要素のコンポーネント
-│   ├── containers/
-│   │   ├── Content/
-│   │   │   ├── TimetableContent.ts    # 時間割管理ページのコンテナ
-│   │   │   ├── TaskContent.ts         # 課題管理ページのコンテナ
-│   │   │   ├── ShiftContent.ts        # アルバイト管理ページのコンテナ
-│   │   │   ├── ShiftContent.ts        # アルバイト管理ページのコンテナ
-│   │   │   ├── EventContent.ts        # 予定管理ページのコンテナ
-│   │   │   ├── CalendarContent.ts     # カレンダーページのコンテナ
-│   │   │   ├── LoginContent.ts        # ログインページのコンテナ
-│   │   │   └── RegisterContent.ts     # アカウント登録ページのコンテナ
-│   │   └── Page/
-│   │       ├── Page.ts                  # ページ関連のコンポーネント
-│   │       ├── Header.ts                # タブバーのコンポーネント
-│   │       ├── Content.ts               # コンテンツのコンポーネント
-│   │       ├── Footer.ts                # 操作ボタンのコンポーネント
-│   │       └── WebPage.ts               # ページのコンポーネント
+
 │   ├── lib/
 │   │   └── firebase/
 │   │       └── firebase.ts              # firebaseのライブラリ
 │   ├── utils/
-│   │   ├── application .ts              # アプリ立ち上げ用のユーティリティ
-│   │   ├── UserDbController.ts              # データベース操作用のユーティリティ
+│   │   ├── DbController/
+│   │   │   ├── DbController.ts              # データベース操作用のユーティリティ
+│   │   │   ├── UserDbController.ts              # データベース操作用のユーティリティ
+│   │   │   ├── UserDbController.ts              # データベース操作用のユーティリティ
+│   │   │   └── UserDbController.ts              # データベース操作用のユーティリティ
 │   │   ├── AppUser.ts                   # ユーザー操作用のユーティリティ
-│   │   ├── domUtils.ts                  # DOM 操作用のユーティリティ
-│   │   ├── pageUtils.ts                 # ページ操作用のユーティリティ
+│   │   ├── QueryUtils.ts                 # ページ操作用のユーティリティ
 │   │   ├── types.ts                     # 型定義
 │   │   └── constants.ts                 # アプリ全体で使用される定数
 │   └── index.ts                         # アプリのエントリーポイント
