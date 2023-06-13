@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "./style/app.scss"
-import App from "./App";
+import App from "./components/App";
 
 window.onload = async function(){
     const container: HTMLElement | null = document.getElementById("root");

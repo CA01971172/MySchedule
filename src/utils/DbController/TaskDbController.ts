@@ -1,5 +1,5 @@
 import { DbController } from "./DbController"
-import { Task, Tasks } from "./../../utils/types"
+import { Task, Tasks } from "../types"
 
 export class TaskDbController extends DbController {
     private uid: string;

@@ -1,5 +1,5 @@
 import { DbController } from "./DbController"
-import { Event, Events } from "./../../utils/types"
+import { Event, Events } from "../types"
 
 export class EventDbController extends DbController {
     private uid: string;

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { RegisterPageUrl } from "../../utils/constants"
 import AppUser from "../../utils/AppUser"
-import LoginHeader from "./LoginHeader"
-import LoginForm from "./LoginForm"
+import AuthHeader from "../Others/AuthHeader"
+import LoginForm from "../Others/LoginForm"
 
 // メールを送信し、パスワードをリセットする関数
 function resetPassword(){
@@ -31,13 +32,33 @@ function mailCheck(email: string): boolean{
 }
 
 export default function LoginPage() {
+    const [isActive0, setIsActive0] = useState<boolean>(false);
+    const [isActive1, setIsActive1] = useState<boolean>(false);
+
     return (
         <div>
-            <LoginHeader/>
+            <AuthHeader/>
             <div className="p-3">
                 <div className="text-center m-2">ログイン</div>
                 <LoginForm/>
-                <a className="p-3 link-primary" onClick={resetPassword}>パスワードを忘れた場合</a>
+                <a
+                    className={`p-3 ${isActive0 ? "link-info" : "link-primary"}`}
+                    onMouseDown={() => setIsActive0(true)}
+                    onMouseUp={() => setIsActive0(false)}
+                    onMouseLeave={() => setIsActive0(false)}
+                    href={RegisterPageUrl}
+                >
+                    アカウントを作成
+                </a>
+                <a
+                    className={`p-3 ${isActive1 ? "link-info" : "link-primary"}`}
+                    onMouseDown={() => setIsActive1(true)}
+                    onMouseUp={() => setIsActive1(false)}
+                    onMouseLeave={() => setIsActive1(false)}
+                    onClick={resetPassword}
+                >
+                    パスワードを忘れた場合
+                </a>
             </div>
         </div>
     );
