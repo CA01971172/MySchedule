@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function LoginHeader() {
+export default function AuthHeader() {
     return (
         <header>
             <nav className="navbar navbar-expand navbar-dark bg-primary">

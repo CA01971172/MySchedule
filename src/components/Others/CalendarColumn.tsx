@@ -1,6 +1,14 @@
 import React from 'react';
 
-export default function CalendarColumn({ pageType } : { pageType: "shift" | "calendar"}) {
+interface MyProps{
+    pageType: "shift" | "calendar";
+    focusYear: number;
+    focusMonth: number;
+}
+
+export default function CalendarColumn(props: MyProps) {
+    const {pageType, focusYear, focusMonth} = props;
+
     return (
         <div/>
     );
