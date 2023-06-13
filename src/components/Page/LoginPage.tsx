@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AppUser from "../../utils/AppUser"
-import LoginHeader from "./LoginHeader"
-import LoginForm from "./LoginForm"
+import LoginHeader from "../Login/LoginHeader"
+import LoginForm from "../Login/LoginForm"
 
 // メールを送信し、パスワードをリセットする関数
 function resetPassword(){

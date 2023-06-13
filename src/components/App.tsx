@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { FirebaseInitializer } from "./lib/firebase/firebase"
-import AppUser from "./utils/AppUser"
-import { QueryUtils } from "./utils/QueryUtils"
-import { PageType } from "./utils/types"
-import LoginPage from "./components/Login/LoginPage"
+import { FirebaseInitializer } from "../lib/firebase/firebase"
+import AppUser from "../utils/AppUser"
+import { QueryUtils } from "../utils/QueryUtils"
+import { PageType } from "../utils/types"
+import LoginPage from "./Page/LoginPage"
 
 export default function App() {
     // firebaseを初期化する

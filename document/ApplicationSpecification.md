@@ -100,12 +100,6 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   └── style.scss # 全体のスタイルシートのSCSS
 │   ├── components/
 │   │   ├── App.tsx # コンポーネントのエントリーポイント
-│   │   ├── Login/
-│   │   │   ├── LoginHeader # ログインページのヘッダー
-│   │   │   └── LoginForm # ログインページのフォーム
-│   │   ├── Register/
-│   │   │   ├── RegisterHeader # アカウント登録ページのヘッダー
-│   │   │   └── RegisterForm # アカウント登録ページのフォーム
 │   │   ├── HamburgerMenu/
 │   │   │   ├── HamburgerMenuHeader # ハンバーガーメニューのヘッダー(閉じるボタンとログアウトボタン)
 │   │   │   ├── TaskHamburgerMenu # 課題のハンバーガーメニューのコンテンツ部分
@@ -123,6 +117,9 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   │   ├── TimetableCard # 時間割ページのカード
 │   │   │   └── TandemCard # 課題/予定ページのカード
 │   │   ├── Others/
+│   │   │   ├── AuthHeader # ユーザー認証ページのヘッダー
+│   │   │   ├── LoginForm # ログインページのフォーム
+│   │   │   ├── RegisterForm # アカウント登録ページのフォーム
 │   │   │   ├── CalendarColumn # カレンダー/バイト欄
 │   │   │   ├── TimetableColumn # 時間割欄
 │   │   │   ├── CardListColumn # 課題/予定欄
