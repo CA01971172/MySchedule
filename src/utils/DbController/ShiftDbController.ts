@@ -1,8 +1,8 @@
-import { DbController } from "./DbController"
+import DbController from "./DbController"
 import { Shift, Shifts } from "./../types"
 import AppUser from "./../AppUser"
 
-export class ShiftDbController extends DbController {
+export default class ShiftDbController extends DbController {
     private static readonly resource: string = "shift/shifts";
 
     constructor() {

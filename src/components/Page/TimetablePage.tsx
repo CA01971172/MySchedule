@@ -3,7 +3,7 @@ import UiBarColumn from '../UiBarColumn/UiBarColumn';
 import WeekdayColumn from '../Others/WeekdayColumn';
 import TimetableColumn from '../Others/TimetableColumn';
 import { Timetables } from "./../../utils/types"
-import { TimetableDbController } from "./../../utils/DbController/TimetableDbController"
+import TimetableDbController from "./../../utils/DbController/TimetableDbController"
 import AppUser from '../../utils/AppUser';
 
 export default function TimetablePage() {

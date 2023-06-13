@@ -1,7 +1,7 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { Analytics, getAnalytics } from "firebase/analytics";
 
-export class FirebaseInitializer{//firebaseをinitializeするためのクラス
+export default class FirebaseInitializer{//firebaseをinitializeするためのクラス
   private static readonly defaultConfig: object  = {
     apiKey: "AIzaSyBcbLVJT86gqqndMvS4rsm-Y4Mtd1waaYw",
     authDomain: "myschedule-c0a49.firebaseapp.com",

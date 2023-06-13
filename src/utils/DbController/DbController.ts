@@ -1,4 +1,4 @@
-export class DbController { // Firebaseのデータを取り扱うためのクラス
+export default class DbController { // Firebaseのデータを取り扱うためのクラス
     protected static readonly baseDbUrl: string = "https://myschedule-c0a49-default-rtdb.firebaseio.com"
 
     constructor() {

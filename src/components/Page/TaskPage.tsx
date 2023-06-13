@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UiBarColumn from '../UiBarColumn/UiBarColumn';
 import CardListColumn from '../Others/CardListColumn';
 import { Task } from "./../../utils/types"
-import { TaskDbController } from '../../utils/DbController/TaskDbController';
+import TaskDbController from '../../utils/DbController/TaskDbController';
 
 export default function TaskPage() {
     const [searchValue, setSearchValue] = useState<string>("");
