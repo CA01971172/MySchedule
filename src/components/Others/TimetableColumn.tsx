@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Timetables, Timetable } from '../../utils/types';
+import TimetableCard from "./../Card/TimetableCard"
+
 
 // 時間割のデータを授業開始時間で並べ替える関数
 function sortTimetablesByStartTime(timetables: Timetables): Timetable[]{
@@ -38,26 +40,29 @@ function getDayOfWeekKey(dayOfWeek: number): string {
 }
 
 export default function TimetableColumn({timetables}:{timetables: Timetables}) {
+    // 時間割のデータを整えて管理する
     const [timetableData, setTimetableData] = useState<Record<string, Timetable[]>>({})
+
+    // 作成するデータを分類するためのタイプ
+    const dayOfWeekType: string[] = ["mon", "tue", "wed", "thu", "fri"];
 
     useEffect(() => {
         const sortedData = sortTimetablesByStartTime(timetables);
         const groupedData = groupTimetablesByDay(sortedData);
-        console.log(groupedData)
         setTimetableData(groupedData);
     },[timetables])
 
     return (
         <div className="container">
-            <div className="row">
-                {Object.keys(timetableData).map((dayOfWeek) => (
+            <div className="row row-cols-5">
+                {dayOfWeekType.map((dayOfWeek, index) => (
                     <div
                         key={dayOfWeek}
-                        className="col"
+                        className={`col p-1 ${(index === dayOfWeekType.length -1 ) ? "": "border-end"}`}
                     >
-                        {timetableData[dayOfWeek].map((timetable, index) => (
-                            <div key={index}>{timetable.title}</div>
-                        ))}
+                            {timetableData[dayOfWeek] && timetableData[dayOfWeek].map((timetable, index) => (
+                                <TimetableCard key={index} timetable={timetable}/>
+                            ))}
                     </div>
                 ))}
             </div>

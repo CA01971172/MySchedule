@@ -14,13 +14,11 @@ export default function TimetablePage() {
         TimetableDbController.readTimetable().then((response) =>{
             newTimetablesData = response as Timetables;
             setTimetables(newTimetablesData);
-            console.log("data",newTimetablesData)
         });
     }, [])
 
     return (
         <div>
-            <h1>timetable</h1>
             <TimetableColumn timetables={timetables}/>
         </div>
     );
