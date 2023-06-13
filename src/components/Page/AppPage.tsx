@@ -50,10 +50,11 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         >
             {keysAndTitles.map((value, index) => (
                 <Tab
+                    key={`tab-key-${index}`}
                     eventKey={value.key}
                     title={<span className={((tabKey === value.key) ? "text-primary" : "text-white")}>{value.title}</span>}
                 >
-                    {(pageType === "timetable") && (<TimetablePage/>)}
+                    {(tabKey === "timetable") && (<TimetablePage/>)}
                 </Tab>
             ))}
         </Tabs>

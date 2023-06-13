@@ -2,17 +2,26 @@ import React, { useState, useEffect } from 'react';
 import UiBarColumn from '../UiBarColumn/UiBarColumn';
 import WeekdayColumn from '../Others/WeekdayColumn';
 import TimetableColumn from '../Others/TimetableColumn';
-import { Timetable, Timetables } from "./../../utils/types"
+import { Timetables } from "./../../utils/types"
 import { TimetableDbController } from "./../../utils/DbController/TimetableDbController"
 
 export default function TimetablePage() {
     const [timetables, setTimetables] = useState<Timetables>({})
 
     useEffect(() => {
-        TimetableDbController.readTimetable
-    },[timetables])
+/*         let newTimetablesData: Timetables;
+        TimetableDbController.readTimetable().then((response) =>{
+            newTimetablesData = response as Timetables;
+            setTimetables(newTimetablesData);
+            console.log(newTimetablesData)
+        }); */
+        console.log("hoge")
+    }, [])
 
     return (
-        <div/>
+        <div>
+            timetable
+            {/* <TimetableColumn timetables={timetables}/> */}
+        </div>
     );
 }

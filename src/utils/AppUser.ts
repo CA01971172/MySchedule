@@ -117,7 +117,6 @@ export default class AppUser {
 
     public static async redirect():Promise<void>{ // 認証状態に合わせて正しいページにリダイレクトするメソッド
         const authState: User | null  = await AppUser.getAuthState()
-        console.log(authState)
         const isLoginContent: boolean = QueryUtils.matchQuery("page","login")
         const isRegisterContent: boolean = QueryUtils.matchQuery("page","register")
         if(authState && (isLoginContent || isRegisterContent)){//ユーザーが認証されている、かつログイン/ユーザー登録ページの場合
@@ -126,6 +125,8 @@ export default class AppUser {
             location.href=LoginPageUrl
         }else{
             //認証状態とページの組み合わせが正しい場合は処理を実行しない
+            //ユーザーのuid等を取得しておく
+            await AppUser.assignUserInfo()
         }
     }
 }
