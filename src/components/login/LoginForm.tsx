@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AppUser from "./../../utils/AppUser"
+import AppUser from "../../utils/AppUser"
 import { IndexPageUrl } from "../../utils/constants";
 
 // ログイン用フォーム

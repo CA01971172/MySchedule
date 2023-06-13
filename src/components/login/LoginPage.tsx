@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AppUser from "./../../utils/AppUser"
+import AppUser from "../../utils/AppUser"
 import LoginHeader from "./LoginHeader"
 import LoginForm from "./LoginForm"
 

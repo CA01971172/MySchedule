@@ -100,11 +100,11 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   └── style.scss # 全体のスタイルシートのSCSS
 │   ├── components/
 │   │   ├── App.tsx # コンポーネントのエントリーポイント
-│   │   ├── login/
+│   │   ├── Login/
 │   │   │   ├── LoginHeader # ログインページのヘッダー
 │   │   │   ├── LoginForm # ログインページのフォーム
 │   │   │   └── LoginPage # ログインページ
-│   │   ├── register/
+│   │   ├── Register/
 │   │   │   ├── RegisterHeader # アカウント登録ページのヘッダー
 │   │   │   ├── RegisterForm # アカウント登録ページのフォーム
 │   │   │   └── RegisterPage # アカウント登録ページ
