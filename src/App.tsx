@@ -4,6 +4,7 @@ import AppUser from "./utils/AppUser"
 import { QueryUtils } from "./utils/QueryUtils"
 import { PageType } from "./utils/types"
 import LoginPage from "./components/Login/LoginPage"
+import AppPage from "./components/AppPage"
 
 export default function App() {
     // firebaseを初期化する
@@ -17,7 +18,12 @@ export default function App() {
         return (
             <LoginPage/>
         );
+    }else if(pageType === "register"){
+        return (
+            // <RegisterPage/>
+            <></>
+        );
     }else{
-        return(<div/>);
+        return(<AppPage pageType={pageType}/>);
     }
 }

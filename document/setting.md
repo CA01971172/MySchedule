@@ -115,7 +115,7 @@ npm run serve
 ```
 npm i -S react react-dom @types/react @types/react-dom
 ```
-### Material UIのインストール
+### react-bootstrapのインストール
 ```
-npm install @mui/material @emotion/react @emotion/styled
+npm install react-bootstrap
 ```
