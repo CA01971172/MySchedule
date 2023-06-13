@@ -31,6 +31,7 @@ export type RegisterData = {
 
 /* 時間割管理機能のデータモデル */
 export type Timetable = {
+    id?: string;
     title: string;
     teacher: string;
     classroom: string;
@@ -49,6 +50,7 @@ export type TimetableList = {
 
 /* 課題管理機能のデータモデル */
 export type Task = {
+    id?: string;
     title: string;
     description: string;
     deadline: number; // 締め切り日時
@@ -72,6 +74,7 @@ export type TaskList = {
 
 /* アルバイト管理機能のデータモデル */
 export type Shift = {
+    id?: string;
     startTime: number; // シフト開始日時
     endTime: number; // シフト終了日時
     breakTime: number; // 休憩時間（分単位）
@@ -87,6 +90,7 @@ export type ShiftList = {
 
 /* 予定追加機能のデータモデル */
 export type Event = {
+    id?: string;
     title: string;
     description: string;
     startTime: number;

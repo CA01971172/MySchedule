@@ -4,24 +4,24 @@ import WeekdayColumn from '../Others/WeekdayColumn';
 import TimetableColumn from '../Others/TimetableColumn';
 import { Timetables } from "./../../utils/types"
 import { TimetableDbController } from "./../../utils/DbController/TimetableDbController"
+import AppUser from '../../utils/AppUser';
 
 export default function TimetablePage() {
     const [timetables, setTimetables] = useState<Timetables>({})
 
     useEffect(() => {
-/*         let newTimetablesData: Timetables;
+        let newTimetablesData: Timetables;
         TimetableDbController.readTimetable().then((response) =>{
             newTimetablesData = response as Timetables;
             setTimetables(newTimetablesData);
-            console.log(newTimetablesData)
-        }); */
-        console.log("hoge")
+            console.log("data",newTimetablesData)
+        });
     }, [])
 
     return (
         <div>
-            timetable
-            {/* <TimetableColumn timetables={timetables}/> */}
+            <h1>timetable</h1>
+            <TimetableColumn timetables={timetables}/>
         </div>
     );
 }

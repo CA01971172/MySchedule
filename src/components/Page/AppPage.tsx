@@ -24,22 +24,10 @@ function convertTabContent(pageType: string | null): TabType{
     return result;
 }
 
-type KeyAndTitle = {
-    key: TabType
-    title: "時間割"|"課題"|"バイト"|"予定"|"カレンダー"
-}
-
 export default function AppPage({ pageType }: { pageType: PageType }){
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
     const [tabKey, setTabKey] = useState<string>(newTabKey);
-    const keysAndTitles: KeyAndTitle[] = [
-        {key: "timetable", title: "時間割"},
-        {key: "task", title: "課題"},
-        {key: "shift", title: "バイト"},
-        {key: "event", title: "予定"},
-        {key: "calendar", title: "カレンダー"}
-    ]
 
     return (
         <Tabs
@@ -48,15 +36,36 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             activeKey={tabKey}
             onSelect={(keyName) => setTabKey(keyName || "")}
         >
-            {keysAndTitles.map((value, index) => (
-                <Tab
-                    key={`tab-key-${index}`}
-                    eventKey={value.key}
-                    title={<span className={((tabKey === value.key) ? "text-primary" : "text-white")}>{value.title}</span>}
-                >
-                    {(tabKey === "timetable") && (<TimetablePage/>)}
-                </Tab>
-            ))}
+            <Tab
+                eventKey="timetable"
+                title={<span className={((tabKey === "timetable") ? "text-primary" : "text-white")}>時間割</span>}
+            >
+                <TimetablePage/>
+            </Tab>
+            <Tab
+                eventKey="task"
+                title={<span className={((tabKey === "task") ? "text-primary" : "text-white")}>課題</span>}
+            >
+                <TaskPage/>
+            </Tab>
+            <Tab
+                eventKey="shift"
+                title={<span className={((tabKey === "shift") ? "text-primary" : "text-white")}>バイト</span>}
+            >
+                <ShiftPage/>
+            </Tab>
+            <Tab
+                eventKey="event"
+                title={<span className={((tabKey === "event") ? "text-primary" : "text-white")}>予定</span>}
+            >
+                <EventPage/>
+            </Tab>
+            <Tab
+                eventKey="calendar"
+                title={<span className={((tabKey === "calendar") ? "text-primary" : "text-white")}>カレンダー</span>}
+            >
+                <CalendarPage/>
+            </Tab>
         </Tabs>
     );
 }
