@@ -105,9 +105,15 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   │   ├── LoginForm # ログインページのフォーム
 │   │   │   └── LoginPage # ログインページ
 │   │   ├── register/
-│   │   │   ├── RegisterHeader # ログインページのヘッダー
-│   │   │   ├── RegisterForm # ログインページのフォーム
-│   │   │   └── RegisterPage # ログインページ
+│   │   │   ├── RegisterHeader # アカウント登録ページのヘッダー
+│   │   │   ├── RegisterForm # アカウント登録ページのフォーム
+│   │   │   └── RegisterPage # アカウント登録ページ
+│   │   ├── HamburgerMenu/
+│   │   │   ├── HamburgerMenuHeader/ # ハンバーガーメニューのヘッダー(閉じるボタンとログアウトボタン)
+│   │   │   ├── TaskHamburgerMenu/ # 課題のハンバーガーメニューのコンテンツ部分
+│   │   │   ├── ShiftHamburgerMenu/ # バイトのハンバーガーメニューのコンテンツ部分
+│   │   │   ├── EventHamburgerMenu/ # 予定のハンバーガーメニューのコンテンツ部分
+│   │   │   └── HamburgerMenu/ # ハンバーガーメニュー
 │   ├── lib/
 │   │   └── firebase/
 │   │       └── firebase.ts # firebaseのライブラリ
