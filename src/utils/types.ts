@@ -121,3 +121,5 @@ export type Weekday = { // どの曜日を含めた曜日欄を作成するか�
     fri: boolean,
     sat: boolean
 }
+
+export const youbi: string[] = ["日", "月", "火", "水", "木", "金", "土"]
