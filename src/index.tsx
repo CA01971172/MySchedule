@@ -1,5 +1,5 @@
 import React from 'react';
-import { FirebaseInitializer } from "./lib/firebase/firebase"
+import FirebaseInitializer from "./lib/firebase/firebase"
 import AppUser from "./utils/AppUser"
 import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.css';

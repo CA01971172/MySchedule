@@ -1,8 +1,8 @@
-import { DbController } from "./DbController"
+import DbController from "./DbController"
 import { Timetable, Timetables } from "./../types"
 import AppUser from "./../AppUser"
 
-export class TimetableDbController extends DbController {
+export default class TimetableDbController extends DbController {
     private static readonly resource: string = "timetable/timetables";
 
     constructor() {

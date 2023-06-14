@@ -1,8 +1,8 @@
-import { DbController } from "./DbController"
+import DbController from "./DbController"
 import { Task, Tasks } from "../types"
 import AppUser from "./../AppUser"
 
-export class TaskDbController extends DbController {
+export default class TaskDbController extends DbController {
     private static readonly resource: string = "task/tasks";
 
     constructor() {

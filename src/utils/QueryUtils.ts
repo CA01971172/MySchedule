@@ -1,6 +1,6 @@
 import { PageType } from "./types";
 
-export class QueryUtils {//ページの種類など、クエリ文字列を扱うためのクラス
+export default class QueryUtils {//ページの種類など、クエリ文字列を扱うためのクラス
     public static getPageType(): PageType{//現在開いているページの種類を取得する関数
         //クエリ文字列のパラメータ"page"の値を取得する
         let result: PageType
