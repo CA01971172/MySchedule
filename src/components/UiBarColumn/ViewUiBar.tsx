@@ -7,14 +7,30 @@ export default function ViewUiBar(){
 
     return (
         <div className="row border-bottom">
-            <div className="col">
+            <div className="col d-flex justify-content-between">
                 <button
-                    className="btn btn-default"
+                    className="btn btn-default mr-auto"
                     style={{fontSize: "1.5rem"}}
                     onClick={() => setPageState(0)}
                 >
                     <i className="bi bi-x-lg"/>
                 </button>
+                <div>
+                    <button
+                        className="btn btn-default ml-auto"
+                        style={{fontSize: "1.5rem"}}
+                        onClick={() => {}}
+                    >
+                        <i className="bi bi-trash"/>
+                    </button>
+                    <button
+                        className="btn btn-default ml-auto"
+                        style={{fontSize: "1.5rem"}}
+                        onClick={() => setPageState(2)}
+                    >
+                        <i className="bi bi-pencil"/>
+                    </button>
+                </div>
             </div>
         </div>
     );
