@@ -1,8 +1,8 @@
-import { DbController } from "./DbController"
+import DbController from "./DbController"
 import { Event, Events } from "../types"
 import AppUser from "./../AppUser"
 
-export class EventDbController extends DbController {
+export default class EventDbController extends DbController {
     private static readonly resource: string = 'event/events';
   
     constructor() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { QueryUtils } from "./../utils/QueryUtils"
+import QueryUtils from "./../utils/QueryUtils"
 import { PageType } from "./../utils/types"
 import LoginPage from "./Page/LoginPage"
 import AppPage from "./Page/AppPage"

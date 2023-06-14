@@ -12,7 +12,7 @@ import {
 import { FirebaseError } from '@firebase/util'
 import { IndexPageUrl, LoginPageUrl } from "./constants"
 import { UserInfo } from "./types"
-import { QueryUtils } from "./QueryUtils"
+import QueryUtils from "./QueryUtils"
 
 export default class AppUser {
     public static uid: string|null = null;
