@@ -118,6 +118,7 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   │   ├── TimetableCard # 時間割ページのカード
 │   │   │   └── TandemCard # 課題/予定ページのカード
 │   │   ├── Others/
+│   │   │   ├── AddButton # データ追加ボタン
 │   │   │   ├── AuthHeader # ユーザー認証ページのヘッダー
 │   │   │   ├── LoginForm # ログインページのフォーム
 │   │   │   ├── RegisterForm # アカウント登録ページのフォーム
