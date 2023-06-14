@@ -3,6 +3,7 @@ import { QueryUtils } from "./../utils/QueryUtils"
 import { PageType } from "./../utils/types"
 import LoginPage from "./Page/LoginPage"
 import AppPage from "./Page/AppPage"
+import { PageStateProvider } from "./../provider/PageStateProvider"
 
 export default function App() {
     // 現在開いているページの種類を取得する
@@ -18,6 +19,10 @@ export default function App() {
             <></>
         );
     }else{
-        return(<AppPage pageType={pageType}/>);
+        return(
+            <PageStateProvider>
+                <AppPage pageType={pageType}/>
+            </PageStateProvider>
+        );
     }
 }

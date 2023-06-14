@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Tab, Tabs } from "react-bootstrap";
 import { DrawerProvider } from "./../../provider/DrawerProvider"
+import { PageStateContext } from "./../../provider/PageStateProvider"
 import { PageType, TabType } from "../../utils/types"
 import TimetablePage from "./TimetablePage"
 import TaskPage from "./TaskPage"
@@ -30,6 +31,9 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     let newTabKey: TabType = convertTabContent(pageType);
     const [tabKey, setTabKey] = useState<string>(newTabKey);
 
+    // ページの状態を管理する
+    const [pageState, setPageState, fetchingId, setFetchingId] = useContext(PageStateContext);
+
     return (
         <Tabs
             id="mySchedule-tabs"
@@ -41,9 +45,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 eventKey="timetable"
                 title={<span className={((tabKey === "timetable") ? "text-primary" : "text-white")}>時間割</span>}
             >
-                <DrawerProvider>
-                    <TimetablePage/>
-                </DrawerProvider>
+                {((pageState === 0) ? (
+                    <DrawerProvider>
+                        <TimetablePage/>
+                    </DrawerProvider>
+                ) : (<></>))}
+
             </Tab>
             <Tab
                 eventKey="task"
