@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Timetables, Timetable } from '../../utils/types';
-import WeekdayColumn from "./WeekdayColumn"
 import TimetableCard from "./../Card/TimetableCard"
 
 
@@ -54,20 +53,17 @@ export default function TimetableColumn({timetables}:{timetables: Timetables}) {
     },[timetables])
 
     return (
-        <div className="container h-100 border-start border-end d-flex flex-column">
-            <WeekdayColumn pageType="timetable"/>
-            <div className="row row-cols-5 flex-grow-1">
-                {dayOfWeekType.map((dayOfWeek, index) => (
-                    <div
-                        key={dayOfWeek}
-                        className={`col p-1 ${(index === dayOfWeekType.length -1 ) ? "": "border-end"}`}
-                    >
-                            {timetableData[dayOfWeek] && timetableData[dayOfWeek].map((timetable, index) => (
-                                <TimetableCard key={index} timetable={timetable}/>
-                            ))}
-                    </div>
-                ))}
-            </div>
+        <div className="row row-cols-5 flex-grow-1">
+            {dayOfWeekType.map((dayOfWeek, index) => (
+                <div
+                    key={dayOfWeek}
+                    className={`col p-1 ${(index === dayOfWeekType.length -1 ) ? "": "border-end"}`}
+                >
+                        {timetableData[dayOfWeek] && timetableData[dayOfWeek].map((timetable, index) => (
+                            <TimetableCard key={index} timetable={timetable}/>
+                        ))}
+                </div>
+            ))}
         </div>
     );
 }

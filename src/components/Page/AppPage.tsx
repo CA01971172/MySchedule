@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Tab, Tabs } from "react-bootstrap";
+import { DrawerProvider } from "./../../provider/DrawerProvider"
 import { PageType, TabType } from "../../utils/types"
 import TimetablePage from "./TimetablePage"
 import TaskPage from "./TaskPage"
@@ -40,31 +41,41 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 eventKey="timetable"
                 title={<span className={((tabKey === "timetable") ? "text-primary" : "text-white")}>時間割</span>}
             >
-                <TimetablePage/>
+                <DrawerProvider>
+                    <TimetablePage/>
+                </DrawerProvider>
             </Tab>
             <Tab
                 eventKey="task"
                 title={<span className={((tabKey === "task") ? "text-primary" : "text-white")}>課題</span>}
             >
-                <TaskPage/>
+                <DrawerProvider>
+                    <TaskPage/>
+                </DrawerProvider>
             </Tab>
             <Tab
                 eventKey="shift"
                 title={<span className={((tabKey === "shift") ? "text-primary" : "text-white")}>バイト</span>}
             >
-                <ShiftPage/>
+                <DrawerProvider>
+                    <ShiftPage/>
+                </DrawerProvider>
             </Tab>
             <Tab
                 eventKey="event"
                 title={<span className={((tabKey === "event") ? "text-primary" : "text-white")}>予定</span>}
             >
-                <EventPage/>
+                <DrawerProvider>
+                    <EventPage/>
+                </DrawerProvider>
             </Tab>
             <Tab
                 eventKey="calendar"
                 title={<span className={((tabKey === "calendar") ? "text-primary" : "text-white")}>カレンダー</span>}
             >
-                <CalendarPage/>
+                <DrawerProvider>
+                    <CalendarPage/>
+                </DrawerProvider>
             </Tab>
         </Tabs>
     );
