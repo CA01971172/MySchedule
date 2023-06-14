@@ -23,7 +23,7 @@ export default function TimetablePage() {
     }, [])
 
     return (
-        <div>
+        <div className="h-100">
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <PlainUiBar/>
                 <WeekdayColumn pageType="timetable"/>

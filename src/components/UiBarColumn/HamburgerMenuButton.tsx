@@ -8,7 +8,7 @@ export default function HamburgerMenuButton() {
     return (
         <button
             className="btn btn-default"
-            style={{color: "red", fontSize: "1.5rem"}}
+            style={{fontSize: "1.5rem"}}
             onClick={() => setDrawerOpened((prev) => !prev)}
         >
             <i className="bi bi-list"/>
