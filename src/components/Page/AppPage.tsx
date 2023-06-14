@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Tab, Tabs } from "react-bootstrap";
-import { DrawerProvider } from "./../../provider/DrawerProvider"
 import { PageStateContext } from "./../../provider/PageStateProvider"
-import { TimetableProvider } from "./../../provider/TimetableProvider"
 import { PageType, TabType } from "../../utils/types"
 import TimetablePage from "./TimetablePage"
 import TimetableViewPage from "./ViewPage/TimetableViewPage"
@@ -55,52 +53,37 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 title={<span className={((tabKey === "timetable") ? "text-primary" : "text-white")}>時間割</span>}
             >
                 {((pageState === 0) ? (
-                    <DrawerProvider>
-                        <TimetableProvider>
-                            <TimetablePage/>
-                        </TimetableProvider>
-                    </DrawerProvider>
+                    <TimetablePage/>
                 ) : ((pageState === 1) ? (
-                    <TimetableProvider>
-                        <TimetableViewPage/>
-                    </TimetableProvider>
+                    <TimetableViewPage/>
+
                 ) : (
-                    <TimetableProvider>
-                        <TimetableEditPage/>
-                    </TimetableProvider>
+                    <TimetableEditPage/>
                 )))}
             </Tab>
             <Tab
                 eventKey="task"
                 title={<span className={((tabKey === "task") ? "text-primary" : "text-white")}>課題</span>}
             >
-                <DrawerProvider>
-                    <TaskPage/>
-                </DrawerProvider>
+                <TaskPage/>
             </Tab>
             <Tab
                 eventKey="shift"
                 title={<span className={((tabKey === "shift") ? "text-primary" : "text-white")}>バイト</span>}
             >
-                <DrawerProvider>
-                    <ShiftPage/>
-                </DrawerProvider>
+                <ShiftPage/>
             </Tab>
             <Tab
                 eventKey="event"
                 title={<span className={((tabKey === "event") ? "text-primary" : "text-white")}>予定</span>}
             >
-                <DrawerProvider>
-                    <EventPage/>
-                </DrawerProvider>
+                <EventPage/>
             </Tab>
             <Tab
                 eventKey="calendar"
                 title={<span className={((tabKey === "calendar") ? "text-primary" : "text-white")}>カレンダー</span>}
             >
-                <DrawerProvider>
-                    <CalendarPage/>
-                </DrawerProvider>
+                <CalendarPage/>
             </Tab>
         </Tabs>
     );

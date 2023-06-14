@@ -15,11 +15,8 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
             let newData: Timetables|Tasks|Shifts|Events = {};
             switch(contentType){
                 case "timetable":
-                    console.log("id",fetchingId);
                     newData = Object.assign({}, timetables);
                     delete newData[fetchingId];
-                    console.log("timetables",timetables);
-                    console.log("newData",newData);
                     setTimetables(newData);
                     break;
             }
