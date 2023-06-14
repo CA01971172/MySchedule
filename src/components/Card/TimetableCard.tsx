@@ -22,13 +22,13 @@ export default function TimetableCard({ timetable }: { timetable: Timetable}) {
     }, [timetable])
 
     return (
-        <div className="mb-1 bg-timetable text-white rounded">
-                <div className="d-flex justify-content-center">
-                    <div className="text-truncate">{timetable.title}</div>
-                </div>
-                <div className="d-flex justify-content-center">{startTime}</div>
-                <div className="m-auto text-vertical">～</div>
-                <div className="d-flex justify-content-center">{endTime}</div>
+        <div className="mb-1 bg-timetable text-white rounded user-select-none">
+            <div className="d-flex justify-content-center">
+                <b className="text-truncate">{timetable.title}</b>
+            </div>
+            <div className="d-flex justify-content-center">{startTime}</div>
+            <div className="m-auto text-vertical">～</div>
+            <div className="d-flex justify-content-center">{endTime}</div>
         </div>
     );
 }

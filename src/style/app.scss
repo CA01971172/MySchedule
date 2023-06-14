@@ -28,6 +28,9 @@
 
 .bg-timetable{
     background-color: #ff5722;
+    button:active{
+        opacity: 80%;
+    }
 }
 .bg-task{
     background-color: #673ab7;

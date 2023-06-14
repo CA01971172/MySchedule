@@ -110,8 +110,9 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   │   ├── HamburgerMenuButton # ハンバーガーメニューを呼び出すためのボタン
 │   │   │   ├── DateDisplay # 年と月を表示する欄
 │   │   │   ├── DateController # 年と月を操作する欄
-│   │   │   ├── SearchColumn # 検索欄
-│   │   │   └── UiBarColumn # UIバー
+│   │   │   ├── SearchUiBar # 検索用メニューバー
+│   │   │   ├── CalendarUiBar # カレンダー操作用メニューバー
+│   │   │   └── PlainUiBar # ハンバーガーメニューボタンのみのメニューバー
 │   │   ├── Card/
 │   │   │   ├── CalendarCard # カレンダー/バイトページのカード
 │   │   │   ├── TimetableCard # 時間割ページのカード

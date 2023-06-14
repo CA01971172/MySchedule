@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import UiBarColumn from '../UiBarColumn/UiBarColumn';
+import UiBarColumn from '../UiBarColumn/PlainUiBar';
 import WeekdayColumn from '../Others/WeekdayColumn';
 import TimetableColumn from '../Others/TimetableColumn';
 import { Timetables } from "./../../utils/types"
