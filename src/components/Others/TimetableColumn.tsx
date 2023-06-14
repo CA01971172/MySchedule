@@ -54,9 +54,9 @@ export default function TimetableColumn({timetables}:{timetables: Timetables}) {
     },[timetables])
 
     return (
-        <div className="container">
+        <div className="container h-100 border-start border-end d-flex flex-column">
             <WeekdayColumn pageType="timetable"/>
-            <div className="row row-cols-5">
+            <div className="row row-cols-5 flex-grow-1">
                 {dayOfWeekType.map((dayOfWeek, index) => (
                     <div
                         key={dayOfWeek}

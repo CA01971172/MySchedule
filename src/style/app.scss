@@ -1,6 +1,14 @@
 #root{
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .tab-content{
+        flex: 1;
+        .tab-pane{
+            height: 100%;
+        }
+    }
 }
 
 .search-clear {

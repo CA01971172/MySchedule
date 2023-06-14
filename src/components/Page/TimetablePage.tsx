@@ -18,7 +18,7 @@ export default function TimetablePage() {
     }, [])
 
     return (
-        <div>
+        <div className="h-100">
             <TimetableColumn timetables={timetables}/>
         </div>
     );
