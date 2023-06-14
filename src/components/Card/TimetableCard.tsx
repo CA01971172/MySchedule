@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Timetable } from "./../../utils/types"
 
 export default function TimetableCard({ timetable }: { timetable: Timetable}) {
+    // カードがクリック中かどうかを管理する
+    const [isActive, setIsActive] = useState<boolean>(false);
+
+    // 授業の開始/終了時間を文字列で管理する
     const [startTime, setStartTime] = useState<string>("");
     const [endTime, setEndTime] = useState<string>("");
 
@@ -22,7 +26,14 @@ export default function TimetableCard({ timetable }: { timetable: Timetable}) {
     }, [timetable])
 
     return (
-        <div className="mb-1 bg-timetable text-white rounded user-select-none">
+        <div
+            className={`mb-1 bg-timetable text-white rounded user-select-none ${isActive ? "opacity-75" : ""}`}
+            onMouseDown={() => setIsActive(true)}
+            onMouseUp={() => setIsActive(false)}
+            onMouseLeave={() => setIsActive(false)}
+            onTouchStart={() => setIsActive(true)}
+            onTouchEnd={() => setIsActive(false)}
+        >
             <div className="d-flex justify-content-center">
                 <b className="text-truncate">{timetable.title}</b>
             </div>
