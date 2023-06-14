@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Tab, Tabs } from "react-bootstrap";
 import { DrawerProvider } from "./../../provider/DrawerProvider"
 import { PageStateContext } from "./../../provider/PageStateProvider"
+import { TimetableProvider } from "./../../provider/TimetableProvider"
 import { PageType, TabType } from "../../utils/types"
 import TimetablePage from "./TimetablePage"
 import TimetableViewPage from "./ViewPage/TimetableViewPage"
@@ -55,7 +56,9 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             >
                 {((pageState === 0) ? (
                     <DrawerProvider>
-                        <TimetablePage/>
+                        <TimetableProvider>
+                            <TimetablePage/>
+                        </TimetableProvider>
                     </DrawerProvider>
                 ) : ((pageState === 1) ? (
                     <TimetableViewPage/>

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Timetables, Timetable } from '../../utils/types';
 import TimetableCard from "./../Card/TimetableCard"
+import { TimetableContext } from './../../provider/TimetableProvider';
 
 
 // 時間割のデータを授業開始時間で並べ替える関数
@@ -39,7 +40,10 @@ function getDayOfWeekKey(dayOfWeek: number): string {
     return dayOfWeekMap[dayOfWeek] || '';
 }
 
-export default function TimetableColumn({timetables}:{timetables: Timetables}) {
+export default function TimetableColumn() {
+    // 時間割のデータを管理する
+    const [timetables, setTimetables] = useContext(TimetableContext);
+
     // 時間割のデータを整えて管理する
     const [timetableData, setTimetableData] = useState<Record<string, Timetable[]>>({})
 
