@@ -6,7 +6,7 @@ import WeekdayColumn from '../Others/WeekdayColumn';
 import TimetableColumn from '../Others/TimetableColumn';
 import { Timetables } from "./../../utils/types"
 import TimetableDbController from "./../../utils/DbController/TimetableDbController"
-import AppUser from '../../utils/AppUser';
+import AddButton from "./../Others/AddButton"
 
 export default function TimetablePage() {
     // ハンバーガーメニューが開いているかどうかを管理する
