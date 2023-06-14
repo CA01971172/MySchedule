@@ -4,9 +4,17 @@ import { DrawerProvider } from "./../../provider/DrawerProvider"
 import { PageStateContext } from "./../../provider/PageStateProvider"
 import { PageType, TabType } from "../../utils/types"
 import TimetablePage from "./TimetablePage"
+import TimetableViewPage from "./ViewPage/TimetableViewPage"
+import TimetableEditPage from "./EditPage/TimetableEditPage"
 import TaskPage from "./TaskPage"
+import TaskViewPage from "./ViewPage/TaskViewPage"
+import TaskEditPage from "./EditPage/TaskEditPage"
 import ShiftPage from "./ShiftPage"
+import ShiftViewPage from "./ViewPage/ShiftViewPage"
+import ShiftEditPage from "./EditPage/ShiftEditPage"
 import EventPage from "./EventPage"
+import EventViewPage from "./ViewPage/EventViewPage"
+import EventEditPage from "./EditPage/EventEditPage"
 import CalendarPage from "./CalendarPage"
 
 
@@ -32,7 +40,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     const [tabKey, setTabKey] = useState<string>(newTabKey);
 
     // ページの状態を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId] = useContext(PageStateContext);
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
 
     return (
         <Tabs
@@ -49,8 +57,11 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                     <DrawerProvider>
                         <TimetablePage/>
                     </DrawerProvider>
-                ) : (<></>))}
-
+                ) : ((pageState === 1) ? (
+                    <TimetableViewPage/>
+                ) : (
+                    <TimetableEditPage/>
+                )))}
             </Tab>
             <Tab
                 eventKey="task"

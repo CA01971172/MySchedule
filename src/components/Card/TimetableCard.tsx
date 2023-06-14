@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { PageStateContext } from '../../provider/PageStateProvider';
 import { Timetable } from "./../../utils/types"
 
 export default function TimetableCard({ timetable }: { timetable: Timetable}) {
+    // ページの状態を管理する
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+
+
     // カードがクリック中かどうかを管理する
     const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -33,6 +38,13 @@ export default function TimetableCard({ timetable }: { timetable: Timetable}) {
             onMouseLeave={() => setIsActive(false)}
             onTouchStart={() => setIsActive(true)}
             onTouchEnd={() => setIsActive(false)}
+            onClick={() => {
+                if(timetable.id){
+                    setFetchingId(timetable.id);
+                    setFetchingData(timetable);
+                    setPageState(1);
+                }
+            }}
         >
             <div className="d-flex justify-content-center">
                 <b className="text-truncate">{timetable.title}</b>

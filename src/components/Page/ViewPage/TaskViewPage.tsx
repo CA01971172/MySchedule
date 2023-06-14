@@ -1,5 +1,5 @@
 import React from 'react';
-import UiBarColumn from '../../UiBarColumn/UiBarColumn';
+import ViewUiBar from '../../UiBarColumn/ViewUiBar';
 
 export default function TaskViewPage() {
     return (
