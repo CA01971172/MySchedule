@@ -6,6 +6,7 @@ import WeekdayColumn from '../Others/WeekdayColumn';
 import TimetableColumn from '../Others/TimetableColumn';
 import { Timetables } from "./../../utils/types"
 import { TimetableDbController } from "./../../utils/DbController/TimetableDbController"
+import AddButtonFooter from "./../Others/AddButtonFooter"
 
 export default function TimetablePage() {
     // ハンバーガーメニューが開いているかどうかを管理する
@@ -23,12 +24,13 @@ export default function TimetablePage() {
     }, [])
 
     return (
-        <div className="h-100">
+        <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <PlainUiBar/>
                 <WeekdayColumn pageType="timetable"/>
                 <TimetableColumn timetables={timetables}/>
             </div>
+            <AddButtonFooter/>
             <Drawer
                 anchor={'left'}
                 open={drawerOpened}
