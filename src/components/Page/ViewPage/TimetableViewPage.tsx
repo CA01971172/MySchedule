@@ -15,8 +15,13 @@ export default function TimetableViewPage() {
     }, [fetchingData])
 
     return (
-        <div>
-            {(data.title) && (<div>{data.title}</div>)}
+        <div className="h-100 position-relative">
+            <div className="container h-100 border-start border-end d-flex flex-column">
+                <ViewUiBar/>
+                <div className="row row-cols-5 flex-grow-1">
+
+                </div>
+            </div>
         </div>
     );
 }
