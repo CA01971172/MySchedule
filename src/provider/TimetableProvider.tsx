@@ -13,7 +13,6 @@ export function TimetableProvider({children}: {children: ReactNode}){
         TimetableDbController.readTimetable().then((response) =>{
             newTimetablesData = response as Timetables;
             setTimetables(newTimetablesData);
-            console.log("timetables",newTimetablesData)
         });
     }, [])
 

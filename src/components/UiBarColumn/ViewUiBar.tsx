@@ -20,7 +20,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     delete newData[fetchingId];
                     console.log("timetables",timetables);
                     console.log("newData",newData);
-                    // setTimetables(newData);
+                    setTimetables(newData);
                     break;
             }
         }
@@ -44,8 +44,8 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                             const isDeleteDo: boolean = window.confirm("このデータを削除します。\nよろしいですか？");
                             if(isDeleteDo){
                                 deleteData();
-                                // setPageState(0);
-                                // setFetchingData(null);
+                                setPageState(0);
+                                setFetchingData(null);
                             }
                         }}
                     >

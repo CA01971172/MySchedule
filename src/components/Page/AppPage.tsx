@@ -61,9 +61,13 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </TimetableProvider>
                     </DrawerProvider>
                 ) : ((pageState === 1) ? (
-                    <TimetableViewPage/>
+                    <TimetableProvider>
+                        <TimetableViewPage/>
+                    </TimetableProvider>
                 ) : (
-                    <TimetableEditPage/>
+                    <TimetableProvider>
+                        <TimetableEditPage/>
+                    </TimetableProvider>
                 )))}
             </Tab>
             <Tab
