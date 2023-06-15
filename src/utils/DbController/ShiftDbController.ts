@@ -14,6 +14,8 @@ export default class ShiftDbController extends DbController {
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource);
                 await ShiftDbController.createData(url, data);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("バイトのデータを作成できませんでした")
@@ -30,6 +32,8 @@ export default class ShiftDbController extends DbController {
                 }else{
                     result = await ShiftDbController.readData(url) as Shifts
                 }
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("バイトのデータを読み込めませんでした")
@@ -44,6 +48,8 @@ export default class ShiftDbController extends DbController {
             if(AppUser.uid){
                 const url: string = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource)
                 result = await ShiftDbController.readDataByTag(url, tag, value) as Shifts
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("バイトのデータを読み込めませんでした")
@@ -58,6 +64,8 @@ export default class ShiftDbController extends DbController {
             if(AppUser.uid){
                 const url: string = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource)
                 result = await ShiftDbController.readDataByRange(url, tag, startAt, endAt) as Shifts
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("バイトのデータを読み込めませんでした")
@@ -71,6 +79,8 @@ export default class ShiftDbController extends DbController {
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource, id);
                 await ShiftDbController.updateData(url, data);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("バイトのデータを更新できませんでした")
@@ -82,6 +92,8 @@ export default class ShiftDbController extends DbController {
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource, id);
                 await ShiftDbController.deleteData(url);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("バイトのデータを削除できませんでした")

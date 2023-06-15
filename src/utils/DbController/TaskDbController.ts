@@ -14,6 +14,8 @@ export default class TaskDbController extends DbController {
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
                 await TaskDbController.createData(url, data);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("課題のデータを作成できませんでした")
@@ -30,6 +32,8 @@ export default class TaskDbController extends DbController {
                 }else{
                     result = await TaskDbController.readData(url) as Tasks
                 }
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("課題のデータを読み込めませんでした")
@@ -44,6 +48,8 @@ export default class TaskDbController extends DbController {
             if(AppUser.uid){
                 const url: string = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource)
                 result = await TaskDbController.readDataByTag(url, tag, value) as Tasks
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("課題のデータを読み込めませんでした")
@@ -58,6 +64,8 @@ export default class TaskDbController extends DbController {
             if(AppUser.uid){
                 const url: string = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource)
                 result = await TaskDbController.readDataByRange(url, tag, startAt, endAt) as Tasks
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("課題のデータを読み込めませんでした")
@@ -71,6 +79,8 @@ export default class TaskDbController extends DbController {
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource, id);
                 await TaskDbController.updateData(url, data);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("課題のデータを更新できませんでした")
@@ -82,6 +92,8 @@ export default class TaskDbController extends DbController {
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource, id);
                 await TaskDbController.deleteData(url);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("課題のデータを削除できませんでした")

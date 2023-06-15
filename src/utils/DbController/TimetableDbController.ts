@@ -14,6 +14,8 @@ export default class TimetableDbController extends DbController {
             if(AppUser.uid){
                 const url = TimetableDbController.buildUrl(AppUser.uid, TimetableDbController.resource);
                 await TimetableDbController.createData(url, data);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("時間割のデータを作成できませんでした")
@@ -30,6 +32,8 @@ export default class TimetableDbController extends DbController {
                 }else{
                     result = await TimetableDbController.readData(url) as Timetables
                 }
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("時間割のデータを読み込めませんでした")
@@ -44,6 +48,8 @@ export default class TimetableDbController extends DbController {
             if(AppUser.uid){
                 const url: string = TimetableDbController.buildUrl(AppUser.uid, TimetableDbController.resource)
                 result = await TimetableDbController.readDataByTag(url, tag, value) as Timetables
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("時間割のデータを読み込めませんでした")
@@ -58,6 +64,8 @@ export default class TimetableDbController extends DbController {
             if(AppUser.uid){
                 const url: string = TimetableDbController.buildUrl(AppUser.uid, TimetableDbController.resource)
                 result = await TimetableDbController.readDataByRange(url, tag, startAt, endAt) as Timetables
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("時間割のデータを読み込めませんでした")
@@ -71,6 +79,8 @@ export default class TimetableDbController extends DbController {
             if(AppUser.uid){
                 const url = TimetableDbController.buildUrl(AppUser.uid, TimetableDbController.resource, id);
                 await TimetableDbController.updateData(url, data);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("時間割のデータを更新できませんでした")
@@ -82,6 +92,8 @@ export default class TimetableDbController extends DbController {
             if(AppUser.uid){
                 const url = TimetableDbController.buildUrl(AppUser.uid, TimetableDbController.resource, id);
                 await TimetableDbController.deleteData(url);
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("時間割のデータを削除できませんでした")

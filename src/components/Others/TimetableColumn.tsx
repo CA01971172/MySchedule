@@ -51,9 +51,23 @@ export default function TimetableColumn() {
     const dayOfWeekType: string[] = ["mon", "tue", "wed", "thu", "fri"];
 
     useEffect(() => {
-        console.log(timetables)
+/*         console.log("timetables",timetables)
+        Object.values(timetables).forEach((data) => {
+            console.log("title:", data.title, "\nstartTime",data.startTime)
+        }) */
         const sortedData = sortTimetablesByStartTime(timetables);
+/*         console.log("sortedData",sortedData)
+        sortedData.forEach((data) => {
+            console.log("title:", data.title, "\nstartTime",data.startTime)
+        }) */
         const groupedData = groupTimetablesByDay(sortedData);
+/*         console.log("groupedData",groupedData)
+        for(const key in groupedData){
+            console.log("key:", key)
+            groupedData[key].forEach((data) => {
+                console.log("title:", data.title, "\nstartTime",data.startTime)
+            })
+        } */
         setTimetableData(groupedData);
     },[timetables])
 

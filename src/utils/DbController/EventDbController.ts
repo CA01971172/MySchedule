@@ -14,6 +14,8 @@ export default class EventDbController extends DbController {
         if(AppUser.uid){
           const url = EventDbController.buildUrl(AppUser.uid, EventDbController.resource);
           await EventDbController.createData(url, data);
+        }else{
+          throw new Error("ユーザーのidを取得できませんでした")
         }
       }catch(e){
         throw new Error("予定のデータを作成できませんでした")
@@ -30,6 +32,8 @@ export default class EventDbController extends DbController {
           }else{
               result = await EventDbController.readData(url) as Events
           }
+        }else{
+          throw new Error("ユーザーのidを取得できませんでした")
         }
       }catch(e){
         throw new Error("予定のデータを読み込めませんでした")
@@ -44,6 +48,8 @@ export default class EventDbController extends DbController {
         if(AppUser.uid){
           const url: string = EventDbController.buildUrl(AppUser.uid, EventDbController.resource)
           result = await EventDbController.readDataByTag(url, tag, value) as Events
+        }else{
+          throw new Error("ユーザーのidを取得できませんでした")
         }
       }catch(e){
         throw new Error("予定のデータを読み込めませんでした")
@@ -58,6 +64,8 @@ export default class EventDbController extends DbController {
           if(AppUser.uid){
             const url: string = EventDbController.buildUrl(AppUser.uid, EventDbController.resource)
             result = await EventDbController.readDataByRange(url, tag, startAt, endAt) as Events
+          }else{
+            throw new Error("ユーザーのidを取得できませんでした")
           }
         }catch(e){
           throw new Error("予定のデータを読み込めませんでした")
@@ -71,6 +79,8 @@ export default class EventDbController extends DbController {
         if(AppUser.uid){
           const url = EventDbController.buildUrl(AppUser.uid, EventDbController.resource, id);
           await EventDbController.updateData(url, data);
+        }else{
+          throw new Error("ユーザーのidを取得できませんでした")
         }
       }catch(e){
         throw new Error("予定のデータを更新できませんでした")
@@ -82,6 +92,8 @@ export default class EventDbController extends DbController {
         if(AppUser.uid){
           const url = EventDbController.buildUrl(AppUser.uid, EventDbController.resource, id);
           await EventDbController.deleteData(url);
+        }else{
+          throw new Error("ユーザーのidを取得できませんでした")
         }
       }catch(e){
         throw new Error("予定のデータを削除できませんでした")

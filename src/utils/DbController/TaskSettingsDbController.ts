@@ -19,6 +19,8 @@ export default class TaskSettingsDbController extends DbController {
                 if(fetchedData.enabledAlert !== undefined){
                     result = fetchedData.enabledAlert
                 }
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("「提出期限が迫ったらアラートメールで通知する」かどうかを取得できませんでした")
@@ -36,6 +38,8 @@ export default class TaskSettingsDbController extends DbController {
                     enabledAlert
                 }
                 await TaskSettingsDbController.updateData(url, sendData)
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("「提出期限が迫ったらアラートメールで通知する」かどうかを設定できませんでした")
@@ -52,6 +56,8 @@ export default class TaskSettingsDbController extends DbController {
                 if(fetchedData.daysBeforeDeadline !== undefined){
                     result = fetchedData.daysBeforeDeadline
                 }
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("「何日前に通知する」かを取得できませんでした")
@@ -69,6 +75,8 @@ export default class TaskSettingsDbController extends DbController {
                     daysBeforeDeadline
                 }
                 await TaskSettingsDbController.updateData(url, sendData)
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("「何日前に通知する」かを設定できませんでした")
@@ -85,6 +93,8 @@ export default class TaskSettingsDbController extends DbController {
                 if(fetchedData.autoTaskDelete !== undefined){
                     result = fetchedData.autoTaskDelete
                 }
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("「提出期限が過ぎた課題を自動で削除する」かどうかを取得できませんでした")
@@ -102,6 +112,8 @@ export default class TaskSettingsDbController extends DbController {
                     autoTaskDelete
                 }
                 await TaskSettingsDbController.updateData(url, sendData)
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("「提出期限が過ぎた課題を自動で削除する」かどうかを設定できませんでした")

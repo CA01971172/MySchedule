@@ -19,6 +19,8 @@ export default class EventSettingsDbController extends DbController {
                 if(fetchedData.hidePassedEvent !== undefined){
                     result = fetchedData.hidePassedEvent
                 }
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("「過去の予定を非表示にする」かどうかを取得できませんでした")
@@ -37,6 +39,8 @@ export default class EventSettingsDbController extends DbController {
                     hidePassedEvent
                 }
                 await EventSettingsDbController.updateData(url, sendData)
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
             }
         }catch(e){
             throw new Error("「過去の予定を非表示にする」かどうかを設定できませんでした")

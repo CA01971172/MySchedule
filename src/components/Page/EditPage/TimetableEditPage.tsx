@@ -3,6 +3,7 @@ import TimetableEditUiBar from '../../UiBarColumn/EditUiBar/TimetableEditUiBar';
 import { PageStateContext } from '../../../provider/PageStateProvider';
 import { TimetableContext } from '../../../provider/TimetableProvider';
 import { Timetable, Timetables } from "./../../../utils/types"
+import TimetableDbController from '../../../utils/DbController/TimetableDbController';
 
 export default function TimetableEditPage() {
     // 現在操作中のデータ等を管理する
@@ -67,10 +68,13 @@ export default function TimetableEditPage() {
                 teacher,
                 classroom
             };
+            // html上のデータを書き換える
             setFetchingData(newTimetable);
             const newTimetables: Timetables = Object.assign({}, timetables);
             newTimetables[fetchingId] = newTimetable;
             setTimetables(newTimetables);
+            // データベース上のデータを書き換える
+            TimetableDbController.updateTimetable(newTimetable, fetchingId);
         }
     }
 
