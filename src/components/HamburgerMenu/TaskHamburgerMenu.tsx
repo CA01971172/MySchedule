@@ -10,38 +10,38 @@ export function TaskHamburgerMenu() {
     );
   };
 
-  const handleNumberInputChange = (event: any) => {
-    setNumberInput(event.target.value);
-  };
-
   return (
     <main>
       <div>
-        <div className="d-flex justify-content-between border-bottom border-secondary">
-          <button className="btn">×</button>
-          <button type="button" className="btn btn-outline-danger">Logout</button>
+        <div className="p-1 d-flex justify-content-between border-bottom border-secondary">
+          <button className="btn"><i className="bi bi-x-lg"></i></button>
+          <button type="button" className="btn btn-outline-danger">ログアウト</button>
         </div>
+        <div className='p-2'>
+          <div className="mb-3 form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault1"
+              checked={checkboxes[0]}
+              onChange={() => toggleCheckbox(0)}
+            />
+            <label className="form-check-label" htmlFor="flexCheckDefault">
+              過去の予定を非表示にする
+            </label>
+          </div>
 
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-            checked={checkboxes[0]}
-            onChange={() => toggleCheckbox(0)}
-          />
-          <label className="form-check-label" htmlFor="flexCheckDefault">
-            過去の予定を非表示にする
-          </label>
+          <button className="btn btn-outline-dark" style={{ display: 'block', margin: '0 auto' }}>
+            一括削除
+          </button>
         </div>
-
-        <button className="btn btn-outline-dark" style={{ display: 'block', margin: '0 auto' }}>
-          一括削除
-        </button>
       </div>
     </main>
+   
   );
 }
 
 export default TaskHamburgerMenu;
+
+
