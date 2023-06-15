@@ -30,7 +30,11 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     type="button"
                     className="btn btn-default"
                     style={{fontSize: "1.5rem"}}
-                    onClick={() => setPageState(0)}
+                    onClick={() => {
+                        setPageState(0)
+                        setFetchingId(null);
+                        setFetchingData(null);
+                    }}
                 >
                     <i className="bi bi-x-lg"/>
                 </button>
@@ -43,7 +47,8 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                             const isDeleteDo: boolean = window.confirm("このデータを削除します。\nよろしいですか？");
                             if(isDeleteDo){
                                 deleteData();
-                                setPageState(0);
+                                setPageState(0)
+                                setFetchingId(null);
                                 setFetchingData(null);
                             }
                         }}

@@ -3,19 +3,12 @@ import { PageStateContext } from '../../../provider/PageStateProvider';
 import { TimetableContext } from './../../../provider/TimetableProvider';
 import { Timetables, Timetable } from '../../../utils/types';
 
-export default function TimetableEditUiBar(){
+export default function TimetableEditUiBar({saveData}: {saveData: ()=>void}){
     // 現在操作中のデータ等を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
 
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);
-
-    function saveData(): void{
-        if(fetchingId){
-            let newData: Timetable = {} as Timetable;
-
-        }
-    }
 
     return (
         <div className="row border-bottom">
@@ -32,6 +25,7 @@ export default function TimetableEditUiBar(){
                     type="button"
                     className="btn btn-success h-75"
                     onClick={() => {
+                        saveData();
                         window.alert("データを保存しました。");
                         setPageState(1);
                     }}

@@ -48,6 +48,8 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             activeKey={tabKey}
             onSelect={(keyName) => {
                 setPageState(0);
+                setFetchingId(null);
+                setFetchingData(null);
                 setTabKey(keyName || "");
         }}
         >

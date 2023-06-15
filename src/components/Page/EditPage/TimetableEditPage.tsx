@@ -1,11 +1,15 @@
 import React, { useState, useEffect ,useContext } from 'react';
 import TimetableEditUiBar from '../../UiBarColumn/EditUiBar/TimetableEditUiBar';
 import { PageStateContext } from '../../../provider/PageStateProvider';
-import { Timetable } from "./../../../utils/types"
+import { TimetableContext } from '../../../provider/TimetableProvider';
+import { Timetable, Timetables } from "./../../../utils/types"
 
 export default function TimetableEditPage() {
     // 現在操作中のデータ等を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+
+    // 時間割のデータを管理する
+    const [timetables, setTimetables] = useContext(TimetableContext);
 
     // データの型をTimetableだと解釈しておく
     const [data, setData] = useState<Timetable>({} as Timetable);
@@ -48,10 +52,32 @@ export default function TimetableEditPage() {
         return result;
     }
 
+    // データを保存する関数
+    function saveData(): void{
+        if(fetchingId){
+            const startDate: Date = new Date(2000, 1, 1, startHours, startMinutes, 0);
+            const startTime: number = startDate.getTime();
+            const endDate: Date = new Date(2000, 1, 1, endHours, endMinutes, 0);
+            const endTime: number = endDate.getTime();
+            const newTimetable: Timetable = {
+                title,
+                dayOfWeek,
+                startTime,
+                endTime,
+                teacher,
+                classroom
+            };
+            setFetchingData(newTimetable);
+            const newTimetables: Timetables = Object.assign({}, timetables);
+            newTimetables[fetchingId] = newTimetable;
+            setTimetables(newTimetables);
+        }
+    }
+
     return (
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
-                <TimetableEditUiBar/>
+                <TimetableEditUiBar saveData={saveData}/>
                 <div className="row flex-grow-1 d-block p-3" style={{fontSize: "1.5rem"}}>
                     <div className="w-100 p-1 mb-3 border-bottom">
                         <input
