@@ -9,11 +9,11 @@ export default class ShiftDbController extends DbController {
         super()
     }
 
-    public static async createTimetable(data: Shift): Promise<void>{
+    public static async createShift(data: Shift): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource);
-                await ShiftDbController.createData(url, data);
+                return await ShiftDbController.createData(url, data);
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }
@@ -22,7 +22,7 @@ export default class ShiftDbController extends DbController {
         }
     }
 
-    public static async readTimetable(id?: string): Promise<Shift|Shifts>{
+    public static async readShift(id?: string): Promise<Shift|Shifts>{
         let result: Shift|Shifts = {}
         try{
             if(AppUser.uid){
@@ -42,7 +42,7 @@ export default class ShiftDbController extends DbController {
         }
     }
 
-    public static async readTimetableByTag(tag: string, value: string): Promise<Shifts>{
+    public static async readShiftByTag(tag: string, value: string): Promise<Shifts>{
         let result: Shifts = {}
         try{
             if(AppUser.uid){
@@ -58,7 +58,7 @@ export default class ShiftDbController extends DbController {
         }
     }
 
-    public static async readTimetableByRange(tag: string, startAt: string, endAt: string): Promise<Shifts>{
+    public static async readShiftByRange(tag: string, startAt: string, endAt: string): Promise<Shifts>{
         let result: Shifts = {}
         try{
             if(AppUser.uid){
@@ -74,7 +74,7 @@ export default class ShiftDbController extends DbController {
         }
     }
 
-    public static async updateTimetable(data: Shift, id: string): Promise<void>{
+    public static async updateShift(data: Shift, id: string): Promise<void>{
         try{
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource, id);
@@ -87,7 +87,7 @@ export default class ShiftDbController extends DbController {
         }
     }
 
-    public static async deleteTimetable(id: string): Promise<void>{
+    public static async deleteShift(id: string): Promise<void>{
         try{
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource, id);

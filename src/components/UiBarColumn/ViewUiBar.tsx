@@ -2,6 +2,10 @@ import React, { useContext } from 'react';
 import { PageStateContext } from '../../provider/PageStateProvider';
 import { TimetableContext } from './../../provider/TimetableProvider';
 import { ContentType, Events, Shifts, Tasks, Timetables } from '../../utils/types';
+import TimetableDbController from '../../utils/DbController/TimetableDbController';
+import TaskDbController from '../../utils/DbController/TaskDbController';
+import ShiftDbController from '../../utils/DbController/ShiftDbController';
+import EventDbController from '../../utils/DbController/EventDbController';
 
 export default function ViewUiBar({contentType}: {contentType: ContentType}){
     // 現在操作中のデータ等を管理する
@@ -18,6 +22,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     newData = Object.assign({}, timetables);
                     delete newData[fetchingId];
                     setTimetables(newData);
+                    TimetableDbController.deleteTimetable(fetchingId)
                     break;
             }
         }

@@ -9,11 +9,11 @@ export default class TaskDbController extends DbController {
         super()
     }
 
-    public static async createTimetable(data: Task): Promise<void>{
+    public static async createTask(data: Task): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
-                await TaskDbController.createData(url, data);
+                return await TaskDbController.createData(url, data);
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }
@@ -22,7 +22,7 @@ export default class TaskDbController extends DbController {
         }
     }
 
-    public static async readTimetable(id?: string): Promise<Task|Tasks>{
+    public static async readTask(id?: string): Promise<Task|Tasks>{
         let result: Task|Tasks = {}
         try{
             if(AppUser.uid){
@@ -42,7 +42,7 @@ export default class TaskDbController extends DbController {
         }
     }
 
-    public static async readTimetableByTag(tag: string, value: string): Promise<Tasks>{
+    public static async readTaskByTag(tag: string, value: string): Promise<Tasks>{
         let result: Tasks = {}
         try{
             if(AppUser.uid){
@@ -58,7 +58,7 @@ export default class TaskDbController extends DbController {
         }
     }
 
-    public static async readTimetableByRange(tag: string, startAt: string, endAt: string): Promise<Tasks>{
+    public static async readTaskByRange(tag: string, startAt: string, endAt: string): Promise<Tasks>{
         let result: Tasks = {}
         try{
             if(AppUser.uid){
@@ -74,7 +74,7 @@ export default class TaskDbController extends DbController {
         }
     }
 
-    public static async updateTimetable(data: Task, id: string): Promise<void>{
+    public static async updateTask(data: Task, id: string): Promise<void>{
         try{
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource, id);
@@ -87,7 +87,7 @@ export default class TaskDbController extends DbController {
         }
     }
 
-    public static async deleteTimetable(id: string): Promise<void>{
+    public static async deleteTask(id: string): Promise<void>{
         try{
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource, id);

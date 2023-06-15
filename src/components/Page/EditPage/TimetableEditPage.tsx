@@ -15,7 +15,21 @@ export default function TimetableEditPage() {
     // データの型をTimetableだと解釈しておく
     const [data, setData] = useState<Timetable>({} as Timetable);
     useEffect(() => {
-        const convertData = fetchingData as Timetable;
+        let convertData: Timetable;
+        if(fetchingData === null){
+            const initialDate: Date = new Date(2000, 1, 1, 0, 0, 0);
+            const initialTime: number = initialDate.getTime();
+            convertData = {
+                title: "",
+                dayOfWeek: 1,
+                startTime: initialTime,
+                endTime: initialTime,
+                teacher: "",
+                classroom: "",
+            }
+        }else{
+            convertData = fetchingData as Timetable;
+        }
         setData(convertData);
     }, [fetchingData])
 
@@ -31,7 +45,7 @@ export default function TimetableEditPage() {
         useEffect(() => {
             // フォーム内容を既存のデータで初期化する
             setTitle(data.title || "");
-            setDayOfWeek(data.dayOfWeek || 0);
+            setDayOfWeek(data.dayOfWeek || 1);
             setStartHours(new Date(data.startTime || 0).getHours());
             setStartMinutes(new Date(data.startTime || 0).getMinutes());
             setEndHours(new Date(data.endTime || 0).getHours());
@@ -55,27 +69,35 @@ export default function TimetableEditPage() {
 
     // データを保存する関数
     function saveData(): void{
+        const startDate: Date = new Date(2000, 1, 1, startHours, startMinutes, 0);
+        const startTime: number = startDate.getTime();
+        const endDate: Date = new Date(2000, 1, 1, endHours, endMinutes, 0);
+        const endTime: number = endDate.getTime();
+        const newTimetable: Timetable = {
+            title,
+            dayOfWeek,
+            startTime,
+            endTime,
+            teacher,
+            classroom
+        };
+        let dataId: string = "";
         if(fetchingId){
-            const startDate: Date = new Date(2000, 1, 1, startHours, startMinutes, 0);
-            const startTime: number = startDate.getTime();
-            const endDate: Date = new Date(2000, 1, 1, endHours, endMinutes, 0);
-            const endTime: number = endDate.getTime();
-            const newTimetable: Timetable = {
-                title,
-                dayOfWeek,
-                startTime,
-                endTime,
-                teacher,
-                classroom
-            };
-            // html上のデータを書き換える
-            setFetchingData(newTimetable);
-            const newTimetables: Timetables = Object.assign({}, timetables);
-            newTimetables[fetchingId] = newTimetable;
-            setTimetables(newTimetables);
             // データベース上のデータを書き換える
             TimetableDbController.updateTimetable(newTimetable, fetchingId);
+            dataId = fetchingId;
+        }else{
+            // データベース上にデータを新規作成する
+            TimetableDbController.createTimetable(newTimetable).then((generatedId) => {
+                setFetchingId(generatedId);
+                dataId = generatedId;
+            });
         }
+        // html上のデータを書き換える
+        setFetchingData(newTimetable);
+        const newTimetables: Timetables = Object.assign({}, timetables);
+        newTimetables[dataId] = newTimetable;
+        setTimetables(newTimetables);
     }
 
     return (

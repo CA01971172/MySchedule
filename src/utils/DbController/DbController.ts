@@ -14,7 +14,8 @@ export default class DbController { // Firebaseのデータを取り扱うため
         return result;
     }
 
-    protected static async createData(url: string, data: object): Promise<void>{
+    protected static async createData(url: string, data: object): Promise<string>{
+        let result = "";
         await fetch(url, {
             method:'POST', 
             mode: 'cors', 
@@ -23,9 +24,13 @@ export default class DbController { // Firebaseのデータを取り扱うため
             }, 
             body: JSON.stringify(data)
         })
-        // const response = await fetch(url)
-        // const result = await response.json()
+        const response = await fetch(url)
+        const allData = await response.json()
+        const keys = Object.keys(allData);
+        const lastKey: string = keys[keys.length - 1];
+        result = lastKey;
         // console.log(result)
+        return result;
     }
 
     protected static async readData(url: string): Promise<object>{

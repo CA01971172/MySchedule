@@ -9,11 +9,11 @@ export default class TimetableDbController extends DbController {
         super()
     }
 
-    public static async createTimetable(data: Timetable): Promise<void>{
+    public static async createTimetable(data: Timetable): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = TimetableDbController.buildUrl(AppUser.uid, TimetableDbController.resource);
-                await TimetableDbController.createData(url, data);
+                return await TimetableDbController.createData(url, data);
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }
