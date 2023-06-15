@@ -1,5 +1,5 @@
 import React from 'react';
-import EditUiBar from '../../UiBarColumn/EditUiBar/TimetableEditUiBar';
+import TaskEditUiBar from '../../UiBarColumn/EditUiBar/TaskEditUiBar';
 
 export default function TaskEditPage() {
     return (

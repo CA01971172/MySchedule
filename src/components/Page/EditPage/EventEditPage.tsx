@@ -1,5 +1,5 @@
 import React from 'react';
-import EditUiBar from '../../UiBarColumn/EditUiBar/TimetableEditUiBar';
+import EventEditUiBar from '../../UiBarColumn/EditUiBar/EventEditUiBar';
 
 export default function EventEditPage() {
     return (

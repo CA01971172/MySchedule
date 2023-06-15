@@ -25,9 +25,10 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
 
     return (
         <div className="row border-bottom">
-            <div className="col d-flex justify-content-between">
+            <div className="col d-flex justify-content-between align-items-center">
                 <button
-                    className="btn btn-default mr-auto"
+                    type="button"
+                    className="btn btn-default"
                     style={{fontSize: "1.5rem"}}
                     onClick={() => setPageState(0)}
                 >
@@ -35,7 +36,8 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                 </button>
                 <div>
                     <button
-                        className="btn btn-default ml-auto"
+                        type="button"
+                        className="btn btn-default"
                         style={{fontSize: "1.5rem"}}
                         onClick={() => {
                             const isDeleteDo: boolean = window.confirm("このデータを削除します。\nよろしいですか？");
@@ -49,7 +51,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                         <i className="bi bi-trash"/>
                     </button>
                     <button
-                        className="btn btn-default ml-auto"
+                        className="btn btn-default"
                         style={{fontSize: "1.5rem"}}
                         onClick={() => setPageState(2)}
                     >
