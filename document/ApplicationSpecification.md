@@ -112,7 +112,9 @@ scss記法については[こちら](https://webst8.com/blog/sass-scss/#SCSS)
 │   │   │   ├── DateController # 年と月を操作する欄
 │   │   │   ├── SearchUiBar # 検索用メニューバー
 │   │   │   ├── CalendarUiBar # カレンダー操作用メニューバー
-│   │   │   └── PlainUiBar # ハンバーガーメニューボタンのみのメニューバー
+│   │   │   ├── PlainUiBar # ハンバーガーメニューボタンのみのメニューバー
+│   │   │   ├── ViewUiBar # 閲覧用メニューバー
+│   │   │   └── EditUiBar/ # 編集用メニューバー
 │   │   ├── Card/
 │   │   │   ├── CalendarCard # カレンダー/バイトページのカード
 │   │   │   ├── TimetableCard # 時間割ページのカード
