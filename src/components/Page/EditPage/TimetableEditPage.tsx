@@ -104,10 +104,10 @@ export default function TimetableEditPage() {
                         />
                     </div>
                     <div className="w-100 p-1 mb-3 border-bottom">
-                        <div className="d-sm-none">
+                        <div className="d-md-none">
                             <div className="input-group mb-2">
-                                <DayOfWeekSelect id="weekdaySelectSm" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek}/>
-                                <label className="input-group-text" htmlFor="weekdaySelectSm">曜日</label>
+                                <DayOfWeekSelect id="weekdaySelectMd" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek}/>
+                                <label className="input-group-text" htmlFor="weekdaySelectMd">曜日</label>
                             </div>
                             <div className="input-group mb-2">
                                 <span className="input-group-text">開始時間</span>
@@ -122,10 +122,10 @@ export default function TimetableEditPage() {
                                 <MinutesInput minutes={endMinutes} setMinutes={setEndMinutes}/>
                             </div>
                         </div>
-                        <div className="d-none d-sm-block">
+                        <div className="d-none d-md-block">
                             <div className="input-group">
-                                <DayOfWeekSelect id="weekdaySelectMd" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek}/>
-                                <label className="input-group-text" htmlFor="weekdaySelectMd">曜日</label>
+                                <DayOfWeekSelect id="weekdaySelectLg" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek}/>
+                                <label className="input-group-text" htmlFor="weekdaySelectLg">曜日</label>
                                 <HoursInput hours={startHours} setHours={setStartHours}/>
                                 <span className="input-group-text">：</span>
                                 <MinutesInput minutes={startMinutes} setMinutes={setStartMinutes}/>
