@@ -12,7 +12,6 @@ export function TaskHamburgerMenu() {
   };
 
   return (
-    <main>
       <div>
         <HamburgerMenuHeader/>
         <div className='p-2'>
@@ -34,9 +33,7 @@ export function TaskHamburgerMenu() {
             一括削除
           </button>
         </div>
-      </div>
-    </main>
-   
+      </div>  
   );
 }
 
