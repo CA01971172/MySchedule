@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { PageStateContext } from '../../../provider/PageStateProvider';
 import { TimetableContext } from './../../../provider/TimetableProvider';
 
-export default function TimetableEditUiBar({saveData}: {saveData: ()=>void}){
+export default function TimetableEditUiBar({saveData}: {saveData: ()=>Promise<void>}){
     // 現在操作中のデータ等を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
 
@@ -27,9 +27,10 @@ export default function TimetableEditUiBar({saveData}: {saveData: ()=>void}){
                     type="button"
                     className="btn btn-success h-75"
                     onClick={() => {
-                        saveData();
-                        window.alert("データを保存しました。");
-                        setPageState(1);
+                        saveData().then(()=>{
+                            window.alert("データを保存しました。");
+                            setPageState(1);
+                        });
                     }}
                 >
                     保存

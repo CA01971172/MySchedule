@@ -55,7 +55,7 @@ export default function TimetableEditPage() {
     }, [data])
 
     // データを保存する関数
-    function saveData(): void{
+    async function saveData(): Promise<void>{
         const startDate: Date = new Date(2000, 1, 1, startHours, startMinutes, 0);
         const startTime: number = startDate.getTime();
         const endDate: Date = new Date(2000, 1, 1, endHours, endMinutes, 0);
@@ -68,22 +68,22 @@ export default function TimetableEditPage() {
             teacher,
             classroom
         };
-        let dataId: string = "";
+        const newTimetables: Timetables = Object.assign({}, timetables);
         if(fetchingId){
             // データベース上のデータを書き換える
-            TimetableDbController.updateTimetable(newTimetable, fetchingId);
-            dataId = fetchingId;
+            await TimetableDbController.updateTimetable(newTimetable, fetchingId);
+            // html上のデータを書き換える
+            setFetchingData(newTimetable);
+            newTimetables[fetchingId] = newTimetable;
         }else{
             // データベース上にデータを新規作成する
-            TimetableDbController.createTimetable(newTimetable).then((generatedId) => {
-                setFetchingId(generatedId);
-                dataId = generatedId;
-            });
+            const generatedId: string = await TimetableDbController.createTimetable(newTimetable);
+            newTimetable.id = generatedId;
+            // html上のデータを書き換える
+            setFetchingId(generatedId);
+            setFetchingData(newTimetable);
+            newTimetables[generatedId] = newTimetable;
         }
-        // html上のデータを書き換える
-        setFetchingData(newTimetable);
-        const newTimetables: Timetables = Object.assign({}, timetables);
-        newTimetables[dataId] = newTimetable;
         setTimetables(newTimetables);
     }
 
@@ -164,19 +164,6 @@ export default function TimetableEditPage() {
             </div>
         </div>
     );
-}
-
-// 数値型を0～23に丸める関数
-function roundHoursValue(value: number): number{
-    let result: number = 0;
-    result = Math.min(Math.max(value, 0), 23);
-    return result;
-}
-// 数値型を0～59に丸める関数
-function roundMinutesValue(value: number): number{
-    let result: number = 0;
-    result = Math.min(Math.max(value, 0), 59);
-    return result;
 }
 
 // 曜日用のselect要素
