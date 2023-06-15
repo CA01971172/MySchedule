@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function App() {
+export  function EventHamburgerMenu() {
   const [checkboxes, setCheckboxes] = useState([false, false]);
   const [numberInput, setNumberInput] = useState('');
 
@@ -65,4 +65,4 @@ function App() {
   );
 }
 
-export default App;
+export default  EventHamburgerMenu;
