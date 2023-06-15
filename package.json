@@ -9,7 +9,8 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+     "start": "webpack serve"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,8 @@
   "devDependencies": {
     "@types/form-data": "^2.5.0",
     "@types/node": "^18.15.11",
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "^18.2.5",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.4",
     "css-loader": "^6.7.3",
@@ -42,8 +45,6 @@
     "@mui/material": "^5.13.4",
     "@sendgrid/mail": "^7.7.0",
     "@types/firebase": "^3.2.1",
-    "@types/react": "^18.2.8",
-    "@types/react-dom": "^18.2.4",
     "@webpack-cli/generators": "^3.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
