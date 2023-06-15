@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import HamburgerMenuHeader from "./HamburgerMenuHeader"
 
 export function ShiftHamburgerMenu() {
   const [checkboxes, setCheckboxes] = useState([false, false]);
@@ -10,38 +11,39 @@ export function ShiftHamburgerMenu() {
     );
   };
 
-  const handleNumberInputChange = (event: any) => {
-    setNumberInput(event.target.value);
-  };
-
   return (
-    <main>
+   
       <div>
-        <div className="p-1 d-flex justify-content-between border-bottom border-secondary">
-          <button className="btn"><i className="bi bi-x-lg"></i></button>
-          <button type="button" className="btn btn-outline-danger">ログアウト</button>
-        </div>
-        <div className='p-2'>
-          <div className="mb-3 form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault1"
-              checked={checkboxes[0]}
-              onChange={() => toggleCheckbox(0)}
-            />
-            <label className="form-check-label" htmlFor="flexCheckDefault">
-              過去の予定を非表示にする
-            </label>
-          </div>
-
-          <button className="btn btn-outline-dark" style={{ display: 'block', margin: '0 auto' }}>
-            一括削除
-          </button>
+        <HamburgerMenuHeader/>
+        <p className='text-center  border-bottom'>週単位シフトコピペ</p>
+        <div >
+            <div className="p-3 d-flex justify-content-center border-bottom ">
+                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+            </div>
+            <div className="p-3 d-flex justify-content-center border-bottom ">
+                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+            </div>
+            <div className="p-3 d-flex justify-content-center border-bottom ">
+                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+            </div>
+            <div className="p-3 d-flex justify-content-center border-bottom ">
+                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+            </div>
+            <div className="p-3 d-flex justify-content-center border-bottom ">
+                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+            </div>
+            <div className="p-3 d-flex justify-content-center border-bottom ">
+                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+            </div>
         </div>
       </div>
-    </main>
+    
    
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import HamburgerMenuHeader from "./HamburgerMenuHeader"
 
 export function TaskHamburgerMenu() {
   const [checkboxes, setCheckboxes] = useState([false, false]);
@@ -13,10 +14,7 @@ export function TaskHamburgerMenu() {
   return (
     <main>
       <div>
-        <div className="p-1 d-flex justify-content-between border-bottom border-secondary">
-          <button className="btn"><i className="bi bi-x-lg"></i></button>
-          <button type="button" className="btn btn-outline-danger">ログアウト</button>
-        </div>
+        <HamburgerMenuHeader/>
         <div className='p-2'>
           <div className="mb-3 form-check">
             <input

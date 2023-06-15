@@ -5,8 +5,13 @@ import ShiftHamburgerMenu from './ShiftHamburgerMenu';
 import EventHamburgerMenu from './EventHamburgerMenu';
 import { TabType } from '../../utils/types';
 
-export default function HamburgerMenu({ tabType }: { tabType: TabType }) {
+export default function TimetableHamburgerMenu() {
     return (
-        <div/>
+        <main>
+            <div>
+                <HamburgerMenuHeader/>
+                <span>hoge</span>
+            </div>
+        </main>
     );
 }
