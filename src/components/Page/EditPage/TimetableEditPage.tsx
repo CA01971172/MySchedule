@@ -209,11 +209,14 @@ function HoursInput({ hours, setHours }: { hours: number, setHours: (value: numb
         type="number"
         min="0"
         max="23"
-        value={hours}
+        value={`00${hours}`.slice(-2)}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const numberValue: number = Number(event.target.value.slice(0, 2));
-            const roundedValue: number = roundHoursValue(numberValue);
-            setHours(roundedValue);
+            const textValue: string = event.target.value.replace(/[０-９．]/g, (s) =>
+                String.fromCharCode(s.charCodeAt(0) - 0xfee0)
+            );
+            if (!isNaN(Number(textValue))) {
+                setHours(Math.min(Number(textValue), 23));
+            }
         }}
     />
     );
@@ -227,11 +230,14 @@ function MinutesInput({ minutes, setMinutes }: { minutes: number, setMinutes: (v
         type="number"
         min="0"
         max="59"
-        value={minutes}
+        value={`00${minutes}`.slice(-2)}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const numberValue: number = Number(event.target.value.slice(0, 2));
-            const roundedValue: number = roundMinutesValue(numberValue);
-            setMinutes(roundedValue);
+            const textValue: string = event.target.value.replace(/[０-９．]/g, (s) =>
+                String.fromCharCode(s.charCodeAt(0) - 0xfee0)
+            );
+            if (!isNaN(Number(textValue))) {
+                setMinutes(Math.min(Number(textValue), 59));
+            }
         }}
     />
     );
