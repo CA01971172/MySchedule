@@ -54,19 +54,6 @@ export default function TimetableEditPage() {
             setClassroom(data.classroom || "");
     }, [data])
 
-    // 数値型を0～23に丸める関数
-    function roundHoursValue(value: number): number{
-        let result: number = 0;
-        result = Math.min(Math.max(value, 0), 23);
-        return result;
-    }
-    // 数値型を0～59に丸める関数
-    function roundMinutesValue(value: number): number{
-        let result: number = 0;
-        result = Math.min(Math.max(value, 0), 59);
-        return result;
-    }
-
     // データを保存する関数
     function saveData(): void{
         const startDate: Date = new Date(2000, 1, 1, startHours, startMinutes, 0);
@@ -119,151 +106,33 @@ export default function TimetableEditPage() {
                     <div className="w-100 p-1 mb-3 border-bottom">
                         <div className="d-sm-none">
                             <div className="input-group mb-2">
-                                <select
-                                    style={{width: "5rem"}}
-                                    className="form-select"
-                                    id="weekdaySelect"
-                                    aria-label="weekday select"
-                                    value={dayOfWeek}
-                                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                                        setDayOfWeek(Number(event.target.value));
-                                    }}
-                                >
-                                    <option value="1">月</option>
-                                    <option value="2">火</option>
-                                    <option value="3">水</option>
-                                    <option value="4">木</option>
-                                    <option value="5">金</option>
-                                </select>
-                                <label className="input-group-text" htmlFor="weekdaySelect">曜日</label>
+                                <DayOfWeekSelect id="weekdaySelectSm" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek}/>
+                                <label className="input-group-text" htmlFor="weekdaySelectSm">曜日</label>
                             </div>
                             <div className="input-group mb-2">
                                 <span className="input-group-text">開始時間</span>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    min="0"
-                                    max="23"
-                                    value={startHours}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        const numberValue: number = Number(event.target.value.slice(0, 2));
-                                        const roundedValue: number = roundHoursValue(numberValue);
-                                        setStartHours(roundedValue);
-                                    }}
-                                />
+                                <HoursInput hours={startHours} setHours={setStartHours}/>
                                 <span className="input-group-text">：</span>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    min="0"
-                                    max="59"
-                                    value={startMinutes}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        const numberValue: number = Number(event.target.value.slice(0, 2));
-                                        const roundedValue: number = roundMinutesValue(numberValue);
-                                        setStartMinutes(roundedValue);
-                                    }}
-                                />
+                                <MinutesInput minutes={startMinutes} setMinutes={setStartMinutes}/>
                             </div>
                             <div className="input-group">
                                 <span className="input-group-text">終了時間</span>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    min="0"
-                                    max="23"
-                                    value={endHours}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        const numberValue: number = Number(event.target.value.slice(0, 2));
-                                        const roundedValue: number = roundHoursValue(numberValue);
-                                        setEndHours(roundedValue);
-                                    }}
-                                />
+                                <HoursInput hours={endHours} setHours={setEndHours}/>
                                 <span className="input-group-text">：</span>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    min="0"
-                                    max="59"
-                                    value={endMinutes}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        const numberValue: number = Number(event.target.value.slice(0, 2));
-                                        const roundedValue: number = roundMinutesValue(numberValue);
-                                        setEndMinutes(roundedValue);
-                                    }}
-                                />
+                                <MinutesInput minutes={endMinutes} setMinutes={setEndMinutes}/>
                             </div>
                         </div>
                         <div className="d-none d-sm-block">
                             <div className="input-group">
-                                <select
-                                    style={{width: "5rem"}}
-                                    className="form-select"
-                                    id="weekdaySelect"
-                                    aria-label="weekday select"
-                                    value={dayOfWeek}
-                                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                                        setDayOfWeek(Number(event.target.value));
-                                    }}
-                                >
-                                    <option value="1">月</option>
-                                    <option value="2">火</option>
-                                    <option value="3">水</option>
-                                    <option value="4">木</option>
-                                    <option value="5">金</option>
-                                </select>
-                                <label className="input-group-text" htmlFor="weekdaySelect">曜日</label>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    min="0"
-                                    max="23"
-                                    value={startHours}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        const numberValue: number = Number(event.target.value.slice(0, 2));
-                                        const roundedValue: number = roundHoursValue(numberValue);
-                                        setStartHours(roundedValue);
-                                    }}
-                                />
+                                <DayOfWeekSelect id="weekdaySelectMd" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek}/>
+                                <label className="input-group-text" htmlFor="weekdaySelectMd">曜日</label>
+                                <HoursInput hours={startHours} setHours={setStartHours}/>
                                 <span className="input-group-text">：</span>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    min="0"
-                                    max="59"
-                                    value={startMinutes}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        const numberValue: number = Number(event.target.value.slice(0, 2));
-                                        const roundedValue: number = roundMinutesValue(numberValue);
-                                        setStartMinutes(roundedValue);
-                                    }}
-                                />
+                                <MinutesInput minutes={startMinutes} setMinutes={setStartMinutes}/>
                                 <span className="input-group-text">～</span>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    min="0"
-                                    max="23"
-                                    value={endHours}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        const numberValue: number = Number(event.target.value.slice(0, 2));
-                                        const roundedValue: number = roundHoursValue(numberValue);
-                                        setEndHours(roundedValue);
-                                    }}
-                                />
+                                <HoursInput hours={endHours} setHours={setEndHours}/>
                                 <span className="input-group-text">：</span>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    min="0"
-                                    max="59"
-                                    value={endMinutes}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        const numberValue: number = Number(event.target.value.slice(0, 2));
-                                        const roundedValue: number = roundMinutesValue(numberValue);
-                                        setEndMinutes(roundedValue);
-                                    }}
-                                />
+                                <MinutesInput minutes={endMinutes} setMinutes={setEndMinutes}/>
                             </div>
                         </div>
                     </div>
@@ -294,5 +163,76 @@ export default function TimetableEditPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+// 数値型を0～23に丸める関数
+function roundHoursValue(value: number): number{
+    let result: number = 0;
+    result = Math.min(Math.max(value, 0), 23);
+    return result;
+}
+// 数値型を0～59に丸める関数
+function roundMinutesValue(value: number): number{
+    let result: number = 0;
+    result = Math.min(Math.max(value, 0), 59);
+    return result;
+}
+
+// 曜日用のselect要素
+function DayOfWeekSelect({ id, dayOfWeek, setDayOfWeek}: { id: string, dayOfWeek: number, setDayOfWeek: (value: number)=>void}){
+    return (
+        <select
+        style={{width: "5rem"}}
+        className="form-select"
+        id={id}
+        aria-label="weekday select"
+        value={dayOfWeek}
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+            setDayOfWeek(Number(event.target.value));
+        }}
+    >
+        <option value="1">月</option>
+        <option value="2">火</option>
+        <option value="3">水</option>
+        <option value="4">木</option>
+        <option value="5">金</option>
+    </select>
+    );
+}
+
+// 時間用のinput要素
+function HoursInput({ hours, setHours }: { hours: number, setHours: (value: number)=>void }){
+    return (
+        <input
+        className="form-control"
+        type="number"
+        min="0"
+        max="23"
+        value={hours}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const numberValue: number = Number(event.target.value.slice(0, 2));
+            const roundedValue: number = roundHoursValue(numberValue);
+            setHours(roundedValue);
+        }}
+    />
+    );
+}
+
+// 分用のinput要素
+function MinutesInput({ minutes, setMinutes }: { minutes: number, setMinutes: (value: number)=>void }){
+    return (
+        <input
+        className="form-control"
+        type="number"
+        min="0"
+        max="59"
+        value={minutes}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const numberValue: number = Number(event.target.value.slice(0, 2));
+            const roundedValue: number = roundMinutesValue(numberValue);
+            setMinutes(roundedValue);
+        }}
+    />
     );
 }
