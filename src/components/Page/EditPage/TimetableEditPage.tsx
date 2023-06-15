@@ -53,19 +53,23 @@ export default function TimetableEditPage() {
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <TimetableEditUiBar/>
                 <div className="row flex-grow-1 d-block p-3" style={{fontSize: "1.5rem"}}>
-                    <input
-                        className="w-100 p-1 mb-3 border-bottom form-control"
-                        placeholder="タイトルを追加"
-                        value={title}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            setTitle(event.target.value)
-                        }}
-                    />
                     <div className="w-100 p-1 mb-3 border-bottom">
-                        <div className="d-inline-block">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="タイトルを追加"
+                            value={title}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                setTitle(event.target.value)
+                            }}
+                        />
+                    </div>
+                    <div className="w-100 p-1 mb-3 border-bottom">
+                        <div className="input-group mb-2">
                             <select
                                 style={{width: "5rem"}}
-                                className="form-select me-1 float-start"
+                                className="form-select"
+                                id="weekdaySelect"
                                 aria-label="weekday select"
                                 value={dayOfWeek}
                                 onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -78,14 +82,12 @@ export default function TimetableEditPage() {
                                 <option value="4">木</option>
                                 <option value="5">金</option>
                             </select>
-                            <span className="me-3 float-none">曜日</span>
+                            <label className="input-group-text" htmlFor="weekdaySelect">曜日</label>
                         </div>
-                        <br className="d-sm-none"/>
-                        <div className="d-inline-block">
-                            <span className="me-3 d-sm-none float-start">開始時間：</span>
+                        <div className="input-group mb-2">
+                            <span className="input-group-text">開始時間</span>
                             <input
-                                className="form-control float-start"
-                                style={{width: "3rem"}}
+                                className="form-control"
                                 type="number"
                                 min="0"
                                 max="23"
@@ -96,10 +98,9 @@ export default function TimetableEditPage() {
                                     setStartHours(roundedValue);
                                 }}
                             />
-                            <span className="float-start">：</span>
+                            <span className="input-group-text">：</span>
                             <input
-                                className="me-3 form-control"
-                                style={{width: "3rem"}}
+                                className="form-control"
                                 type="number"
                                 min="0"
                                 max="59"
@@ -111,13 +112,10 @@ export default function TimetableEditPage() {
                                 }}
                             />
                         </div>
-                        <span className="me-3 d-none d-sm-inline">～</span>
-                        <br className="d-sm-none"/>
-                        <div className="d-inline-block">
-                        <span className="me-3 d-sm-none float-start">終了時間：</span>
+                        <div className="input-group">
+                            <span className="input-group-text">終了時間</span>
                             <input
-                                className="form-control float-start"
-                                style={{width: "3rem"}}
+                                className="form-control"
                                 type="number"
                                 min="0"
                                 max="23"
@@ -128,10 +126,9 @@ export default function TimetableEditPage() {
                                     setEndHours(roundedValue);
                                 }}
                             />
-                            <span className="float-start">：</span>
+                            <span className="input-group-text">：</span>
                             <input
                                 className="form-control"
-                                style={{width: "3rem"}}
                                 type="number"
                                 min="0"
                                 max="59"
@@ -144,30 +141,29 @@ export default function TimetableEditPage() {
                             />
                         </div>
                     </div>
-                    <div className="w-100 p-1 mb-3 border-bottom">
-                        <span>講師</span>
-                        <span>：</span>
-                        <input
-                        className="form-control"
-                        placeholder=""
-                        value={teacher}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            setTeacher(event.target.value)
-                        }}
-                    />
+                    <div className="input-group w-100 p-1 mb-3 border-bottom">
+                            <span className="input-group-text">講師</span>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder=""
+                                value={teacher}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    setTeacher(event.target.value)
+                                }}
+                            />
                     </div>
-                    <div className="w-100 p-1 border-bottom">
-                        <span>教室</span>
-                        <span>：</span>
+                    <div className="input-group w-100 p-1 mb-3 border-bottom">
+                        <span className="input-group-text">教室</span>
                         <input
-                        className="form-control"
-                        placeholder=""
-                        value={classroom}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            setClassroom(event.target.value)
-                        }}
-                    />
-                    
+                            type="text"
+                            className="form-control"
+                            placeholder=""
+                            value={classroom}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                setClassroom(event.target.value)
+                            }}
+                        />
                     </div>
                 </div>
             </div>
