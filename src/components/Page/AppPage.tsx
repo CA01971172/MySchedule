@@ -46,7 +46,10 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             id="mySchedule-tabs"
             className="bg-primary"
             activeKey={tabKey}
-            onSelect={(keyName) => setTabKey(keyName || "")}
+            onSelect={(keyName) => {
+                setPageState(0);
+                setTabKey(keyName || "");
+        }}
         >
             <Tab
                 eventKey="timetable"
