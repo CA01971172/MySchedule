@@ -3,7 +3,7 @@ import QueryUtils from "./../utils/QueryUtils"
 import { PageType } from "./../utils/types"
 import LoginPage from "./Page/LoginPage"
 import AppPage from "./Page/AppPage"
-import  EventHamburgerMenu from "./HamburgerMenu/EventHamburgerMenu"
+import  TaskHamburgerMenu from "./HamburgerMenu/TaskHamburgerMenu"
 
 export default function App() {
     // 現在開いているページの種類を取得する
@@ -12,7 +12,7 @@ export default function App() {
     if(pageType === "login"){
         return (
             <div> {/* <LoginPage/> */}
-           <EventHamburgerMenu/> </div>
+           <TaskHamburgerMenu/> </div>
         );
     }else if(pageType === "register"){
         return (
