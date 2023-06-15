@@ -65,80 +65,154 @@ export default function TimetableEditPage() {
                         />
                     </div>
                     <div className="w-100 p-1 mb-3 border-bottom">
-                        <div className="input-group mb-2">
-                            <select
-                                style={{width: "5rem"}}
-                                className="form-select"
-                                id="weekdaySelect"
-                                aria-label="weekday select"
-                                value={dayOfWeek}
-                                onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                                    setDayOfWeek(Number(event.target.value));
-                                }}
-                            >
-                                <option value="1">月</option>
-                                <option value="2">火</option>
-                                <option value="3">水</option>
-                                <option value="4">木</option>
-                                <option value="5">金</option>
-                            </select>
-                            <label className="input-group-text" htmlFor="weekdaySelect">曜日</label>
+                        <div className="d-sm-none">
+                            <div className="input-group mb-2">
+                                <select
+                                    style={{width: "5rem"}}
+                                    className="form-select"
+                                    id="weekdaySelect"
+                                    aria-label="weekday select"
+                                    value={dayOfWeek}
+                                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                                        setDayOfWeek(Number(event.target.value));
+                                    }}
+                                >
+                                    <option value="1">月</option>
+                                    <option value="2">火</option>
+                                    <option value="3">水</option>
+                                    <option value="4">木</option>
+                                    <option value="5">金</option>
+                                </select>
+                                <label className="input-group-text" htmlFor="weekdaySelect">曜日</label>
+                            </div>
+                            <div className="input-group mb-2">
+                                <span className="input-group-text">開始時間</span>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    max="23"
+                                    value={startHours}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        const numberValue: number = Number(event.target.value.slice(0, 2));
+                                        const roundedValue: number = roundHoursValue(numberValue);
+                                        setStartHours(roundedValue);
+                                    }}
+                                />
+                                <span className="input-group-text">：</span>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    max="59"
+                                    value={startMinutes}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        const numberValue: number = Number(event.target.value.slice(0, 2));
+                                        const roundedValue: number = roundMinutesValue(numberValue);
+                                        setStartMinutes(roundedValue);
+                                    }}
+                                />
+                            </div>
+                            <div className="input-group">
+                                <span className="input-group-text">終了時間</span>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    max="23"
+                                    value={endHours}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        const numberValue: number = Number(event.target.value.slice(0, 2));
+                                        const roundedValue: number = roundHoursValue(numberValue);
+                                        setEndHours(roundedValue);
+                                    }}
+                                />
+                                <span className="input-group-text">：</span>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    max="59"
+                                    value={endMinutes}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        const numberValue: number = Number(event.target.value.slice(0, 2));
+                                        const roundedValue: number = roundMinutesValue(numberValue);
+                                        setEndMinutes(roundedValue);
+                                    }}
+                                />
+                            </div>
                         </div>
-                        <div className="input-group mb-2">
-                            <span className="input-group-text">開始時間</span>
-                            <input
-                                className="form-control"
-                                type="number"
-                                min="0"
-                                max="23"
-                                value={startHours}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    const numberValue: number = Number(event.target.value.slice(0, 2));
-                                    const roundedValue: number = roundHoursValue(numberValue);
-                                    setStartHours(roundedValue);
-                                }}
-                            />
-                            <span className="input-group-text">：</span>
-                            <input
-                                className="form-control"
-                                type="number"
-                                min="0"
-                                max="59"
-                                value={startMinutes}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    const numberValue: number = Number(event.target.value.slice(0, 2));
-                                    const roundedValue: number = roundMinutesValue(numberValue);
-                                    setStartMinutes(roundedValue);
-                                }}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <span className="input-group-text">終了時間</span>
-                            <input
-                                className="form-control"
-                                type="number"
-                                min="0"
-                                max="23"
-                                value={endHours}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    const numberValue: number = Number(event.target.value.slice(0, 2));
-                                    const roundedValue: number = roundHoursValue(numberValue);
-                                    setEndHours(roundedValue);
-                                }}
-                            />
-                            <span className="input-group-text">：</span>
-                            <input
-                                className="form-control"
-                                type="number"
-                                min="0"
-                                max="59"
-                                value={endMinutes}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    const numberValue: number = Number(event.target.value.slice(0, 2));
-                                    const roundedValue: number = roundMinutesValue(numberValue);
-                                    setEndMinutes(roundedValue);
-                                }}
-                            />
+                        <div className="d-none d-sm-block">
+                            <div className="input-group">
+                                <select
+                                    style={{width: "5rem"}}
+                                    className="form-select"
+                                    id="weekdaySelect"
+                                    aria-label="weekday select"
+                                    value={dayOfWeek}
+                                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                                        setDayOfWeek(Number(event.target.value));
+                                    }}
+                                >
+                                    <option value="1">月</option>
+                                    <option value="2">火</option>
+                                    <option value="3">水</option>
+                                    <option value="4">木</option>
+                                    <option value="5">金</option>
+                                </select>
+                                <label className="input-group-text" htmlFor="weekdaySelect">曜日</label>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    max="23"
+                                    value={startHours}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        const numberValue: number = Number(event.target.value.slice(0, 2));
+                                        const roundedValue: number = roundHoursValue(numberValue);
+                                        setStartHours(roundedValue);
+                                    }}
+                                />
+                                <span className="input-group-text">：</span>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    max="59"
+                                    value={startMinutes}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        const numberValue: number = Number(event.target.value.slice(0, 2));
+                                        const roundedValue: number = roundMinutesValue(numberValue);
+                                        setStartMinutes(roundedValue);
+                                    }}
+                                />
+                                <span className="input-group-text">～</span>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    max="23"
+                                    value={endHours}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        const numberValue: number = Number(event.target.value.slice(0, 2));
+                                        const roundedValue: number = roundHoursValue(numberValue);
+                                        setEndHours(roundedValue);
+                                    }}
+                                />
+                                <span className="input-group-text">：</span>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    max="59"
+                                    value={endMinutes}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        const numberValue: number = Number(event.target.value.slice(0, 2));
+                                        const roundedValue: number = roundMinutesValue(numberValue);
+                                        setEndMinutes(roundedValue);
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="input-group w-100 p-1 mb-3 border-bottom">
