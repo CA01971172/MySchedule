@@ -1,7 +1,8 @@
 import React from 'react';
+import { Events, Tasks } from '../../utils/types';
 
-export default function CardListColumn({ pageType } : { pageType: "task" | "event"}) {
+export default function CardListColumn({ pageType, data } : { pageType: "task" | "event", data: Tasks|Events}) {
     return (
-        <div/>
+        <div>hoge</div>
     );
 }
