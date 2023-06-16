@@ -2,6 +2,7 @@ import React, { useState, useEffect ,useContext } from 'react';
 import { PageStateContext } from '../../../provider/PageStateProvider';
 import { Task } from "./../../../utils/types"
 import ViewUiBar from '../../UiBarColumn/ViewUiBar';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 export default function TaskViewPage() {
     // 現在操作中のデータ等を管理する
@@ -35,7 +36,7 @@ export default function TaskViewPage() {
                         <span>{( "00" + (new Date(data.deadline).getMinutes())).slice( -2 )}</span>
                     </div>
                     <div className="w-100 p-1">
-                        <textarea className="form-control resize-none" rows={3} value={data.description} readOnly/>
+                        <TextareaAutosize className="form-control resize-none" value={data.description} readOnly/>
                     </div>
                 </div>
             </div>
