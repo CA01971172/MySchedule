@@ -6,7 +6,6 @@ export default function TimetableCard({ timetable }: { timetable: Timetable}) {
     // ページの状態を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
 
-
     // カードがクリック中かどうかを管理する
     const [isActive, setIsActive] = useState<boolean>(false);
 
