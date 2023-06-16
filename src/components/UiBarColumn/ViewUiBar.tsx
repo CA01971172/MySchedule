@@ -24,6 +24,24 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     setTimetables(newData);
                     TimetableDbController.deleteTimetable(fetchingId)
                     break;
+                case "task":
+                    newData = Object.assign({}, timetables);
+                    delete newData[fetchingId];
+                    setTimetables(newData);
+                    TaskDbController.deleteTask(fetchingId)
+                    break;
+                case "shift":
+                    newData = Object.assign({}, timetables);
+                    delete newData[fetchingId];
+                    setTimetables(newData);
+                    ShiftDbController.deleteShift(fetchingId)
+                    break;
+                case "event":
+                    newData = Object.assign({}, timetables);
+                    delete newData[fetchingId];
+                    setTimetables(newData);
+                    EventDbController.deleteEvent(fetchingId)
+                    break;
             }
         }
     }
