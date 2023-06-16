@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { PageStateContext } from '../../../provider/PageStateProvider';
-import { TimetableContext } from './../../../provider/TimetableProvider';
 
 export default function TimetableEditUiBar({saveData}: {saveData: ()=>Promise<void>}){
     // 現在操作中のデータ等を管理する

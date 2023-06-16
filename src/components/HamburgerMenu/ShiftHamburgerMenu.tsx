@@ -12,39 +12,36 @@ export function ShiftHamburgerMenu() {
   };
 
   return (
-   
-      <div>
-        <HamburgerMenuHeader/>
-        <p className='text-center  border-bottom'>週単位シフトコピペ</p>
-        <div >
-            <div className="p-3 d-flex justify-content-center border-bottom ">
-                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
-                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
-            </div>
-            <div className="p-3 d-flex justify-content-center border-bottom ">
-                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
-                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
-            </div>
-            <div className="p-3 d-flex justify-content-center border-bottom ">
-                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
-                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
-            </div>
-            <div className="p-3 d-flex justify-content-center border-bottom ">
-                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
-                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
-            </div>
-            <div className="p-3 d-flex justify-content-center border-bottom ">
-                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
-                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
-            </div>
-            <div className="p-3 d-flex justify-content-center border-bottom ">
-                <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
-                <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
-            </div>
+    <div>
+      <HamburgerMenuHeader/>
+      <p className='text-center  border-bottom'>週単位シフトコピペ</p>
+      <div >
+        <div className="p-3 d-flex justify-content-center border-bottom ">
+          <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+          <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+        </div>
+        <div className="p-3 d-flex justify-content-center border-bottom ">
+          <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+          <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+        </div>
+        <div className="p-3 d-flex justify-content-center border-bottom ">
+          <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+          <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+        </div>
+        <div className="p-3 d-flex justify-content-center border-bottom ">
+          <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+          <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+        </div>
+        <div className="p-3 d-flex justify-content-center border-bottom ">
+          <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+          <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
+        </div>
+        <div className="p-3 d-flex justify-content-center border-bottom ">
+          <button type="button" className="btn btn-outline-dark w-25 me-3">コピー</button>
+          <button type="button" className="btn btn-outline-dark w-25 ">貼り付け</button>
         </div>
       </div>
-    
-   
+    </div>
   );
 }
 

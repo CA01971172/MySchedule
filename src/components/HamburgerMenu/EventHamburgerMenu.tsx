@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import HamburgerMenuHeader from "./HamburgerMenuHeader"
 
 export function EventHamburgerMenu() {
-  const [checkboxes, setCheckboxes] = useState([false, false]);
-  const [numberInput, setNumberInput] = useState('');
+  const [checkboxes, setCheckboxes] = useState<boolean[]>([false, false]);
+  const [numberInput, setNumberInput] = useState<number>(3);
 
   const toggleCheckbox = (index: number) => {
     setCheckboxes(
@@ -17,7 +17,7 @@ export function EventHamburgerMenu() {
 
   return (
       <div>
-       <HamburgerMenuHeader/>
+        <HamburgerMenuHeader/>
         <div className='p-2'>
           <div className=" mb-3 form-check">
             <input
@@ -31,7 +31,6 @@ export function EventHamburgerMenu() {
             <label className="form-check-label " htmlFor="flexCheckDefault1">
               提出期限が迫ったら、アラートメールで通知する
             </label>
-         
           </div>
 
           <div className='mb-3'>
@@ -41,7 +40,7 @@ export function EventHamburgerMenu() {
               value={numberInput}
               onChange={handleNumberInputChange}
             />
-       
+
             <label>
               日前に通知する
             </label>

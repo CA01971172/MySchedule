@@ -22,16 +22,12 @@ window.onload = async function(){
 
 
 
-//テスト用ログアウトコード(コンソール上で実行)
-import { LoginPageUrl } from "./utils/constants";
+//テスト用コード(コンソール上で実行)
 declare global {
     interface Window {
-        logout(): void;
+        hoge(): void;
     }
 }
-window.logout = function (): void{
-    const logoutCheck: Boolean = window.confirm("ログアウトします。\nよろしいですか？")
-    if(logoutCheck){
-        AppUser.signOut(LoginPageUrl)
-    }
+window.hoge = function (): void{
+
 }

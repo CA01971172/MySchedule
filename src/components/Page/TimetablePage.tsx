@@ -5,6 +5,7 @@ import PlainUiBar from '../UiBarColumn/PlainUiBar';
 import WeekdayColumn from '../Others/WeekdayColumn';
 import TimetableColumn from '../Others/TimetableColumn';
 import AddButton from "./../Others/AddButton"
+import TimetableHamburgerMenu from "./../HamburgerMenu/TimetableHamburgerMenu"
 
 export default function TimetablePage() {
     // ハンバーガーメニューが開いているかどうかを管理する
@@ -24,7 +25,7 @@ export default function TimetablePage() {
                 onClose={() => setDrawerOpened(false)}
                 PaperProps={{ style: { width: "60%" } }}
             >
-                <div>hoge</div>
+                <TimetableHamburgerMenu/>
             </Drawer>
         </div>
     );
