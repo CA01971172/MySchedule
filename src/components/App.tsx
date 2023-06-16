@@ -13,7 +13,7 @@ export default function App() {
 
     if(pageType === "login"){
         return (
-            <LoginPage/>
+            <LoginPage/> 
         );
     }else if(pageType === "register"){
         return (
@@ -31,4 +31,5 @@ export default function App() {
             </PageStateProvider>
         );
     }
+
 }
