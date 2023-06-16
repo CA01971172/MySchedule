@@ -70,7 +70,14 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 eventKey="task"
                 title={<span className={((tabKey === "task") ? "text-primary" : "text-white")}>課題</span>}
             >
-                <TaskPage/>
+                {((pageState === 0) ? (
+                    <TaskPage/>
+                ) : ((pageState === 1) ? (
+                    <TaskViewPage/>
+
+                ) : (
+                    <TaskEditPage/>
+                )))}
             </Tab>
             <Tab
                 eventKey="shift"
