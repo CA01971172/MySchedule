@@ -2,8 +2,14 @@
 ## データモデル
 ```bash
 └── https://myschedule-c0a49-default-rtdb.firebaseio.com/
+    ├── emails/
+    │   ├── ${uid} #ユーザーのid
+    │   │   └── email #ユーザーのメールアドレス(string)
+    │   └── ${uid} #ユーザーのid
+    │       └── email #ユーザーのメールアドレス(string)
     └── users/
         ├── ${uid} #ユーザーのid
+        │   ├── isAuthorized #メール送信サーバーにメールアドレスが登録されているかどうか(boolean)
         │   ├── timetable
         │   │   └── timeTables #時間割のデータ
         │   │       └── ${id} #一意キー(string)
