@@ -33,8 +33,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
             <div className="col d-flex justify-content-between align-items-center">
                 <button
                     type="button"
-                    className="btn btn-default"
-                    style={{fontSize: "1.5rem"}}
+                    className="btn btn-default fs-3"
                     onClick={() => {
                         setPageState(0)
                         setFetchingId(null);
@@ -46,8 +45,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                 <div>
                     <button
                         type="button"
-                        className="btn btn-default"
-                        style={{fontSize: "1.5rem"}}
+                        className="btn btn-default fs-3"
                         onClick={() => {
                             const isDeleteDo: boolean = window.confirm("このデータを削除します。\nよろしいですか？");
                             if(isDeleteDo){
@@ -61,8 +59,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                         <i className="bi bi-trash"/>
                     </button>
                     <button
-                        className="btn btn-default"
-                        style={{fontSize: "1.5rem"}}
+                        className="btn btn-default fs-3"
                         onClick={() => setPageState(2)}
                     >
                         <i className="bi bi-pencil"/>

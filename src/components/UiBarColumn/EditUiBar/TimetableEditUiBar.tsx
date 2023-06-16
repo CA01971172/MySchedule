@@ -10,14 +10,15 @@ export default function TimetableEditUiBar({saveData}: {saveData: ()=>Promise<vo
             <div className="col d-flex justify-content-between align-items-center">
                 <button
                     type="button"
-                    className="btn btn-default"
-                    style={{fontSize: "1.5rem"}}
+                    className="btn btn-default fs-3"
                     onClick={() => {
-                        if(fetchingData === null){
-                            setPageState(0);
-                        }else{
-                            setPageState(1);
-                        }
+                        saveData().then(()=>{
+                            if(fetchingData === null){
+                                setPageState(0);
+                            }else{
+                                setPageState(1);
+                            }
+                        });
                     }}
                 >
                     <i className="bi bi-x-lg"/>
@@ -28,7 +29,6 @@ export default function TimetableEditUiBar({saveData}: {saveData: ()=>Promise<vo
                     onClick={() => {
                         saveData().then(()=>{
                             window.alert("データを保存しました。");
-                            setPageState(1);
                         });
                     }}
                 >

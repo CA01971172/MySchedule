@@ -19,7 +19,7 @@ export default function TimetableViewPage() {
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <ViewUiBar contentType="timetable"/>
-                <div className="row flex-grow-1 d-block p-3" style={{fontSize: "1.5rem"}}>
+                <div className="row flex-grow-1 d-block p-3 fs-4">
                     <div className="w-100 p-1 mb-3 border-bottom text-truncate">
                         {data.title}
                     </div>

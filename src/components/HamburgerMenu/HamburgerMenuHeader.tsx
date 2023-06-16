@@ -10,8 +10,7 @@ export default function HamburgerMenuHeader() {
     return (
         <div className="p-1 ps-3 pe-3 d-flex justify-content-between align-items-center border-bottom">
             <button
-                className="btn"
-                style={{fontSize: "1.5rem"}}
+                className="btn fs-3"
                 onClick={() => {
                     setDrawerOpened(false)
                 }}
