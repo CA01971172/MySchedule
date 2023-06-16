@@ -9,25 +9,27 @@ export default function TandemCard({ cardType, data }: { cardType:"task"|"event"
     // カードがクリック中かどうかを管理する
     const [isActive, setIsActive] = useState<boolean>(false);
 
-    // データの時間(締め切りor開始時間)を文字列で管理する
-    const [dataDate, setDataDate] = useState<string>("");
+    // データの時間(締め切りor開始時間)をDateオブジェクトで管理する
+    const [dateData, setDateData] = useState<Date | null>(null);
 
     useEffect(() => {
-        // データの時間を文字列で取得する
-        let newDataDate: number = 0;
+        // データの時間をDateオブジェクトで取得する
+        let newDateData: Date
+        let dateTime: number = 0;
         if(cardType === "task"){
             const TaskData: Task = data as Task;
-            newDataDate = TaskData.deadline;
+            dateTime = TaskData.deadline;
         }else{
             const EventData: Event = data as Event;
-            newDataDate = EventData.startTime;
+            dateTime = EventData.startTime;
         }
-
+        newDateData = new Date(dateTime);
+        setDateData(newDateData);
     }, [data])
 
     return (
         <div
-            className={`mb-1 ${(cardType === "task") ? "bg-task" : "bg-event"} text-white rounded user-select-none ${isActive ? "opacity-75" : ""}`}
+            className={`mb-1 ${(cardType === "task") ? "bg-task" : "bg-event"} text-white fs-4 rounded user-select-none ${isActive ? "opacity-75" : ""}`}
             onMouseDown={() => setIsActive(true)}
             onMouseUp={() => setIsActive(false)}
             onMouseLeave={() => setIsActive(false)}
@@ -41,8 +43,18 @@ export default function TandemCard({ cardType, data }: { cardType:"task"|"event"
                 }
             }}
         >
-            <div>
-                <span className="text-truncate fs-4">{data.title}</span>
+            <div className="text-truncate">
+                <span>{data.title}</span>
+            </div>
+            <div className="text-truncate">
+                <span className="me-3">{(cardType === "task") ? "〆" : "始"}</span>
+                <span>{dateData ? (dateData.getMonth() + 1) : ""}</span>
+                <span className="me-2">月</span>
+                <span>{dateData ? (dateData.getDay()) : ""}</span>
+                <span className="me-3">日</span>
+                <span>{dateData ? (`00${dateData.getHours()}`.slice(-2)) : ""}</span>
+                <span>：</span>
+                <span>{dateData ? (`00${dateData.getMinutes()}`.slice(-2)) : ""}</span>
             </div>
         </div>
     );
