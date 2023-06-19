@@ -12,6 +12,9 @@ export default function TimetableEditPage() {
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);
 
+    // 新規データが編集されたかどうか
+    const [isTouched, setIsTouched] = useState(false);
+
     // データの型をTimetableだと解釈しておく
     const [data, setData] = useState<Timetable>({} as Timetable);
     useEffect(() => {
@@ -90,7 +93,7 @@ export default function TimetableEditPage() {
     return (
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
-                <TimetableEditUiBar saveData={saveData}/>
+                <TimetableEditUiBar saveData={saveData} isTouched={isTouched}/>
                 <div className="row flex-grow-1 d-block p-3">
                     <div className="w-100 p-1 mb-3 border-bottom">
                         <input
@@ -99,40 +102,41 @@ export default function TimetableEditPage() {
                             placeholder="タイトルを追加"
                             value={title}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                setTitle(event.target.value)
+                                setTitle(event.target.value);
+                                setIsTouched(true);
                             }}
                         />
                     </div>
                     <div className="w-100 p-1 mb-3 border-bottom">
                         <div className="d-md-none">
                             <div className="input-group mb-2">
-                                <DayOfWeekSelect id="weekdaySelectMd" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek}/>
+                                <DayOfWeekSelect id="weekdaySelectMd" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek} setIsTouched={setIsTouched}/>
                                 <label className="input-group-text" htmlFor="weekdaySelectMd">曜日</label>
                             </div>
                             <div className="input-group mb-2">
                                 <span className="input-group-text">開始時間</span>
-                                <HoursInput hours={startHours} setHours={setStartHours}/>
+                                <HoursInput hours={startHours} setHours={setStartHours} setIsTouched={setIsTouched}/>
                                 <span className="input-group-text">：</span>
-                                <MinutesInput minutes={startMinutes} setMinutes={setStartMinutes}/>
+                                <MinutesInput minutes={startMinutes} setMinutes={setStartMinutes} setIsTouched={setIsTouched}/>
                             </div>
                             <div className="input-group">
                                 <span className="input-group-text">終了時間</span>
-                                <HoursInput hours={endHours} setHours={setEndHours}/>
+                                <HoursInput hours={endHours} setHours={setEndHours} setIsTouched={setIsTouched}/>
                                 <span className="input-group-text">：</span>
-                                <MinutesInput minutes={endMinutes} setMinutes={setEndMinutes}/>
+                                <MinutesInput minutes={endMinutes} setMinutes={setEndMinutes} setIsTouched={setIsTouched}/>
                             </div>
                         </div>
                         <div className="d-none d-md-block">
                             <div className="input-group">
-                                <DayOfWeekSelect id="weekdaySelectLg" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek}/>
+                                <DayOfWeekSelect id="weekdaySelectLg" dayOfWeek={dayOfWeek} setDayOfWeek={setDayOfWeek} setIsTouched={setIsTouched}/>
                                 <label className="input-group-text" htmlFor="weekdaySelectLg">曜日</label>
-                                <HoursInput hours={startHours} setHours={setStartHours}/>
+                                <HoursInput hours={startHours} setHours={setStartHours} setIsTouched={setIsTouched}/>
                                 <span className="input-group-text">：</span>
-                                <MinutesInput minutes={startMinutes} setMinutes={setStartMinutes}/>
+                                <MinutesInput minutes={startMinutes} setMinutes={setStartMinutes} setIsTouched={setIsTouched}/>
                                 <span className="input-group-text">～</span>
-                                <HoursInput hours={endHours} setHours={setEndHours}/>
+                                <HoursInput hours={endHours} setHours={setEndHours} setIsTouched={setIsTouched}/>
                                 <span className="input-group-text">：</span>
-                                <MinutesInput minutes={endMinutes} setMinutes={setEndMinutes}/>
+                                <MinutesInput minutes={endMinutes} setMinutes={setEndMinutes} setIsTouched={setIsTouched}/>
                             </div>
                         </div>
                     </div>
@@ -144,7 +148,8 @@ export default function TimetableEditPage() {
                                 placeholder=""
                                 value={teacher}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    setTeacher(event.target.value)
+                                    setTeacher(event.target.value);
+                                    setIsTouched(true);
                                 }}
                             />
                     </div>
@@ -156,7 +161,8 @@ export default function TimetableEditPage() {
                             placeholder=""
                             value={classroom}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                setClassroom(event.target.value)
+                                setClassroom(event.target.value);
+                                setIsTouched(true);
                             }}
                         />
                     </div>
@@ -167,7 +173,7 @@ export default function TimetableEditPage() {
 }
 
 // 曜日用のselect要素
-function DayOfWeekSelect({ id, dayOfWeek, setDayOfWeek}: { id: string, dayOfWeek: number, setDayOfWeek: (value: number)=>void}){
+function DayOfWeekSelect({ id, dayOfWeek, setDayOfWeek, setIsTouched}: { id: string, dayOfWeek: number, setDayOfWeek: (value: number)=>void, setIsTouched:(value: boolean)=>void}){
     return (
         <select
         style={{width: "5rem"}}
@@ -177,6 +183,7 @@ function DayOfWeekSelect({ id, dayOfWeek, setDayOfWeek}: { id: string, dayOfWeek
         value={dayOfWeek}
         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
             setDayOfWeek(Number(event.target.value));
+            setIsTouched(true);
         }}
     >
         <option value="1">月</option>
@@ -189,7 +196,7 @@ function DayOfWeekSelect({ id, dayOfWeek, setDayOfWeek}: { id: string, dayOfWeek
 }
 
 // 時間用のinput要素
-function HoursInput({ hours, setHours }: { hours: number, setHours: (value: number)=>void }){
+function HoursInput({ hours, setHours, setIsTouched }: { hours: number, setHours: (value: number)=>void, setIsTouched:(value: boolean)=>void }){
     return (
         <input
         className="form-control"
@@ -203,6 +210,7 @@ function HoursInput({ hours, setHours }: { hours: number, setHours: (value: numb
             );
             if (!isNaN(Number(textValue))) {
                 setHours(Math.min(Number(textValue), 23));
+                setIsTouched(true);
             }
         }}
     />
@@ -210,7 +218,7 @@ function HoursInput({ hours, setHours }: { hours: number, setHours: (value: numb
 }
 
 // 分用のinput要素
-function MinutesInput({ minutes, setMinutes }: { minutes: number, setMinutes: (value: number)=>void }){
+function MinutesInput({ minutes, setMinutes, setIsTouched }: { minutes: number, setMinutes: (value: number)=>void, setIsTouched:(value: boolean)=>void }){
     return (
         <input
         className="form-control"
@@ -224,6 +232,7 @@ function MinutesInput({ minutes, setMinutes }: { minutes: number, setMinutes: (v
             );
             if (!isNaN(Number(textValue))) {
                 setMinutes(Math.min(Number(textValue), 59));
+                setIsTouched(true);
             }
         }}
     />

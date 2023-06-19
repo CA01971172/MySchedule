@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { PageStateContext } from '../../../provider/PageStateProvider';
 
-export default function TimetableEditUiBar({saveData}: {saveData: ()=>Promise<void>}){
+export default function TimetableEditUiBar({saveData, isTouched}: {saveData: ()=>Promise<void>, isTouched: boolean}){
     // 現在操作中のデータ等を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
 
@@ -12,13 +12,17 @@ export default function TimetableEditUiBar({saveData}: {saveData: ()=>Promise<vo
                     type="button"
                     className="btn btn-default fs-3"
                     onClick={() => {
-                        saveData().then(()=>{
-                            if(fetchingData === null){
-                                setPageState(0);
-                            }else{
-                                setPageState(1);
-                            }
-                        });
+                        if((!isTouched) && (fetchingData === null)){
+                            setPageState(0);
+                        }else{
+                            saveData().then(()=>{
+                                if(fetchingData === null){
+                                    setPageState(0);
+                                }else{
+                                    setPageState(1);
+                                }
+                            });
+                        }
                     }}
                 >
                     <i className="bi bi-x-lg"/>
