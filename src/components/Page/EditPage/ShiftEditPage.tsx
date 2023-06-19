@@ -1,5 +1,5 @@
 import React from 'react';
-import ShiftEditUiBar from '../../UiBarColumn/EditUiBar/ShiftEditUiBar';
+import EditUiBar from '../../UiBarColumn/EditUiBar';
 
 export default function ShiftEditPage() {
     return (

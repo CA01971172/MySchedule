@@ -1,5 +1,5 @@
 import React, { useState, useEffect ,useContext } from 'react';
-import TimetableEditUiBar from '../../UiBarColumn/EditUiBar/TimetableEditUiBar';
+import EditUiBar from '../../UiBarColumn/EditUiBar';
 import { PageStateContext } from '../../../provider/PageStateProvider';
 import { TimetableContext } from '../../../provider/TimetableProvider';
 import { Timetable, Timetables } from "./../../../utils/types"
@@ -96,7 +96,7 @@ export default function TimetableEditPage() {
     return (
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
-                <TimetableEditUiBar saveData={saveData} isTouched={isTouched}/>
+                <EditUiBar saveData={saveData} isTouched={isTouched}/>
                 <div className="row flex-grow-1 d-block p-3">
                     <div className="w-100 p-1 mb-3 border-bottom">
                         <input

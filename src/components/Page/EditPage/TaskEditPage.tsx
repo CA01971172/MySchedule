@@ -1,13 +1,10 @@
 import React, { useState, useEffect ,useContext } from 'react';
-import TaskEditUiBar from '../../UiBarColumn/EditUiBar/TaskEditUiBar';
+import EditUiBar from '../../UiBarColumn/EditUiBar';
 import { PageStateContext } from '../../../provider/PageStateProvider';
 import { TaskContext } from '../../../provider/TaskProvider';
 import { Task, Tasks } from "./../../../utils/types"
 import TaskDbController from '../../../utils/DbController/TaskDbController';
 import DateInputGroup from "./Form/DateInputGroup"
-import HoursInput from './Form/HoursInput';
-import MinutesInput from './Form/MinutesInput';
-import { Form } from 'react-bootstrap';
 
 export default function TaskEditPage() {
     // 現在操作中のデータ等を管理する
@@ -89,7 +86,7 @@ export default function TaskEditPage() {
     return (
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
-                <TaskEditUiBar saveData={saveData} isTouched={isTouched}/>
+                <EditUiBar saveData={saveData} isTouched={isTouched}/>
                 <div className="row flex-grow-1 d-block p-3">
                     <div className="w-100 p-1 mb-3 border-bottom">
                         <input

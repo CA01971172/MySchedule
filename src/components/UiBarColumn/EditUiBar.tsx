@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { PageStateContext } from '../../../provider/PageStateProvider';
+import { PageStateContext } from '../../provider/PageStateProvider';
 
-export default function TimetableEditUiBar({saveData, isTouched}: {saveData: ()=>Promise<void>, isTouched: boolean}){
+export default function EditUiBar({saveData, isTouched}: {saveData: ()=>Promise<void>, isTouched: boolean}){
     // 現在操作中のデータ等を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
 
