@@ -63,7 +63,6 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                     setFetchingId(null);
                     setFetchingData(null);
                     setTabKey(keyName || "");
-                    console.log(keyName)
             }}
             >
                 <Tab

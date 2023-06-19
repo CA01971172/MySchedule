@@ -12,9 +12,13 @@ export function TaskHamburgerMenu() {
   };
 
   const handleNumberInputChange = (event: any) => {
-    const receive: number = event.target.value;
-    const newNumber: number = Math.min(receive);
-    setNumberInput(newNumber);
+    const receive: string = event.target.value;
+    const textValue = receive.replace(/[０-９．]/g, (s) =>
+      String.fromCharCode(s.charCodeAt(0) - 0xfee0)
+    );
+    if (!isNaN(Number(textValue))) {
+      setNumberInput(Number(textValue));
+    }
   };
 
   return (
@@ -40,9 +44,8 @@ export function TaskHamburgerMenu() {
               style={{width: "4rem"}}
               id="daysBeforeDeadline"
               className="form-control"
-              type="number"
-              min={0}
-              value={(numberInput === 0) ? "0" : `${numberInput}`}
+              type="string"
+              value={numberInput}
               onChange={handleNumberInputChange}
             />
 

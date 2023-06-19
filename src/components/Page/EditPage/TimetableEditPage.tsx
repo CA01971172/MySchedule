@@ -4,6 +4,9 @@ import { PageStateContext } from '../../../provider/PageStateProvider';
 import { TimetableContext } from '../../../provider/TimetableProvider';
 import { Timetable, Timetables } from "./../../../utils/types"
 import TimetableDbController from '../../../utils/DbController/TimetableDbController';
+import DayOfWeekSelect from "./Form/DayOfWeekSelect"
+import HoursInput from "./Form/HoursInput"
+import MinutesInput from "./Form/MinutesInput"
 
 export default function TimetableEditPage() {
     // 現在操作中のデータ等を管理する
@@ -153,7 +156,7 @@ export default function TimetableEditPage() {
                                 }}
                             />
                     </div>
-                    <div className="input-group w-100 p-1 mb-3 border-bottom">
+                    <div className="input-group w-100 p-1 border-bottom">
                         <span className="input-group-text">教室</span>
                         <input
                             type="text"
@@ -169,72 +172,5 @@ export default function TimetableEditPage() {
                 </div>
             </div>
         </div>
-    );
-}
-
-// 曜日用のselect要素
-function DayOfWeekSelect({ id, dayOfWeek, setDayOfWeek, setIsTouched}: { id: string, dayOfWeek: number, setDayOfWeek: (value: number)=>void, setIsTouched:(value: boolean)=>void}){
-    return (
-        <select
-        style={{width: "5rem"}}
-        className="form-select"
-        id={id}
-        aria-label="weekday select"
-        value={dayOfWeek}
-        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-            setDayOfWeek(Number(event.target.value));
-            setIsTouched(true);
-        }}
-    >
-        <option value="1">月</option>
-        <option value="2">火</option>
-        <option value="3">水</option>
-        <option value="4">木</option>
-        <option value="5">金</option>
-    </select>
-    );
-}
-
-// 時間用のinput要素
-function HoursInput({ hours, setHours, setIsTouched }: { hours: number, setHours: (value: number)=>void, setIsTouched:(value: boolean)=>void }){
-    return (
-        <input
-        className="form-control"
-        type="number"
-        min="0"
-        max="23"
-        value={`00${hours}`.slice(-2)}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const textValue: string = event.target.value.replace(/[０-９．]/g, (s) =>
-                String.fromCharCode(s.charCodeAt(0) - 0xfee0)
-            );
-            if (!isNaN(Number(textValue))) {
-                setHours(Math.min(Number(textValue), 23));
-                setIsTouched(true);
-            }
-        }}
-    />
-    );
-}
-
-// 分用のinput要素
-function MinutesInput({ minutes, setMinutes, setIsTouched }: { minutes: number, setMinutes: (value: number)=>void, setIsTouched:(value: boolean)=>void }){
-    return (
-        <input
-        className="form-control"
-        type="number"
-        min="0"
-        max="59"
-        value={`00${minutes}`.slice(-2)}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const textValue: string = event.target.value.replace(/[０-９．]/g, (s) =>
-                String.fromCharCode(s.charCodeAt(0) - 0xfee0)
-            );
-            if (!isNaN(Number(textValue))) {
-                setMinutes(Math.min(Number(textValue), 59));
-                setIsTouched(true);
-            }
-        }}
-    />
     );
 }
