@@ -9,11 +9,11 @@ export default class TaskDbController extends DbController {
         super()
     }
 
-    public static async createTask(data: Task): Promise<string>{
+    public static async createTask(data: Task, needReturn: boolean = true): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
-                return await TaskDbController.createData(url, data);
+                return await TaskDbController.createData(url, data, needReturn);
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }

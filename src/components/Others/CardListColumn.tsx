@@ -14,7 +14,7 @@ export default function CardListColumn({ pageType, data } : { pageType: "task" |
     }, [data])
 
     return (
-        <div className="row p-2 overflow-auto">
+        <div className="row p-2">
             {Object.keys(idAddedData).map((key) => (
                 <TandemCard key={key} cardType={pageType} data={idAddedData[key]}/>
             ))}

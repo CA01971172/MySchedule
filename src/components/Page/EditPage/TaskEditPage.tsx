@@ -21,7 +21,7 @@ export default function TaskEditPage() {
     useEffect(() => {
         let convertData: Task;
         if(fetchingData === null){
-            const initialDate: Date = new Date(2000, 1, 1, 0, 0, 0);
+            const initialDate: Date = new Date();
             const initialTime: number = initialDate.getTime();
             convertData = {
                 title: "",
@@ -63,6 +63,7 @@ export default function TaskEditPage() {
             description
         };
         const newTasks: Tasks = Object.assign({}, tasks);
+        console.log("prev", tasks)
         if(fetchingId){
             // データベース上のデータを書き換える
             await TaskDbController.updateTask(newTask, fetchingId);
@@ -72,11 +73,13 @@ export default function TaskEditPage() {
         }else{
             // データベース上にデータを新規作成する
             const generatedId: string = await TaskDbController.createTask(newTask);
+            console.log(generatedId)
             newTask.id = generatedId;
             // html上のデータを書き換える
             setFetchingId(generatedId);
             setFetchingData(newTask);
             newTasks[generatedId] = newTask;
+            console.log("new",newTasks)
         }
         setTasks(newTasks);
     }

@@ -9,11 +9,11 @@ export default class ShiftDbController extends DbController {
         super()
     }
 
-    public static async createShift(data: Shift): Promise<string>{
+    public static async createShift(data: Shift, needReturn: boolean = true): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource);
-                return await ShiftDbController.createData(url, data);
+                return await ShiftDbController.createData(url, data, needReturn);
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }

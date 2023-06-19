@@ -8,6 +8,7 @@ body{
     height: 100%;
     .tab-content{
         flex: 1;
+        overflow-y: auto;
         .tab-pane{
             height: 100%;
         }

@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { PageStateContext } from '../../provider/PageStateProvider';
-import { TimetableContext } from './../../provider/TimetableProvider';
 import { ContentType, Events, Shifts, Tasks, Timetables } from '../../utils/types';
 import TimetableDbController from '../../utils/DbController/TimetableDbController';
+import { TimetableContext } from './../../provider/TimetableProvider';
 import TaskDbController from '../../utils/DbController/TaskDbController';
+import { TaskContext } from '../../provider/TaskProvider';
 import ShiftDbController from '../../utils/DbController/ShiftDbController';
 import EventDbController from '../../utils/DbController/EventDbController';
+
 
 export default function ViewUiBar({contentType}: {contentType: ContentType}){
     // 現在操作中のデータ等を管理する
@@ -13,6 +15,9 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
 
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);
+
+    // 課題のデータを管理する
+    const [tasks, setTasks] = useContext(TaskContext);
 
     function deleteData(){
         if(fetchingId){
@@ -25,22 +30,22 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     TimetableDbController.deleteTimetable(fetchingId)
                     break;
                 case "task":
-                    newData = Object.assign({}, timetables);
+                    newData = Object.assign({}, tasks);
                     delete newData[fetchingId];
-                    setTimetables(newData);
+                    setTasks(newData);
                     TaskDbController.deleteTask(fetchingId)
                     break;
                 case "shift":
-                    newData = Object.assign({}, timetables);
-                    delete newData[fetchingId];
-                    setTimetables(newData);
-                    ShiftDbController.deleteShift(fetchingId)
-                    break;
+                    // newData = Object.assign({}, timetables);
+                    // delete newData[fetchingId];
+                    // setShifts(newData);
+                    // ShiftDbController.deleteShift(fetchingId)
+                    // break;
                 case "event":
-                    newData = Object.assign({}, timetables);
-                    delete newData[fetchingId];
-                    setTimetables(newData);
-                    EventDbController.deleteEvent(fetchingId)
+                    // newData = Object.assign({}, timetables);
+                    // delete newData[fetchingId];
+                    // setEvents(newData);
+                    // EventDbController.deleteEvent(fetchingId)
                     break;
             }
         }

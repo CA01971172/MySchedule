@@ -9,11 +9,11 @@ export default class EventDbController extends DbController {
       super();
     }
   
-    public static async createEvent(data: Event): Promise<string> {
+    public static async createEvent(data: Event, needReturn: boolean = true): Promise<string> {
       try{
         if(AppUser.uid){
           const url = EventDbController.buildUrl(AppUser.uid, EventDbController.resource);
-          return await EventDbController.createData(url, data);
+          return await EventDbController.createData(url, data, needReturn);
         }else{
           throw new Error("ユーザーのidを取得できませんでした")
         }
