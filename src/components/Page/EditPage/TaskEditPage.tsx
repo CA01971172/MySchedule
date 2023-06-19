@@ -4,9 +4,7 @@ import { PageStateContext } from '../../../provider/PageStateProvider';
 import { TaskContext } from '../../../provider/TaskProvider';
 import { Task, Tasks } from "./../../../utils/types"
 import TaskDbController from '../../../utils/DbController/TaskDbController';
-import YearsInput from "./Form/YearsInput"
-import MonthInput from "./Form/MonthInput"
-import DayInput from "./Form/DayInput"
+import DateInputGroup from "./Form/DateInputGroup"
 import HoursInput from './Form/HoursInput';
 import MinutesInput from './Form/MinutesInput';
 import { Form } from 'react-bootstrap';
@@ -56,7 +54,13 @@ export default function TaskEditPage() {
 
     // データを保存する関数
     async function saveData(): Promise<void>{
-        const deadlineDate: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, 0);
+        let dateData: Date = new Date();
+        if(Number.isNaN(date.getTime()) === false){
+            dateData = date;
+            console.log(date,"NaN")
+        }
+        console.log(dateData)
+        const deadlineDate: Date = new Date(dateData.getFullYear(), dateData.getMonth(), dateData.getDate(), hours, minutes, 0);
         const deadline: number = deadlineDate.getTime();
         const newTask: Task = {
             title,
@@ -101,53 +105,20 @@ export default function TaskEditPage() {
                     </div>
 
                     <div className="w-100 p-1 mb-3 border-bottom">
-                        <div className="d-md-none">
-                            <div className="input-group">
-                                <span className="input-group-text">〆</span>
-                                <Form.Control
-                                        type="date"
-                                        value={getYyyyMmDd(date)}
-                                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                            const value: string = event.target.value;
-                                            setDate(new Date(value));
-                                        }}
-                                        style={{minWidth: "8rem"}}
-                                    />
-                                <HoursInput hours={hours} setHours={setHours} setIsTouched={setIsTouched}/>
-                                <span className="input-group-text">：</span>
-                                <MinutesInput minutes={minutes} setMinutes={setMinutes} setIsTouched={setIsTouched}/>
-                            </div>
-                        </div>
-                        <div className="d-none d-md-block">
-                            <div className="input-group">
-                                <span className="input-group-text">締め切り</span>
-                                <Form.Control
-                                        className="w-50"
-                                        type="date"
-                                        value={getYyyyMmDd(date)}
-                                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                            const value: string = event.target.value;
-                                            setDate(new Date(value));
-                                        }}
-                                    />
-                                <HoursInput hours={hours} setHours={setHours} setIsTouched={setIsTouched}/>
-                                <span className="input-group-text">：</span>
-                                <MinutesInput minutes={minutes} setMinutes={setMinutes} setIsTouched={setIsTouched}/>
-                            </div>
-                        </div>
+                        <DateInputGroup
+                            label="締め切り"
+                            shortLabel="〆"
+                            date={date}
+                            setDate={setDate}
+                            hours={hours}
+                            setHours={setHours}
+                            minutes={minutes}
+                            setMinutes={setMinutes}
+                            setIsTouched={setIsTouched}
+                        />
                     </div>
                 </div>
             </div>
         </div>
     );
-}
-
-// Dateオブジェクトをyyyy-mm-dd形式で取得する関数
-function getYyyyMmDd(date: Date): string{
-    let result: string = "";
-    const year: string = ("0000"+String(date.getFullYear())).slice(-4);
-    const month: string = ("00"+String(date.getMonth()+1)).slice(-2);
-    const day: string = ("00"+String(date.getDate())).slice(-2);
-    result = `${year}-${month}-${day}`;
-    return result;
 }
