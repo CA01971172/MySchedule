@@ -54,9 +54,7 @@ export default function TaskEditPage() {
         let dateData: Date = new Date();
         if(Number.isNaN(date.getTime()) === false){
             dateData = date;
-            console.log(date,"NaN")
         }
-        console.log(dateData)
         const deadlineDate: Date = new Date(dateData.getFullYear(), dateData.getMonth(), dateData.getDate(), hours, minutes, 0);
         const deadline: number = deadlineDate.getTime();
         const newTask: Task = {

@@ -50,7 +50,7 @@ export default function TandemCard({ cardType, data }: { cardType:"task"|"event"
                 <span className="me-3">{(cardType === "task") ? "〆" : "始"}</span>
                 <span>{dateData ? (dateData.getMonth() + 1) : ""}</span>
                 <span className="me-2">月</span>
-                <span>{dateData ? (dateData.getDay()) : ""}</span>
+                <span>{dateData ? (dateData.getDate()) : ""}</span>
                 <span className="me-3">日</span>
                 <span>{dateData ? (`00${dateData.getHours()}`.slice(-2)) : ""}</span>
                 <span>：</span>
