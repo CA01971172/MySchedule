@@ -1,6 +1,12 @@
 import React, { createContext, useState, ReactNode } from 'react';
+import { TabType } from '../utils/types';
 
-export const DrawerContext = createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([false, ()=>{}])
+type MyType = [
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
+];
+
+export const DrawerContext = createContext<MyType>([false, ()=>{}])
 
 export function DrawerProvider({children}: {children: ReactNode}){
     // ハンバーガーメニューが開いているかどうかを管理する
