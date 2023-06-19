@@ -34,9 +34,6 @@ export default class DbController { // Firebaseのデータを取り扱うため
             const allData = await response.json()
             const addedKeys: string[] = getAddedKeys(prevData, allData);
             result = addedKeys[0];
-            console.log("prevData",prevData)
-            console.log("allData",allData)
-            console.log("addedKeys", addedKeys)
             return result;
         }else{
             return "";
