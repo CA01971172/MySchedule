@@ -53,7 +53,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
 
 
     return (
-        <div>
+        <div className="w-100 h-100 d-flex flex-column">
             <Tabs
                 id="mySchedule-tabs"
                 className="bg-primary"
@@ -125,6 +125,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                     <EventHamburgerMenu/>
                 ) : (
                     <></>
+                    // <CalendarHamburgerMenu/>
                 )))))}
             </Drawer>
         </div>
