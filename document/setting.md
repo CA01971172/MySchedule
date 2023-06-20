@@ -127,3 +127,7 @@ npm install @mui/material @emotion/react @emotion/styled
 ```
 npm i react-swipeable@6.1.0
 ```
+### PWA用
+```
+npm install webpack-pwa-manifest --save-dev
+```

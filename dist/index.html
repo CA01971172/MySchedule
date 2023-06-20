@@ -1,1 +1,7 @@
-<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySchedule</title><link rel="icon" href="favicon.svg"><script defer="defer" src="bundle.js"></script></head><body><div id="root"></div></body></html>
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/><title>MySchedule</title><link rel="icon" href="favicon.svg"><script defer="defer" src="bundle.js"></script><meta name="theme-color" content="#0d6efd" /><link rel="manifest" href="manifest.f7464f06c8d88fe2a7c24c61c32897bc.json" /></head><body><div id="root"></div><script>if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("service-worker.js").then(reg => {
+            console.log("サービスワーカーを登録しました", reg);
+            }).catch(err => {
+            console.log("登録失敗", err);
+            });
+            }</script></body></html>
