@@ -47,7 +47,8 @@ module.exports = {
     //new FixStyleOnlyEntriesPlugin(),
 
     // PWA用の設定
-    new WebpackPwaManifest({
+    // TODO 本番環境ではコメントアウトを外す
+/*     new WebpackPwaManifest({
       short_name: "MySchedule",
       name: "MySchedule",
       display: "standalone",
@@ -62,7 +63,7 @@ module.exports = {
     new WorkboxWebpackPlugin.GenerateSW({
       swDest: outputPath + "/service-worker.js",
       maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MBまでキャッシュする
-    })
+    }) */
   ],
   module: {
     rules: [

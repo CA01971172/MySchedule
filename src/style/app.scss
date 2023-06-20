@@ -62,3 +62,10 @@ html, body, #root{
 .resize-none{
     resize: none;
 }
+
+@media (hover: none) {
+    /* hoverが使えないタッチ端末を想定した装飾 */
+    button.nav-link{
+        border: none !important;
+    }
+}

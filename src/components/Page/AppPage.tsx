@@ -107,11 +107,10 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         setFetchingId(null);
         setFetchingData(null);
         setTabKey(tabName);
-        console.log("ほげ")
     }
 
     return (
-        <div className="w-100 h-100 d-flex flex-column" {...swipeAppHandlers}>
+        <div className="w-100 h-100 d-flex flex-column" onTouchStart={()=>{}} {...swipeAppHandlers}>
             <Tabs
                 id="mySchedule-tabs"
                 className="bg-primary"
