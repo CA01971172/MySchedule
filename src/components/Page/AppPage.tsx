@@ -75,7 +75,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         onSwiping: (event) => {
             // ハンバーガーメニューを開く処理
             if(!drawerOpened && (event.dir === "Right") && (event.absX > 30)){
-                if((event.initial[0] <= 70)){
+                if((event.initial[0] <= 50)){
                     // 画面左端からスワイプしたときのみハンバーガーメニューを開く
                     setDrawerOpened(true);
                 }
@@ -86,7 +86,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             changeTab(newTab);
         },
         onSwipedRight: (event) => { // 左から右にスワイプしたときに発火するイベント
-            if(event.initial[0] > 70){
+            if(event.initial[0] > 50){
                 const newTab: TabType = swipeTab(tabKey, -1);
                 changeTab(newTab);
             }
