@@ -90,8 +90,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 const newTab: TabType = swipeTab(tabKey, -1);
                 changeTab(newTab);
             }
-        },
-        trackMouse: true, //マウス操作でのスワイプを許可する
+        }
     });
     const swipeDrawerHandlers = useSwipeable({ // ハンバーガーメニュー用のスワイプ処理
         onSwiping: (event) => {
@@ -99,8 +98,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             if(drawerOpened && (event.dir === "Left") && (event.absX > 30)){
                 setDrawerOpened(false);
             }
-        },
-        trackMouse: true, //マウス操作でのスワイプを許可する
+        }
     });
 
     // タブを切り替える関数
