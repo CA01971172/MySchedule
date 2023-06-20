@@ -58,7 +58,8 @@ module.exports = {
       }]
     }),
     new WorkboxWebpackPlugin.GenerateSW({
-      swDest: outputPath + "/service-worker.js"
+      swDest: outputPath + "/service-worker.js",
+      maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MBまでキャッシュする
     })
   ],
   module: {
