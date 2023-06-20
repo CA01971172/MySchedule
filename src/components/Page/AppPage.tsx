@@ -1,5 +1,5 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
-import { useSwipeable } from "react-swipeable";
+import React, { useContext, useState } from 'react';
+import { useSwipeable } from 'react-swipeable'
 import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
 import Drawer from '@mui/material/Drawer';
@@ -59,26 +59,7 @@ function swipeTab(nowTab: TabType, swipe: 1|-1){
     return result;
 }
 
-function touchStartEvent(e: TouchEvent){
-    if (e.touches[0].pageX > 20 && e.touches[0].pageX < window.innerWidth - 20) return;
-    e.preventDefault();
-}
-
 export default function AppPage({ pageType }: { pageType: PageType }){
-    // ページのスワイプによるブラウザバックを禁止する
-    const container = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        if (container.current) {
-            container.current.addEventListener('touchstart', (e) => touchStartEvent(e));
-        }
-
-        return () => {
-            if (container.current) {
-                container.current.removeEventListener('touchstart', touchStartEvent);
-            }
-        }
-    }, [container.current]);
-
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
     const [tabKey, setTabKey] = useState<TabType>(newTabKey);
@@ -90,25 +71,36 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     const [drawerOpened, setDrawerOpened] = useContext(DrawerContext);
 
     // スワイプイベントを管理する
-    const swipeHandlers = useSwipeable({
+    const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
+        onSwiping: (event) => {
+            // ハンバーガーメニューを開く処理
+            if(!drawerOpened && (event.dir === "Right") && (event.absX > 30)){
+                if((event.initial[0] <= 70)){
+                    // 画面左端からスワイプしたときのみハンバーガーメニューを開く
+                    setDrawerOpened(true);
+                }
+            }
+        },
         onSwipedLeft: (event) => { // 右から左にスワイプしたときに発火するイベント
-            console.log("left",event)
             const newTab: TabType = swipeTab(tabKey, 1);
             changeTab(newTab);
         },
         onSwipedRight: (event) => { // 左から右にスワイプしたときに発火するイベント
-            console.log("right",event)
-            console.log(event.initial[0])
-            if(event.initial[0] < 20){
-                // 画面左端からスワイプしたときのみ発火するイベント
-                setDrawerOpened(true); // ハンバーガーメニューを開く
-            }else{
+            if(event.initial[0] > 70){
                 const newTab: TabType = swipeTab(tabKey, -1);
                 changeTab(newTab);
             }
         },
-        preventScrollOnSwipe: false,
-        trackMouse: true, //マウス操作でのスワイプを許可する場合はtrue
+        trackMouse: true, //マウス操作でのスワイプを許可する
+    });
+    const swipeDrawerHandlers = useSwipeable({ // ハンバーガーメニュー用のスワイプ処理
+        onSwiping: (event) => {
+            // ハンバーガーメニューを閉じる処理
+            if(drawerOpened && (event.dir === "Left") && (event.absX > 30)){
+                setDrawerOpened(false);
+            }
+        },
+        trackMouse: true, //マウス操作でのスワイプを許可する
     });
 
     // タブを切り替える関数
@@ -120,83 +112,78 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     }
 
     return (
-        <div className="w-100 h-100" ref={container}>
-            <div
-                className="w-100 h-100 d-flex flex-column"
-                {...swipeHandlers}
-                
+        <div className="w-100 h-100 d-flex flex-column" {...swipeAppHandlers}>
+            <Tabs
+                id="mySchedule-tabs"
+                className="bg-primary"
+                activeKey={tabKey}
+                onSelect={(keyName) => {
+                    changeTab(keyName as TabType);
+                }}
             >
-                <Tabs
-                    id="mySchedule-tabs"
-                    className="bg-primary"
-                    activeKey={tabKey}
-                    onSelect={(keyName) => {
-                        changeTab(keyName as TabType);
-                    }}
+                <Tab
+                    eventKey="timetable"
+                    title={<span className={((tabKey === "timetable") ? "text-primary" : "text-white")}>時間割</span>}
                 >
-                    <Tab
-                        eventKey="timetable"
-                        title={<span className={((tabKey === "timetable") ? "text-primary" : "text-white")}>時間割</span>}
-                    >
-                        {((pageState === 0) ? (
-                            <TimetablePage/>
-                        ) : ((pageState === 1) ? (
-                            <TimetableViewPage/>
-                        ) : (
-                            <TimetableEditPage/>
-                        )))}
-                    </Tab>
-                    <Tab
-                        eventKey="task"
-                        title={<span className={((tabKey === "task") ? "text-primary" : "text-white")}>課題</span>}
-                    >
-                        {((pageState === 0) ? (
-                            <TaskPage/>
-                        ) : ((pageState === 1) ? (
-                            <TaskViewPage/>
-                        ) : (
-                            <TaskEditPage/>
-                        )))}
-                    </Tab>
-                    <Tab
-                        eventKey="shift"
-                        title={<span className={((tabKey === "shift") ? "text-primary" : "text-white")}>バイト</span>}
-                    >
-                        <ShiftPage/>
-                    </Tab>
-                    <Tab
-                        eventKey="event"
-                        title={<span className={((tabKey === "event") ? "text-primary" : "text-white")}>予定</span>}
-                    >
-                        <EventPage/>
-                    </Tab>
-                    <Tab
-                        eventKey="calendar"
-                        title={<span className={((tabKey === "calendar") ? "text-primary" : "text-white")}>カレンダー</span>}
-                    >
-                        <CalendarPage/>
-                    </Tab>
-                </Tabs>
-                <Drawer
-                    anchor={'left'}
-                    open={drawerOpened}
-                    onClose={() => setDrawerOpened(false)}
-                    PaperProps={{ style: { width: "60%" } }}
-                >
-                    {((tabKey === "timetable") ? (
-                        <TimetableHamburgerMenu/>
-                    ) : ((tabKey === "task") ? (
-                        <TaskHamburgerMenu/>
-                    ) : ((tabKey === "shift") ? (
-                        <ShiftHamburgerMenu/>
-                    ) : ((tabKey === "event") ? (
-                        <EventHamburgerMenu/>
+                    {((pageState === 0) ? (
+                        <TimetablePage/>
+                    ) : ((pageState === 1) ? (
+                        <TimetableViewPage/>
                     ) : (
-                        <></>
-                        // <CalendarHamburgerMenu/>
-                    )))))}
-                </Drawer>
-            </div>
+                        <TimetableEditPage/>
+                    )))}
+                </Tab>
+                <Tab
+                    eventKey="task"
+                    title={<span className={((tabKey === "task") ? "text-primary" : "text-white")}>課題</span>}
+                >
+                    {((pageState === 0) ? (
+                        <TaskPage/>
+                    ) : ((pageState === 1) ? (
+                        <TaskViewPage/>
+                    ) : (
+                        <TaskEditPage/>
+                    )))}
+                </Tab>
+                <Tab
+                    eventKey="shift"
+                    title={<span className={((tabKey === "shift") ? "text-primary" : "text-white")}>バイト</span>}
+                >
+                    <ShiftPage/>
+                </Tab>
+                <Tab
+                    eventKey="event"
+                    title={<span className={((tabKey === "event") ? "text-primary" : "text-white")}>予定</span>}
+                >
+                    <EventPage/>
+                </Tab>
+                <Tab
+                    eventKey="calendar"
+                    title={<span className={((tabKey === "calendar") ? "text-primary" : "text-white")}>カレンダー</span>}
+                >
+                    <CalendarPage/>
+                </Tab>
+            </Tabs>
+            <Drawer
+                anchor={'left'}
+                open={drawerOpened}
+                onClose={() => setDrawerOpened(false)}
+                PaperProps={{ style: { width: "60%" } }}
+                {...swipeDrawerHandlers}
+            >
+                {((tabKey === "timetable") ? (
+                    <TimetableHamburgerMenu/>
+                ) : ((tabKey === "task") ? (
+                    <TaskHamburgerMenu/>
+                ) : ((tabKey === "shift") ? (
+                    <ShiftHamburgerMenu/>
+                ) : ((tabKey === "event") ? (
+                    <EventHamburgerMenu/>
+                ) : (
+                    <></>
+                    // <CalendarHamburgerMenu/>
+                )))))}
+            </Drawer>
         </div>
     );
 }

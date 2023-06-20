@@ -125,5 +125,5 @@ npm install @mui/material @emotion/react @emotion/styled
 ```
 ### react-swipeableのインストール
 ```
-npm i react-swipeable
+npm i react-swipeable@6.1.0
 ```
