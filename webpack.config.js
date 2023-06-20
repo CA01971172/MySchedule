@@ -52,7 +52,7 @@ module.exports = {
       name: "MySchedule",
       display: "standalone",
       start_url: "index.html",
-      background_color: "#0d6efd",
+      background_color: "#fff",
       theme_color: "#0d6efd",
       icons: [{
         src: path.resolve("dist/MySchedule.png"),
