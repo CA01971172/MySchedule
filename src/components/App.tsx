@@ -4,7 +4,7 @@ import { PageType } from "./../utils/types"
 import LoginPage from "./Page/LoginPage"
 import AppPage from "./Page/AppPage"
 import Providers from "./../provider/Providers"
-
+import RegisterPage from "./Page/RegisterPage"
 export default function App() {
     // 現在開いているページの種類を取得する
     const pageType: PageType = QueryUtils.getPageType();
@@ -15,8 +15,7 @@ export default function App() {
         );
     }else if(pageType === "register"){
         return (
-            // <RegisterPage/>
-            <></>
+            <RegisterPage/>
         );
     }else{
         return(
