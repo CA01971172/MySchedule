@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useSwipeable } from "react-swipeable";
 import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
 import Drawer from '@mui/material/Drawer';
@@ -40,10 +41,28 @@ function convertTabContent(pageType: string | null): TabType{
     return result;
 }
 
+// +1か-1でタブを取得するための関数
+function swipeTab(nowTab: TabType, swipe: 1|-1){
+    let result: TabType;
+    const tabList: TabType[] = ["timetable", "task", "shift", "event", "calendar"]; // タブの一覧を左から順に定義しておく
+    const nowIndex: number = tabList.findIndex(element => element === nowTab); // 現在開いているタブのindex番号を取得する
+    let resultIndex: number;
+    // タブをスワイプした後のindexを取得する(端のタブはスワイプできない)
+    if(nowTab === tabList[0]){
+        resultIndex = nowIndex + Math.max(swipe, 0);
+    }else if(nowTab === tabList[tabList.length-1]){
+        resultIndex = nowIndex + Math.min(swipe, 0);
+    }else{
+        resultIndex = nowIndex + swipe;
+    }
+    result = tabList[resultIndex];
+    return result;
+}
+
 export default function AppPage({ pageType }: { pageType: PageType }){
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
-    const [tabKey, setTabKey] = useState<string>(newTabKey);
+    const [tabKey, setTabKey] = useState<TabType>(newTabKey);
 
     // ページの状態を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
@@ -51,9 +70,29 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     // ハンバーガーメニューが開いているかどうかを管理する
     const [drawerOpened, setDrawerOpened] = useContext(DrawerContext);
 
+    // スワイプイベントを管理する
+    const swipeHandlers = useSwipeable({
+        onSwipedLeft: (event) => { // 右から左にスワイプしたときに発火するイベント
+            console.log("left",event)
+            const newTab: TabType = swipeTab(tabKey, 1);
+            setTabKey(newTab);
+        },
+        onSwipedRight: (event) => { // 左から右にスワイプしたときに発火するイベント
+            console.log("right",event)
+            console.log(event.initial[0])
+            if(event.initial[0] < 20){
+                // 画面左端からスワイプしたときのみ発火するイベント
+                setDrawerOpened(true); // ハンバーガーメニューを開く
+            }else{
+                const newTab: TabType = swipeTab(tabKey, -1);
+                setTabKey(newTab);
+            }
+        },
+        trackMouse: true, //マウス操作でのスワイプを許可する場合はtrue
+    });
 
     return (
-        <div className="w-100 h-100 d-flex flex-column">
+        <div className="w-100 h-100 d-flex flex-column" {...swipeHandlers}>
             <Tabs
                 id="mySchedule-tabs"
                 className="bg-primary"
@@ -62,7 +101,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                     setPageState(0);
                     setFetchingId(null);
                     setFetchingData(null);
-                    setTabKey(keyName || "");
+                    setTabKey(keyName as TabType);
             }}
             >
                 <Tab

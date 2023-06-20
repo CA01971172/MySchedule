@@ -42,7 +42,7 @@ export default function LoginPage() {
                 <div className="text-center m-2">ログイン</div>
                 <LoginForm/>
                 <a
-                    className={`m-3 ${isActive0 ? "link-info" : "link-primary"}`}
+                    className={`"d-bock" m-3 ${isActive0 ? "link-info" : "link-primary"}`}
                     onMouseDown={() => setIsActive0(true)}
                     onMouseUp={() => setIsActive0(false)}
                     onMouseLeave={() => setIsActive0(false)}
@@ -51,7 +51,7 @@ export default function LoginPage() {
                     アカウントを作成
                 </a>
                 <a
-                    className={`m-3 ${isActive1 ? "link-info" : "link-primary"}`}
+                    className={`"d-bock" m-3 ${isActive1 ? "link-info" : "link-primary"}`}
                     onMouseDown={() => setIsActive1(true)}
                     onMouseUp={() => setIsActive1(false)}
                     onMouseLeave={() => setIsActive1(false)}
