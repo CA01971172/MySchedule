@@ -2,11 +2,13 @@
 
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
-const outputPath = path.resolve(__dirname, "dist"); // PWAの設定
-const WebpackPwaManifest = require('webpack-pwa-manifest'); // PWAの設定
+
+// PWAの設定
+const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+const outputPath = path.resolve(__dirname, "dist");
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 const isProduction = process.env.NODE_ENV == "production";
 

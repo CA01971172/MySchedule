@@ -107,6 +107,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         setFetchingId(null);
         setFetchingData(null);
         setTabKey(tabName);
+        console.log("ほげ")
     }
 
     return (

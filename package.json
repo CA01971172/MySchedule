@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/connect": "^3.4.35",
     "@types/form-data": "^2.5.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.2.12",
