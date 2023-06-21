@@ -16,14 +16,22 @@ export default class TaskSettingsDbController extends DbController {
     }
 
     public static async getTaskSettings(): Promise<TaskSettings>{
-        let result: TaskSettings = TaskSettingsDbController.defaultSettings;
+        const result: TaskSettings = TaskSettingsDbController.defaultSettings;
         try{
             if(AppUser.uid){
                 const fullResource: string = `${TaskSettingsDbController.resource}`
                 const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
                 const fetchedData: TaskSettings = await TaskSettingsDbController.readData(url) as TaskSettings
                 if(fetchedData !== undefined){
-                    result = fetchedData
+                    if(fetchedData.enabledAlert !== undefined){
+                        result.enabledAlert = fetchedData.enabledAlert;
+                    }
+                    if(fetchedData.daysBeforeDeadline !== undefined){
+                        result.daysBeforeDeadline = fetchedData.daysBeforeDeadline;
+                    }
+                    if(fetchedData.autoTaskDelete !== undefined){
+                        result.autoTaskDelete = fetchedData.autoTaskDelete;
+                    }
                 }
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
