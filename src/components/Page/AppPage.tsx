@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef, RefObject, createRef } from 'react';
 import { useSwipeable } from 'react-swipeable'
 import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
@@ -72,6 +72,16 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         setFetchingData(null);
         setTabKey(tabName);
     }
+    // タブのrefを管理する
+    const tabRefs = useRef<RefObject<HTMLButtonElement>[]>([])
+    const tabList: TabType[] = ["timetable", "task", "shift", "event", "calendar"]; // タブの一覧を左から順に定義しておく
+    tabList.forEach((_, index) => {
+        tabRefs.current[index] = createRef<HTMLButtonElement>();
+    })
+    function onClickFocus(){
+        // 最後のinputにfocusする
+        tabRefs.current[tabRefs.current.length - 1].current?.focus()
+    }
 
     // ページの状態を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
@@ -130,14 +140,19 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             <Tabs
                 id="mySchedule-tabs"
                 className="bg-primary"
+                style={{
+                    flexWrap: "nowrap",
+                    overflowX: "auto"
+                }}
                 activeKey={tabKey}
                 onSelect={(keyName) => {
                     changeTab(keyName as TabType);
                 }}
             >
                 <Tab
+                    ref={(ref) => (tabRefs.current[0] = ref)}
                     eventKey="timetable"
-                    title={<span className={((tabKey === "timetable") ? "text-primary" : "text-white")}>時間割</span>}
+                    title={<span className={`text-nowrap ${((tabKey === "timetable") ? "text-primary" : "text-white")}`}>時間割</span>}
                 >
                     {((pageState === 0) ? (
                         <TimetablePage/>
@@ -149,7 +164,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 </Tab>
                 <Tab
                     eventKey="task"
-                    title={<span className={((tabKey === "task") ? "text-primary" : "text-white")}>課題</span>}
+                    title={<span className={`text-nowrap ${((tabKey === "task") ? "text-primary" : "text-white")}`}>課題</span>}
                 >
                     {((pageState === 0) ? (
                         <TaskPage/>
@@ -161,19 +176,19 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 </Tab>
                 <Tab
                     eventKey="shift"
-                    title={<span className={((tabKey === "shift") ? "text-primary" : "text-white")}>バイト</span>}
+                    title={<span className={`text-nowrap ${((tabKey === "shift") ? "text-primary" : "text-white")}`}>バイト</span>}
                 >
                     <ShiftPage/>
                 </Tab>
                 <Tab
                     eventKey="event"
-                    title={<span className={((tabKey === "event") ? "text-primary" : "text-white")}>予定</span>}
+                    title={<span className={`text-nowrap ${((tabKey === "event") ? "text-primary" : "text-white")}`}>予定</span>}
                 >
                     <EventPage/>
                 </Tab>
                 <Tab
                     eventKey="calendar"
-                    title={<span className={((tabKey === "calendar") ? "text-primary" : "text-white")}>カレンダー</span>}
+                    title={<span className={`text-nowrap ${((tabKey === "calendar") ? "text-primary" : "text-white")}`}>カレンダー</span>}
                 >
                     <CalendarPage/>
                 </Tab>
