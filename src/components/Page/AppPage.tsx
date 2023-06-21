@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useSwipeable } from 'react-swipeable'
 import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
 import Drawer from '@mui/material/Drawer';
@@ -40,10 +41,28 @@ function convertTabContent(pageType: string | null): TabType{
     return result;
 }
 
+// +1か-1でタブを取得するための関数
+function swipeTab(nowTab: TabType, swipe: 1|-1){
+    let result: TabType;
+    const tabList: TabType[] = ["timetable", "task", "shift", "event", "calendar"]; // タブの一覧を左から順に定義しておく
+    const nowIndex: number = tabList.findIndex(element => element === nowTab); // 現在開いているタブのindex番号を取得する
+    let resultIndex: number;
+    // タブをスワイプした後のindexを取得する(端のタブはスワイプできない)
+    if(nowTab === tabList[0]){
+        resultIndex = nowIndex + Math.max(swipe, 0);
+    }else if(nowTab === tabList[tabList.length-1]){
+        resultIndex = nowIndex + Math.min(swipe, 0);
+    }else{
+        resultIndex = nowIndex + swipe;
+    }
+    result = tabList[resultIndex];
+    return result;
+}
+
 export default function AppPage({ pageType }: { pageType: PageType }){
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
-    const [tabKey, setTabKey] = useState<string>(newTabKey);
+    const [tabKey, setTabKey] = useState<TabType>(newTabKey);
 
     // ページの状態を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
@@ -51,6 +70,44 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     // ハンバーガーメニューが開いているかどうかを管理する
     const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
 
+    // スワイプイベントを管理する
+    const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
+        onSwiping: (event) => {
+            // ハンバーガーメニューを開く処理
+            if(!drawerOpened && (event.dir === "Right") && (event.absX > 30)){
+                if((event.initial[0] <= 50)){
+                    // 画面左端からスワイプしたときのみハンバーガーメニューを開く
+                    setDrawerOpened(true);
+                }
+            }
+        },
+        onSwipedLeft: (event) => { // 右から左にスワイプしたときに発火するイベント
+            const newTab: TabType = swipeTab(tabKey, 1);
+            changeTab(newTab);
+        },
+        onSwipedRight: (event) => { // 左から右にスワイプしたときに発火するイベント
+            if(event.initial[0] > 50){
+                const newTab: TabType = swipeTab(tabKey, -1);
+                changeTab(newTab);
+            }
+        }
+    });
+    const swipeDrawerHandlers = useSwipeable({ // ハンバーガーメニュー用のスワイプ処理
+        onSwiping: (event) => {
+            // ハンバーガーメニューを閉じる処理
+            if(drawerOpened && (event.dir === "Left") && (event.absX > 30)){
+                setDrawerOpened(false);
+            }
+        }
+    });
+
+    // タブを切り替える関数
+    function changeTab(tabName: TabType){
+        setPageState(0);
+        setFetchingId(null);
+        setFetchingData(null);
+        setTabKey(tabName);
+    }
 
     // スワイプイベントを管理する
     const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
@@ -92,17 +149,14 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     }
 
     return (
-        <div className="w-100 h-100 d-flex flex-column">
+        <div className="w-100 h-100 d-flex flex-column" onTouchStart={()=>{}} {...swipeAppHandlers}>
             <Tabs
                 id="mySchedule-tabs"
                 className="bg-primary"
                 activeKey={tabKey}
                 onSelect={(keyName) => {
-                    setPageState(0);
-                    setFetchingId(null);
-                    setFetchingData(null);
-                    setTabKey(keyName || "");
-            }}
+                    changeTab(keyName as TabType);
+                }}
             >
                 <Tab
                     eventKey="timetable"
@@ -154,6 +208,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                     setDrawerOpened(false);
                 }}
                 PaperProps={{ style: { width: "60%" } }}
+                {...swipeDrawerHandlers}
             >
                 {((tabKey === "timetable") ? (
                     <TimetableHamburgerMenu/>

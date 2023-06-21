@@ -119,3 +119,15 @@ npm i -S react react-dom @types/react @types/react-dom
 ```
 npm install react-bootstrap
 ```
+### Material UIのインストール
+```
+npm install @mui/material @emotion/react @emotion/styled
+```
+### react-swipeableのインストール
+```
+npm i react-swipeable@6.1.0
+```
+### PWA用
+```
+npm install webpack-pwa-manifest --save-dev
+```

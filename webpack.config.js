@@ -2,9 +2,13 @@
 
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
+
+// PWA用の設定
+const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+const outputPath = path.resolve(__dirname, "dist");
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -41,6 +45,25 @@ module.exports = {
       filename: 'style.css'
     }),
     //new FixStyleOnlyEntriesPlugin(),
+
+    // PWA用の設定
+    // TODO 本番環境ではコメントアウトを外す
+/*     new WebpackPwaManifest({
+      short_name: "MySchedule",
+      name: "MySchedule",
+      display: "standalone",
+      start_url: "index.html",
+      background_color: "#fff",
+      theme_color: "#0d6efd",
+      icons: [{
+        src: path.resolve("dist/MySchedule.png"),
+        sizes: [96, 128, 192, 256, 384, 512],
+      }]
+    }),
+    new WorkboxWebpackPlugin.GenerateSW({
+      swDest: outputPath + "/service-worker.js",
+      maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MBまでキャッシュする
+    }) */
   ],
   module: {
     rules: [
