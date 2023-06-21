@@ -10,6 +10,4 @@ MySchedule/.github/workflows/deploy.yaml
 
       - name: Build
         run: npm run build
-
-          # Viteのbuildコマンド出力先ディレクトリを指定
-          path: './dist'
+        path: './dist'  # Viteのbuildコマンド出力先ディレクトリを指定
