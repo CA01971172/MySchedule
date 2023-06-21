@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { DrawerContext } from '../../provider/DrawerProvider';
 import HamburgerMenuHeader from "./HamburgerMenuHeader"
 import { TaskSettings } from '../../utils/types';
+import { TaskContext } from '../../provider/TaskProvider';
+import TaskDbController from '../../utils/DbController/TaskDbController';
 
 export function TaskHamburgerMenu({taskSettings, setTaskSettings}: {taskSettings: TaskSettings, setTaskSettings: (settings: TaskSettings) => void}) {
     // ハンバーガーメニューが開いているかどうかを管理する
@@ -17,6 +19,9 @@ export function TaskHamburgerMenu({taskSettings, setTaskSettings}: {taskSettings
     setSettings(["task", newSettings]); // データ保存用のデータを変更する
     setIsChangedSettings(true); // データが変更済であることを記憶する
   }
+
+  // 課題のデータを管理する
+  const [tasks, setTasks] = useContext(TaskContext);
 
   return (
       <div>
@@ -85,9 +90,21 @@ export function TaskHamburgerMenu({taskSettings, setTaskSettings}: {taskSettings
             </label>
           </div>
 
-          <button className="btn btn-outline-dark" style={{ display: 'block', margin: '0 auto' }}>
-            一括削除
-          </button>
+          <div className="text-center">
+            <button
+              className="btn btn-outline-dark"
+              onClick={() => {
+                const isDeleteDo: boolean = window.confirm("本当に全ての課題のデータを削除しますか？");
+                if(isDeleteDo){
+                  TaskDbController.deleteAllTask().then((res) => {
+                    setTasks({});
+                  })
+                }
+              }}
+            >
+              一括削除
+            </button>
+          </div>
         </div>
       </div>
   );

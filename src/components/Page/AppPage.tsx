@@ -90,7 +90,6 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         let newTaskSettings: TaskSettings = {} as TaskSettings;
         TaskSettingsDbController.getTaskSettings().then((taskSettings) => {
             newTaskSettings = taskSettings;
-            console.log("response", newTaskSettings);
             setTaskSettings(newTaskSettings);
         })
     }, [])

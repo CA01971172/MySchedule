@@ -37,7 +37,6 @@ export function DrawerProvider({children}: {children: ReactNode}){
     function closeHamburgerMenu(){
         // データが変更済なら、データベースにデータを保存する
         if(isChangedSettings && settings[0]){
-            console.log("new settings", settings);
             if(settings[0] === "task"){
                 TaskSettingsDbController.setTaskSettings(settings[1] as TaskSettings);
             }else{
