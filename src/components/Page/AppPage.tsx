@@ -129,7 +129,6 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 result += width
                 test.push((tabRefs.current[fixedIndex].current?.textContent || "")+": "+width)
             }
-            console.log(test)
             return result;
         }
     }
