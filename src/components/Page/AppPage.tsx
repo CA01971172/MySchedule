@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable'
 import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
 import Drawer from '@mui/material/Drawer';
 import { DrawerContext } from "./../../provider/DrawerProvider"
-import { PageType, TabType } from "../../utils/types"
+import { PageType, TabType, TaskSettings } from "../../utils/types"
+import TaskSettingsDbController from "./../../utils/DbController/TaskSettingsDbController"
+import EventSettingsDbController from "./../../utils/DbController/EventSettingsDbController"
 import TimetablePage from "./TimetablePage"
 import TimetableViewPage from "./ViewPage/TimetableViewPage"
 import TimetableEditPage from "./EditPage/TimetableEditPage"
@@ -63,13 +65,6 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
     const [tabKey, setTabKey] = useState<TabType>(newTabKey);
-
-    // ページの状態を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
-
-    // ハンバーガーメニューが開いているかどうかを管理する
-    const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
-
     // タブを切り替える関数
     function changeTab(tabName: TabType){
         setPageState(0);
@@ -77,6 +72,28 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         setFetchingData(null);
         setTabKey(tabName);
     }
+
+    // ページの状態を管理する
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+
+    // ハンバーガーメニューが開いているかどうかを管理する
+    const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
+
+    // 課題の設定データを管理する
+    const [taskSettings, setTaskSettings] = useState<TaskSettings>({
+        enabledAlert: false,
+        daysBeforeDeadline: 3,
+        autoTaskDelete: false
+    });
+    // 設定データをデータベースから取得する
+    useEffect(() => {
+        let newTaskSettings: TaskSettings = {} as TaskSettings;
+        TaskSettingsDbController.getTaskSettings().then((taskSettings) => {
+            newTaskSettings = taskSettings;
+            console.log("response", newTaskSettings);
+            setTaskSettings(newTaskSettings);
+        })
+    }, [])
 
     // スワイプイベントを管理する
     const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
@@ -166,7 +183,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 anchor={'left'}
                 open={drawerOpened}
                 onClose={() => {
-                    setDrawerOpened(false);
+                    closeHamburgerMenu();
                 }}
                 PaperProps={{ style: { width: "60%" } }}
                 {...swipeDrawerHandlers}
@@ -174,7 +191,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 {((tabKey === "timetable") ? (
                     <TimetableHamburgerMenu/>
                 ) : ((tabKey === "task") ? (
-                    <TaskHamburgerMenu/>
+                    <TaskHamburgerMenu taskSettings={taskSettings} setTaskSettings={setTaskSettings}/>
                 ) : ((tabKey === "shift") ? (
                     <ShiftHamburgerMenu/>
                 ) : ((tabKey === "event") ? (
