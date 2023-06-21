@@ -1,13 +1,13 @@
 MySchedule/.github/workflows/deploy.yaml
-@@ -33,14 +33,26 @@ jobs:
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.4.0
-          cache: "npm"
+jobs:
+  uses: actions/setup-node@v3
+  with:
+    node-version: 18.4.0
+    cache: "npm"
 
-      - name: Install dependency
-        run: npm ci
+- name: Install dependency
+  run: npm ci
 
-      - name: Build
-        run: npm run build
-        path: './dist'  # Viteのbuildコマンド出力先ディレクトリを指定
+- name: Build
+  run: npm run build
+  path: './dist'  # Viteのbuildコマンド出力先ディレクトリを指定
