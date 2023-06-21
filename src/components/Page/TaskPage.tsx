@@ -12,7 +12,7 @@ export default function TaskPage() {
     const [tasks, setTasks] = useContext(TaskContext);
 
     return (
-        <div className="h-100 position-relative">
+        <div>
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <PlainUiBar/>
                 {/* <SearchUiBar pageType="task"/> */}

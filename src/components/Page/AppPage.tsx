@@ -126,7 +126,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     });
 
     return (
-        <div className="w-100 h-100 d-flex flex-column" onTouchStart={()=>{}} {...swipeAppHandlers}>
+        <div className="w-100 h-100 d-flex flex-column position-relative" onTouchStart={()=>{}} {...swipeAppHandlers}>
             <Tabs
                 id="mySchedule-tabs"
                 className="bg-primary"
