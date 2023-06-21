@@ -62,3 +62,18 @@ html, body, #root{
 .resize-none{
     resize: none;
 }
+
+@media (hover: none) {
+    /* hoverが使えないタッチ端末を想定した装飾 */
+    button.nav-link{
+        border: none !important;
+    }
+    #root {
+        scrollbar-width: none; /*Firefox対応のスクロールバー非表示コード*/  
+        -ms-overflow-style: none;/*Internet Explore対応のスクロールバー非表示コード*/   
+    }
+    
+    #root::-webkit-scrollbar {  
+        display: none; /*Google Chrome、Safari、Microsoft Edge対応のスクロールバー非表示コード*/
+    }
+}
