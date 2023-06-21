@@ -84,42 +84,17 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     })
     // タブバーをスクロールさせる関数
     function tabsScroll(nowIndex: number, nextIndex: number){
-        const tabsUl: HTMLUListElement = tabRefs.current[nextIndex].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
+        const tabsUl: HTMLUListElement = tabRefs.current[nowIndex].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
         if(tabsUl){
-            const nextRect = tabRefs.current[nextIndex].current?.getBoundingClientRect();
-            console.log("nexRect.left", nextRect?.left)
-            // 移ったタブの一個前(右に移るなら移るタブの1つ左、左に移るなら移るタブの1つ右)のタブのindexを取得する
-            let prevIndex: number;
-            if(nowIndex > nextIndex){
-                prevIndex = nextIndex - 1;
-            }else if(nowIndex < nextIndex){
-                prevIndex = nextIndex + 1;
-            }else{
-                prevIndex = nextIndex;
-            }
-            if(prevIndex < 0){
-                prevIndex = 0;
-            }else if(prevIndex > tabList.length-1){
-                prevIndex = tabList.length-1;
-            }
-            // 前のタブのwidthを残してスクロールする
-            const prevRect = tabRefs.current[prevIndex].current?.getBoundingClientRect();
-            console.log("prevRect", prevRect)
-            const prevWidth: number = prevRect?.width || 0;
-            console.log("prevWidth", prevWidth)
-            // 前のタブのwidthを残した幅を計算する
-            let scrollMargin: number = 0;
-            if(nextIndex > nowIndex){
-                scrollMargin -= prevWidth;
-            }else if(nextIndex < nowIndex){
-                scrollMargin += prevWidth;
-            }
-            console.log("scrollMargin", scrollMargin)
-            tabsUl.scrollTo({left: (nextRect?.left || 0) + scrollMargin})
+            const deltaX = getDeltaX();
+            tabsUl.scrollBy({left: deltaX})
         }
-        // 現在のタブから移るタブまでの幅を取得する関数
-        function getDeltaWidth(){
-
+        // leftの差を求める関数
+        function getDeltaX(){
+            const nowRect = tabRefs.current[nowIndex].current?.getBoundingClientRect();
+            const nextRect = tabRefs.current[nextIndex].current?.getBoundingClientRect();
+            const deltaX: number = (nextRect?.left || 0) - (nowRect?.left || 0);
+            return deltaX;
         }
     }
 

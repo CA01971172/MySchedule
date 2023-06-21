@@ -70,4 +70,7 @@ html, body, #root{
     }
 }
 
-.nav-tabs{font-size: 5rem;}
+.nav-link span{
+    display: block;
+    width: 200px;
+}
