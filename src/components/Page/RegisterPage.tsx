@@ -14,7 +14,7 @@ import RegisterForm from "../Others/RegisterForm"
                     
                     既にアカウントを持っている場合は
                     <a
-                        className={`p-3 ${isActive0 ? "link-info" : "link-primary"}`}
+                        className={isActive0 ? "link-info" : "link-primary"}
                         onMouseDown={() => setIsActive0(true)}
                         onMouseUp={() => setIsActive0(false)}
                         onMouseLeave={() => setIsActive0(false)}

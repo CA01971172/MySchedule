@@ -41,24 +41,26 @@ export default function LoginPage() {
             <div className="p-3">
                 <div className="text-center m-2">ログイン</div>
                 <LoginForm/>
-                <a
-                    className={`"d-block" m-3 ${isActive0 ? "link-info" : "link-primary"}`}
-                    onMouseDown={() => setIsActive0(true)}
-                    onMouseUp={() => setIsActive0(false)}
-                    onMouseLeave={() => setIsActive0(false)}
-                    href={RegisterPageUrl}
-                >
-                    アカウントを作成
-                </a>
-                <a
-                    className={`"d-block" m-3 ${isActive1 ? "link-info" : "link-primary"}`}
-                    onMouseDown={() => setIsActive1(true)}
-                    onMouseUp={() => setIsActive1(false)}
-                    onMouseLeave={() => setIsActive1(false)}
-                    onClick={resetPassword}
-                >
-                    パスワードを忘れた場合
-                </a>
+                <div className="d-flex justify-content-start">
+                    <a
+                        className={`d-block ${isActive0 ? "link-info" : "link-primary"}`}
+                        onMouseDown={() => setIsActive0(true)}
+                        onMouseUp={() => setIsActive0(false)}
+                        onMouseLeave={() => setIsActive0(false)}
+                        href={RegisterPageUrl}
+                    >
+                        アカウントを作成
+                    </a>
+                    <a
+                        className={`d-block ms-3 ${isActive1 ? "link-info" : "link-primary"}`}
+                        onMouseDown={() => setIsActive1(true)}
+                        onMouseUp={() => setIsActive1(false)}
+                        onMouseLeave={() => setIsActive1(false)}
+                        onClick={resetPassword}
+                    >
+                        パスワードを忘れた場合
+                    </a>
+                </div>
             </div>
         </div>
     );
