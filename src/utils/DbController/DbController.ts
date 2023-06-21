@@ -108,8 +108,8 @@ export default class DbController { // Firebaseのデータを取り扱うため
 
 // オブジェクトを比較して、追加されたキーを取得する関数
 function getAddedKeys(originalObj: object, comparedObj: object) {
-    const originalKeys = Object.keys(originalObj);
-    const comparedKeys = Object.keys(comparedObj);
+    const originalKeys = Object.keys(originalObj || {});
+    const comparedKeys = Object.keys(comparedObj || {});
     const addedKeys = comparedKeys.filter(key => !originalKeys.includes(key));
     return addedKeys;
 }

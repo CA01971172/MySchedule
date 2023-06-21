@@ -99,4 +99,17 @@ export default class TaskDbController extends DbController {
             throw new Error("課題のデータを削除できませんでした")
         }
     }
+
+    public static async deleteAllTask(): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
+                await TaskDbController.overrideData(url, {});
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
+            }
+        }catch(e){
+            throw new Error("課題のデータを削除できませんでした")
+        }
+    }
 }

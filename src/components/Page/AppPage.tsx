@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable'
 import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
 import Drawer from '@mui/material/Drawer';
 import { DrawerContext } from "./../../provider/DrawerProvider"
-import { PageType, TabType } from "../../utils/types"
+import { PageType, TabType, TaskSettings } from "../../utils/types"
+import TaskSettingsDbController from "./../../utils/DbController/TaskSettingsDbController"
+import EventSettingsDbController from "./../../utils/DbController/EventSettingsDbController"
 import TimetablePage from "./TimetablePage"
 import TimetableViewPage from "./ViewPage/TimetableViewPage"
 import TimetableEditPage from "./EditPage/TimetableEditPage"
@@ -63,21 +65,43 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
     const [tabKey, setTabKey] = useState<TabType>(newTabKey);
+    // タブを切り替える関数
+    function changeTab(tabName: TabType){
+        setPageState(0);
+        setFetchingId(null);
+        setFetchingData(null);
+        setTabKey(tabName);
+    }
 
     // ページの状態を管理する
     const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
 
     // ハンバーガーメニューが開いているかどうかを管理する
-    const [drawerOpened, setDrawerOpened] = useContext(DrawerContext);
+    const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
+
+    // 課題の設定データを管理する
+    const [taskSettings, setTaskSettings] = useState<TaskSettings>({
+        enabledAlert: false,
+        daysBeforeDeadline: 3,
+        autoTaskDelete: false
+    });
+    // 設定データをデータベースから取得する
+    useEffect(() => {
+        let newTaskSettings: TaskSettings = {} as TaskSettings;
+        TaskSettingsDbController.getTaskSettings().then((taskSettings) => {
+            newTaskSettings = taskSettings;
+            setTaskSettings(newTaskSettings);
+        })
+    }, [])
 
     // スワイプイベントを管理する
     const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
         onSwiping: (event) => {
             // ハンバーガーメニューを開く処理
             if(!drawerOpened && (event.dir === "Right") && (event.absX > 30)){
-                if((event.initial[0] <= 70)){
+                if((event.initial[0] <= 50)){
                     // 画面左端からスワイプしたときのみハンバーガーメニューを開く
-                    setDrawerOpened(true);
+                    openHamburgerMenu();
                 }
             }
         },
@@ -86,7 +110,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             changeTab(newTab);
         },
         onSwipedRight: (event) => { // 左から右にスワイプしたときに発火するイベント
-            if(event.initial[0] > 70){
+            if(event.initial[0] > 50){
                 const newTab: TabType = swipeTab(tabKey, -1);
                 changeTab(newTab);
             }
@@ -96,18 +120,10 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         onSwiping: (event) => {
             // ハンバーガーメニューを閉じる処理
             if(drawerOpened && (event.dir === "Left") && (event.absX > 30)){
-                setDrawerOpened(false);
+                closeHamburgerMenu();
             }
         }
     });
-
-    // タブを切り替える関数
-    function changeTab(tabName: TabType){
-        setPageState(0);
-        setFetchingId(null);
-        setFetchingData(null);
-        setTabKey(tabName);
-    }
 
     return (
         <div className="w-100 h-100 d-flex flex-column" onTouchStart={()=>{}} {...swipeAppHandlers}>
@@ -165,14 +181,16 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             <Drawer
                 anchor={'left'}
                 open={drawerOpened}
-                onClose={() => setDrawerOpened(false)}
+                onClose={() => {
+                    closeHamburgerMenu();
+                }}
                 PaperProps={{ style: { width: "60%" } }}
                 {...swipeDrawerHandlers}
             >
                 {((tabKey === "timetable") ? (
                     <TimetableHamburgerMenu/>
                 ) : ((tabKey === "task") ? (
-                    <TaskHamburgerMenu/>
+                    <TaskHamburgerMenu taskSettings={taskSettings} setTaskSettings={setTaskSettings}/>
                 ) : ((tabKey === "shift") ? (
                     <ShiftHamburgerMenu/>
                 ) : ((tabKey === "event") ? (
