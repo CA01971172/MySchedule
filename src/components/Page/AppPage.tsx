@@ -90,19 +90,15 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             if(nowIndex < nextIndex){
                 // 右にスクロールする場合
                 const leftWidth: number = getAllWidth(-1, nextIndex);
-                console.log("leftWidth", leftWidth);
                 absLeft = leftWidth;
                 tabsUl.scrollTo({left: absLeft})
             }else if(nowIndex > nextIndex){
                 // 左にスクロールする場合
                 const parentWidth: number = tabsUl.scrollWidth;
                 const rightWidth: number = getAllWidth(1, nextIndex);
-                console.log("parentWidth", parentWidth);
-                console.log("rightWidth", rightWidth);
                 absLeft = parentWidth - rightWidth;
                 tabsUl.scrollTo({left: absLeft})
             }
-            console.log("absLeft", absLeft);
         }
         // widthの合計を求める関数
         function getAllWidth(direction: 1|-1, index: number){
