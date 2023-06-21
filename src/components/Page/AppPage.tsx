@@ -157,6 +157,9 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     // スワイプイベントを管理する
     const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
         onSwiping: (event) => {
+            const tabsUl: HTMLUListElement = tabRefs.current[0].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
+            const tabBarHeight: number = tabsUl.clientHeight;
+            if(event.initial[1] <= tabBarHeight) return; //タブバーの上はスワイプ無効
             // ハンバーガーメニューを開く処理
             if(!drawerOpened && (event.dir === "Right") && (event.absX > 30)){
                 if((event.initial[0] <= 50)){
@@ -166,10 +169,16 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             }
         },
         onSwipedLeft: (event) => { // 右から左にスワイプしたときに発火するイベント
+            const tabsUl: HTMLUListElement = tabRefs.current[0].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
+            const tabBarHeight: number = tabsUl.clientHeight;
+            if(event.initial[1] <= tabBarHeight) return; //タブバーの上はスワイプ無効
             const newTab: TabType = swipeTab(tabKey, 1);
             if(!drawerOpened) changeTab(newTab);
         },
         onSwipedRight: (event) => { // 左から右にスワイプしたときに発火するイベント
+            const tabsUl: HTMLUListElement = tabRefs.current[0].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
+            const tabBarHeight: number = tabsUl.clientHeight;
+            if(event.initial[1] <= tabBarHeight) return; //タブバーの上はスワイプ無効
             if(event.initial[0] > 50){
                 const newTab: TabType = swipeTab(tabKey, -1);
                 if(!drawerOpened) changeTab(newTab);
