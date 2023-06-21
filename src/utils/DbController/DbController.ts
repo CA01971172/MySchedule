@@ -21,6 +21,7 @@ export default class DbController { // Firebaseのデータを取り扱うため
             // createする前のデータを取得しておく
             prevData = await DbController.readData(url);
         }
+        console.log(0)
         await fetch(url, {
             method:'POST', 
             mode: 'cors', 
@@ -29,11 +30,16 @@ export default class DbController { // Firebaseのデータを取り扱うため
             }, 
             body: JSON.stringify(data)
         })
+        console.log(1)
         if(needReturn){
             const response = await fetch(url)
+            console.log("response",response)
             const allData = await response.json()
+            console.log("allData",allData)
             const addedKeys: string[] = getAddedKeys(prevData, allData);
+            console.log("addedKeys",addedKeys)
             result = addedKeys[0];
+            console.log("result",result)
             return result;
         }else{
             return "";
@@ -108,8 +114,11 @@ export default class DbController { // Firebaseのデータを取り扱うため
 
 // オブジェクトを比較して、追加されたキーを取得する関数
 function getAddedKeys(originalObj: object, comparedObj: object) {
-    const originalKeys = Object.keys(originalObj);
-    const comparedKeys = Object.keys(comparedObj);
+    const originalKeys = Object.keys(originalObj || {});
+    const comparedKeys = Object.keys(comparedObj || {});
+    console.log("originalKeys", originalKeys)
+    console.log("comparedKeys", comparedKeys)
     const addedKeys = comparedKeys.filter(key => !originalKeys.includes(key));
+    console.log("addedKeys", addedKeys)
     return addedKeys;
 }
