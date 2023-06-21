@@ -7,7 +7,7 @@ import AddButton from "./../Others/AddButton"
 
 export default function TimetablePage() {
     return (
-        <div className="h-100 position-relative">
+        <div>
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <PlainUiBar/>
                 <WeekdayColumn pageType="timetable"/>
