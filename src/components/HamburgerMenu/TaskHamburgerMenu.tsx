@@ -48,9 +48,9 @@ export function TaskHamburgerMenu({taskSettings, setTaskSettings}: {taskSettings
             </label>
           </div>
 
-          <div className='mb-3 form-group row'>
-            <div className="col-md-2">
-              <input
+          <div className='mb-3 d-flex'>
+            <input
+                style={{width: "4rem"}}
                 id="daysBeforeDeadline"
                 className="form-control"
                 type="number"
@@ -62,9 +62,8 @@ export function TaskHamburgerMenu({taskSettings, setTaskSettings}: {taskSettings
                   changeTaskSettings(undefined, newNumber, undefined);
                 }}
               />
-            </div>
 
-            <label className="col-md-10 col-form-label user-select-none" htmlFor="daysBeforeDeadline">
+            <label className="form-label user-select-none m-0 d-flex align-items-center" htmlFor="daysBeforeDeadline">
               日前に通知する
             </label>
           </div>
