@@ -1,0 +1,41 @@
+{
+  "icons": [
+    {
+      "src": "icon_512x512.a79657ca7c68909f1e4050e362090adc.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_384x384.f64bebdcfe97680cb0a5474a5cff7518.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_256x256.48c8bbf990050c1bc3afc5a45903d7c8.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_192x192.c4b9acee3c078e3a38341a818684e5ef.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_128x128.072a9da04575abc7b5b2c7b46470d5cf.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_96x96.ffb2f48885715768496c81a97fbd6ba4.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "name": "MySchedule",
+  "short_name": "MySchedule",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "index.html",
+  "background_color": "#fff",
+  "theme_color": "#0d6efd"
+}
