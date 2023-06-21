@@ -86,15 +86,51 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     function tabsScroll(nowIndex: number, nextIndex: number){
         const tabsUl: HTMLUListElement = tabRefs.current[nowIndex].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
         if(tabsUl){
-            const deltaX = getDeltaX();
-            tabsUl.scrollBy({left: deltaX})
+            let absLeft: number = 0;
+            if(nowIndex < nextIndex){
+                // 右にスクロールする場合
+                const leftWidth: number = getAllWidth(-1, nextIndex);
+                console.log("leftWidth", leftWidth);
+                absLeft = leftWidth;
+                tabsUl.scrollTo({left: absLeft})
+            }else if(nowIndex > nextIndex){
+                // 左にスクロールする場合
+                const parentWidth: number = tabsUl.scrollWidth;
+                const rightWidth: number = getAllWidth(1, nextIndex);
+                console.log("parentWidth", parentWidth);
+                console.log("rightWidth", rightWidth);
+                absLeft = parentWidth - rightWidth;
+                tabsUl.scrollTo({left: absLeft})
+            }
+            console.log("absLeft", absLeft);
         }
-        // leftの差を求める関数
-        function getDeltaX(){
-            const nowRect = tabRefs.current[nowIndex].current?.getBoundingClientRect();
-            const nextRect = tabRefs.current[nextIndex].current?.getBoundingClientRect();
-            const deltaX: number = (nextRect?.left || 0) - (nowRect?.left || 0);
-            return deltaX;
+        // widthの合計を求める関数
+        function getAllWidth(direction: 1|-1, index: number){
+            let result = 0;
+            let test: string[] = []
+            if(direction === 1){
+                for(let i: number = index-1; i < tabList.length; i++){
+                    addWidth(i);
+                }
+            }else{
+                for(let i: number = index; i >= 2; i--){
+                    addWidth(i);
+                }
+            }
+            function addWidth(rectIndex: number){
+                let fixedIndex = rectIndex;
+                if(rectIndex < 0){
+                    fixedIndex = 0;
+                }else if(rectIndex > tabList.length-1){
+                    fixedIndex = tabList.length-1;
+                }
+                const rect = tabRefs.current[fixedIndex].current?.getBoundingClientRect();
+                const width: number = 16 + (rect?.width||0) + 16;
+                result += width
+                test.push((tabRefs.current[fixedIndex].current?.textContent || "")+": "+width)
+            }
+            console.log(test)
+            return result;
         }
     }
 
@@ -132,12 +168,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         },
         onSwipedLeft: (event) => { // 右から左にスワイプしたときに発火するイベント
             const newTab: TabType = swipeTab(tabKey, 1);
-            changeTab(newTab);
+            if(!drawerOpened) changeTab(newTab);
         },
         onSwipedRight: (event) => { // 左から右にスワイプしたときに発火するイベント
             if(event.initial[0] > 50){
                 const newTab: TabType = swipeTab(tabKey, -1);
-                changeTab(newTab);
+                if(!drawerOpened) changeTab(newTab);
             }
         }
     });
