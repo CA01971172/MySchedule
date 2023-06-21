@@ -197,7 +197,8 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 className="bg-primary"
                 style={{
                     flexWrap: "nowrap",
-                    overflowX: "auto"
+                    overflowX: "auto",
+                    overflowY: "hidden"
                 }}
                 activeKey={tabKey}
                 onSelect={(keyName) => {
