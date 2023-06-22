@@ -27,17 +27,17 @@ export default function ShiftPage() {
         if(newYear !== focusMonth) setFocusYear(newYear);
     }
 
+    React.useEffect(()=>{
+        console.log(shifts);
+    },[shifts])
+
     return (
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <CalendarUiBar changeMonth={changeMonth}/>
-                <CalendarColumn pageType="shift"/>
+                <CalendarColumn pageType="shift" focusMonth={focusMonth} focusYear={focusYear}/>
             </div>
             <AddButton/>
         </div>
-    );
-
-    return (
-        <div/>
     );
 }
