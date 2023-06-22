@@ -123,3 +123,9 @@ export type Weekday = { // どの曜日を含めた曜日欄を作成するか�
 }
 
 export const youbi: string[] = ["日", "月", "火", "水", "木", "金", "土"]
+
+export type CalendarData = {
+    tasks: Tasks[];
+    shifts: Shift[];
+    events: Event[];
+}

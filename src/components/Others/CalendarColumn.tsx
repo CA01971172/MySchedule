@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import { ShiftContext } from "./../../provider/ShiftProvider"
+import CalendarDay from "./CalendarDay"
+import { Event, Shift, Task, CalendarData } from '../../utils/types';
 
 interface MyProps{
     pageType: "shift" | "calendar";
@@ -21,6 +23,9 @@ export default function CalendarColumn(props: MyProps) {
 
     React.useEffect(()=>{
         console.log(shifts);
+        Object.keys(shifts).map((key) => {
+            console.log(new Date(shifts[key].startTime))
+        })
     },[shifts])
 
     // その月のカレンダーに格納すべき日を全て取得する関数
@@ -50,8 +55,9 @@ export default function CalendarColumn(props: MyProps) {
     function getDayOfWeek(year: number, month: number, day: number): number {
         return new Date(year, month - 1, day).getDay();
     }
+
     // カレンダーの日付の色を取得する関数
-    function getTextColor(dayOfWeek: number, month: number){
+    function getTextColor(dayOfWeek: number, month: number): string{
         let result = "";
         if(month === focusMonth){
             switch(dayOfWeek){
@@ -70,7 +76,7 @@ export default function CalendarColumn(props: MyProps) {
         return result;
     }
     // 枠線の太さを取得する関数
-    function getBorder(index: number){
+    function getBorder(index: number): string{
         let result: string = "";
         const classNames: string[] = new Array;
         if(index % 7 !== 0){
@@ -85,14 +91,48 @@ export default function CalendarColumn(props: MyProps) {
         return result;
     }
 
+    // その日のデータを取得する関数
+    function getDayData(year: number, month: number, day: number): CalendarData{
+        const result: CalendarData = {
+            tasks: [],
+            shifts: [],
+            events: []
+        };
+        // 今日初めと翌日初めのDateオブジェクトを取得する
+        const nowDay: Date = new Date(year, month-1, day);
+        const nowDayTime: number = nowDay.getTime();
+        const nextDay: Date = new Date(year, month-1, day+1);
+        const nextDayTime: number = nextDay.getTime();
+        // アルバイトシフトのデータを取得する
+        const shiftsInRange: Shift[] = new Array;
+        Object.keys(shifts).forEach((key) => {
+            const value: Shift = shifts[key];
+            const startTime: number = value.startTime;
+            if((startTime >= nowDayTime) && (startTime < nextDayTime)){
+                shiftsInRange.push(value);
+            }
+        })
+        result.shifts = shiftsInRange;
+        // シフトでなくカレンダーページなら、課題と予定のデータを取得する
+        if(pageType === "calendar"){
+            // 課題のデータを取得する
+            const tasksInRange: Task[] = new Array;
+            // 予定のデータを取得する
+            const eventsInRange: Event[] = new Array;
+        }
+        return result;
+    }
+
     return (
         <div className="row calendar-row">
             {(getDays().map((value, index)=>(
-                <div key={index} className={`col p-0 ${getBorder(index)}`}>
-                    <div className={`text-center ${getTextColor(value.dayOfWeek, value.month)}`}>
-                        {value.day}
-                    </div>
-                </div>
+                <CalendarDay
+                    key={`${focusYear}/${value.month}/${value.day}`}
+                    border={getBorder(index)}
+                    textColor={getTextColor(value.dayOfWeek, value.month)}
+                    day={value.day}
+                    data={getDayData(focusYear, value.month, value.day)}
+                />
             )))}
         </div>
     );
