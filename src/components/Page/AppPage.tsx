@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef, RefObject, createRef } from 'react';
 import { useSwipeable } from 'react-swipeable'
 import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
@@ -62,6 +62,8 @@ function swipeTab(nowTab: TabType, swipe: 1|-1){
 }
 
 export default function AppPage({ pageType }: { pageType: PageType }){
+    const tabList: TabType[] = ["timetable", "task", "shift", "event", "calendar"]; // タブの一覧を左から順に定義しておく
+
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
     const [tabKey, setTabKey] = useState<TabType>(newTabKey);
@@ -70,7 +72,61 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         setPageState(0);
         setFetchingId(null);
         setFetchingData(null);
+        const nowTabIndex: number = tabList.findIndex(element => element === tabKey); // 開いているタブのindex番号を取得する
+        const nextTabIndex: number = tabList.findIndex(element => element === tabName); // 次に開くタブのindex番号を取得する
+        tabsScroll(nowTabIndex, nextTabIndex);
         setTabKey(tabName);
+    }
+    // タブのrefを管理する
+    const tabRefs = useRef<RefObject<HTMLSpanElement>[]>([]) // タブのref
+    tabList.forEach((_, index) => {
+        tabRefs.current[index] = createRef<HTMLSpanElement>();
+    })
+    // タブバーをスクロールさせる関数
+    function tabsScroll(nowIndex: number, nextIndex: number){
+        const tabsUl: HTMLUListElement = tabRefs.current[nowIndex].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
+        if(tabsUl){
+            let absLeft: number = 0;
+            if(nowIndex < nextIndex){
+                // 右にスクロールする場合
+                const leftWidth: number = getAllWidth(-1, nextIndex);
+                absLeft = leftWidth;
+                tabsUl.scrollTo({left: absLeft})
+            }else if(nowIndex > nextIndex){
+                // 左にスクロールする場合
+                const parentWidth: number = tabsUl.scrollWidth;
+                const rightWidth: number = getAllWidth(1, nextIndex);
+                absLeft = parentWidth - rightWidth;
+                tabsUl.scrollTo({left: absLeft})
+            }
+        }
+        // widthの合計を求める関数
+        function getAllWidth(direction: 1|-1, index: number){
+            let result = 0;
+            let test: string[] = []
+            if(direction === 1){
+                for(let i: number = index-1; i < tabList.length; i++){
+                    addWidth(i);
+                }
+            }else{
+                for(let i: number = index; i >= 2; i--){
+                    addWidth(i);
+                }
+            }
+            function addWidth(rectIndex: number){
+                let fixedIndex = rectIndex;
+                if(rectIndex < 0){
+                    fixedIndex = 0;
+                }else if(rectIndex > tabList.length-1){
+                    fixedIndex = tabList.length-1;
+                }
+                const rect = tabRefs.current[fixedIndex].current?.getBoundingClientRect();
+                const width: number = 16 + (rect?.width||0) + 16;
+                result += width
+                test.push((tabRefs.current[fixedIndex].current?.textContent || "")+": "+width)
+            }
+            return result;
+        }
     }
 
     // ページの状態を管理する
@@ -97,6 +153,9 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     // スワイプイベントを管理する
     const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
         onSwiping: (event) => {
+            const tabsUl: HTMLUListElement = tabRefs.current[0].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
+            const tabBarHeight: number = tabsUl.clientHeight;
+            if(event.initial[1] <= tabBarHeight) return; //タブバーの上はスワイプ無効
             // ハンバーガーメニューを開く処理
             if(!drawerOpened && (event.dir === "Right") && (event.absX > 30)){
                 if((event.initial[0] <= 50)){
@@ -106,13 +165,19 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             }
         },
         onSwipedLeft: (event) => { // 右から左にスワイプしたときに発火するイベント
+            const tabsUl: HTMLUListElement = tabRefs.current[0].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
+            const tabBarHeight: number = tabsUl.clientHeight;
+            if(event.initial[1] <= tabBarHeight) return; //タブバーの上はスワイプ無効
             const newTab: TabType = swipeTab(tabKey, 1);
-            changeTab(newTab);
+            if(!drawerOpened) changeTab(newTab);
         },
         onSwipedRight: (event) => { // 左から右にスワイプしたときに発火するイベント
+            const tabsUl: HTMLUListElement = tabRefs.current[0].current?.parentNode?.parentNode?.parentNode as HTMLUListElement;
+            const tabBarHeight: number = tabsUl.clientHeight;
+            if(event.initial[1] <= tabBarHeight) return; //タブバーの上はスワイプ無効
             if(event.initial[0] > 50){
                 const newTab: TabType = swipeTab(tabKey, -1);
-                changeTab(newTab);
+                if(!drawerOpened) changeTab(newTab);
             }
         }
     });
@@ -126,10 +191,15 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     });
 
     return (
-        <div className="w-100 h-100 d-flex flex-column" onTouchStart={()=>{}} {...swipeAppHandlers}>
+        <div className="w-100 h-100 d-flex flex-column position-relative" onTouchStart={()=>{}} {...swipeAppHandlers}>
             <Tabs
                 id="mySchedule-tabs"
                 className="bg-primary"
+                style={{
+                    flexWrap: "nowrap",
+                    overflowX: "auto",
+                    overflowY: "hidden"
+                }}
                 activeKey={tabKey}
                 onSelect={(keyName) => {
                     changeTab(keyName as TabType);
@@ -137,7 +207,14 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             >
                 <Tab
                     eventKey="timetable"
-                    title={<span className={((tabKey === "timetable") ? "text-primary" : "text-white")}>時間割</span>}
+                    title={
+                        <span
+                            className={`text-nowrap ${((tabKey === "timetable") ? "text-primary" : "text-white")}`}
+                            ref={tabRefs.current[0]}
+                        >
+                            時間割
+                        </span>
+                    }
                 >
                     {((pageState === 0) ? (
                         <TimetablePage/>
@@ -149,7 +226,14 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 </Tab>
                 <Tab
                     eventKey="task"
-                    title={<span className={((tabKey === "task") ? "text-primary" : "text-white")}>課題</span>}
+                    title={
+                        <span
+                            className={`text-nowrap ${((tabKey === "task") ? "text-primary" : "text-white")}`}
+                            ref={tabRefs.current[1]}
+                        >
+                            課題
+                        </span>
+                    }
                 >
                     {((pageState === 0) ? (
                         <TaskPage/>
@@ -161,19 +245,40 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 </Tab>
                 <Tab
                     eventKey="shift"
-                    title={<span className={((tabKey === "shift") ? "text-primary" : "text-white")}>バイト</span>}
+                    title={
+                        <span
+                            className={`text-nowrap ${((tabKey === "shift") ? "text-primary" : "text-white")}`}
+                            ref={tabRefs.current[2]}
+                        >
+                            バイト
+                        </span>
+                    }
                 >
                     <ShiftPage/>
                 </Tab>
                 <Tab
                     eventKey="event"
-                    title={<span className={((tabKey === "event") ? "text-primary" : "text-white")}>予定</span>}
+                    title={
+                        <span
+                            className={`text-nowrap ${((tabKey === "event") ? "text-primary" : "text-white")}`}
+                            ref={tabRefs.current[3]}
+                        >
+                            予定
+                        </span>
+                    }
                 >
                     <EventPage/>
                 </Tab>
                 <Tab
                     eventKey="calendar"
-                    title={<span className={((tabKey === "calendar") ? "text-primary" : "text-white")}>カレンダー</span>}
+                    title={
+                        <span
+                            className={`text-nowrap ${((tabKey === "calendar") ? "text-primary" : "text-white")}`}
+                            ref={tabRefs.current[4]}
+                        >
+                            カレンダー
+                        </span>
+                    }
                 >
                     <CalendarPage/>
                 </Tab>
