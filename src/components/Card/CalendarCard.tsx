@@ -32,7 +32,8 @@ export default function CalendarCard({ cardType, data }: { cardType: "task"|"shi
 
     return (
         <div
-            className={`mb-1 bg-${cardType} text-white rounded user-select-none ${isActive ? "opacity-75" : ""}`}
+            className={`d-flex bg-${cardType} text-white rounded user-select-none ${isActive ? "opacity-75" : ""}`}
+            style={{marginBottom: "1px"}}
             onMouseDown={() => setIsActive(true)}
             onMouseUp={() => setIsActive(false)}
             onMouseLeave={() => setIsActive(false)}
