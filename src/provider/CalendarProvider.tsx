@@ -5,6 +5,7 @@ export const CalendarContext = createContext<{
     keptShifts: Shifts,
     setKeptShifts: React.Dispatch<React.SetStateAction<Shifts>>,
     shiftCalendarRef: React.RefObject<HTMLDivElement>,
+    calendarHeight: number,
     focusYear: number,
     focusMonth: number,
     initializeFocusMonth: () => void,
@@ -13,6 +14,7 @@ export const CalendarContext = createContext<{
     keptShifts: {},
     setKeptShifts: () => {},
     shiftCalendarRef: {} as React.RefObject<HTMLDivElement>,
+    calendarHeight: 0,
     focusYear: 2000,
     focusMonth: 1,
     initializeFocusMonth: () => {},
@@ -23,8 +25,14 @@ export function CalendarProvider({children}: {children: ReactNode}){
     // クリップボード(？)に保存されたバイトのシフトのデータを管理する
     const [keptShifts, setKeptShifts] = useState<Shifts>({})
 
-    // カレンダー欄のRef
+    // カレンダー欄の高さを保管する
+    const [calendarHeight, setCalendarHeight] = useState<number>(0);
     const shiftCalendarRef = useRef<HTMLDivElement>(null)
+    useEffect(() => {
+        const calendarElement: HTMLDivElement | null = shiftCalendarRef.current;
+        const newHeight: number = (calendarElement?.getBoundingClientRect().height || 0);
+        setCalendarHeight(newHeight);
+    }, [shiftCalendarRef])
 
     // カレンダー系ページでフォーカス中の月を管理する
     const [focusYear, setFocusYear] = useState<number>(2000);
@@ -60,7 +68,7 @@ export function CalendarProvider({children}: {children: ReactNode}){
     }
 
     return (
-        <CalendarContext.Provider value={{keptShifts, setKeptShifts, shiftCalendarRef, focusYear, focusMonth, initializeFocusMonth, changeMonth}}>
+        <CalendarContext.Provider value={{keptShifts, setKeptShifts, shiftCalendarRef, calendarHeight, focusYear, focusMonth, initializeFocusMonth, changeMonth}}>
             {children}
         </CalendarContext.Provider>
     );
