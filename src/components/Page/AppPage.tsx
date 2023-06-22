@@ -221,6 +221,9 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         setFocusMonth(newMonth);
         if(newYear !== focusMonth) setFocusYear(newYear);
     }
+    useEffect(() => {
+        initializeFocusMonth();
+    }, [])
 
     return (
         <div className="w-100 h-100 d-flex flex-column position-relative" onTouchStart={()=>{}} {...swipeAppHandlers}>
