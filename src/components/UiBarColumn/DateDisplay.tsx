@@ -9,6 +9,9 @@ export default function DateDisplay(props: MyProps) {
     const {focusYear, focusMonth} = props;
 
     return (
-        <div/>
+        <div>
+            <span className="fs-3 me-2">{focusYear}年</span>
+            <span className="fs-3">{focusMonth}月</span>
+        </div>
     );
 }
