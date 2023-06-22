@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode } from 'react';
-import { Timetable, Task, Shift, Event } from "./../utils/types"
+import { Timetable, Task, Shift, Event, TabType } from "./../utils/types"
 
 type MyType = [
     0|1|2,
@@ -8,9 +8,11 @@ type MyType = [
     React.Dispatch<React.SetStateAction<string|null>>,
     Event|Timetable|Task|Shift|null,
     React.Dispatch<React.SetStateAction<Event|Timetable|Task|Shift|null>>,
+    TabType,
+    React.Dispatch<React.SetStateAction<TabType>>,
 ]
 
-export const PageStateContext = createContext<MyType>([0, ()=>{}, null, ()=>{}, null, ()=>{}])
+export const PageStateContext = createContext<MyType>([0, ()=>{}, null, ()=>{}, null, ()=>{}, "calendar", ()=>{}])
 
 export function PageStateProvider({children}: {children: ReactNode}){
     // 個別データを閲覧/編集中かどうかを管理する
@@ -23,8 +25,11 @@ export function PageStateProvider({children}: {children: ReactNode}){
     // 現在個別ページで操作しているデータを操作する
     const [fetchingData, setFetchingData] = useState<Timetable|Task|Shift|Event|null>(null);
 
+    // 開いているタブの種類を管理する
+    const [tabKey, setTabKey] = useState<TabType>("calendar");
+
     return (
-        <PageStateContext.Provider value={[pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData]}>
+        <PageStateContext.Provider value={[pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey]}>
             {children}
         </PageStateContext.Provider>
     );

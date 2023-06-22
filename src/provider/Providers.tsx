@@ -3,6 +3,7 @@ import { PageStateProvider } from "./PageStateProvider"
 import { DrawerProvider } from "./DrawerProvider"
 import { TimetableProvider } from "./TimetableProvider"
 import { TaskProvider } from "./TaskProvider"
+import { ShiftProvider } from "./ShiftProvider"
 
 export default function Providers({children}: {children: ReactNode}){
     return (
@@ -10,7 +11,9 @@ export default function Providers({children}: {children: ReactNode}){
             <DrawerProvider>
                 <TimetableProvider>
                     <TaskProvider>
-                        {children}
+                        <ShiftProvider>
+                            {children}
+                        </ShiftProvider>
                     </TaskProvider>
                 </TimetableProvider>
             </DrawerProvider>

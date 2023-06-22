@@ -64,9 +64,15 @@ function swipeTab(nowTab: TabType, swipe: 1|-1){
 export default function AppPage({ pageType }: { pageType: PageType }){
     const tabList: TabType[] = ["timetable", "task", "shift", "event", "calendar"]; // タブの一覧を左から順に定義しておく
 
+    // ページの状態を管理する
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
-    const [tabKey, setTabKey] = useState<TabType>(newTabKey);
+    useEffect(() => {
+        setTabKey(newTabKey);
+    }, [])
+
     // タブを切り替える関数
     function changeTab(tabName: TabType){
         setPageState(0);
@@ -76,6 +82,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         const nextTabIndex: number = tabList.findIndex(element => element === tabName); // 次に開くタブのindex番号を取得する
         tabsScroll(nowTabIndex, nextTabIndex);
         setTabKey(tabName);
+        if(tabName === "shift" || tabName === "calendar") initializeFocusMonth();
     }
     // タブのrefを管理する
     const tabRefs = useRef<RefObject<HTMLSpanElement>[]>([]) // タブのref
@@ -90,19 +97,15 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             if(nowIndex < nextIndex){
                 // 右にスクロールする場合
                 const leftWidth: number = getAllWidth(-1, nextIndex);
-                console.log("leftWidth", leftWidth);
                 absLeft = leftWidth;
                 tabsUl.scrollTo({left: absLeft})
             }else if(nowIndex > nextIndex){
                 // 左にスクロールする場合
                 const parentWidth: number = tabsUl.scrollWidth;
                 const rightWidth: number = getAllWidth(1, nextIndex);
-                console.log("parentWidth", parentWidth);
-                console.log("rightWidth", rightWidth);
                 absLeft = parentWidth - rightWidth;
                 tabsUl.scrollTo({left: absLeft})
             }
-            console.log("absLeft", absLeft);
         }
         // widthの合計を求める関数
         function getAllWidth(direction: 1|-1, index: number){
@@ -132,9 +135,6 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             return result;
         }
     }
-
-    // ページの状態を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
 
     // ハンバーガーメニューが開いているかどうかを管理する
     const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
@@ -194,6 +194,34 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         }
     });
 
+    // カレンダー系ページでフォーカス中の月を管理する
+    const [focusYear, setFocusYear] = useState<number>(2000);
+    const [focusMonth, setFocusMonth] = useState<number>(1);
+    // フォーカス中の月を初期化する関数
+    function initializeFocusMonth(): void{
+        const nowDate: Date = new Date();
+        const newYear: number = nowDate.getFullYear();
+        const newMonth: number = nowDate.getMonth() + 1;
+        setFocusYear(newYear);
+        setFocusMonth(newMonth);
+    }
+    // 表示月を1つ前後に遷移させる関数
+    function changeMonth(amount: 1|-1){
+        let newYear: number = focusYear;
+        let newMonth: number = focusMonth;
+        if(newMonth + amount > 12){
+            newMonth = 1;
+            newYear++;
+        }else if(newMonth + amount < 1){
+            newMonth = 12;
+            newYear--;
+        }else{
+            newMonth += amount;
+        }
+        setFocusMonth(newMonth);
+        if(newYear !== focusMonth) setFocusYear(newYear);
+    }
+
     return (
         <div className="w-100 h-100 d-flex flex-column position-relative" onTouchStart={()=>{}} {...swipeAppHandlers}>
             <Tabs
@@ -201,7 +229,8 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 className="bg-primary"
                 style={{
                     flexWrap: "nowrap",
-                    overflowX: "auto"
+                    overflowX: "auto",
+                    overflowY: "hidden"
                 }}
                 activeKey={tabKey}
                 onSelect={(keyName) => {
@@ -257,7 +286,13 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <ShiftPage/>
+                    {((pageState === 0) ? (
+                        <ShiftPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
+                    ) : ((pageState === 1) ? (
+                        <></>
+                    ) : (
+                        <></>
+                    )))}
                 </Tab>
                 <Tab
                     eventKey="event"
@@ -283,7 +318,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <CalendarPage/>
+                    <CalendarPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
                 </Tab>
             </Tabs>
             <Drawer

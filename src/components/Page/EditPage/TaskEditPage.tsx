@@ -9,7 +9,7 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 export default function TaskEditPage() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
 
     // 課題のデータを管理する
     const [tasks, setTasks] = useContext(TaskContext);

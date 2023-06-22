@@ -3,7 +3,7 @@ import { PageStateContext } from '../../provider/PageStateProvider';
 
 export default function AddButton() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
 
     return (
         <div className="position-absolute bottom-0 end-0 m-3 pe-3">

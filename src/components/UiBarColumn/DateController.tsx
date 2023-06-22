@@ -1,14 +1,21 @@
 import React from 'react';
 
-interface MyProps{
-    setFocusYear: React.Dispatch<React.SetStateAction<number>>;
-    setFocusMonth: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export default function DateController(props: MyProps) {
-    const {setFocusYear, setFocusMonth} = props;
+export default function DateController({changeMonth}: { changeMonth: (amount: 1 | -1) => void }) {
 
     return (
-        <div/>
+        <div>
+            <button
+                className="btn fs-3"
+                onClick={() => {changeMonth(-1)}}
+            >
+                <i className="bi bi-chevron-left"/>
+            </button>
+            <button
+                className="btn fs-3"
+                onClick={() => {changeMonth(1)}}
+            >
+                <i className="bi bi-chevron-right"/>
+            </button>
+        </div>
     );
 }

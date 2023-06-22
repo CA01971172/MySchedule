@@ -6,7 +6,7 @@ import { youbi } from "./../../../utils/types"
 
 export default function TimetableViewPage() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
 
     // データの型をTimetableだと解釈しておく
     const [data, setData] = useState<Timetable>({} as Timetable);
