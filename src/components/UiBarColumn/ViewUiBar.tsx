@@ -6,6 +6,7 @@ import { TimetableContext } from './../../provider/TimetableProvider';
 import TaskDbController from '../../utils/DbController/TaskDbController';
 import { TaskContext } from '../../provider/TaskProvider';
 import ShiftDbController from '../../utils/DbController/ShiftDbController';
+import { ShiftContext } from '../../provider/ShiftProvider';
 import EventDbController from '../../utils/DbController/EventDbController';
 
 
@@ -15,9 +16,10 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
 
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);
-
     // 課題のデータを管理する
     const [tasks, setTasks] = useContext(TaskContext);
+    // シフトのデータを管理する
+    const [shifts, setShifts] = useContext(ShiftContext);
 
     function deleteData(){
         if(fetchingId){
@@ -36,11 +38,11 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     TaskDbController.deleteTask(fetchingId)
                     break;
                 case "shift":
-                    // newData = Object.assign({}, timetables);
-                    // delete newData[fetchingId];
-                    // setShifts(newData);
-                    // ShiftDbController.deleteShift(fetchingId)
-                    // break;
+                    newData = Object.assign({}, shifts);
+                    delete newData[fetchingId];
+                    setShifts(newData);
+                    ShiftDbController.deleteShift(fetchingId)
+                    break;
                 case "event":
                     // newData = Object.assign({}, timetables);
                     // delete newData[fetchingId];

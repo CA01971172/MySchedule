@@ -292,9 +292,9 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                     {((pageState === 0) ? (
                         <ShiftPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
                     ) : ((pageState === 1) ? (
-                        <></>
+                        <ShiftViewPage/>
                     ) : (
-                        <></>
+                        <ShiftEditPage/>
                     )))}
                 </Tab>
                 <Tab

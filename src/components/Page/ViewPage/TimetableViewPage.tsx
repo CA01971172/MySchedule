@@ -20,10 +20,10 @@ export default function TimetableViewPage() {
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <ViewUiBar contentType="timetable"/>
                 <div className="row flex-grow-1 d-block p-3 fs-4">
-                    <div className="w-100 p-1 mb-3 border-bottom text-truncate">
+                    <div className="w-100 p-1 mb-3 border-bottom">
                         {data.title}
                     </div>
-                    <div className="w-100 p-1 mb-3 border-bottom text-truncate">
+                    <div className="w-100 p-1 mb-3 border-bottom">
                         <span className="me-1">{youbi[data.dayOfWeek]}</span>
                         <span className="me-3">曜日</span>
                         <span>{( "00" + (new Date(data.startTime).getHours())).slice( -2 )}</span>
@@ -34,12 +34,12 @@ export default function TimetableViewPage() {
                         <span>：</span>
                         <span>{( "00" + (new Date(data.endTime).getMinutes())).slice( -2 )}</span>
                     </div>
-                    <div className="w-100 p-1 mb-3 border-bottom text-truncate">
+                    <div className="w-100 p-1 mb-3 border-bottom">
                         <span>講師</span>
                         <span>：</span>
                         <span>{data.teacher}</span>
                     </div>
-                    <div className="w-100 p-1 border-bottom text-truncate">
+                    <div className="w-100 p-1 border-bottom">
                         <span>教室</span>
                         <span>：</span>
                         <span>{data.classroom}</span>
