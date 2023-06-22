@@ -36,10 +36,10 @@ export default function CalendarUiBar(props: MyProps) {
                 <HamburgerMenuButton/>
             </div>
             <div className="col-auto p-0">
-                <DateDisplay focusYear={focusYear} focusMonth={focusMonth}/>
+                <DateController changeMonth={changeMonth}/>
             </div>
             <div className="col p-0">
-                <DateController changeMonth={changeMonth}/>
+                <DateDisplay focusYear={focusYear} focusMonth={focusMonth}/>
             </div>
         </div>
     );
