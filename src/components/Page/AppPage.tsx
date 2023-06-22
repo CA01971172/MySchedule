@@ -24,6 +24,7 @@ import EventViewPage from "./ViewPage/EventViewPage"
 import EventEditPage from "./EditPage/EventEditPage"
 import EventHamburgerMenu from "../HamburgerMenu/EventHamburgerMenu"
 import CalendarPage from "./CalendarPage"
+import { CalendarContext } from '../../provider/CalendarProvider';
 // import CalendarHamburgerMenu from "./../HamburgerMenu/CalendarHamburgerMenu"
 
 
@@ -73,6 +74,8 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         setTabKey(newTabKey);
     }, [])
 
+    // カレンダー系ページ用のContext
+    const {initializeFocusMonth} = useContext(CalendarContext);
     // タブを切り替える関数
     function changeTab(tabName: TabType){
         setPageState(0);
@@ -137,7 +140,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     }
 
     // ハンバーガーメニューが開いているかどうかを管理する
-    const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
+    const {drawerOpened, openHamburgerMenu, closeHamburgerMenu} = useContext(DrawerContext);
 
     // 課題の設定データを管理する
     const [taskSettings, setTaskSettings] = useState<TaskSettings>({
@@ -193,37 +196,6 @@ export default function AppPage({ pageType }: { pageType: PageType }){
             }
         }
     });
-
-    // カレンダー系ページでフォーカス中の月を管理する
-    const [focusYear, setFocusYear] = useState<number>(2000);
-    const [focusMonth, setFocusMonth] = useState<number>(1);
-    // フォーカス中の月を初期化する関数
-    function initializeFocusMonth(): void{
-        const nowDate: Date = new Date();
-        const newYear: number = nowDate.getFullYear();
-        const newMonth: number = nowDate.getMonth() + 1;
-        setFocusYear(newYear);
-        setFocusMonth(newMonth);
-    }
-    // 表示月を1つ前後に遷移させる関数
-    function changeMonth(amount: 1|-1){
-        let newYear: number = focusYear;
-        let newMonth: number = focusMonth;
-        if(newMonth + amount > 12){
-            newMonth = 1;
-            newYear++;
-        }else if(newMonth + amount < 1){
-            newMonth = 12;
-            newYear--;
-        }else{
-            newMonth += amount;
-        }
-        setFocusMonth(newMonth);
-        if(newYear !== focusMonth) setFocusYear(newYear);
-    }
-    useEffect(() => {
-        initializeFocusMonth();
-    }, [])
 
     return (
         <div className="w-100 h-100 d-flex flex-column position-relative" onTouchStart={()=>{}} {...swipeAppHandlers}>
@@ -290,7 +262,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                     }
                 >
                     {((pageState === 0) ? (
-                        <ShiftPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
+                        <ShiftPage/>
                     ) : ((pageState === 1) ? (
                         <ShiftViewPage/>
                     ) : (
@@ -321,7 +293,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <CalendarPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
+                    <CalendarPage/>
                 </Tab>
             </Tabs>
             <Drawer

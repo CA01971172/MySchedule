@@ -7,7 +7,7 @@ import TaskDbController from '../../utils/DbController/TaskDbController';
 
 export function TaskHamburgerMenu({taskSettings, setTaskSettings}: {taskSettings: TaskSettings, setTaskSettings: (settings: TaskSettings) => void}) {
     // ハンバーガーメニューが開いているかどうかを管理する
-    const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
+    const {setIsChangedSettings, setSettings} = useContext(DrawerContext);
 
   // 課題の設定データを編集するための関数
   function changeTaskSettings(enabledAlert?: boolean, daysBeforeDeadline?: number, autoTaskDelete?: boolean){

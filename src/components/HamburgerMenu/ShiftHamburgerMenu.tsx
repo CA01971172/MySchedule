@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import HamburgerMenuHeader from "./HamburgerMenuHeader"
+import { CalendarContext } from '../../provider/CalendarProvider';
+import { ShiftContext } from '../../provider/ShiftProvider';
 
 export function ShiftHamburgerMenu() {
-  const [checkboxes, setCheckboxes] = useState([false, false]);
-  const [numberInput, setNumberInput] = useState('');
+    // バイトシフトのドロワーメニュー用Context
+    const {keptShifts, setKeptShifts} = useContext(CalendarContext);
 
-  const toggleCheckbox = (index: number) => {
-    setCheckboxes(
-      checkboxes.map((isChecked, i) => (i === index ? !isChecked : isChecked))
-    );
-  };
+    // バイトのシフトのデータを管理する
+    const [shifts, setShifts] = useContext(ShiftContext);
+
+    // 指定の週のシフトのデータをクリップボード(？)に保存する
+    function getWeekShift(year: number, month: number, week: number): void{
+      const startDate: Date = new Date(year)
+    } 
 
   return (
     <div>
@@ -46,5 +50,3 @@ export function ShiftHamburgerMenu() {
 }
 
 export default ShiftHamburgerMenu;
-
-

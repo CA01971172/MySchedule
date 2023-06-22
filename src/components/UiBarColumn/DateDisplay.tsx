@@ -1,12 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CalendarContext } from '../../provider/CalendarProvider';
 
-interface MyProps{
-    focusYear: number;
-    focusMonth: number;
-}
-
-export default function DateDisplay(props: MyProps) {
-    const {focusYear, focusMonth} = props;
+export default function DateDisplay() {
+    const {focusYear, focusMonth} = useContext(CalendarContext);
 
     return (
         <div>

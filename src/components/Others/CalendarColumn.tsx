@@ -4,12 +4,7 @@ import { ShiftContext } from "./../../provider/ShiftProvider"
 // import { EventContext } from "./../../provider/EventProvider"
 import CalendarDay from "./CalendarDay"
 import { Event, Shift, Task, CalendarData } from '../../utils/types';
-
-interface MyProps{
-    pageType: "shift" | "calendar";
-    focusYear: number;
-    focusMonth: number;
-}
+import { CalendarContext } from '../../provider/CalendarProvider';
 
 type MonthDay = {
     month: number;
@@ -17,8 +12,9 @@ type MonthDay = {
     dayOfWeek: number;
 }
 
-export default function CalendarColumn(props: MyProps) {
-    const {pageType, focusYear, focusMonth} = props;
+export default function CalendarColumn({pageType}: {pageType: "shift" | "calendar"}) {
+    // バイトシフトのドロワーメニュー用Context
+    const {focusYear, focusMonth, shiftCalendarRef} = useContext(CalendarContext);
 
     // 課題のデータを管理する
     const [tasks, setTasks] = useContext(TaskContext);
@@ -142,7 +138,7 @@ export default function CalendarColumn(props: MyProps) {
     }
 
     return (
-        <div className="row calendar-row flex-grow-1 overflow-hidden">
+        <div className="row calendar-row flex-grow-1 overflow-hidden" ref={shiftCalendarRef}>
             {(getDays().map((value, index)=>(
                 <CalendarDay
                     key={`${focusYear}/${value.month}/${value.day}`}
