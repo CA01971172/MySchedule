@@ -11,7 +11,7 @@ import EventDbController from '../../utils/DbController/EventDbController';
 
 export default function ViewUiBar({contentType}: {contentType: ContentType}){
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
 
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);

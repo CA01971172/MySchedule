@@ -6,7 +6,7 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 export default function TaskViewPage() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
 
     // データの型をTaskだと解釈しておく
     const [data, setData] = useState<Task>({} as Task);

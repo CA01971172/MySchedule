@@ -1,5 +1,6 @@
 import React from 'react';
 import { CalendarData } from '../../utils/types';
+import CalendarCard from "./../Card/CalendarCard"
 
 interface MyProps{
     day: number;
@@ -17,7 +18,7 @@ export default function CalendarDay(props: MyProps) {
                 {day}
             </div>
             {data.shifts.map((value, index) => (
-                <div key={index} className="bg-shift text-white">シフト</div>
+                <CalendarCard key={index} cardType="shift" data={value}/>
             ))}
         </div>
     );

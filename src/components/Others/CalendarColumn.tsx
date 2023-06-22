@@ -109,6 +109,7 @@ export default function CalendarColumn(props: MyProps) {
             const value: Shift = shifts[key];
             const startTime: number = value.startTime;
             if((startTime >= nowDayTime) && (startTime < nextDayTime)){
+                value.id = key;
                 shiftsInRange.push(value);
             }
         })

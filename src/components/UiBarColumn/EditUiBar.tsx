@@ -3,7 +3,7 @@ import { PageStateContext } from '../../provider/PageStateProvider';
 
 export default function EditUiBar({saveData, isTouched}: {saveData: ()=>Promise<void>, isTouched: boolean}){
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData] = useContext(PageStateContext);
+    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
 
     return (
         <div className="row border-bottom">
