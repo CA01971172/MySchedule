@@ -48,7 +48,7 @@ export default function CalendarCard({ cardType, data }: { cardType: "task"|"shi
                 }
             }}
         >
-            <span className="w-100 d-inline-block text-nowrap overflow-hidden">{getTitle()}</span>
+            <span className="w-100 d-inline-block text-nowrap overflow-hidden" style={{fontSize: "12px"}}>{getTitle()}</span>
         </div>
     );
 }
