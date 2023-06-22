@@ -254,7 +254,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <ShiftPage/>
+                    <ShiftPage tabKey={tabKey}/>
                 </Tab>
                 <Tab
                     eventKey="event"

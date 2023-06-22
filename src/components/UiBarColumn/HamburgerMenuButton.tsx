@@ -7,7 +7,7 @@ export default function HamburgerMenuButton() {
 
     return (
         <button
-            className="btn btn-default fs-3"
+            className="btn fs-3"
             onClick={() => {
                 if(drawerOpened){
                     closeHamburgerMenu();

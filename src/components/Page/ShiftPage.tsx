@@ -4,7 +4,7 @@ import CalendarColumn from '../Others/CalendarColumn';
 import AddButton from "./../Others/AddButton"
 import CalendarUiBar from '../UiBarColumn/CalendarUiBar';
 
-export default function ShiftPage() {
+export default function ShiftPage({tabKey}: {tabKey: string}) {
     // バイトのシフトのデータを管理する
     const [shifts, setShifts] = useContext(ShiftContext);
 
@@ -18,23 +18,7 @@ export default function ShiftPage() {
         const newMonth: number = nowDate.getMonth();
         setFocusYear(newYear);
         setFocusMonth(newMonth);
-    }, [])
-    // 表示月を1つ前後に遷移させる関数
-    function changeMonth(amount: 1|-1){
-        let newYear: number = focusYear;
-        let newMonth: number = focusMonth;
-        if(newMonth + amount > 12){
-            newMonth = 1;
-            newYear++;
-        }else if(newMonth + amount){
-            newMonth = 12;
-            newYear--;
-        }else{
-            newMonth += amount;
-        }
-        setFocusMonth(newMonth);
-        if(newYear !== focusMonth) setFocusYear(newYear);
-    }
+    }, [tabKey])
 
     React.useEffect(()=>{
         console.log(shifts);
@@ -43,7 +27,7 @@ export default function ShiftPage() {
     return (
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
-                <CalendarUiBar changeMonth={changeMonth} focusMonth={focusMonth} focusYear={focusYear}/>
+                <CalendarUiBar focusMonth={focusMonth} focusYear={focusYear} setFocusYear={setFocusYear} setFocusMonth={setFocusMonth}/>
                 <CalendarColumn pageType="shift" focusMonth={focusMonth} focusYear={focusYear}/>
             </div>
             <AddButton/>
