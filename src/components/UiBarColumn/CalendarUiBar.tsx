@@ -38,7 +38,7 @@ export default function CalendarUiBar(props: MyProps) {
             <div className="col-auto p-0">
                 <DateController changeMonth={changeMonth}/>
             </div>
-            <div className="col p-0">
+            <div className="col">
                 <DateDisplay focusYear={focusYear} focusMonth={focusMonth}/>
             </div>
         </div>

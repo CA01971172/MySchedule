@@ -77,3 +77,12 @@ html, body, #root{
         display: none; /*Google Chrome、Safari、Microsoft Edge対応のスクロールバー非表示コード*/
     }
 }
+
+.calendar-row {
+    border-collapse: collapse;
+    height: 100%;
+    > * {
+        flex: 0 0 14.2857%;
+        max-width: 14.2857%;
+    }
+}
