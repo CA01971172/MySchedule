@@ -6,29 +6,11 @@ import DateController from "./DateController"
 interface MyProps{
     focusYear: number;
     focusMonth: number;
-    setFocusYear: (value: React.SetStateAction<number>) => void
-    setFocusMonth: (value: React.SetStateAction<number>) => void
+    changeMonth: (amount: 1|-1) => void;
 }
 
 export default function CalendarUiBar(props: MyProps) {
-    const {focusYear, focusMonth, setFocusYear, setFocusMonth} = props;
-
-    // 表示月を1つ前後に遷移させる関数
-    function changeMonth(amount: 1|-1){
-        let newYear: number = focusYear;
-        let newMonth: number = focusMonth;
-        if(newMonth + amount > 12){
-            newMonth = 1;
-            newYear++;
-        }else if(newMonth + amount < 1){
-            newMonth = 12;
-            newYear--;
-        }else{
-            newMonth += amount;
-        }
-        setFocusMonth(newMonth);
-        if(newYear !== focusMonth) setFocusYear(newYear);
-    }
+    const {focusYear, focusMonth, changeMonth} = props;
 
     return (
         <div className="row align-items-center border-bottom">

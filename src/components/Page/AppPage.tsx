@@ -82,6 +82,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         const nextTabIndex: number = tabList.findIndex(element => element === tabName); // 次に開くタブのindex番号を取得する
         tabsScroll(nowTabIndex, nextTabIndex);
         setTabKey(tabName);
+        if(tabName === "shift" || tabName === "calendar") initializeFocusMonth();
     }
     // タブのrefを管理する
     const tabRefs = useRef<RefObject<HTMLSpanElement>[]>([]) // タブのref
@@ -193,6 +194,34 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         }
     });
 
+    // カレンダー系ページでフォーカス中の月を管理する
+    const [focusYear, setFocusYear] = useState<number>(2000);
+    const [focusMonth, setFocusMonth] = useState<number>(1);
+    // フォーカス中の月を初期化する関数
+    function initializeFocusMonth(): void{
+        const nowDate: Date = new Date();
+        const newYear: number = nowDate.getFullYear();
+        const newMonth: number = nowDate.getMonth() + 1;
+        setFocusYear(newYear);
+        setFocusMonth(newMonth);
+    }
+    // 表示月を1つ前後に遷移させる関数
+    function changeMonth(amount: 1|-1){
+        let newYear: number = focusYear;
+        let newMonth: number = focusMonth;
+        if(newMonth + amount > 12){
+            newMonth = 1;
+            newYear++;
+        }else if(newMonth + amount < 1){
+            newMonth = 12;
+            newYear--;
+        }else{
+            newMonth += amount;
+        }
+        setFocusMonth(newMonth);
+        if(newYear !== focusMonth) setFocusYear(newYear);
+    }
+
     return (
         <div className="w-100 h-100 d-flex flex-column position-relative" onTouchStart={()=>{}} {...swipeAppHandlers}>
             <Tabs
@@ -257,7 +286,13 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <ShiftPage tabKey={tabKey}/>
+                    {((pageState === 0) ? (
+                        <ShiftPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
+                    ) : ((pageState === 1) ? (
+                        <></>
+                    ) : (
+                        <></>
+                    )))}
                 </Tab>
                 <Tab
                     eventKey="event"
@@ -283,7 +318,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <CalendarPage/>
+                    <CalendarPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
                 </Tab>
             </Tabs>
             <Drawer

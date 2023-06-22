@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import { TaskContext } from "./../../provider/TaskProvider"
 import { ShiftContext } from "./../../provider/ShiftProvider"
+// import { EventContext } from "./../../provider/EventProvider"
 import CalendarDay from "./CalendarDay"
 import { Event, Shift, Task, CalendarData } from '../../utils/types';
 
@@ -18,15 +20,12 @@ type MonthDay = {
 export default function CalendarColumn(props: MyProps) {
     const {pageType, focusYear, focusMonth} = props;
 
+    // 課題のデータを管理する
+    const [tasks, setTasks] = useContext(TaskContext);
     // バイトのシフトのデータを管理する
     const [shifts, setShifts] = useContext(ShiftContext);
-
-    React.useEffect(()=>{
-        console.log(shifts);
-        Object.keys(shifts).map((key) => {
-            console.log(new Date(shifts[key].startTime))
-        })
-    },[shifts])
+    // 予定のデータを管理する
+    // const [events, setEvents] = useContext(EventContext);
 
     // その月のカレンダーに格納すべき日を全て取得する関数
     function getDays(): MonthDay[]{
@@ -118,14 +117,32 @@ export default function CalendarColumn(props: MyProps) {
         if(pageType === "calendar"){
             // 課題のデータを取得する
             const tasksInRange: Task[] = new Array;
+            Object.keys(tasks).forEach((key) => {
+                const value: Task = tasks[key];
+                const deadline: number = value.deadline;
+                if((deadline >= nowDayTime) && (deadline < nextDayTime)){
+                    value.id = key;
+                    tasksInRange.push(value);
+                }
+            })
+            result.tasks = tasksInRange;
             // 予定のデータを取得する
-            const eventsInRange: Event[] = new Array;
+/*             const eventsInRange: Event[] = new Array;
+            Object.keys(events).forEach((key) => {
+                const value: Event = events[key];
+                const startTime: number = value.startTime;
+                if((startTime >= nowDayTime) && (startTime < nextDayTime)){
+                    value.id = key;
+                    eventsInRange.push(value);
+                }
+            })
+            result.events = eventsInRange; */
         }
         return result;
     }
 
     return (
-        <div className="row calendar-row">
+        <div className="row calendar-row flex-grow-1 overflow-hidden">
             {(getDays().map((value, index)=>(
                 <CalendarDay
                     key={`${focusYear}/${value.month}/${value.day}`}

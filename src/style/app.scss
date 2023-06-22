@@ -80,9 +80,14 @@ html, body, #root{
 
 .calendar-row {
     border-collapse: collapse;
-    height: 100%;
     > * {
-        flex: 0 0 14.2857%;
-        max-width: 14.2857%;
+        flex: 0 0 calc(100% / 7);
+        max-width: calc(100% / 7);
+        height: calc(100% / 6);
+        max-height: calc(100% / 6);
     }
+}
+
+.overflow-y-auto{
+    overflow-y: auto;
 }
