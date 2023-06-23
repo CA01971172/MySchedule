@@ -1,6 +1,6 @@
 import React from 'react';
 import CalendarColumn from '../Others/CalendarColumn';
-import AddButton from "./../Others/AddButton"
+import CalendarAddButton from "./../Others/CalendarAddButton"
 import CalendarUiBar from '../UiBarColumn/CalendarUiBar';
 import WeekdayColumn from '../Others/WeekdayColumn';
 
@@ -12,6 +12,7 @@ export default function CalendarPage() {
                 <WeekdayColumn pageType="calendar"/>
                 <CalendarColumn pageType="calendar"/>
             </div>
+            <CalendarAddButton/>
         </div>
     );
 }
