@@ -55,30 +55,28 @@ export function ShiftHamburgerMenu() {
   function copyWeekShift(week: number): void{
     const weekShift: Shifts = getWeekShift(week);
     setKeptShifts(weekShift);
-    console.log("copy:", weekShift)
   }
 
-  // 指定の週のシフトのデータを削除する
-  async function deleteWeekShift(week: number): Promise<void>{
+  // 指定の週のシフトのデータが削除されたデータを取得する
+  async function deleteWeekShift(week: number): Promise<Shifts>{
     const deleteTargets: Shifts = getWeekShift(week);
     const deleteId: string[] = Object.keys(deleteTargets);
-    const shiftData = Object.assign({}, shifts);
+    const result = Object.assign({}, shifts);
     deleteId.map((id) => {
-      delete shiftData[id];
+      delete result[id];
     })
-    setShifts(shiftData);
-    console.log("delete:", deleteId)
+    return result;
   }
-  // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に作成する
-  async function createWeekShift(week: number, keptData: Shifts): Promise<void>{
+  // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に作成したデータを取得する
+  async function createWeekShift(week: number, deletedData: Shifts, keptData: Shifts): Promise<Shifts>{
     const newData: Shifts = {};
     Object.keys(keptData).map((key) => {
       // シフトのデータを取得する
-      const value: Shift = shifts[key];
+      const value: Shift = keptData[key];
       const startTime: number = value.startTime;
       const startDate: Date = new Date(startTime);
       const endTime: number = value.endTime;
-      // 取得したシフトのデータを別の週のデータに変換数r
+      // 取得したシフトのデータを別の週のデータに変換する
       const startDateInTheWeek: Date = getDateInDifferentWeek(startDate, focusYear, focusMonth, week);
       const startTimeInTheWeek: number = startDateInTheWeek.getTime();
       const timeDifference: number = startTimeInTheWeek - startTime; // シフトのデータと、指定された週のデータとの差
@@ -88,20 +86,22 @@ export function ShiftHamburgerMenu() {
         endTime: endTimeInTheWeek,
         breakTime: value.breakTime
       }
-      const newId: string = new Date().getTime().toString(16)  + Math.floor(1000*Math.random()).toString(16);
+      const newId: string = new Date().getTime().toString(16) + "_" + Math.floor(1000*Math.random()).toString(16);
       newData[newId] = newShift;
     })
-    const result: Shifts = Object.assign(shifts, newData);
-    setShifts(result);
+    const result: Shifts = Object.assign(deletedData, newData);
     console.log("create:", newData)
+    return result;
   }
   // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に貼り付け(上書き)する
   async function pasteWeekShift(week: number): Promise<void>{
     if(keptShifts === null){
       window.alert("シフトのデータがコピーされていません。")
     }else{
-      await deleteWeekShift(week);
-      await createWeekShift(week, keptShifts);
+      const deletedData: Shifts = await deleteWeekShift(week);
+      const addedData: Shifts = await createWeekShift(week, deletedData, keptShifts);
+      const newData: Shifts = Object.assign(deletedData, addedData);
+      setShifts(newData);
     }
   }
 
