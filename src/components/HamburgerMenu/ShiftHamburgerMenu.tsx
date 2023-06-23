@@ -93,11 +93,9 @@ export function ShiftHamburgerMenu() {
       // データベースのシフトデータを作成する
       // 作成したデータのキーを取得する
       let newId: string = await ShiftDbController.createShift(newShift, true);
-      console.log("newId:",newId)
       setShifts((prev) => { // useStateのシフトデータを作成する
-        const newShifts: Shifts = {...prev, newShift};
-        console.log("set", newShift)
-        console.log("newShifts", newShifts)
+        const newShifts: Shifts = {...prev};
+        newShifts[newId] = newShift;
         return newShifts;
       });
     }

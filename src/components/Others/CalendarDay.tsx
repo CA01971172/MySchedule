@@ -86,6 +86,7 @@ export default function CalendarDay(props: MyProps) {
                 const theDate: Date = new Date(year, month - 1, day);
                 let newPageState: PageState = "edit";
                 if(tabKey === "calendar") newPageState = "taskEdit";
+                setCreateDate(theDate);
                 setFetchingId(null);
                 setFetchingData(null);
                 setPageState(newPageState);
