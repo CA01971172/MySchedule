@@ -67,7 +67,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     const tabList: TabType[] = ["timetable", "task", "shift", "event", "calendar"]; // タブの一覧を左から順に定義しておく
 
     // ページの状態を管理する
-    const {pageState, setPageState, setFetchingId, setFetchingData, tabKey, setTabKey} = useContext(PageStateContext);
+    const {pageState, setPageState, setCreateDate, setFetchingId, setFetchingData, tabKey, setTabKey} = useContext(PageStateContext);
 
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
@@ -79,7 +79,8 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     const {initializeFocusMonth} = useContext(CalendarContext);
     // タブを切り替える関数
     function changeTab(tabName: TabType){
-        setPageState(0);
+        setPageState("page");
+        setCreateDate(null);
         setFetchingId(null);
         setFetchingData(null);
         const nowTabIndex: number = tabList.findIndex(element => element === tabKey); // 開いているタブのindex番号を取得する
@@ -224,12 +225,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    {((pageState === 0) ? (
-                        <TimetablePage/>
-                    ) : ((pageState === 1) ? (
+                    {((pageState === "view") ? (
                         <TimetableViewPage/>
-                    ) : (
+                    ) : ((pageState === "edit") ? (
                         <TimetableEditPage/>
+                    ) : (
+                        <TimetablePage/>
                     )))}
                 </Tab>
                 <Tab
@@ -243,12 +244,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    {((pageState === 0) ? (
-                        <TaskPage/>
-                    ) : ((pageState === 1) ? (
+                    {((pageState === "view") ? (
                         <TaskViewPage/>
-                    ) : (
+                    ) : ((pageState === "edit") ? (
                         <TaskEditPage/>
+                    ) : (
+                        <TaskPage/>
                     )))}
                 </Tab>
                 <Tab
@@ -262,12 +263,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    {((pageState === 0) ? (
-                        <ShiftPage/>
-                    ) : ((pageState === 1) ? (
+                    {((pageState === "view") ? (
                         <ShiftViewPage/>
-                    ) : (
+                    ) : ((pageState === "edit") ? (
                         <ShiftEditPage/>
+                    ) : (
+                        <ShiftPage/>
                     )))}
                 </Tab>
                 <Tab
@@ -294,7 +295,25 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <CalendarPage/>
+                    {((pageState === "timetableView") ? (
+                        <TimetableViewPage/>
+                    ) : ((pageState === "timetableEdit") ? (
+                        <TimetableEditPage/>
+                    ) : ((pageState === "taskView") ? (
+                        <TaskViewPage/>
+                    ) : ((pageState === "taskEdit") ? (
+                        <TaskEditPage/>
+                    ) : ((pageState === "shiftView") ? (
+                        <ShiftViewPage/>
+                    ) : ((pageState === "shiftEdit") ? (
+                        <ShiftEditPage/>
+                    ) : ((pageState === "eventView") || (pageState === "view")) ? (
+                        <EventViewPage/>
+                    ) : ((pageState === "eventEdit") || (pageState === "edit")) ? (
+                        <EventEditPage/>
+                    ) : (
+                        <CalendarPage/>
+                    )))))))}
                 </Tab>
             </Tabs>
             <Drawer

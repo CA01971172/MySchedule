@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Task, Shift, Event } from "./../../utils/types"
-import { PageStateContext } from '../../provider/PageStateProvider';
+import { PageState, PageStateContext } from '../../provider/PageStateProvider';
 
 export default function CalendarCard({ cardType, data }: { cardType: "task"|"shift"|"event", data: Task|Shift|Event}) {
     // ページの状態を管理する
@@ -39,13 +39,18 @@ export default function CalendarCard({ cardType, data }: { cardType: "task"|"shi
             onMouseLeave={() => setIsActive(false)}
             onTouchStart={() => setIsActive(true)}
             onTouchEnd={() => setIsActive(false)}
-            onClick={() => {
+            onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
                 if(data.id){
-                    if(tabKey !== cardType) setTabKey(cardType);
                     setFetchingId(data.id);
                     setFetchingData(data);
-                    setPageState(1);
+                    if(tabKey === "shift"){
+                        setPageState("view");
+                    }else{
+                        const newPageState: PageState = `${cardType}View` as PageState;
+                        setPageState(newPageState);
+                    }
                 }
+                event.stopPropagation(); // 親要素へのonClickイベントの伝搬を止める
             }}
         >
             <span className="w-100 d-inline-block text-nowrap overflow-hidden" style={{fontSize: "12px"}}>{getTitle()}</span>

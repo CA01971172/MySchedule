@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { PageStateContext } from '../../provider/PageStateProvider';
+import { PageState, PageStateContext, convertPageState } from '../../provider/PageStateProvider';
 
 export default function EditUiBar({saveData, isTouched}: {saveData: ()=>Promise<void>, isTouched: boolean}){
     // 現在操作中のデータ等を管理する
-    const {setPageState, fetchingData} = useContext(PageStateContext);
+    const {pageState, setPageState, setCreateDate, fetchingData} = useContext(PageStateContext);
 
     return (
         <div className="row border-bottom">
@@ -13,13 +13,16 @@ export default function EditUiBar({saveData, isTouched}: {saveData: ()=>Promise<
                     className="btn btn-default fs-3"
                     onClick={() => {
                         if((!isTouched) && (fetchingData === null)){
-                            setPageState(0);
+                            setPageState("page");
+                            setCreateDate(null);
                         }else{
                             saveData().then(()=>{
                                 if(fetchingData === null){
-                                    setPageState(0);
+                                    setPageState("page");
+                                    setCreateDate(null);
                                 }else{
-                                    setPageState(1);
+                                    const newPageState: PageState = convertPageState(pageState, "View");
+                                    setPageState(newPageState);
                                 }
                             });
                         }

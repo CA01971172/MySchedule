@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { PageStateContext } from '../../provider/PageStateProvider';
+import { PageState, PageStateContext, convertPageState } from '../../provider/PageStateProvider';
 import { ContentType, Events, Shifts, Tasks, Timetables } from '../../utils/types';
 import TimetableDbController from '../../utils/DbController/TimetableDbController';
 import { TimetableContext } from './../../provider/TimetableProvider';
@@ -12,7 +12,7 @@ import EventDbController from '../../utils/DbController/EventDbController';
 
 export default function ViewUiBar({contentType}: {contentType: ContentType}){
     // 現在操作中のデータ等を管理する
-    const {setPageState, fetchingId, setFetchingId, setFetchingData} = useContext(PageStateContext);
+    const {pageState, setPageState, setCreateDate, fetchingId, setFetchingId, setFetchingData} = useContext(PageStateContext);
 
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);
@@ -61,7 +61,8 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     type="button"
                     className="btn btn-default fs-3"
                     onClick={() => {
-                        setPageState(0)
+                        setPageState("page")
+                        setCreateDate(null);
                         setFetchingId(null);
                         setFetchingData(null);
                     }}
@@ -76,7 +77,8 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                             const isDeleteDo: boolean = window.confirm("このデータを削除します。\nよろしいですか？");
                             if(isDeleteDo){
                                 deleteData();
-                                setPageState(0)
+                                setPageState("page");
+                                setCreateDate(null);
                                 setFetchingId(null);
                                 setFetchingData(null);
                             }
@@ -86,7 +88,10 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     </button>
                     <button
                         className="btn btn-default fs-3"
-                        onClick={() => setPageState(2)}
+                        onClick={() => {
+                            const newPageState: PageState = convertPageState(pageState, "Edit");
+                            setPageState(newPageState);
+                        }}
                     >
                         <i className="bi bi-pencil"/>
                     </button>

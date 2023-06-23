@@ -1,9 +1,59 @@
 import React, { createContext, useState, ReactNode } from 'react';
-import { Timetable, Task, Shift, Event, TabType } from "./../utils/types"
+import { Timetable, Task, Shift, Event, TabType, ContentType } from "./../utils/types"
+
+export type PageState = (
+    "page"
+    | "view"
+    | "edit"
+    | "timetableView"
+    | "timetableEdit"
+    | "taskView"
+    | "taskEdit"
+    | "shiftView"
+    | "shiftEdit"
+    | "eventView"
+    | "eventEdit"
+);
+
+// 〇〇Viewを〇〇Editに変換する、などの変換を行う関数
+export function convertPageState(pageType: PageState, pageMode: "View"|"Edit"): PageState{
+    let result: PageState = "page"
+    let contentType: ContentType | "" = "";
+    switch(pageType){
+        case "timetableView":
+        case "timetableEdit":
+            contentType = "timetable";
+            break;
+        case "taskView":
+        case "taskEdit":
+            contentType = "task";
+            break;
+        case "shiftView":
+        case "shiftEdit":
+            contentType = "shift";
+            break;
+        case "eventView":
+        case "eventEdit":
+            contentType = "event";
+            break;
+        default:
+            if(pageMode === "View"){
+                return "view";
+            }else if(pageMode === "Edit"){
+                return "edit"
+            }else{
+                return "page";
+            }
+    }
+    result = (contentType + pageMode) as PageState;
+    return result;
+}
 
 interface PageStates{
-    pageState: 0|1|2;
-    setPageState: React.Dispatch<React.SetStateAction<0|1|2>>;
+    pageState: PageState;
+    setPageState: React.Dispatch<React.SetStateAction<PageState>>;
+    createDate: Date | null;
+    setCreateDate: React.Dispatch<React.SetStateAction<Date | null>>;
     fetchingId: string|null;
     setFetchingId: React.Dispatch<React.SetStateAction<string|null>>;
     fetchingData: Event|Timetable|Task|Shift|null;
@@ -13,8 +63,10 @@ interface PageStates{
 }
 
 export const PageStateContext = createContext<PageStates>({
-    pageState: 0,
+    pageState: "page",
     setPageState: ()=>{},
+    createDate: null,
+    setCreateDate: ()=>{},
     fetchingId: null,
     setFetchingId: ()=>{},
     fetchingData: null,
@@ -25,8 +77,11 @@ export const PageStateContext = createContext<PageStates>({
 
 export function PageStateProvider({children}: {children: ReactNode}){
     // 個別データを閲覧/編集中かどうかを管理する
-    // 0が全体ページを閲覧中、1が個別ページを閲覧中、2が個別ページを編集中
-    const [pageState, setPageState] = useState<0|1|2>(0);
+    // pageが全体ページを閲覧中、viewが個別ページを閲覧中、editが個別ページを編集中
+    const [pageState, setPageState] = useState<PageState>("page");
+
+    // データを新規作成する際選択した日付を管理する
+    const [createDate, setCreateDate] = useState<Date | null>(null);
 
     // 現在個別ページで操作しているデータのidを操作する
     const [fetchingId, setFetchingId] = useState<string|null>(null);
@@ -38,7 +93,7 @@ export function PageStateProvider({children}: {children: ReactNode}){
     const [tabKey, setTabKey] = useState<TabType>("calendar");
 
     return (
-        <PageStateContext.Provider value={{pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey}}>
+        <PageStateContext.Provider value={{pageState, setPageState, createDate, setCreateDate, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey}}>
             {children}
         </PageStateContext.Provider>
     );

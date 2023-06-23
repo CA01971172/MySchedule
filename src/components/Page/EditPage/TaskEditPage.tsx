@@ -9,7 +9,7 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 export default function TaskEditPage() {
     // 現在操作中のデータ等を管理する
-    const {fetchingId, setFetchingId, fetchingData, setFetchingData} = useContext(PageStateContext);
+    const {fetchingId, setFetchingId, createDate, fetchingData, setFetchingData} = useContext(PageStateContext);
 
     // 課題のデータを管理する
     const [tasks, setTasks] = useContext(TaskContext);
@@ -22,7 +22,8 @@ export default function TaskEditPage() {
     useEffect(() => {
         let convertData: Task;
         if(fetchingData === null){
-            const initialDate: Date = new Date();
+            let initialDate: Date = new Date();
+            if(createDate !== null) initialDate = createDate;
             const initialTime: number = initialDate.getTime();
             convertData = {
                 title: "",
