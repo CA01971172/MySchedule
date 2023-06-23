@@ -8,7 +8,7 @@ import DateInputGroup from "./Form/DateInputGroup"
 
 export default function ShiftEditPage() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {fetchingId, setFetchingId, fetchingData, setFetchingData} = useContext(PageStateContext);
 
     // バイトシフトのデータを管理する
     const [shifts, setShifts] = useContext(ShiftContext);

@@ -10,7 +10,7 @@ import MinutesInput from "./Form/MinutesInput"
 
 export default function TimetableEditPage() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {fetchingId, setFetchingId, fetchingData, setFetchingData} = useContext(PageStateContext);
 
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);

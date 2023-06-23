@@ -4,7 +4,7 @@ import { Shift } from "./../../../utils/types"
 import ViewUiBar from '../../UiBarColumn/ViewUiBar';
 
 export default function ShiftViewPage() {
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {fetchingData} = useContext(PageStateContext);
 
     // データの型をShiftだと解釈しておく
     const [data, setData] = useState<Shift>({} as Shift);

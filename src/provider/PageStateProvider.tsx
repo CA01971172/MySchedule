@@ -1,18 +1,27 @@
 import React, { createContext, useState, ReactNode } from 'react';
 import { Timetable, Task, Shift, Event, TabType } from "./../utils/types"
 
-type MyType = [
-    0|1|2,
-    React.Dispatch<React.SetStateAction<0|1|2>>,
-    string|null,
-    React.Dispatch<React.SetStateAction<string|null>>,
-    Event|Timetable|Task|Shift|null,
-    React.Dispatch<React.SetStateAction<Event|Timetable|Task|Shift|null>>,
-    TabType,
-    React.Dispatch<React.SetStateAction<TabType>>,
-]
+interface PageStates{
+    pageState: 0|1|2;
+    setPageState: React.Dispatch<React.SetStateAction<0|1|2>>;
+    fetchingId: string|null;
+    setFetchingId: React.Dispatch<React.SetStateAction<string|null>>;
+    fetchingData: Event|Timetable|Task|Shift|null;
+    setFetchingData: React.Dispatch<React.SetStateAction<Event|Timetable|Task|Shift|null>>;
+    tabKey: TabType;
+    setTabKey: React.Dispatch<React.SetStateAction<TabType>>;
+}
 
-export const PageStateContext = createContext<MyType>([0, ()=>{}, null, ()=>{}, null, ()=>{}, "calendar", ()=>{}])
+export const PageStateContext = createContext<PageStates>({
+    pageState: 0,
+    setPageState: ()=>{},
+    fetchingId: null,
+    setFetchingId: ()=>{},
+    fetchingData: null,
+    setFetchingData: ()=>{},
+    tabKey: "calendar",
+    setTabKey: ()=>{}
+})
 
 export function PageStateProvider({children}: {children: ReactNode}){
     // 個別データを閲覧/編集中かどうかを管理する
@@ -29,7 +38,7 @@ export function PageStateProvider({children}: {children: ReactNode}){
     const [tabKey, setTabKey] = useState<TabType>("calendar");
 
     return (
-        <PageStateContext.Provider value={[pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey]}>
+        <PageStateContext.Provider value={{pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey}}>
             {children}
         </PageStateContext.Provider>
     );
