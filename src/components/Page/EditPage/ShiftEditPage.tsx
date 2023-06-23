@@ -8,7 +8,7 @@ import DateInputGroup from "./Form/DateInputGroup"
 
 export default function ShiftEditPage() {
     // 現在操作中のデータ等を管理する
-    const {fetchingId, setFetchingId, fetchingData, setFetchingData} = useContext(PageStateContext);
+    const {fetchingId, setFetchingId, createDate, fetchingData, setFetchingData} = useContext(PageStateContext);
 
     // バイトシフトのデータを管理する
     const [shifts, setShifts] = useContext(ShiftContext);
@@ -21,7 +21,8 @@ export default function ShiftEditPage() {
     useEffect(() => {
         let convertData: Shift;
         if(fetchingData === null){
-            const initialDate: Date = new Date();
+            let initialDate: Date = new Date();
+            if(createDate !== null) initialDate = createDate;
             const initialTime: number = initialDate.getTime();
             convertData = {
                 startTime: initialTime,

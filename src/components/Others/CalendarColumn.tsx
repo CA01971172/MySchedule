@@ -6,7 +6,8 @@ import CalendarDay from "./CalendarDay"
 import { Event, Shift, Task, CalendarData } from '../../utils/types';
 import { CalendarContext } from '../../provider/CalendarProvider';
 
-type MonthDay = {
+type DateNumber = {
+    year: number;
     month: number;
     day: number;
     dayOfWeek: number;
@@ -24,25 +25,40 @@ export default function CalendarColumn({pageType}: {pageType: "shift" | "calenda
     // const [events, setEvents] = useContext(EventContext);
 
     // その月のカレンダーに格納すべき日を全て取得する関数
-    function getDays(): MonthDay[]{
-        const result: MonthDay[] = new Array;
+    function getDays(): DateNumber[]{
+        const result: DateNumber[] = new Array;
         // 余白埋め用で、先月分のカレンダーの部分を作成する
         const firstWeekDay: number = new Date(focusYear, focusMonth - 1, 1).getDay(); // 月の初日の曜日
         const prevMonthDayLength: number = firstWeekDay; // その月のカレンダーがどれだけ前の月の日を含むか
         const lastPrevMonthDay: number = new Date(focusYear, focusMonth - 1, 0).getDate(); // 前の月の最終日
         for(let i: number = lastPrevMonthDay - prevMonthDayLength + 1; i <= lastPrevMonthDay; i++){
-            result.push({ month: focusMonth - 1, day: i, dayOfWeek: getDayOfWeek(focusYear, focusMonth - 1, i) });
+            result.push({
+                year: focusYear,
+                month: focusMonth - 1,
+                day: i,
+                dayOfWeek: getDayOfWeek(focusYear, focusMonth - 1, i)
+            });
         }
         // 今月分のカレンダーの部分を作成する
         const lastMonthDay: number = new Date(focusYear, focusMonth, 0).getDate(); // 今の月の最終日
         for(let i: number = 1; i <= lastMonthDay; i++){
-            result.push({ month: focusMonth, day: i, dayOfWeek: getDayOfWeek(focusYear, focusMonth, i) });
+            result.push({
+                year: focusYear,
+                month: focusMonth,
+                day: i, 
+                dayOfWeek: getDayOfWeek(focusYear, focusMonth, i) 
+            });
         }
         // 余白埋め用で、来月分のカレンダーの部分を作成する
         const calendarRows: number = 6; // カレンダーが含む行数
         const surplusLength: number = calendarRows * 7 - result.length// 先月と今月の日をカレンダーに入れて、カレンダーの余った部分の日数
         for(let i: number = 1; i <= surplusLength; i++){
-            result.push({ month: focusMonth + 1, day: i, dayOfWeek: getDayOfWeek(focusYear, focusMonth + 1, i) });
+            result.push({
+                year: focusYear,
+                month: focusMonth + 1,
+                day: i,
+                dayOfWeek: getDayOfWeek(focusYear, focusMonth + 1, i)
+            });
         }
         return result;
     }
@@ -144,6 +160,8 @@ export default function CalendarColumn({pageType}: {pageType: "shift" | "calenda
                     key={`${focusYear}/${value.month}/${value.day}`}
                     border={getBorder(index)}
                     textColor={getTextColor(value.dayOfWeek, value.month)}
+                    year={value.year}
+                    month={value.month}
                     day={value.day}
                     data={getDayData(focusYear, value.month, value.day)}
                 />

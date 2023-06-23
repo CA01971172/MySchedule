@@ -39,7 +39,7 @@ export default function CalendarCard({ cardType, data }: { cardType: "task"|"shi
             onMouseLeave={() => setIsActive(false)}
             onTouchStart={() => setIsActive(true)}
             onTouchEnd={() => setIsActive(false)}
-            onClick={() => {
+            onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
                 if(data.id){
                     setFetchingId(data.id);
                     setFetchingData(data);
@@ -50,6 +50,7 @@ export default function CalendarCard({ cardType, data }: { cardType: "task"|"shi
                         setPageState(newPageState);
                     }
                 }
+                event.stopPropagation(); // 親要素へのonClickイベントの伝搬を止める
             }}
         >
             <span className="w-100 d-inline-block text-nowrap overflow-hidden" style={{fontSize: "12px"}}>{getTitle()}</span>

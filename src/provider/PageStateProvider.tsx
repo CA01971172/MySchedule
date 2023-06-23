@@ -52,6 +52,8 @@ export function convertPageState(pageType: PageState, pageMode: "View"|"Edit"): 
 interface PageStates{
     pageState: PageState;
     setPageState: React.Dispatch<React.SetStateAction<PageState>>;
+    createDate: Date | null;
+    setCreateDate: React.Dispatch<React.SetStateAction<Date | null>>;
     fetchingId: string|null;
     setFetchingId: React.Dispatch<React.SetStateAction<string|null>>;
     fetchingData: Event|Timetable|Task|Shift|null;
@@ -63,6 +65,8 @@ interface PageStates{
 export const PageStateContext = createContext<PageStates>({
     pageState: "page",
     setPageState: ()=>{},
+    createDate: null,
+    setCreateDate: ()=>{},
     fetchingId: null,
     setFetchingId: ()=>{},
     fetchingData: null,
@@ -76,6 +80,9 @@ export function PageStateProvider({children}: {children: ReactNode}){
     // pageが全体ページを閲覧中、viewが個別ページを閲覧中、editが個別ページを編集中
     const [pageState, setPageState] = useState<PageState>("page");
 
+    // データを新規作成する際選択した日付を管理する
+    const [createDate, setCreateDate] = useState<Date | null>(null);
+
     // 現在個別ページで操作しているデータのidを操作する
     const [fetchingId, setFetchingId] = useState<string|null>(null);
 
@@ -86,7 +93,7 @@ export function PageStateProvider({children}: {children: ReactNode}){
     const [tabKey, setTabKey] = useState<TabType>("calendar");
 
     return (
-        <PageStateContext.Provider value={{pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey}}>
+        <PageStateContext.Provider value={{pageState, setPageState, createDate, setCreateDate, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey}}>
             {children}
         </PageStateContext.Provider>
     );

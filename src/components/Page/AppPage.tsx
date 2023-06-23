@@ -67,7 +67,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     const tabList: TabType[] = ["timetable", "task", "shift", "event", "calendar"]; // タブの一覧を左から順に定義しておく
 
     // ページの状態を管理する
-    const {pageState, setPageState, setFetchingId, setFetchingData, tabKey, setTabKey} = useContext(PageStateContext);
+    const {pageState, setPageState, setCreateDate, setFetchingId, setFetchingData, tabKey, setTabKey} = useContext(PageStateContext);
 
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
@@ -80,6 +80,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     // タブを切り替える関数
     function changeTab(tabName: TabType){
         setPageState("page");
+        setCreateDate(null);
         setFetchingId(null);
         setFetchingData(null);
         const nowTabIndex: number = tabList.findIndex(element => element === tabKey); // 開いているタブのindex番号を取得する

@@ -12,7 +12,7 @@ import EventDbController from '../../utils/DbController/EventDbController';
 
 export default function ViewUiBar({contentType}: {contentType: ContentType}){
     // 現在操作中のデータ等を管理する
-    const {pageState, setPageState, fetchingId, setFetchingId, setFetchingData} = useContext(PageStateContext);
+    const {pageState, setPageState, setCreateDate, fetchingId, setFetchingId, setFetchingData} = useContext(PageStateContext);
 
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);
@@ -61,6 +61,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     className="btn btn-default fs-3"
                     onClick={() => {
                         setPageState("page")
+                        setCreateDate(null);
                         setFetchingId(null);
                         setFetchingData(null);
                     }}
@@ -75,7 +76,8 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                             const isDeleteDo: boolean = window.confirm("このデータを削除します。\nよろしいですか？");
                             if(isDeleteDo){
                                 deleteData();
-                                setPageState("page")
+                                setPageState("page");
+                                setCreateDate(null);
                                 setFetchingId(null);
                                 setFetchingData(null);
                             }
