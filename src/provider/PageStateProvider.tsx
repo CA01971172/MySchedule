@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode } from 'react';
-import { Timetable, Task, Shift, Event, TabType } from "./../utils/types"
+import { Timetable, Task, Shift, Event, TabType, ContentType } from "./../utils/types"
 
 export type PageState = (
     "page"
@@ -14,6 +14,40 @@ export type PageState = (
     | "eventView"
     | "eventEdit"
 );
+
+// 〇〇Viewを〇〇Editに変換する、などの変換を行う関数
+export function convertPageState(pageType: PageState, pageMode: "View"|"Edit"): PageState{
+    let result: PageState = "page"
+    let contentType: ContentType | "" = "";
+    switch(pageType){
+        case "timetableView":
+        case "timetableEdit":
+            contentType = "timetable";
+            break;
+        case "taskView":
+        case "taskEdit":
+            contentType = "task";
+            break;
+        case "shiftView":
+        case "shiftEdit":
+            contentType = "shift";
+            break;
+        case "eventView":
+        case "eventEdit":
+            contentType = "event";
+            break;
+        default:
+            if(pageMode === "View"){
+                return "view";
+            }else if(pageMode === "Edit"){
+                return "edit"
+            }else{
+                return "page";
+            }
+    }
+    result = (contentType + pageMode) as PageState;
+    return result;
+}
 
 interface PageStates{
     pageState: PageState;
@@ -41,6 +75,10 @@ export function PageStateProvider({children}: {children: ReactNode}){
     // 個別データを閲覧/編集中かどうかを管理する
     // pageが全体ページを閲覧中、viewが個別ページを閲覧中、editが個別ページを編集中
     const [pageState, setPageState] = useState<PageState>("page");
+
+    React.useEffect(()=>{
+        console.log("pageState:",pageState)
+    },[pageState])
 
     // 現在個別ページで操作しているデータのidを操作する
     const [fetchingId, setFetchingId] = useState<string|null>(null);
