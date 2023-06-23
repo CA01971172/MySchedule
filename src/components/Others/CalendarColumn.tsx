@@ -1,9 +1,5 @@
 import React, { useContext } from 'react';
-import { TaskContext } from "./../../provider/TaskProvider"
-import { ShiftContext } from "./../../provider/ShiftProvider"
-// import { EventContext } from "./../../provider/EventProvider"
 import CalendarDay from "./CalendarDay"
-import { Event, Shift, Task, CalendarData } from '../../utils/types';
 import { CalendarContext } from '../../provider/CalendarProvider';
 
 type DateNumber = {
@@ -16,13 +12,6 @@ type DateNumber = {
 export default function CalendarColumn({pageType}: {pageType: "shift" | "calendar"}) {
     // バイトシフトのドロワーメニュー用Context
     const {focusYear, focusMonth, shiftCalendarRef} = useContext(CalendarContext);
-
-    // 課題のデータを管理する
-    const [tasks, setTasks] = useContext(TaskContext);
-    // バイトのシフトのデータを管理する
-    const [shifts, setShifts] = useContext(ShiftContext);
-    // 予定のデータを管理する
-    // const [events, setEvents] = useContext(EventContext);
 
     // その月のカレンダーに格納すべき日を全て取得する関数
     function getDays(): DateNumber[]{
@@ -107,12 +96,12 @@ export default function CalendarColumn({pageType}: {pageType: "shift" | "calenda
             {(getDays().map((value, index)=>(
                 <CalendarDay
                     key={`${focusYear}/${value.month}/${value.day}`}
+                    pageType={pageType}
                     border={getBorder(index)}
                     textColor={getTextColor(value.dayOfWeek, value.month)}
                     year={value.year}
                     month={value.month}
                     day={value.day}
-                    data={getDayData(focusYear, value.month, value.day)}
                 />
             )))}
         </div>

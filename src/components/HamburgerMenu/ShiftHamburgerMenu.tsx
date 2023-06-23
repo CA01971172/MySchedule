@@ -95,7 +95,7 @@ export function ShiftHamburgerMenu() {
       let newId: string = await ShiftDbController.createShift(newShift, true);
       console.log("newId:",newId)
       setShifts((prev) => { // useStateのシフトデータを作成する
-        const newShifts: Shifts = Object.assign(prev, newShift);
+        const newShifts: Shifts = {...prev, newShift};
         console.log("set", newShift)
         console.log("newShifts", newShifts)
         return newShifts;
@@ -103,9 +103,6 @@ export function ShiftHamburgerMenu() {
     }
     return;
   }
-  React.useEffect(()=>{
-    console.log("changed.",shifts)
-  },[shifts])
   // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に貼り付け(上書き)する
   async function pasteWeekShift(week: number): Promise<void>{
     if(keptShifts === null){

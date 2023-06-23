@@ -8,6 +8,10 @@ export function ShiftProvider({children}: {children: ReactNode}){
     // バイトのシフトのデータを管理する
     const [shifts, setShifts] = useState<Shifts>({})
 
+    React.useEffect(()=>{
+        console.log("shift changed",shifts)
+    },[shifts])
+
     useEffect(() => {
         let newShiftsData: Shifts;
         ShiftDbController.readShift().then((response) =>{
