@@ -4,6 +4,7 @@ import { CalendarContext } from '../../provider/CalendarProvider';
 import { ShiftContext } from '../../provider/ShiftProvider';
 import CopyPasteButtonColumn from "./CopyPasteButtonColumn"
 import { Shift, Shifts } from '../../utils/types';
+import ShiftDbController from '../../utils/DbController/ShiftDbController';
 
 // Dateオブジェクトを別の週のDateオブジェクトに変換する関数
 function getDateInDifferentWeek(date: Date, year: number, month: number, week: number) {
@@ -43,13 +44,13 @@ export function ShiftHamburgerMenu() {
     const startTime: number = startDate.getTime();
     const endDate: Date = new Date(focusYear, focusMonth - 1, firstSunday + 7); // 第n+1週目の日曜日のDate
     const endTime: number = endDate.getTime();
-    Object.keys(shifts).map((key, index) => {
+    for(const key in shifts){
       const value: Shift = shifts[key];
       const valueTime: number = value.startTime;
       if((valueTime >= startTime) && (valueTime < endTime)){
         result[key] = value;
       }
-    })
+    }
     return result;
   }
   // 指定の週のシフトのデータをクリップボード(？)に保存する 
@@ -59,19 +60,22 @@ export function ShiftHamburgerMenu() {
   }
 
   // 指定の週のシフトのデータが削除されたデータを取得する
-  async function deleteWeekShift(week: number): Promise<Shifts>{
+  async function deleteWeekShift(week: number): Promise<void>{
     const deleteTargets: Shifts = getWeekShift(week);
     const deleteId: string[] = Object.keys(deleteTargets);
-    const result = Object.assign({}, shifts);
-    deleteId.map((id) => {
-      delete result[id];
-    })
-    return result;
+    setShifts((prev) => {
+      const nextState = { ...prev };
+      deleteId.forEach((id: string) => {
+        delete nextState[id]; // useStateのシフトデータを削除する
+        ShiftDbController.deleteShift(id); // データベースのシフトデータを削除する
+      });
+      return nextState;
+    });
   }
   // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に作成したデータを取得する
-  async function createWeekShift(week: number, deletedData: Shifts, keptData: Shifts): Promise<Shifts>{
+  async function createWeekShift(week: number, keptData: Shifts): Promise<void>{
     const newData: Shifts = {};
-    Object.keys(keptData).map((key) => {
+    for(const key in keptData){
       // シフトのデータを取得する
       const value: Shift = keptData[key];
       const startTime: number = value.startTime;
@@ -87,21 +91,26 @@ export function ShiftHamburgerMenu() {
         endTime: endTimeInTheWeek,
         breakTime: value.breakTime
       }
-      const newId: string = new Date().getTime().toString(16) + "_" + Math.floor(1000*Math.random()).toString(16);
+      // データベースのシフトデータを作成する
+      // 作成したデータのキーを取得する
+      let newId: string = await ShiftDbController.createShift(newShift, true);
+      console.log("newId:",newId)
       newData[newId] = newShift;
-    })
-    const result: Shifts = Object.assign(deletedData, newData);
-    return result;
+    }
+    setShifts((prev) => { // useStateのシフトデータを作成する
+      console.log("fin")
+      console.log(prev)
+      return Object.assign(prev, newData);
+    });
+    return;
   }
   // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に貼り付け(上書き)する
   async function pasteWeekShift(week: number): Promise<void>{
     if(keptShifts === null){
       window.alert("シフトのデータがコピーされていません。")
     }else{
-      const deletedData: Shifts = await deleteWeekShift(week);
-      const addedData: Shifts = await createWeekShift(week, deletedData, keptShifts);
-      const newData: Shifts = Object.assign(deletedData, addedData);
-      setShifts(newData);
+      deleteWeekShift(week);
+      createWeekShift(week, keptShifts);
     }
   }
 

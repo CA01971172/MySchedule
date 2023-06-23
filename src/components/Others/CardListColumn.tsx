@@ -7,9 +7,9 @@ export default function CardListColumn({ pageType, data } : { pageType: "task" |
     const [idAddedData, setIdAddedData] = useState<Tasks|Events>({});
     useEffect(() => {
         const newData: Tasks|Events = Object.assign({}, data);
-        Object.keys(data).map((key) => {
+        for(const key in data){
             newData[key]["id"] = key;
-        })
+        }
         setIdAddedData(data);
     }, [data])
 
