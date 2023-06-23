@@ -5,6 +5,27 @@ import { ShiftContext } from '../../provider/ShiftProvider';
 import CopyPasteButtonColumn from "./CopyPasteButtonColumn"
 import { Shift, Shifts } from '../../utils/types';
 
+// Dateオブジェクトを別の週のDateオブジェクトに変換する関数
+function getDateInDifferentWeek(date: Date, year: number, month: number, week: number) {
+  // 一旦指定された週のデータを取得する
+  const firstDayOfWeek: number = 1 + (week - 1) * 7; // 指定された週の日を取得する(1, 8, 15...)  
+  const firstDate: Date = new Date(year, month - 1, firstDayOfWeek); // 指定された年と月で新しいDateオブジェクトを作成する
+  const firstWeekday: number = firstDate.getDay(); // 指定された週の日(1, 8, 15...)の曜日を取得する
+
+  // 指定された週の日曜日の日のデータを取得する
+  const firstSunday: number = firstDayOfWeek - firstWeekday; // 指定された週の最初の日曜日の日を取得する
+  
+  // 受け取ったDateオブジェクトのデータを取得する
+  const receivedWeekday: number = date.getDay(); // 受け取ったDateオブジェクトの曜日を取得する
+
+  // 指定された週内に移した、受け取ったDateオブジェクトのデータを取得する
+  const dayInTheWeek: number = firstSunday + receivedWeekday; // 指定された週の受け取ったDateオブジェクトの曜日の日を取得する
+  const result: Date = date;
+  result.setDate(dayInTheWeek);
+  
+  return result;
+}
+
 export function ShiftHamburgerMenu() {
   // バイトシフトのドロワーメニュー用Context
   const {keptShifts, setKeptShifts, focusYear, focusMonth, calendarHeight} = useContext(CalendarContext);
@@ -25,15 +46,63 @@ export function ShiftHamburgerMenu() {
       const value: Shift = shifts[key];
       const valueTime: number = value.startTime;
       if((valueTime >= startTime) && (valueTime < endTime)){
-        result.key = value;
+        result[key] = value;
       }
     })
     return result;
   }
   // 指定の週のシフトのデータをクリップボード(？)に保存する 
-  function keepWeekShift(week: number): void{
+  function copyWeekShift(week: number): void{
     const weekShift: Shifts = getWeekShift(week);
     setKeptShifts(weekShift);
+    console.log("copy:", weekShift)
+  }
+
+  // 指定の週のシフトのデータを削除する
+  async function deleteWeekShift(week: number): Promise<void>{
+    const deleteTargets: Shifts = getWeekShift(week);
+    const deleteId: string[] = Object.keys(deleteTargets);
+    const shiftData = Object.assign({}, shifts);
+    deleteId.map((id) => {
+      delete shiftData[id];
+    })
+    setShifts(shiftData);
+    console.log("delete:", deleteId)
+  }
+  // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に作成する
+  async function createWeekShift(week: number, keptData: Shifts): Promise<void>{
+    const newData: Shifts = {};
+    Object.keys(keptData).map((key) => {
+      // シフトのデータを取得する
+      const value: Shift = shifts[key];
+      const startTime: number = value.startTime;
+      const startDate: Date = new Date(startTime);
+      const endTime: number = value.endTime;
+      // 取得したシフトのデータを別の週のデータに変換数r
+      const startDateInTheWeek: Date = getDateInDifferentWeek(startDate, focusYear, focusMonth, week);
+      const startTimeInTheWeek: number = startDateInTheWeek.getTime();
+      const timeDifference: number = startTimeInTheWeek - startTime; // シフトのデータと、指定された週のデータとの差
+      const endTimeInTheWeek: number = endTime + timeDifference;
+      const newShift: Shift = {
+        startTime: startTimeInTheWeek,
+        endTime: endTimeInTheWeek,
+        breakTime: value.breakTime
+      }
+      const newId: string = new Date().getTime().toString(16)  + Math.floor(1000*Math.random()).toString(16);
+      newData[newId] = newShift;
+    })
+    const result: Shifts = Object.assign(shifts, newData);
+    setShifts(result);
+    console.log("create:", newData)
+  }
+  // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に貼り付け(上書き)する
+  async function pasteWeekShift(week: number): Promise<void>{
+    if(keptShifts === null){
+      window.alert("シフトのデータがコピーされていません。")
+    }else{
+      await deleteWeekShift(week);
+      await createWeekShift(week, keptShifts);
+    }
   }
 
   return (
@@ -41,12 +110,12 @@ export function ShiftHamburgerMenu() {
     <HamburgerMenuHeader/>
     <div className="flex-grow-1 border-bottom w-100 d-flex align-items-center justify-content-center">週単位シフトコピペ</div>
     <div className="container" style={{height: `${calendarHeight}px`}}>
-      <CopyPasteButtonColumn week={1} keepWeekShift={keepWeekShift}/>
-      <CopyPasteButtonColumn week={2} keepWeekShift={keepWeekShift}/>
-      <CopyPasteButtonColumn week={3} keepWeekShift={keepWeekShift}/>
-      <CopyPasteButtonColumn week={4} keepWeekShift={keepWeekShift}/>
-      <CopyPasteButtonColumn week={5} keepWeekShift={keepWeekShift}/>
-      <CopyPasteButtonColumn week={6} keepWeekShift={keepWeekShift}/>
+      <CopyPasteButtonColumn week={1} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>
+      <CopyPasteButtonColumn week={2} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>
+      <CopyPasteButtonColumn week={3} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>
+      <CopyPasteButtonColumn week={4} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>
+      <CopyPasteButtonColumn week={5} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>
+      <CopyPasteButtonColumn week={6} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>
     </div>
   </div>
   );

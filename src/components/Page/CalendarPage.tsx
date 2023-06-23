@@ -12,7 +12,6 @@ export default function CalendarPage() {
                 <WeekdayColumn pageType="calendar"/>
                 <CalendarColumn pageType="calendar"/>
             </div>
-            <AddButton/>
         </div>
     );
 }
