@@ -86,57 +86,6 @@ export default function CalendarColumn({pageType}: {pageType: "shift" | "calenda
         return result;
     }
 
-    // その日のデータを取得する関数
-    function getDayData(year: number, month: number, day: number): CalendarData{
-        const result: CalendarData = {
-            tasks: [],
-            shifts: [],
-            events: []
-        };
-        // 今日初めと翌日初めのDateオブジェクトを取得する
-        const nowDay: Date = new Date(year, month-1, day);
-        const nowDayTime: number = nowDay.getTime();
-        const nextDay: Date = new Date(year, month-1, day+1);
-        const nextDayTime: number = nextDay.getTime();
-        // アルバイトシフトのデータを取得する
-        const shiftsInRange: Shift[] = new Array;
-        Object.keys(shifts).forEach((key) => {
-            const value: Shift = shifts[key];
-            const startTime: number = value.startTime;
-            if((startTime >= nowDayTime) && (startTime < nextDayTime)){
-                value.id = key;
-                shiftsInRange.push(value);
-            }
-        })
-        result.shifts = shiftsInRange;
-        // シフトでなくカレンダーページなら、課題と予定のデータを取得する
-        if(pageType === "calendar"){
-            // 課題のデータを取得する
-            const tasksInRange: Task[] = new Array;
-            Object.keys(tasks).forEach((key) => {
-                const value: Task = tasks[key];
-                const deadline: number = value.deadline;
-                if((deadline >= nowDayTime) && (deadline < nextDayTime)){
-                    value.id = key;
-                    tasksInRange.push(value);
-                }
-            })
-            result.tasks = tasksInRange;
-            // 予定のデータを取得する
-/*             const eventsInRange: Event[] = new Array;
-            Object.keys(events).forEach((key) => {
-                const value: Event = events[key];
-                const startTime: number = value.startTime;
-                if((startTime >= nowDayTime) && (startTime < nextDayTime)){
-                    value.id = key;
-                    eventsInRange.push(value);
-                }
-            })
-            result.events = eventsInRange; */
-        }
-        return result;
-    }
-
     return (
         <div className="row calendar-row flex-grow-1 overflow-hidden" ref={shiftCalendarRef}>
             {(getDays().map((value, index)=>(

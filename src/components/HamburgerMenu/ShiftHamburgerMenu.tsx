@@ -63,18 +63,17 @@ export function ShiftHamburgerMenu() {
   async function deleteWeekShift(week: number): Promise<void>{
     const deleteTargets: Shifts = getWeekShift(week);
     const deleteId: string[] = Object.keys(deleteTargets);
-    setShifts((prev) => {
-      const nextState = { ...prev };
-      deleteId.forEach((id: string) => {
-        delete nextState[id]; // useStateのシフトデータを削除する
-        ShiftDbController.deleteShift(id); // データベースのシフトデータを削除する
+    deleteId.forEach((id: string) => {
+      ShiftDbController.deleteShift(id); // データベースのシフトデータを削除する
+      setShifts((prev) => { // useStateのシフトデータを削除する
+        const deletedShifts = { ...prev };
+        delete deletedShifts[id];
+        return deletedShifts;
       });
-      return nextState;
     });
   }
   // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に作成したデータを取得する
   async function createWeekShift(week: number, keptData: Shifts): Promise<void>{
-    const newData: Shifts = {};
     for(const key in keptData){
       // シフトのデータを取得する
       const value: Shift = keptData[key];
@@ -95,15 +94,18 @@ export function ShiftHamburgerMenu() {
       // 作成したデータのキーを取得する
       let newId: string = await ShiftDbController.createShift(newShift, true);
       console.log("newId:",newId)
-      newData[newId] = newShift;
+      setShifts((prev) => { // useStateのシフトデータを作成する
+        const newShifts: Shifts = Object.assign(prev, newShift);
+        console.log("set", newShift)
+        console.log("newShifts", newShifts)
+        return newShifts;
+      });
     }
-    setShifts((prev) => { // useStateのシフトデータを作成する
-      console.log("fin")
-      console.log(prev)
-      return Object.assign(prev, newData);
-    });
     return;
   }
+  React.useEffect(()=>{
+    console.log("changed.",shifts)
+  },[shifts])
   // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に貼り付け(上書き)する
   async function pasteWeekShift(week: number): Promise<void>{
     if(keptShifts === null){
