@@ -9,7 +9,7 @@ export default class ShiftDbController extends DbController {
         super()
     }
 
-    public static async createShift(data: Shift, needReturn: boolean = true): Promise<string>{
+    public static async createShift(data: Shift, needReturn: boolean = false): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource);

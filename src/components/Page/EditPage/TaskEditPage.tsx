@@ -72,7 +72,7 @@ export default function TaskEditPage() {
             newTasks[fetchingId] = newTask;
         }else{
             // データベース上にデータを新規作成する
-            const generatedId: string = await TaskDbController.createTask(newTask);
+            const generatedId: string = await TaskDbController.createTask(newTask, true);
             newTask.id = generatedId;
             // html上のデータを書き換える
             setFetchingId(generatedId);

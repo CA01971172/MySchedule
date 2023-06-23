@@ -9,7 +9,7 @@ export default class TaskDbController extends DbController {
         super()
     }
 
-    public static async createTask(data: Task, needReturn: boolean = true): Promise<string>{
+    public static async createTask(data: Task, needReturn: boolean = false): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);

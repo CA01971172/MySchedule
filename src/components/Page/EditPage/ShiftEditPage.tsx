@@ -79,7 +79,7 @@ export default function ShiftEditPage() {
             newShifts[fetchingId] = newShift;
         }else{
             // データベース上にデータを新規作成する
-            const generatedId: string = await ShiftDbController.createShift(newShift);
+            const generatedId: string = await ShiftDbController.createShift(newShift, true);
             newShift.id = generatedId;
             // html上のデータを書き換える
             setFetchingId(generatedId);

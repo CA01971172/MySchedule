@@ -83,7 +83,7 @@ export default function TimetableEditPage() {
             newTimetables[fetchingId] = newTimetable;
         }else{
             // データベース上にデータを新規作成する
-            const generatedId: string = await TimetableDbController.createTimetable(newTimetable);
+            const generatedId: string = await TimetableDbController.createTimetable(newTimetable, true);
             newTimetable.id = generatedId;
             // html上のデータを書き換える
             setFetchingId(generatedId);

@@ -9,7 +9,7 @@ export default class EventDbController extends DbController {
       super();
     }
   
-    public static async createEvent(data: Event, needReturn: boolean = true): Promise<string> {
+    public static async createEvent(data: Event, needReturn: boolean = false): Promise<string> {
       try{
         if(AppUser.uid){
           const url = EventDbController.buildUrl(AppUser.uid, EventDbController.resource);
