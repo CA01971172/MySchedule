@@ -121,6 +121,7 @@ export default class TaskDbController extends DbController {
                 for(const key in oldData){
                     await TaskDbController.deleteTask(key);
                 }
+                if(Object.keys(oldData).length > 0) console.log("提出期限が過ぎた課題を削除しました", oldData);
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }
