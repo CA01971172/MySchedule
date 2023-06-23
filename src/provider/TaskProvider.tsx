@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { Tasks } from "./../utils/types"
 import TaskDbController from "./../utils/DbController/TaskDbController"
+import TaskSettingsDbController from '../utils/DbController/TaskSettingsDbController';
 
 export const TaskContext = createContext<[Tasks, React.Dispatch<React.SetStateAction<Tasks>>]>([{}, ()=>{}])
 
@@ -10,9 +11,18 @@ export function TaskProvider({children}: {children: ReactNode}){
 
     useEffect(() => {
         let newTasksData: Tasks;
-        TaskDbController.readTask().then((response) =>{
-            newTasksData = response as Tasks;
-            setTasks(newTasksData || {});
+        TaskSettingsDbController.getAutoTaskDelete().then((autoTaskDelete) => {
+            console.log("autoTaskDelete", autoTaskDelete)
+            if(autoTaskDelete === true){
+                TaskDbController.deleteOldTask().then((response) =>{
+
+                });
+            }else{
+                TaskDbController.readTask().then((response) =>{
+                    newTasksData = response as Tasks;
+                    setTasks(newTasksData || {});
+                });
+            }
         });
     }, [])
 

@@ -64,9 +64,9 @@ export default class TaskSettingsDbController extends DbController {
             if(AppUser.uid){
                 const fullResource: string = `${TaskSettingsDbController.resource}/enabledAlert`
                 const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
-                const fetchedData: TaskSettings = await TaskSettingsDbController.readData(url) as TaskSettings
-                if(fetchedData.enabledAlert !== undefined){
-                    result = fetchedData.enabledAlert
+                const fetchedData: boolean = await TaskSettingsDbController.readData(url)
+                if(fetchedData !== undefined){
+                    result = fetchedData
                 }
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
@@ -83,9 +83,7 @@ export default class TaskSettingsDbController extends DbController {
             if(AppUser.uid){
                 const fullResource: string = `${TaskSettingsDbController.resource}/enabledAlert`
                 const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
-                const sendData: { enabledAlert: boolean } = {
-                    enabledAlert
-                }
+                const sendData: boolean = enabledAlert
                 await TaskSettingsDbController.updateData(url, sendData)
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
@@ -101,9 +99,9 @@ export default class TaskSettingsDbController extends DbController {
             if(AppUser.uid){
                 const fullResource: string = `${TaskSettingsDbController.resource}/daysBeforeDeadline`
                 const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
-                const fetchedData: TaskSettings = await TaskSettingsDbController.readData(url) as TaskSettings
-                if(fetchedData.daysBeforeDeadline !== undefined){
-                    result = fetchedData.daysBeforeDeadline
+                const fetchedData: number = await TaskSettingsDbController.readData(url)
+                if(fetchedData !== undefined){
+                    result = fetchedData
                 }
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
@@ -120,9 +118,7 @@ export default class TaskSettingsDbController extends DbController {
             if(AppUser.uid){
                 const fullResource: string = `${TaskSettingsDbController.resource}/daysBeforeDeadline`
                 const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
-                const sendData: { daysBeforeDeadline: number } = {
-                    daysBeforeDeadline
-                }
+                const sendData: number = daysBeforeDeadline
                 await TaskSettingsDbController.updateData(url, sendData)
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
@@ -136,11 +132,11 @@ export default class TaskSettingsDbController extends DbController {
         let result: boolean = TaskSettingsDbController.defaultSettings.autoTaskDelete;
         try{
             if(AppUser.uid){
-                const fullResource: string = `${TaskSettingsDbController.resource}/autTaskDelete`
+                const fullResource: string = `${TaskSettingsDbController.resource}/autoTaskDelete`
                 const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
-                const fetchedData: TaskSettings = await TaskSettingsDbController.readData(url) as TaskSettings
-                if(fetchedData.autoTaskDelete !== undefined){
-                    result = fetchedData.autoTaskDelete
+                const fetchedData: boolean = await TaskSettingsDbController.readData(url)
+                if(fetchedData !== undefined){
+                    result = fetchedData
                 }
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
@@ -155,12 +151,10 @@ export default class TaskSettingsDbController extends DbController {
     public static async setAutoTaskDelete(autoTaskDelete: boolean): Promise<void>{
         try{
             if(AppUser.uid){
-                const fullResource: string = `${TaskSettingsDbController.resource}/autTaskDelete`
+                const fullResource: string = `${TaskSettingsDbController.resource}/autoTaskDelete`
                 const url: string = TaskSettingsDbController.buildUrl(AppUser.uid, fullResource)
-                const sendData: { autoTaskDelete: boolean } = {
-                    autoTaskDelete
-                }
-                await TaskSettingsDbController.updateData(url, sendData)
+                const sendData: boolean = autoTaskDelete;
+                await TaskSettingsDbController.overrideData(url, sendData)
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }

@@ -112,4 +112,24 @@ export default class TaskDbController extends DbController {
             throw new Error("課題のデータを削除できませんでした")
         }
     }
+
+    public static async deleteOldTask(): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const nowTime: number = new Date().getTime();
+                const oldData: Tasks = await TaskDbController.readTaskByRange("deadline", "", String(nowTime));
+                const hoge: string[] = []
+                for(const key in oldData){
+                    hoge.push(oldData[key].title)
+                }
+                console.log("test",hoge)
+                // const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
+                // await TaskDbController.overrideData(url, {});
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
+            }
+        }catch(e){
+            throw new Error("課題のデータを削除できませんでした")
+        }
+    }
 }
