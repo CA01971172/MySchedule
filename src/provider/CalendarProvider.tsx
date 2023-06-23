@@ -2,8 +2,8 @@ import React, { createContext, useState, useEffect, ReactNode, useRef } from 're
 import { Shifts } from "../utils/types"
 
 export const CalendarContext = createContext<{
-    keptShifts: Shifts,
-    setKeptShifts: React.Dispatch<React.SetStateAction<Shifts>>,
+    keptShifts: Shifts | null,
+    setKeptShifts: React.Dispatch<React.SetStateAction<Shifts | null>>,
     shiftCalendarRef: React.RefObject<HTMLDivElement>,
     calendarHeight: number,
     focusYear: number,
@@ -23,7 +23,7 @@ export const CalendarContext = createContext<{
 
 export function CalendarProvider({children}: {children: ReactNode}){
     // クリップボード(？)に保存されたバイトのシフトのデータを管理する
-    const [keptShifts, setKeptShifts] = useState<Shifts>({})
+    const [keptShifts, setKeptShifts] = useState<Shifts | null>(null)
 
     // カレンダー欄の高さを保管する
     const [calendarHeight, setCalendarHeight] = useState<number>(0);

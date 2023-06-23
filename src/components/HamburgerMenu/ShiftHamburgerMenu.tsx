@@ -11,7 +11,7 @@ export function ShiftHamburgerMenu() {
   // バイトのシフトのデータを管理する
   const [shifts, setShifts] = useContext(ShiftContext);
 
-  // 指定の週のシフトのデータをクリップボード(？)に保存する
+  // 指定の週のシフトのデータを取得する
   function getWeekShift(week: number): Shifts{
     const result: Shifts = {}
     const firstDay: number = 1 + (week - 1) * 7; // 第n週目の日
@@ -30,18 +30,23 @@ export function ShiftHamburgerMenu() {
     })
     return result;
   }
+  // 指定の週のシフトのデータをクリップボード(？)に保存する 
+  function keepWeekShift(week: number): void{
+    const weekShift: Shifts = getWeekShift(week);
+    setKeptShifts(weekShift);
+  }
 
   return (
   <div className="d-flex flex-column align-items-center justify-content-center h-100">
     <HamburgerMenuHeader/>
     <div className="flex-grow-1 border-bottom w-100 d-flex align-items-center justify-content-center">週単位シフトコピペ</div>
     <div className="container" style={{height: `${calendarHeight}px`}}>
-      <CopyPasteButtonColumn week={1} getWeekShift={getWeekShift}/>
-      <CopyPasteButtonColumn week={2} getWeekShift={getWeekShift}/>
-      <CopyPasteButtonColumn week={3} getWeekShift={getWeekShift}/>
-      <CopyPasteButtonColumn week={4} getWeekShift={getWeekShift}/>
-      <CopyPasteButtonColumn week={5} getWeekShift={getWeekShift}/>
-      <CopyPasteButtonColumn week={6} getWeekShift={getWeekShift}/>
+      <CopyPasteButtonColumn week={1} keepWeekShift={keepWeekShift}/>
+      <CopyPasteButtonColumn week={2} keepWeekShift={keepWeekShift}/>
+      <CopyPasteButtonColumn week={3} keepWeekShift={keepWeekShift}/>
+      <CopyPasteButtonColumn week={4} keepWeekShift={keepWeekShift}/>
+      <CopyPasteButtonColumn week={5} keepWeekShift={keepWeekShift}/>
+      <CopyPasteButtonColumn week={6} keepWeekShift={keepWeekShift}/>
     </div>
   </div>
   );
