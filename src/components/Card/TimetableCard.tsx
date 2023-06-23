@@ -41,7 +41,7 @@ export default function TimetableCard({ timetable }: { timetable: Timetable}) {
                 if(timetable.id){
                     setFetchingId(timetable.id);
                     setFetchingData(timetable);
-                    setPageState(1);
+                    setPageState("view");
                 }
             }}
         >

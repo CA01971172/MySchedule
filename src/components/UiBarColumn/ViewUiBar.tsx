@@ -60,7 +60,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     type="button"
                     className="btn btn-default fs-3"
                     onClick={() => {
-                        setPageState(0)
+                        setPageState("page")
                         setFetchingId(null);
                         setFetchingData(null);
                     }}
@@ -75,7 +75,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                             const isDeleteDo: boolean = window.confirm("このデータを削除します。\nよろしいですか？");
                             if(isDeleteDo){
                                 deleteData();
-                                setPageState(0)
+                                setPageState("page")
                                 setFetchingId(null);
                                 setFetchingData(null);
                             }
@@ -85,7 +85,7 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     </button>
                     <button
                         className="btn btn-default fs-3"
-                        onClick={() => setPageState(2)}
+                        onClick={() => setPageState("edit")}
                     >
                         <i className="bi bi-pencil"/>
                     </button>

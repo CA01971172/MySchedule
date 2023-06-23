@@ -1,9 +1,23 @@
 import React, { createContext, useState, ReactNode } from 'react';
 import { Timetable, Task, Shift, Event, TabType } from "./../utils/types"
 
+export type PageState = (
+    "page"
+    | "view"
+    | "edit"
+    | "timetableView"
+    | "timetableEdit"
+    | "taskView"
+    | "taskEdit"
+    | "shiftView"
+    | "shiftEdit"
+    | "eventView"
+    | "eventEdit"
+);
+
 interface PageStates{
-    pageState: 0|1|2;
-    setPageState: React.Dispatch<React.SetStateAction<0|1|2>>;
+    pageState: PageState;
+    setPageState: React.Dispatch<React.SetStateAction<PageState>>;
     fetchingId: string|null;
     setFetchingId: React.Dispatch<React.SetStateAction<string|null>>;
     fetchingData: Event|Timetable|Task|Shift|null;
@@ -13,7 +27,7 @@ interface PageStates{
 }
 
 export const PageStateContext = createContext<PageStates>({
-    pageState: 0,
+    pageState: "page",
     setPageState: ()=>{},
     fetchingId: null,
     setFetchingId: ()=>{},
@@ -25,8 +39,8 @@ export const PageStateContext = createContext<PageStates>({
 
 export function PageStateProvider({children}: {children: ReactNode}){
     // 個別データを閲覧/編集中かどうかを管理する
-    // 0が全体ページを閲覧中、1が個別ページを閲覧中、2が個別ページを編集中
-    const [pageState, setPageState] = useState<0|1|2>(0);
+    // pageが全体ページを閲覧中、viewが個別ページを閲覧中、editが個別ページを編集中
+    const [pageState, setPageState] = useState<PageState>("page");
 
     // 現在個別ページで操作しているデータのidを操作する
     const [fetchingId, setFetchingId] = useState<string|null>(null);

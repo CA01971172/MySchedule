@@ -39,7 +39,7 @@ export default function TandemCard({ cardType, data }: { cardType:"task"|"event"
                 if(data.id){
                     setFetchingId(data.id);
                     setFetchingData(data);
-                    setPageState(1);
+                    setPageState("view");
                 }
             }}
         >

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Task, Shift, Event } from "./../../utils/types"
-import { PageStateContext } from '../../provider/PageStateProvider';
+import { PageState, PageStateContext } from '../../provider/PageStateProvider';
 
 export default function CalendarCard({ cardType, data }: { cardType: "task"|"shift"|"event", data: Task|Shift|Event}) {
     // ページの状態を管理する
@@ -41,10 +41,14 @@ export default function CalendarCard({ cardType, data }: { cardType: "task"|"shi
             onTouchEnd={() => setIsActive(false)}
             onClick={() => {
                 if(data.id){
-                    if(tabKey !== cardType) setTabKey(cardType);
                     setFetchingId(data.id);
                     setFetchingData(data);
-                    setPageState(1);
+                    if(tabKey === "shift"){
+                        setPageState("view");
+                    }else{
+                        const newPageState: PageState = `${cardType}View` as PageState;
+                        setPageState(newPageState);
+                    }
                 }
             }}
         >

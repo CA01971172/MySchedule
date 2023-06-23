@@ -13,13 +13,13 @@ export default function EditUiBar({saveData, isTouched}: {saveData: ()=>Promise<
                     className="btn btn-default fs-3"
                     onClick={() => {
                         if((!isTouched) && (fetchingData === null)){
-                            setPageState(0);
+                            setPageState("page");
                         }else{
                             saveData().then(()=>{
                                 if(fetchingData === null){
-                                    setPageState(0);
+                                    setPageState("page");
                                 }else{
-                                    setPageState(1);
+                                    setPageState("view");
                                 }
                             });
                         }

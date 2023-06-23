@@ -12,7 +12,7 @@ export default function AddButton() {
                 onClick={() => {
                     setFetchingId(null);
                     setFetchingData(null);
-                    setPageState(2);
+                    setPageState("edit");
                 }}
             >
                 <i className="bi bi-plus-lg"/>
