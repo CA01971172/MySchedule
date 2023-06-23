@@ -76,10 +76,6 @@ export function PageStateProvider({children}: {children: ReactNode}){
     // pageが全体ページを閲覧中、viewが個別ページを閲覧中、editが個別ページを編集中
     const [pageState, setPageState] = useState<PageState>("page");
 
-    React.useEffect(()=>{
-        console.log("pageState:",pageState)
-    },[pageState])
-
     // 現在個別ページで操作しているデータのidを操作する
     const [fetchingId, setFetchingId] = useState<string|null>(null);
 
