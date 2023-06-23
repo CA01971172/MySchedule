@@ -28,6 +28,7 @@ export default function DateInputGroup(props: MyInterface){
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value: string = event.target.value;
                                 setDate(new Date(value));
+                                setIsTouched(true);
                             }}
                             style={{minWidth: "8rem"}}
                         />
@@ -46,6 +47,7 @@ export default function DateInputGroup(props: MyInterface){
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 const value: string = event.target.value;
                                 setDate(new Date(value));
+                                setIsTouched(true);
                             }}
                         />
                     <HoursInput hours={hours} setHours={setHours} setIsTouched={setIsTouched}/>
