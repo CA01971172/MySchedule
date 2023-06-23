@@ -140,7 +140,7 @@ object型のデータを返します。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 指定された `tag` パラメータと一致する `value` の値を持つ、object型のデータを返します。
 
-* `protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>`
+* `protected async readDataByRange(url: string, tag: string, startAt: number|string, endAt: number|string): Promise<object>`
 指定された範囲条件でデータを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 `url` パラメータには、クエリパラメータを除いたデータベースの完全なURLを指定します。
 指定された `tag` パラメータが `startAt` パラメータと `endAt` パラメータの間に収まる、object型のデータを返します。
@@ -206,7 +206,7 @@ URLで指定されたデータベース上のデータを削除します。
 そして、`readDataByTag()`メソッドの引数`url`に作成したURLを渡します。
 `tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま`readDataByTag()`に渡します。
 
-* `public async readTimetableByRange(tag: string, startAt: string, endAt: string): Promise<Timetables>`
+* `public async readTimetableByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Timetables>`
 指定された範囲条件で時間割データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 `readDataByRange()`メソッドを呼び出すことによって操作を行います。
 まず、`buildUrl()`メソッドの`uid`,`resource`に自身のフィールドの`uid`,`resource`を渡して、データベースへのURLを作成します。
@@ -270,7 +270,7 @@ URLで指定されたデータベース上のデータを削除します。
 そして、`readDataByTag()`メソッドの引数`url`に作成したURLを渡します。
 `tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま`readDataByTag()`に渡します。
 
-* `public async readTaskByRange(tag: string, startAt: string, endAt: string): Promise<Tasks>`
+* `public async readTaskByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Tasks>`
 指定された範囲条件で課題データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 `readDataByRange()`メソッドを呼び出すことによって操作を行います。
 まず、`buildUrl()`メソッドの`uid`,`resource`に自身のフィールドの`uid`,`resource`を渡して、データベースへのURLを作成します。
@@ -316,7 +316,7 @@ URLで指定されたデータベース上のデータを削除します。
 * `public async createData(url: string, data: object): Promise<void>`
 * `protected async readData(url: string): Promise<object>`
 * `protected async readDataByTag(url: string, tag: string, value: string): Promise<object>`
-* `protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>`
+* `protected async readDataByRange(url: string, tag: string, startAt: number|string, endAt: number|string): Promise<object>`
 * `protected async overrideData(url: string, data: object): Promise<void>`
 * `protected async updateData(url: string, data: object): Promise<void>`
 * `protected async deleteData(url: string): Promise<void>`
@@ -420,7 +420,7 @@ URLで指定されたデータベース上のデータを削除します。
 そして、`readDataByTag()`メソッドの引数`url`に作成したURLを渡します。
 `tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま`readDataByTag()`に渡します。
 
-* `public async readShiftByRange(tag: string, startAt: string, endAt: string): Promise<Shifts>`
+* `public async readShiftByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Shifts>`
 指定された範囲条件でアルバイトシフトデータを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 `readDataByRange()`メソッドを呼び出すことによって操作を行います。
 まず、`buildUrl()`メソッドの`uid`,`resource`に自身のフィールドの`uid`,`resource`を渡して、データベースへのURLを作成します。
@@ -486,7 +486,7 @@ URLで指定されたデータベース上のデータを削除します。
 そして、`readEventByTag()`メソッドの引数`url`に作成したURLを渡します。
 `tag`,`value`パラメータなど、その他のパラメータについては、このメソッドで受け取った引数をそのまま`readDataByTag()`に渡します。
 
-* `public async readEventByRange(tag: string, startAt: string, endAt: string): Promise<Events>`
+* `public async readEventByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Events>`
 指定された範囲条件で予定データを絞り込んで、データベースからデータを読み出すパブリックメソッドです。
 `readDataByRange()`メソッドを呼び出すことによって操作を行います。
 まず、`buildUrl()`メソッドの`uid`,`resource`に自身のフィールドの`uid`,`resource`を渡して、データベースへのURLを作成します。
@@ -532,7 +532,7 @@ URLで指定されたデータベース上のデータを削除します。
 * `public async createData(url: string, data: object): Promise<void>`
 * `protected async readData(url: string): Promise<object>`
 * `protected async readDataByTag(url: string, tag: string, value: string): Promise<object>`
-* `protected async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>`
+* `protected async readDataByRange(url: string, tag: string, startAt: number|string, endAt: number|string): Promise<object>`
 * `protected async updateData(url: string, data: object): Promise<void>`
 * `protected async deleteData(url: string): Promise<void>`
 親クラスのメソッドです。オーバーライドはありません。

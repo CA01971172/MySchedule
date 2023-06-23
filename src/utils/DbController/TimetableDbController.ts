@@ -58,7 +58,7 @@ export default class TimetableDbController extends DbController {
         }
     }
 
-    public static async readTimetableByRange(tag: string, startAt: string, endAt: string): Promise<Timetables>{
+    public static async readTimetableByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Timetables>{
         let result: Timetables = {}
         try{
             if(AppUser.uid){

@@ -53,14 +53,22 @@ export default class DbController { // Firebaseのデータを取り扱うため
         return result
     }
 
-    protected static async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<any>{
+    protected static async readDataByRange(url: string, tag: string, startAt: number|string, endAt: number|string): Promise<any>{
         let queryStartAt: string = "";
         if(startAt !== ""){
-            queryStartAt = `&startAt="${startAt}"`
+            if(typeof startAt === "string"){
+                queryStartAt = `&startAt="${startAt}"`
+            }else{
+                queryStartAt = `&startAt=${startAt}`
+            }
         }
         let queryEndAt: string = "";
         if(endAt !== ""){
-            queryEndAt = `&endAt="${endAt}"`
+            if(typeof endAt === "string"){
+                queryEndAt = `&endAt="${endAt}"`
+            }else{
+                queryEndAt = `&endAt=${endAt}`
+            }
         }
         const query: string = `?orderBy="${tag}"${queryStartAt}${queryEndAt}`
         const completeUrl: string = url + query

@@ -58,7 +58,7 @@ export default class ShiftDbController extends DbController {
         }
     }
 
-    public static async readShiftByRange(tag: string, startAt: string, endAt: string): Promise<Shifts>{
+    public static async readShiftByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Shifts>{
         let result: Shifts = {}
         try{
             if(AppUser.uid){

@@ -58,7 +58,7 @@ export default class TaskDbController extends DbController {
         }
     }
 
-    public static async readTaskByRange(tag: string, startAt: string, endAt: string): Promise<Tasks>{
+    public static async readTaskByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Tasks>{
         let result: Tasks = {}
         try{
             if(AppUser.uid){
@@ -117,14 +117,10 @@ export default class TaskDbController extends DbController {
         try{
             if(AppUser.uid){
                 const nowTime: number = new Date().getTime();
-                const oldData: Tasks = await TaskDbController.readTaskByRange("deadline", "", String(nowTime));
-                const hoge: string[] = []
+                const oldData: Tasks = await TaskDbController.readTaskByRange("deadline", "", nowTime);
                 for(const key in oldData){
-                    hoge.push(oldData[key].title)
+                    await TaskDbController.deleteTask(key);
                 }
-                console.log("test",hoge)
-                // const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
-                // await TaskDbController.overrideData(url, {});
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }

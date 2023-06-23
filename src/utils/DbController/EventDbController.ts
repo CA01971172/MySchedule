@@ -58,7 +58,7 @@ export default class EventDbController extends DbController {
       }
     }
     
-    public static async readEventByRange(tag: string, startAt: string, endAt: string): Promise<Events>{
+    public static async readEventByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Events>{
         let result: Events = {}
         try{
           if(AppUser.uid){
