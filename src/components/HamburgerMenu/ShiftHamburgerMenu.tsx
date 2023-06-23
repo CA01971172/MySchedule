@@ -108,8 +108,8 @@ export function ShiftHamburgerMenu() {
   return (
   <div className="d-flex flex-column align-items-center justify-content-center h-100">
     <HamburgerMenuHeader/>
-    <div className="flex-grow-1 border-bottom w-100 d-flex align-items-center justify-content-center">週単位シフトコピペ</div>
-    <div className="container" style={{height: `${calendarHeight}px`}}>
+    <div className="bg-body flex-grow-1 border-bottom w-100 d-flex align-items-center justify-content-center">週単位シフトコピペ</div>
+    <div className="bg-body bg-opacity-25 container" style={{height: `${calendarHeight}px`}}>
       <CopyPasteButtonColumn week={1} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>
       <CopyPasteButtonColumn week={2} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>
       <CopyPasteButtonColumn week={3} copyWeekShift={copyWeekShift} pasteWeekShift={pasteWeekShift}/>

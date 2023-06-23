@@ -303,7 +303,10 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 onClose={() => {
                     closeHamburgerMenu();
                 }}
-                PaperProps={{ style: { width: "60%" } }}
+                PaperProps={{
+                    className: ((tabKey === "shift") ? "bg-transparent" : "bg-body"),
+                    style: { width: "60%" }
+                }}
                 {...swipeDrawerHandlers}
             >
                 {((tabKey === "timetable") ? (

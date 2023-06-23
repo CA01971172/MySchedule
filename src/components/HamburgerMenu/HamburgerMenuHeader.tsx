@@ -8,7 +8,7 @@ export default function HamburgerMenuHeader() {
     const {closeHamburgerMenu} = useContext(DrawerContext);
 
     return (
-        <div className="w-100 p-1 ps-3 pe-3 d-flex justify-content-between align-items-center border-bottom">
+        <div className="bg-body w-100 p-1 ps-3 pe-3 d-flex justify-content-between align-items-center border-bottom">
             <button
                 className="btn fs-3"
                 onClick={() => closeHamburgerMenu()}
