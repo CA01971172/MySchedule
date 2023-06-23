@@ -39,9 +39,10 @@ export default function ViewUiBar({contentType}: {contentType: ContentType}){
                     break;
                 case "shift":
                     newData = Object.assign({}, shifts);
+                    console.log(fetchingId)
                     delete newData[fetchingId];
                     setShifts(newData);
-                    ShiftDbController.deleteShift(fetchingId)
+                    ShiftDbController.deleteShift(fetchingId);
                     break;
                 case "event":
                     // newData = Object.assign({}, timetables);

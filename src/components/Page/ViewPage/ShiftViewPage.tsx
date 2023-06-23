@@ -16,7 +16,7 @@ export default function ShiftViewPage() {
     return (
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
-                <ViewUiBar contentType="task"/>
+                <ViewUiBar contentType="shift"/>
                 <div className="row flex-grow-1 d-block p-3 fs-4">
                     <div className="w-100 p-1 mb-3 border-bottom">
                         <span className="me-3">始</span>
