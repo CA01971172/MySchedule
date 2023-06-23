@@ -1,22 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Events, Tasks } from '../../utils/types';
+import { Events, Event , Tasks, Task } from '../../utils/types';
 import TandemCard from "./../Card/TandemCard"
 
-export default function CardListColumn({ pageType, data } : { pageType: "task" | "event", data: Tasks|Events}) {
-    // 個別のデータの要素の値にも要素のキー(id)を格納しておく
-    const [idAddedData, setIdAddedData] = useState<Tasks|Events>({});
-    useEffect(() => {
-        const newData: Tasks|Events = Object.assign({}, data);
-        for(const key in data){
-            newData[key]["id"] = key;
+// 課題のデータを締め切り時刻で並べ替える関数
+function sortTaskByDeadline(tasks: Tasks): Task[]{
+    const sortedTasks = Object.entries(tasks)
+        .map(([id, task]) => ({ id, ...task }))
+        .sort((a, b) => a.deadline - b.deadline);
+    return sortedTasks;
+}
+
+// 予定のデータを開始時間で並べ替える関数
+function sortEventByStartTime(events: Events): Event[]{
+    const sortedEvents = Object.entries(events)
+        .map(([id, event]) => ({ id, ...event }))
+        .sort((a, b) => a.startTime - b.startTime);
+    return sortedEvents;
+}
+
+export default function CardListColumn({ pageType, data }: { pageType: "task" | "event", data: Tasks|Events}) {
+    // データを整えて管理する
+    const [sortedData, setSortedData] = useState<Task[] | Event[]>([]);
+    useEffect(()=>{
+        let newData: Task[] | Event[] = new Array;
+        if(pageType === "task"){
+            newData = sortTaskByDeadline(data as Tasks);
+        }else if(pageType === "event"){
+            newData = sortEventByStartTime(data as Events);
         }
-        setIdAddedData(data);
+        setSortedData(newData);
     }, [data])
 
     return (
         <div className="row p-2">
-            {Object.keys(idAddedData).map((key) => (
-                <TandemCard key={key} cardType={pageType} data={idAddedData[key]}/>
+            {sortedData.map((data, index) => (
+                <TandemCard key={index} cardType={pageType} data={data}/>
             ))}
         </div>
     );
