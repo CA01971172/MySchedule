@@ -20,9 +20,10 @@ function getDateInDifferentWeek(date: Date, year: number, month: number, week: n
 
   // 指定された週内に移した、受け取ったDateオブジェクトのデータを取得する
   const dayInTheWeek: number = firstSunday + receivedWeekday; // 指定された週の受け取ったDateオブジェクトの曜日の日を取得する
+  date.setFullYear(year);
+  date.setMonth(month - 1);
   const result: Date = date;
   result.setDate(dayInTheWeek);
-  
   return result;
 }
 
@@ -90,7 +91,6 @@ export function ShiftHamburgerMenu() {
       newData[newId] = newShift;
     })
     const result: Shifts = Object.assign(deletedData, newData);
-    console.log("create:", newData)
     return result;
   }
   // クリップボード(？)に保存された指定の週のシフトのデータを指定の週に貼り付け(上書き)する
