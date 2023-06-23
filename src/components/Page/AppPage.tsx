@@ -38,9 +38,12 @@ function convertTabContent(pageType: string | null): TabType{
         case "event":
         case "calendar":
             result = pageType;
+            break;
         default:
             result = "calendar";
     }
+    console.log(pageType, result)
+    console.log(typeof pageType)
     return result;
 }
 
