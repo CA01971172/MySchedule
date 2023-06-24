@@ -1,6 +1,10 @@
 import React, { createContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { Shifts } from "../utils/types"
 
+// const [enableTask, setEnableTask] = useState<boolean>(true);
+// const [enableShift, setEnableShift] = useState<boolean>(true);
+// const [enableEvent, setEnableEvent] = useState<boolean>(true);
+
 export const CalendarContext = createContext<{
     keptShifts: Shifts | null,
     setKeptShifts: React.Dispatch<React.SetStateAction<Shifts | null>>,
@@ -9,7 +13,13 @@ export const CalendarContext = createContext<{
     focusYear: number,
     focusMonth: number,
     initializeFocusMonth: () => void,
-    changeMonth: (amount: 1 | -1) => void
+    changeMonth: (amount: 1 | -1) => void,
+    enableTask: boolean,
+    setEnableTask: React.Dispatch<React.SetStateAction<boolean>>,
+    enableShift: boolean,
+    setEnableShift: React.Dispatch<React.SetStateAction<boolean>>,
+    enableEvent: boolean,
+    setEnableEvent: React.Dispatch<React.SetStateAction<boolean>>
 }>({
     keptShifts: {},
     setKeptShifts: () => {},
@@ -18,7 +28,13 @@ export const CalendarContext = createContext<{
     focusYear: 2000,
     focusMonth: 1,
     initializeFocusMonth: () => {},
-    changeMonth: () => {}
+    changeMonth: () => {},
+    enableTask: false,
+    setEnableTask: () => {},
+    enableShift: false,
+    setEnableShift: () => {},
+    enableEvent: false,
+    setEnableEvent: () => {}
 })
 
 export function CalendarProvider({children}: {children: ReactNode}){
@@ -67,8 +83,20 @@ export function CalendarProvider({children}: {children: ReactNode}){
         if(newYear !== focusMonth) setFocusYear(newYear);
     }
 
+    // 表示するカードのデータを管理する
+    const [enableTask, setEnableTask] = useState<boolean>(true);
+    const [enableShift, setEnableShift] = useState<boolean>(true);
+    const [enableEvent, setEnableEvent] = useState<boolean>(true);
+
     return (
-        <CalendarContext.Provider value={{keptShifts, setKeptShifts, shiftCalendarRef, calendarHeight, focusYear, focusMonth, initializeFocusMonth, changeMonth}}>
+        <CalendarContext.Provider value={{
+            keptShifts, setKeptShifts,
+            shiftCalendarRef, calendarHeight,
+            focusYear, focusMonth, initializeFocusMonth, changeMonth,
+            enableTask, setEnableTask,
+            enableShift, setEnableShift,
+            enableEvent, setEnableEvent
+        }}>
             {children}
         </CalendarContext.Provider>
     );

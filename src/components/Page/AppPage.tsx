@@ -25,7 +25,7 @@ import EventEditPage from "./EditPage/EventEditPage"
 import EventHamburgerMenu from "../HamburgerMenu/EventHamburgerMenu"
 import CalendarPage from "./CalendarPage"
 import { CalendarContext } from '../../provider/CalendarProvider';
-// import CalendarHamburgerMenu from "./../HamburgerMenu/CalendarHamburgerMenu"
+import CalendarHamburgerMenu from "./../HamburgerMenu/CalendarHamburgerMenu"
 
 
 // PageType等をタブの種類に変換する関数
@@ -337,8 +337,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 ) : ((tabKey === "event") ? (
                     <EventHamburgerMenu/>
                 ) : (
-                    <></>
-                    // <CalendarHamburgerMenu/>
+                    <CalendarHamburgerMenu/>
                 )))))}
             </Drawer>
         </div>
