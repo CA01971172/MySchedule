@@ -10,11 +10,11 @@ export default function CalendarHamburgerMenu() {
             <HamburgerMenuHeader/>
             <div className='p-2'>
                 <div className="mb-3 form-group form-check">
-                    <label className="form-check-label user-select-none" htmlFor="enableTask">
+                    <label className="form-check-label user-select-none checkbox-task" htmlFor="enableTask">
                         課題
                     </label>
                     <input
-                        className="form-check-input"
+                        className="form-check-input checkbox-task"
                         type="checkbox"
                         id="enableTask"
                         checked={enableTask}
@@ -26,7 +26,7 @@ export default function CalendarHamburgerMenu() {
                         バイト
                     </label>
                     <input
-                        className="form-check-input"
+                        className="form-check-input checkbox-shift"
                         type="checkbox"
                         id="enableShift"
                         checked={enableShift}
@@ -38,7 +38,7 @@ export default function CalendarHamburgerMenu() {
                         予定
                     </label>
                     <input
-                        className="form-check-input"
+                        className="form-check-input checkbox-event"
                         type="checkbox"
                         id="enableEvent"
                         checked={enableEvent}
