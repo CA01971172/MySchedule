@@ -4,6 +4,7 @@ import { PageState, PageStateContext } from '../../provider/PageStateProvider';
 import { CalendarData, Event, Shift, Task } from '../../utils/types';
 import { TaskContext } from '../../provider/TaskProvider';
 import { ShiftContext } from '../../provider/ShiftProvider';
+import { CalendarContext } from '../../provider/CalendarProvider';
 
 interface MyProps{
     pageType: "shift" | "calendar"
@@ -18,6 +19,8 @@ export default function CalendarDay(props: MyProps) {
     const {pageType, year, month, day, textColor, border} = props;
 
     const {setPageState, setCreateDate, setFetchingId, setFetchingData, tabKey} = useContext(PageStateContext);
+
+    const {enableTask, enableShift, enableEvent} = useContext(CalendarContext);
 
     // 課題のデータを管理する
     const [tasks, setTasks] = useContext(TaskContext);
@@ -96,13 +99,13 @@ export default function CalendarDay(props: MyProps) {
                 {day}
             </div>
             <div className="flex-grow-1 overflow-y-auto">
-                {data.shifts.map((value, index) => (
+                {(((pageType === "calendar") && enableShift) || (pageType === "shift")) && data.shifts.map((value, index) => (
                     <CalendarCard key={index} cardType="shift" data={value}/>
                 ))}
-                {(pageType === "calendar") && data.tasks.map((value, index) => (
+                {((pageType === "calendar") && enableTask) && data.tasks.map((value, index) => (
                     <CalendarCard key={index} cardType="task" data={value}/>
                 ))}
-                {(pageType === "calendar") && data.events.map((value, index) => (
+                {((pageType === "calendar") && enableEvent) && data.events.map((value, index) => (
                     <CalendarCard key={index} cardType="event" data={value}/>
                 ))}
             </div>
