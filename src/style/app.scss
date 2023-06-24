@@ -4,6 +4,12 @@ html, body, #root{
 }
 
 #root{
+    @media (min-width: 768px) {
+        // md以上のときのスタイル
+        .nav-tabs{
+            justify-content: center;
+        }
+    }
     .tab-content{
         flex: 1;
         overflow-y: auto;
