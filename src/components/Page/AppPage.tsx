@@ -4,9 +4,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
 import Drawer from '@mui/material/Drawer';
 import { DrawerContext } from "./../../provider/DrawerProvider"
-import { PageType, TabType, TaskSettings } from "../../utils/types"
-import TaskSettingsDbController from "./../../utils/DbController/TaskSettingsDbController"
-import EventSettingsDbController from "./../../utils/DbController/EventSettingsDbController"
+import { PageType, TabType } from "../../utils/types"
 import TimetablePage from "./TimetablePage"
 import TimetableViewPage from "./ViewPage/TimetableViewPage"
 import TimetableEditPage from "./EditPage/TimetableEditPage"
@@ -26,6 +24,7 @@ import EventHamburgerMenu from "../HamburgerMenu/EventHamburgerMenu"
 import CalendarPage from "./CalendarPage"
 import { CalendarContext } from '../../provider/CalendarProvider';
 import CalendarHamburgerMenu from "./../HamburgerMenu/CalendarHamburgerMenu"
+import { TaskSettingsProvider } from "./../../provider/TaskSettingsProvider"
 
 
 // PageType等をタブの種類に変換する関数
@@ -143,21 +142,6 @@ export default function AppPage({ pageType }: { pageType: PageType }){
 
     // ハンバーガーメニューが開いているかどうかを管理する
     const {drawerOpened, openHamburgerMenu, closeHamburgerMenu} = useContext(DrawerContext);
-
-    // 課題の設定データを管理する
-    const [taskSettings, setTaskSettings] = useState<TaskSettings>({
-        enabledAlert: false,
-        daysBeforeDeadline: 3,
-        autoTaskDelete: false
-    });
-    // 設定データをデータベースから取得する
-    useEffect(() => {
-        let newTaskSettings: TaskSettings = {} as TaskSettings;
-        TaskSettingsDbController.getTaskSettings().then((taskSettings) => {
-            newTaskSettings = taskSettings;
-            setTaskSettings(newTaskSettings);
-        })
-    }, [])
 
     // スワイプイベントを管理する
     const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
@@ -331,7 +315,9 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 {((tabKey === "timetable") ? (
                     <TimetableHamburgerMenu/>
                 ) : ((tabKey === "task") ? (
-                    <TaskHamburgerMenu taskSettings={taskSettings} setTaskSettings={setTaskSettings}/>
+                    <TaskSettingsProvider>
+                        <TaskHamburgerMenu/>
+                    </TaskSettingsProvider>
                 ) : ((tabKey === "shift") ? (
                     <ShiftHamburgerMenu/>
                 ) : ((tabKey === "event") ? (

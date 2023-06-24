@@ -4,10 +4,14 @@ import HamburgerMenuHeader from "./HamburgerMenuHeader"
 import { TaskSettings } from '../../utils/types';
 import { TaskContext } from '../../provider/TaskProvider';
 import TaskDbController from '../../utils/DbController/TaskDbController';
+import { TaskSettingsContext } from '../../provider/TaskSettingsProvider';
 
-export function TaskHamburgerMenu({taskSettings, setTaskSettings}: {taskSettings: TaskSettings, setTaskSettings: (settings: TaskSettings) => void}) {
-    // ハンバーガーメニューが開いているかどうかを管理する
-    const {setIsChangedSettings, setSettings} = useContext(DrawerContext);
+export function TaskHamburgerMenu() {
+  // ハンバーガーメニューが開いているかどうかを管理する
+  const {setIsChangedSettings, setSettings} = useContext(DrawerContext);
+
+  // 課題の設定データを管理する
+  const [taskSettings, setTaskSettings] = useContext(TaskSettingsContext);
 
   // 課題の設定データを編集するための関数
   function changeTaskSettings(enabledAlert?: boolean, daysBeforeDeadline?: number, autoTaskDelete?: boolean){
