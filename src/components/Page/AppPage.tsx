@@ -308,7 +308,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 }}
                 PaperProps={{
                     className: ((tabKey === "shift") ? "bg-transparent" : "bg-body"),
-                    style: { width: "60%" }
+                    style: { width: "60%", maxWidth: "30rem" }
                 }}
                 {...swipeDrawerHandlers}
             >

@@ -1,10 +1,6 @@
 import React, { createContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { Shifts } from "../utils/types"
 
-// const [enableTask, setEnableTask] = useState<boolean>(true);
-// const [enableShift, setEnableShift] = useState<boolean>(true);
-// const [enableEvent, setEnableEvent] = useState<boolean>(true);
-
 export const CalendarContext = createContext<{
     keptShifts: Shifts | null,
     setKeptShifts: React.Dispatch<React.SetStateAction<Shifts | null>>,
