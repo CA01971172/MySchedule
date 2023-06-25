@@ -4,6 +4,7 @@ import { DrawerProvider } from "./DrawerProvider"
 import { TimetableProvider } from "./TimetableProvider"
 import { TaskProvider } from "./TaskProvider"
 import { ShiftProvider } from "./ShiftProvider"
+import { EventProvider } from "./EventProvider"
 import { CalendarProvider } from "./CalendarProvider"
 
 export default function Providers({children}: {children: ReactNode}){
@@ -13,9 +14,11 @@ export default function Providers({children}: {children: ReactNode}){
                 <TimetableProvider>
                     <TaskProvider>
                         <ShiftProvider>
-                            <CalendarProvider>
-                                {children}
-                            </CalendarProvider>
+                            <EventProvider>
+                                <CalendarProvider>
+                                    {children}
+                                </CalendarProvider>
+                            </EventProvider>
                         </ShiftProvider>
                     </TaskProvider>
                 </TimetableProvider>
