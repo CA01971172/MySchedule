@@ -2,6 +2,16 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Task, Event } from "./../../utils/types"
 import { PageStateContext } from '../../provider/PageStateProvider';
 
+// 終日の予定か、それ以外かを判定する関数
+function getIsAllDayEvent(cardType:"task"|"event", data: Task|Event): boolean{
+    if(cardType === "event"){
+        const convertedData: Event = data as Event;
+        return convertedData.isAllDay;
+    }else{
+        return false;
+    }
+}
+
 export default function TandemCard({ cardType, data }: { cardType:"task"|"event", data: Task|Event}) {
     // ページの状態を管理する
     const {setPageState, setFetchingId, setFetchingData} = useContext(PageStateContext);
@@ -52,9 +62,15 @@ export default function TandemCard({ cardType, data }: { cardType:"task"|"event"
                 <span className="me-2">月</span>
                 <span>{dateData ? (dateData.getDate()) : ""}</span>
                 <span className="me-3">日</span>
-                <span>{dateData ? (`00${dateData.getHours()}`.slice(-2)) : ""}</span>
-                <span>：</span>
-                <span>{dateData ? (`00${dateData.getMinutes()}`.slice(-2)) : ""}</span>
+                {!(getIsAllDayEvent(cardType, data)) && (
+                    <span>{dateData ? (`00${dateData.getHours()}`.slice(-2)) : ""}</span>
+                )}
+                {!(getIsAllDayEvent(cardType, data)) && (
+                    <span>：</span>
+                )}
+                {!(getIsAllDayEvent(cardType, data)) && (
+                    <span>{dateData ? (`00${dateData.getMinutes()}`.slice(-2)) : ""}</span>
+                )}
             </div>
         </div>
     );

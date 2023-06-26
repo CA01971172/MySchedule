@@ -13,10 +13,11 @@ interface MyInterface{
     minutes: number;
     setMinutes: (value: React.SetStateAction<number>) => void;
     setIsTouched: (value: React.SetStateAction<boolean>) => void;
+    isAllDay?: boolean;
 }
 
 export default function DateInputGroup(props: MyInterface){
-    const {label, shortLabel, date, setDate, hours, setHours, minutes, setMinutes, setIsTouched } = props;
+    const {label, shortLabel, date, setDate, hours, setHours, minutes, setMinutes, setIsTouched, isAllDay } = props;
     return (
         <div>
             <div className="d-md-none">
@@ -32,9 +33,9 @@ export default function DateInputGroup(props: MyInterface){
                             }}
                             style={{minWidth: "8rem"}}
                         />
-                    <HoursInput hours={hours} setHours={setHours} setIsTouched={setIsTouched}/>
-                    <span className="input-group-text">：</span>
-                    <MinutesInput minutes={minutes} setMinutes={setMinutes} setIsTouched={setIsTouched}/>
+                    {(isAllDay !== true) && (<HoursInput hours={hours} setHours={setHours} setIsTouched={setIsTouched}/>)}
+                    {(isAllDay !== true) && (<span className="input-group-text">：</span>)}
+                    {(isAllDay !== true) && (<MinutesInput minutes={minutes} setMinutes={setMinutes} setIsTouched={setIsTouched}/>)}
                 </div>
             </div>
             <div className="d-none d-md-block">
@@ -50,9 +51,9 @@ export default function DateInputGroup(props: MyInterface){
                                 setIsTouched(true);
                             }}
                         />
-                    <HoursInput hours={hours} setHours={setHours} setIsTouched={setIsTouched}/>
-                    <span className="input-group-text">：</span>
-                    <MinutesInput minutes={minutes} setMinutes={setMinutes} setIsTouched={setIsTouched}/>
+                    {(isAllDay !== true) && (<HoursInput hours={hours} setHours={setHours} setIsTouched={setIsTouched}/>)}
+                    {(isAllDay !== true) && (<span className="input-group-text">：</span>)}
+                    {(isAllDay !== true) && (<MinutesInput minutes={minutes} setMinutes={setMinutes} setIsTouched={setIsTouched}/>)}
                 </div>
             </div>
         </div>
