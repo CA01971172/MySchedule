@@ -4,7 +4,7 @@ import TandemCard from "./../Card/TandemCard"
 
 // 課題のデータを締め切り時刻で並べ替える関数
 function sortTaskByDeadline(tasks: Tasks): Task[]{
-    const sortedTasks = Object.entries(tasks)
+    const sortedTasks = Object.entries(tasks || {})
         .map(([id, task]) => ({ id, ...task }))
         .sort((a, b) => a.deadline - b.deadline);
     return sortedTasks;
@@ -12,7 +12,7 @@ function sortTaskByDeadline(tasks: Tasks): Task[]{
 
 // 予定のデータを開始時間で並べ替える関数
 function sortEventByStartTime(events: Events): Event[]{
-    const sortedEvents = Object.entries(events)
+    const sortedEvents = Object.entries(events || {})
         .map(([id, event]) => ({ id, ...event }))
         .sort((a, b) => a.startTime - b.startTime);
     return sortedEvents;
