@@ -7,6 +7,7 @@ import {
     getAuth,
     signOut,
     onAuthStateChanged,
+    reauthenticateWithCredential,
     User
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
@@ -89,6 +90,23 @@ export default class AppUser {
         } catch (e) {
             if (e instanceof FirebaseError) {
                 console.log(e)
+            }
+        }
+    }
+
+    public static async deleteUser(): Promise<void> {
+        try {
+            const auth: Auth = getAuth();
+            const user = auth.currentUser;
+            if (user) {
+                await deleteDoc(doc(db, "users", user.uid)); // Firestoreのユーザードキュメントを削除する場合
+                await deleteAccount(auth, user.uid); // Firebase Authenticationのユーザーアカウントを削除する
+            // ユーザー削除後の処理（例: リダイレクトなど）
+        }
+        } catch (e) {
+            if (e instanceof FirebaseError) {
+                console.log(e);
+                window.alert("ユーザーの削除に失敗しました。");
             }
         }
     }
