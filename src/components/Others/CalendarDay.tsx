@@ -4,6 +4,7 @@ import { PageState, PageStateContext } from '../../provider/PageStateProvider';
 import { CalendarData, Event, Shift, Task } from '../../utils/types';
 import { TaskContext } from '../../provider/TaskProvider';
 import { ShiftContext } from '../../provider/ShiftProvider';
+import { EventContext } from '../../provider/EventProvider';
 import { CalendarContext } from '../../provider/CalendarProvider';
 
 interface MyProps{
@@ -27,7 +28,7 @@ export default function CalendarDay(props: MyProps) {
     // バイトのシフトのデータを管理する
     const [shifts, setShifts] = useContext(ShiftContext);
     // 予定のデータを管理する
-    // const [events, setEvents] = useContext(EventContext);
+    const [events, setEvents] = useContext(EventContext);
 
     // その日のデータを管理する
     const [data, setData] = useState<CalendarData>({tasks: [], shifts: [], events: []})
@@ -70,14 +71,14 @@ export default function CalendarDay(props: MyProps) {
         result.tasks = tasksInRange;
         // 予定のデータを取得する
         const eventsInRange: Event[] = new Array;
-/*         for(const key in events){
+        for(const key in events){
             const value: Event = events[key];
             const startTime: number = value.startTime;
             if((startTime >= nowDayTime) && (startTime < nextDayTime)){
                 value.id = key;
                 eventsInRange.push(value);
             }
-        } */
+        }
         result.events = eventsInRange;
         return result;
     }
