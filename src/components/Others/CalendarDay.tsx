@@ -85,7 +85,7 @@ export default function CalendarDay(props: MyProps) {
 
     return (
         <div
-            className={`col d-flex flex-column p-1 ${border}`}
+            className={`col d-flex flex-column p-1 border ${border}`}
             onClick={() => {
                 const theDate: Date = new Date(year, month - 1, day);
                 let newPageState: PageState = "edit";
