@@ -31,13 +31,13 @@ export default function EventViewPage() {
                         <span className="me-2">月</span>
                         <span>{`${new Date(data.startTime).getDate()}`}</span>
                         <span className="me-3">日</span>
-                        {data.isAllDay && (
+                        {!data.isAllDay && (
                             <span>{( "00" + (new Date(data.startTime).getHours())).slice( -2 )}</span>
                         )}
-                        {data.isAllDay && (
+                        {!data.isAllDay && (
                             <span className="me-2">：</span>
                         )}
-                        {data.isAllDay && (
+                        {!data.isAllDay && (
                             <span>{( "00" + (new Date(data.startTime).getMinutes())).slice( -2 )}</span>
                         )}
                     </div>
@@ -49,13 +49,13 @@ export default function EventViewPage() {
                         <span className="me-2">月</span>
                         <span>{`${new Date(data.endTime).getDate()}`}</span>
                         <span className="me-3">日</span>
-                        {data.isAllDay && (
+                        {!data.isAllDay && (
                             <span>{( "00" + (new Date(data.endTime).getHours())).slice( -2 )}</span>
                         )}
-                        {data.isAllDay && (
+                        {!data.isAllDay && (
                             <span className="me-2">：</span>
                         )}
-                        {data.isAllDay && (
+                        {!data.isAllDay && (
                             <span>{( "00" + (new Date(data.endTime).getMinutes())).slice( -2 )}</span>
                         )}
                     </div>
