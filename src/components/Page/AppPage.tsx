@@ -266,7 +266,13 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <EventPage/>
+                    {((pageState === "view") ? (
+                        <EventViewPage/>
+                    ) : ((pageState === "edit") ? (
+                        <EventEditPage/>
+                    ) : (
+                        <EventPage/>
+                    )))}
                 </Tab>
                 <Tab
                     eventKey="calendar"
