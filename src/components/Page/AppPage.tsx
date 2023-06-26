@@ -327,9 +327,9 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 ) : ((tabKey === "shift") ? (
                     <ShiftHamburgerMenu/>
                 ) : ((tabKey === "event") ? (
-                    <EventHamburgerMenu/>
-                ) : (
                     <CalendarHamburgerMenu/>
+                ) : (
+                    <EventHamburgerMenu/>
                 )))))}
             </Drawer>
         </div>

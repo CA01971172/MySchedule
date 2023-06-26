@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { DrawerContext } from '../../provider/DrawerProvider';
 import HamburgerMenuHeader from "./HamburgerMenuHeader"
+import { EventSettings } from '../../utils/types';
+import { EventSettingsContext } from '../../provider/EventSettingsProvider';
 
-export function EventHamburgerMenu() {
-  const [checkbox, setCheckbox] = useState<boolean>(false);
+export default function EventHamburgerMenu() {
+  // ハンバーガーメニューが開いているかどうかを管理する
+  const {setIsChangedSettings, setSettings} = useContext(DrawerContext);
+
+  // 予定の設定データを管理する
+  const [eventSettings, setEventSettings] = useContext(EventSettingsContext);
+
+  // 予定の設定データを編集するための関数
+  function changeEventSettings(hidePassedEvent?: boolean){
+    const newSettings: EventSettings = Object.assign({}, eventSettings);
+    if(hidePassedEvent !== undefined) newSettings.hidePassedEvent = hidePassedEvent;
+    setEventSettings(newSettings); // 表示用のデータを変更する
+    setSettings(["event", newSettings]); // データ保存用のデータを変更する
+    setIsChangedSettings(true); // データが変更済であることを記憶する
+  }
 
   return (
     <div>
@@ -13,21 +29,22 @@ export function EventHamburgerMenu() {
             className="form-check-input"
             type="checkbox"
             value=""
-            id="flexCheckDefault1"
-            checked={checkbox}
-            onChange={() => setCheckbox((prev) => !prev)}
+            id="hidePassedEvent"
+            checked={eventSettings.hidePassedEvent}
+            onChange={() => {
+              let nowBool: boolean = false;
+              if(eventSettings.hidePassedEvent !== undefined){
+                nowBool = eventSettings.hidePassedEvent;
+              }
+              const newValue = !nowBool;
+              changeEventSettings(newValue);
+            }}
           />
-          <label className="form-check-label" htmlFor="flexCheckDefault">
-            過去の予定を非表示にする
+          <label className="form-check-label user-select-none" htmlFor="hidePassedEvent">
+            過去の課題を非表示にする
           </label>
         </div>
-
-        <button className="btn btn-outline-dark" style={{ display: 'block', margin: '0 auto' }}>
-          一括削除
-        </button>
       </div>
-    </div>  
+    </div>
   );
 }
-
-export default EventHamburgerMenu;
