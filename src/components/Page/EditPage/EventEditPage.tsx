@@ -140,6 +140,7 @@ export default function TaskEditPage() {
                             minutes={startMinutes}
                             setMinutes={setStartMinutes}
                             setIsTouched={setIsTouched}
+                            isAllDay={isAllDay}
                         />
                     </div>
                     <div className="w-100 p-1 mb-3 border-bottom">
@@ -153,6 +154,7 @@ export default function TaskEditPage() {
                             minutes={endMinutes}
                             setMinutes={setEndMinutes}
                             setIsTouched={setIsTouched}
+                            isAllDay={isAllDay}
                         />
                     </div>
                     <div className="w-100 p-1 border-bottom">
