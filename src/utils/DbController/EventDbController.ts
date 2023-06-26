@@ -9,7 +9,7 @@ export default class EventDbController extends DbController {
       super();
     }
   
-    public static async createEvent(data: Event, needReturn: boolean = true): Promise<string> {
+    public static async createEvent(data: Event, needReturn: boolean = false): Promise<string> {
       try{
         if(AppUser.uid){
           const url = EventDbController.buildUrl(AppUser.uid, EventDbController.resource);
@@ -58,7 +58,7 @@ export default class EventDbController extends DbController {
       }
     }
     
-    public static async readEventByRange(tag: string, startAt: string, endAt: string): Promise<Events>{
+    public static async readEventByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Events>{
         let result: Events = {}
         try{
           if(AppUser.uid){

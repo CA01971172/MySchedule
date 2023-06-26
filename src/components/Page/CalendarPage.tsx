@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import CalendarColumn from '../Others/CalendarColumn';
-import AddButton from "./../Others/AddButton"
+import CalendarAddButton from "./../Others/CalendarAddButton"
 import CalendarUiBar from '../UiBarColumn/CalendarUiBar';
 import WeekdayColumn from '../Others/WeekdayColumn';
 
-interface MyProps{
-    focusYear: number;
-    focusMonth: number;
-    changeMonth: (amount: 1|-1) => void;
-}
-
-export default function CalendarPage(props: MyProps) {
-    const {focusYear, focusMonth, changeMonth} = props;
-
+export default function CalendarPage() {
     return (
         <div className="h-100 position-relative">
             <div className="container h-100 border-start border-end d-flex flex-column">
-                <CalendarUiBar focusMonth={focusMonth} focusYear={focusYear} changeMonth={changeMonth}/>
+                <CalendarUiBar/>
                 <WeekdayColumn pageType="calendar"/>
-                <CalendarColumn pageType="calendar" focusMonth={focusMonth} focusYear={focusYear}/>
+                <CalendarColumn pageType="calendar"/>
             </div>
-            <AddButton/>
+            <CalendarAddButton/>
         </div>
     );
 }

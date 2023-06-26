@@ -4,7 +4,7 @@ import { PageStateContext } from '../../provider/PageStateProvider';
 
 export default function TandemCard({ cardType, data }: { cardType:"task"|"event", data: Task|Event}) {
     // ページの状態を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {setPageState, setFetchingId, setFetchingData} = useContext(PageStateContext);
 
     // カードがクリック中かどうかを管理する
     const [isActive, setIsActive] = useState<boolean>(false);
@@ -39,7 +39,7 @@ export default function TandemCard({ cardType, data }: { cardType:"task"|"event"
                 if(data.id){
                     setFetchingId(data.id);
                     setFetchingData(data);
-                    setPageState(1);
+                    setPageState("view");
                 }
             }}
         >

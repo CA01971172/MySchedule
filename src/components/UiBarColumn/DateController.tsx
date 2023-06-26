@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CalendarContext } from '../../provider/CalendarProvider';
 
-export default function DateController({changeMonth}: { changeMonth: (amount: 1 | -1) => void }) {
+export default function DateController() {
+    const {changeMonth} = useContext(CalendarContext);
 
     return (
         <div>

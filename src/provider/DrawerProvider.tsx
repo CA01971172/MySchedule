@@ -3,18 +3,30 @@ import { EventSettings, TabType, TaskSettings } from '../utils/types';
 import TaskSettingsDbController from '../utils/DbController/TaskSettingsDbController';
 import EventSettingsDbController from '../utils/DbController/EventSettingsDbController';
 
-type MyType = [
-    boolean,
-    React.Dispatch<React.SetStateAction<boolean>>,
-    boolean,
-    React.Dispatch<React.SetStateAction<boolean>>,
-    [(null | "task" | "event"), (null | TaskSettings | EventSettings)],
-    React.Dispatch<React.SetStateAction<[(null | "task" | "event"), (null | TaskSettings | EventSettings)]>>,
-    ()=>void,
-    ()=>void,
+type Settings = [
+    (null | "task" | "event"),
+    (null | TaskSettings | EventSettings)
 ];
 
-export const DrawerContext = createContext<MyType>([false, ()=>{}, false, ()=>{}, [null, null], ()=>{}, ()=>{}, ()=>{},])
+export const DrawerContext = createContext<{
+    drawerOpened: boolean,
+    setDrawerOpened: React.Dispatch<React.SetStateAction<boolean>>,
+    isChangedSettings: boolean,
+    setIsChangedSettings: React.Dispatch<React.SetStateAction<boolean>>
+    settings: Settings
+    setSettings: React.Dispatch<React.SetStateAction<Settings>>
+    openHamburgerMenu: () => void,
+    closeHamburgerMenu: () => void
+}>({
+    drawerOpened: false,
+    setDrawerOpened: ()=>{},
+    isChangedSettings: false,
+    setIsChangedSettings: ()=>{},
+    settings: [null, null],
+    setSettings: ()=>{},
+    openHamburgerMenu: ()=>{},
+    closeHamburgerMenu: ()=>{}
+})
 
 export function DrawerProvider({children}: {children: ReactNode}){
     // ハンバーガーメニューが開いているかどうかを管理する
@@ -48,7 +60,7 @@ export function DrawerProvider({children}: {children: ReactNode}){
     }
 
     return (
-        <DrawerContext.Provider value={[drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu]}>
+        <DrawerContext.Provider value={{drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu}}>
             {children}
         </DrawerContext.Provider>
     );

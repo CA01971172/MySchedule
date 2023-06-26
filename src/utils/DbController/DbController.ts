@@ -40,35 +40,43 @@ export default class DbController { // Firebaseのデータを取り扱うため
         }
     }
 
-    protected static async readData(url: string): Promise<object>{
+    protected static async readData(url: string): Promise<any>{
         const response = await fetch(url)
         const result: object = await response.json()
         return result
     }
 
-    protected static async readDataByTag(url: string, tag: string, value: string): Promise<object>{
+    protected static async readDataByTag(url: string, tag: string, value: string): Promise<any>{
         const query: string = `?orderBy="${tag}"&equalTo="${value}"`
         const completeUrl: string = url + query
-        const result: object = await DbController.readData(completeUrl)
+        const result: any = await DbController.readData(completeUrl)
         return result
     }
 
-    protected static async readDataByRange(url: string, tag: string, startAt: string, endAt: string): Promise<object>{
+    protected static async readDataByRange(url: string, tag: string, startAt: number|string, endAt: number|string): Promise<any>{
         let queryStartAt: string = "";
         if(startAt !== ""){
-            queryStartAt = `&startAt="${startAt}"`
+            if(typeof startAt === "string"){
+                queryStartAt = `&startAt="${startAt}"`
+            }else{
+                queryStartAt = `&startAt=${startAt}`
+            }
         }
         let queryEndAt: string = "";
         if(endAt !== ""){
-            queryEndAt = `&endAt="${endAt}"`
+            if(typeof endAt === "string"){
+                queryEndAt = `&endAt="${endAt}"`
+            }else{
+                queryEndAt = `&endAt=${endAt}`
+            }
         }
         const query: string = `?orderBy="${tag}"${queryStartAt}${queryEndAt}`
         const completeUrl: string = url + query
-        const result: object = await DbController.readData(completeUrl)
+        const result: any = await DbController.readData(completeUrl)
         return result
     }
 
-    protected static async overrideData(url: string, data: object): Promise<void>{
+    protected static async overrideData(url: string, data: any): Promise<void>{
         await fetch(url, {
             method:'PUT', 
             mode: 'cors', 
@@ -82,7 +90,7 @@ export default class DbController { // Firebaseのデータを取り扱うため
         // console.log(result)
     }
 
-    protected static async updateData(url: string, data: object): Promise<void>{
+    protected static async updateData(url: string, data: any): Promise<void>{
         await fetch(url, {
             method:'PATCH', 
             mode: 'cors', 

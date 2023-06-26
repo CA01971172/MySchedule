@@ -3,7 +3,7 @@ import { DrawerContext } from "./../../provider/DrawerProvider"
 
 export default function HamburgerMenuButton() {
     // ハンバーガーメニューが開いているかどうかを管理する
-    const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
+    const {drawerOpened, openHamburgerMenu, closeHamburgerMenu} = useContext(DrawerContext);
 
     return (
         <button

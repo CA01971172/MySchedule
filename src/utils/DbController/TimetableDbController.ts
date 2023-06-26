@@ -9,7 +9,7 @@ export default class TimetableDbController extends DbController {
         super()
     }
 
-    public static async createTimetable(data: Timetable, needReturn: boolean = true): Promise<string>{
+    public static async createTimetable(data: Timetable, needReturn: boolean = false): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = TimetableDbController.buildUrl(AppUser.uid, TimetableDbController.resource);
@@ -58,7 +58,7 @@ export default class TimetableDbController extends DbController {
         }
     }
 
-    public static async readTimetableByRange(tag: string, startAt: string, endAt: string): Promise<Timetables>{
+    public static async readTimetableByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Timetables>{
         let result: Timetables = {}
         try{
             if(AppUser.uid){

@@ -4,9 +4,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import { PageStateContext } from "./../../provider/PageStateProvider"
 import Drawer from '@mui/material/Drawer';
 import { DrawerContext } from "./../../provider/DrawerProvider"
-import { PageType, TabType, TaskSettings } from "../../utils/types"
-import TaskSettingsDbController from "./../../utils/DbController/TaskSettingsDbController"
-import EventSettingsDbController from "./../../utils/DbController/EventSettingsDbController"
+import { PageType, TabType } from "../../utils/types"
 import TimetablePage from "./TimetablePage"
 import TimetableViewPage from "./ViewPage/TimetableViewPage"
 import TimetableEditPage from "./EditPage/TimetableEditPage"
@@ -24,7 +22,9 @@ import EventViewPage from "./ViewPage/EventViewPage"
 import EventEditPage from "./EditPage/EventEditPage"
 import EventHamburgerMenu from "../HamburgerMenu/EventHamburgerMenu"
 import CalendarPage from "./CalendarPage"
-// import CalendarHamburgerMenu from "./../HamburgerMenu/CalendarHamburgerMenu"
+import { CalendarContext } from '../../provider/CalendarProvider';
+import CalendarHamburgerMenu from "./../HamburgerMenu/CalendarHamburgerMenu"
+import { TaskSettingsProvider } from "./../../provider/TaskSettingsProvider"
 
 
 // PageType等をタブの種類に変換する関数
@@ -37,6 +37,7 @@ function convertTabContent(pageType: string | null): TabType{
         case "event":
         case "calendar":
             result = pageType;
+            break;
         default:
             result = "calendar";
     }
@@ -65,7 +66,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     const tabList: TabType[] = ["timetable", "task", "shift", "event", "calendar"]; // タブの一覧を左から順に定義しておく
 
     // ページの状態を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {pageState, setPageState, setCreateDate, setFetchingId, setFetchingData, tabKey, setTabKey} = useContext(PageStateContext);
 
     // タブを管理する
     let newTabKey: TabType = convertTabContent(pageType);
@@ -73,9 +74,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         setTabKey(newTabKey);
     }, [])
 
+    // カレンダー系ページ用のContext
+    const {initializeFocusMonth} = useContext(CalendarContext);
     // タブを切り替える関数
     function changeTab(tabName: TabType){
-        setPageState(0);
+        setPageState("page");
+        setCreateDate(null);
         setFetchingId(null);
         setFetchingData(null);
         const nowTabIndex: number = tabList.findIndex(element => element === tabKey); // 開いているタブのindex番号を取得する
@@ -137,22 +141,7 @@ export default function AppPage({ pageType }: { pageType: PageType }){
     }
 
     // ハンバーガーメニューが開いているかどうかを管理する
-    const [drawerOpened, setDrawerOpened, isChangedSettings, setIsChangedSettings, settings, setSettings, openHamburgerMenu, closeHamburgerMenu] = useContext(DrawerContext);
-
-    // 課題の設定データを管理する
-    const [taskSettings, setTaskSettings] = useState<TaskSettings>({
-        enabledAlert: false,
-        daysBeforeDeadline: 3,
-        autoTaskDelete: false
-    });
-    // 設定データをデータベースから取得する
-    useEffect(() => {
-        let newTaskSettings: TaskSettings = {} as TaskSettings;
-        TaskSettingsDbController.getTaskSettings().then((taskSettings) => {
-            newTaskSettings = taskSettings;
-            setTaskSettings(newTaskSettings);
-        })
-    }, [])
+    const {drawerOpened, openHamburgerMenu, closeHamburgerMenu} = useContext(DrawerContext);
 
     // スワイプイベントを管理する
     const swipeAppHandlers = useSwipeable({ // アプリページ用のスワイプ処理
@@ -194,34 +183,6 @@ export default function AppPage({ pageType }: { pageType: PageType }){
         }
     });
 
-    // カレンダー系ページでフォーカス中の月を管理する
-    const [focusYear, setFocusYear] = useState<number>(2000);
-    const [focusMonth, setFocusMonth] = useState<number>(1);
-    // フォーカス中の月を初期化する関数
-    function initializeFocusMonth(): void{
-        const nowDate: Date = new Date();
-        const newYear: number = nowDate.getFullYear();
-        const newMonth: number = nowDate.getMonth() + 1;
-        setFocusYear(newYear);
-        setFocusMonth(newMonth);
-    }
-    // 表示月を1つ前後に遷移させる関数
-    function changeMonth(amount: 1|-1){
-        let newYear: number = focusYear;
-        let newMonth: number = focusMonth;
-        if(newMonth + amount > 12){
-            newMonth = 1;
-            newYear++;
-        }else if(newMonth + amount < 1){
-            newMonth = 12;
-            newYear--;
-        }else{
-            newMonth += amount;
-        }
-        setFocusMonth(newMonth);
-        if(newYear !== focusMonth) setFocusYear(newYear);
-    }
-
     return (
         <div className="w-100 h-100 d-flex flex-column position-relative" onTouchStart={()=>{}} {...swipeAppHandlers}>
             <Tabs
@@ -248,12 +209,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    {((pageState === 0) ? (
-                        <TimetablePage/>
-                    ) : ((pageState === 1) ? (
+                    {((pageState === "view") ? (
                         <TimetableViewPage/>
-                    ) : (
+                    ) : ((pageState === "edit") ? (
                         <TimetableEditPage/>
+                    ) : (
+                        <TimetablePage/>
                     )))}
                 </Tab>
                 <Tab
@@ -267,12 +228,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    {((pageState === 0) ? (
-                        <TaskPage/>
-                    ) : ((pageState === 1) ? (
+                    {((pageState === "view") ? (
                         <TaskViewPage/>
-                    ) : (
+                    ) : ((pageState === "edit") ? (
                         <TaskEditPage/>
+                    ) : (
+                        <TaskPage/>
                     )))}
                 </Tab>
                 <Tab
@@ -286,12 +247,12 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    {((pageState === 0) ? (
-                        <ShiftPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
-                    ) : ((pageState === 1) ? (
-                        <></>
+                    {((pageState === "view") ? (
+                        <ShiftViewPage/>
+                    ) : ((pageState === "edit") ? (
+                        <ShiftEditPage/>
                     ) : (
-                        <></>
+                        <ShiftPage/>
                     )))}
                 </Tab>
                 <Tab
@@ -318,7 +279,25 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                         </span>
                     }
                 >
-                    <CalendarPage focusYear={focusYear} focusMonth={focusMonth} changeMonth={changeMonth}/>
+                    {((pageState === "timetableView") ? (
+                        <TimetableViewPage/>
+                    ) : ((pageState === "timetableEdit") ? (
+                        <TimetableEditPage/>
+                    ) : ((pageState === "taskView") ? (
+                        <TaskViewPage/>
+                    ) : ((pageState === "taskEdit") ? (
+                        <TaskEditPage/>
+                    ) : ((pageState === "shiftView") ? (
+                        <ShiftViewPage/>
+                    ) : ((pageState === "shiftEdit") ? (
+                        <ShiftEditPage/>
+                    ) : ((pageState === "eventView") || (pageState === "view")) ? (
+                        <EventViewPage/>
+                    ) : ((pageState === "eventEdit") || (pageState === "edit")) ? (
+                        <EventEditPage/>
+                    ) : (
+                        <CalendarPage/>
+                    )))))))}
                 </Tab>
             </Tabs>
             <Drawer
@@ -327,20 +306,24 @@ export default function AppPage({ pageType }: { pageType: PageType }){
                 onClose={() => {
                     closeHamburgerMenu();
                 }}
-                PaperProps={{ style: { width: "60%" } }}
+                PaperProps={{
+                    className: ((tabKey === "shift") ? "bg-transparent" : "bg-body"),
+                    style: { width: "60%", maxWidth: "30rem" }
+                }}
                 {...swipeDrawerHandlers}
             >
                 {((tabKey === "timetable") ? (
                     <TimetableHamburgerMenu/>
                 ) : ((tabKey === "task") ? (
-                    <TaskHamburgerMenu taskSettings={taskSettings} setTaskSettings={setTaskSettings}/>
+                    <TaskSettingsProvider>
+                        <TaskHamburgerMenu/>
+                    </TaskSettingsProvider>
                 ) : ((tabKey === "shift") ? (
                     <ShiftHamburgerMenu/>
                 ) : ((tabKey === "event") ? (
                     <EventHamburgerMenu/>
                 ) : (
-                    <></>
-                    // <CalendarHamburgerMenu/>
+                    <CalendarHamburgerMenu/>
                 )))))}
             </Drawer>
         </div>

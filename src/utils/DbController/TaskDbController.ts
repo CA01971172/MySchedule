@@ -9,7 +9,7 @@ export default class TaskDbController extends DbController {
         super()
     }
 
-    public static async createTask(data: Task, needReturn: boolean = true): Promise<string>{
+    public static async createTask(data: Task, needReturn: boolean = false): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
@@ -58,7 +58,7 @@ export default class TaskDbController extends DbController {
         }
     }
 
-    public static async readTaskByRange(tag: string, startAt: string, endAt: string): Promise<Tasks>{
+    public static async readTaskByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Tasks>{
         let result: Tasks = {}
         try{
             if(AppUser.uid){
@@ -105,6 +105,23 @@ export default class TaskDbController extends DbController {
             if(AppUser.uid){
                 const url = TaskDbController.buildUrl(AppUser.uid, TaskDbController.resource);
                 await TaskDbController.overrideData(url, {});
+            }else{
+                throw new Error("ユーザーのidを取得できませんでした")
+            }
+        }catch(e){
+            throw new Error("課題のデータを削除できませんでした")
+        }
+    }
+
+    public static async deleteOldTask(): Promise<void>{
+        try{
+            if(AppUser.uid){
+                const nowTime: number = new Date().getTime();
+                const oldData: Tasks = await TaskDbController.readTaskByRange("deadline", "", nowTime);
+                for(const key in oldData){
+                    await TaskDbController.deleteTask(key);
+                }
+                if(Object.keys(oldData).length > 0) console.log("提出期限が過ぎた課題を削除しました", oldData);
             }else{
                 throw new Error("ユーザーのidを取得できませんでした")
             }

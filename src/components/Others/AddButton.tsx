@@ -3,7 +3,7 @@ import { PageStateContext } from '../../provider/PageStateProvider';
 
 export default function AddButton() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {setPageState, setFetchingId, setFetchingData} = useContext(PageStateContext);
 
     return (
         <div className="position-absolute bottom-0 end-0 m-3 pe-3">
@@ -12,7 +12,7 @@ export default function AddButton() {
                 onClick={() => {
                     setFetchingId(null);
                     setFetchingData(null);
-                    setPageState(2);
+                    setPageState("edit");
                 }}
             >
                 <i className="bi bi-plus-lg"/>
@@ -20,3 +20,9 @@ export default function AddButton() {
         </div>
     );
 }
+
+// onClick={() => {
+//     setFetchingId(null);
+//     setFetchingData(null);
+//     setPageState("edit");
+// }}

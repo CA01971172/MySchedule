@@ -4,7 +4,7 @@ import { Timetable } from "./../../utils/types"
 
 export default function TimetableCard({ timetable }: { timetable: Timetable}) {
     // ページの状態を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {setPageState, setFetchingId, setFetchingData} = useContext(PageStateContext);
 
     // カードがクリック中かどうかを管理する
     const [isActive, setIsActive] = useState<boolean>(false);
@@ -41,7 +41,7 @@ export default function TimetableCard({ timetable }: { timetable: Timetable}) {
                 if(timetable.id){
                     setFetchingId(timetable.id);
                     setFetchingData(timetable);
-                    setPageState(1);
+                    setPageState("view");
                 }
             }}
         >

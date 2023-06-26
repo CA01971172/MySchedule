@@ -10,7 +10,7 @@ import MinutesInput from "./Form/MinutesInput"
 
 export default function TimetableEditPage() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {fetchingId, setFetchingId, createDate, fetchingData, setFetchingData} = useContext(PageStateContext);
 
     // 時間割のデータを管理する
     const [timetables, setTimetables] = useContext(TimetableContext);
@@ -23,7 +23,8 @@ export default function TimetableEditPage() {
     useEffect(() => {
         let convertData: Timetable;
         if(fetchingData === null){
-            const initialDate: Date = new Date(2000, 1, 1, 0, 0, 0);
+            let initialDate: Date = new Date(2000, 1, 1, 0, 0, 0);
+            if(createDate !== null) initialDate = createDate;
             const initialTime: number = initialDate.getTime();
             convertData = {
                 title: "",
@@ -83,7 +84,7 @@ export default function TimetableEditPage() {
             newTimetables[fetchingId] = newTimetable;
         }else{
             // データベース上にデータを新規作成する
-            const generatedId: string = await TimetableDbController.createTimetable(newTimetable);
+            const generatedId: string = await TimetableDbController.createTimetable(newTimetable, true);
             newTimetable.id = generatedId;
             // html上のデータを書き換える
             setFetchingId(generatedId);

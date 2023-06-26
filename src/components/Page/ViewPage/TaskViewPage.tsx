@@ -6,7 +6,7 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 export default function TaskViewPage() {
     // 現在操作中のデータ等を管理する
-    const [pageState, setPageState, fetchingId, setFetchingId, fetchingData, setFetchingData, tabKey, setTabKey] = useContext(PageStateContext);
+    const {fetchingData} = useContext(PageStateContext);
 
     // データの型をTaskだと解釈しておく
     const [data, setData] = useState<Task>({} as Task);
@@ -20,10 +20,10 @@ export default function TaskViewPage() {
             <div className="container h-100 border-start border-end d-flex flex-column">
                 <ViewUiBar contentType="task"/>
                 <div className="row flex-grow-1 d-block p-3 fs-4">
-                    <div className="w-100 p-1 mb-3 border-bottom text-truncate">
+                    <div className="w-100 p-1 mb-3 border-bottom">
                         {data.title}
                     </div>
-                    <div className="w-100 p-1 mb-3 border-bottom text-truncate">
+                    <div className="w-100 p-1 mb-3 border-bottom">
                         <span className="me-3">〆</span>
                         <span>{`${new Date(data.deadline).getFullYear()}`}</span>
                         <span className="me-3">年</span>

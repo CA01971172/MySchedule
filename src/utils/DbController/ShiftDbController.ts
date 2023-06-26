@@ -9,7 +9,7 @@ export default class ShiftDbController extends DbController {
         super()
     }
 
-    public static async createShift(data: Shift, needReturn: boolean = true): Promise<string>{
+    public static async createShift(data: Shift, needReturn: boolean = false): Promise<string>{
         try{
             if(AppUser.uid){
                 const url = ShiftDbController.buildUrl(AppUser.uid, ShiftDbController.resource);
@@ -58,7 +58,7 @@ export default class ShiftDbController extends DbController {
         }
     }
 
-    public static async readShiftByRange(tag: string, startAt: string, endAt: string): Promise<Shifts>{
+    public static async readShiftByRange(tag: string, startAt: number|string, endAt: number|string): Promise<Shifts>{
         let result: Shifts = {}
         try{
             if(AppUser.uid){

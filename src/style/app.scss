@@ -4,11 +4,20 @@ html, body, #root{
 }
 
 #root{
+    @media (min-width: 768px) {
+        // md以上のときのスタイル
+        .nav-tabs{
+            justify-content: center;
+        }
+    }
     .tab-content{
         flex: 1;
         overflow-y: auto;
         .tab-pane{
             height: 100%;
+            > * {
+                height: 100%;
+            }
         }
     }
 }
@@ -42,6 +51,37 @@ html, body, #root{
 }
 .bg-event{
     background-color: #2196f3;
+}
+
+.checkbox-task{
+    &:checked {
+        background-color: #673ab7 !important;
+        border-color: #673ab7 !important;
+    }
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(103, 58, 183, 0.25) !important;
+        border-color: #917EB5 !important;
+    }
+}
+.checkbox-shift{
+    &:checked {
+        background-color: #ff9800 !important;
+        border-color: #ff9800 !important;
+    }
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 152, 0, 0.25) !important;
+        border-color: #FFCF8C !important;
+    }
+}
+.checkbox-event{
+    &:checked {
+        background-color: #2196f3 !important;
+        border-color: #2196f3 !important;
+    }
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25) !important;
+        border-color: #96CAF2 !important;
+    }
 }
 
 .text-vertical{
