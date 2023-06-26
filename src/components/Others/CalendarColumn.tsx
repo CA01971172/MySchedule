@@ -9,6 +9,21 @@ type DateNumber = {
     dayOfWeek: number;
 }
 
+// DateオブジェクトをDateNumber型に変換する関数
+function getDateNumber(date: Date): DateNumber{
+    let result: DateNumber = {
+        year: 0,
+        month: 0,
+        day: 0,
+        dayOfWeek: 0
+    }
+    result.year = date.getFullYear();
+    result.month = date.getMonth() + 1;
+    result.day = date.getDate();
+    result.dayOfWeek = date.getDay();
+    return result;
+}
+
 export default function CalendarColumn({pageType}: {pageType: "shift" | "calendar"}) {
     // バイトシフトのドロワーメニュー用Context
     const {focusYear, focusMonth, shiftCalendarRef} = useContext(CalendarContext);
@@ -75,19 +90,14 @@ export default function CalendarColumn({pageType}: {pageType: "shift" | "calenda
         }
         return result;
     }
-    // 枠線の太さを取得する関数
-    function getBorder(index: number): string{
+    // 枠線のクラスを取得する関数
+    function getBorder(dateNumber: DateNumber): string{
         let result: string = "";
-        const classNames: string[] = new Array;
-        if(index % 7 !== 0){
-            // 一番左の列以外は、左線を付ける
-            classNames.push("border-start");
+        const nowDate: Date = new Date();
+        const nowDateNumber: DateNumber = getDateNumber(nowDate);
+        if((nowDateNumber.year === dateNumber.year) && (nowDateNumber.month === dateNumber.month) && (nowDateNumber.day === dateNumber.day)){
+            result = "border-primary"
         }
-        if(index > 6){
-            // 一番上の行以外は、上線を付ける
-            classNames.push("border-top");
-        }
-        result = classNames.join(" ");
         return result;
     }
 
@@ -97,7 +107,7 @@ export default function CalendarColumn({pageType}: {pageType: "shift" | "calenda
                 <CalendarDay
                     key={`${focusYear}/${value.month}/${value.day}`}
                     pageType={pageType}
-                    border={getBorder(index)}
+                    border={getBorder(value)}
                     textColor={getTextColor(value.dayOfWeek, value.month)}
                     year={value.year}
                     month={value.month}
