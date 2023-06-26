@@ -5,6 +5,7 @@ import { TimetableProvider } from "./TimetableProvider"
 import { TaskProvider } from "./TaskProvider"
 import { ShiftProvider } from "./ShiftProvider"
 import { EventProvider } from "./EventProvider"
+import { EventSettingsProvider } from "./EventSettingsProvider"
 import { CalendarProvider } from "./CalendarProvider"
 
 export default function Providers({children}: {children: ReactNode}){
@@ -15,9 +16,11 @@ export default function Providers({children}: {children: ReactNode}){
                     <TaskProvider>
                         <ShiftProvider>
                             <EventProvider>
-                                <CalendarProvider>
-                                    {children}
-                                </CalendarProvider>
+                                <EventSettingsProvider>
+                                    <CalendarProvider>
+                                        {children}
+                                    </CalendarProvider>
+                                </EventSettingsProvider>
                             </EventProvider>
                         </ShiftProvider>
                     </TaskProvider>
