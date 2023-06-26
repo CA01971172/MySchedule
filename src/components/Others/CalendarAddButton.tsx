@@ -19,7 +19,7 @@ export default function CalendarAddButton() {
         size="lg"
         variant="primary"
         drop="up"
-        className="position-absolute bottom-0 end-0 m-3 pe-3"
+        className="position-absolute bottom-0 end-0 m-4"
     >
         <Dropdown.Item as="button" onClick={() => {transitionEditPage("taskEdit")}}>課題</Dropdown.Item>
         <Dropdown.Item as="button" onClick={() => {transitionEditPage("shiftEdit")}}>バイト</Dropdown.Item>

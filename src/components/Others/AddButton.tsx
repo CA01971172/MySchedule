@@ -6,7 +6,7 @@ export default function AddButton() {
     const {setPageState, setFetchingId, setFetchingData} = useContext(PageStateContext);
 
     return (
-        <div className="position-absolute bottom-0 end-0 m-3 pe-3">
+        <div className="position-absolute bottom-0 end-0 m-4">
             <button
                 className="btn btn-primary btn-lg"
                 onClick={() => {
