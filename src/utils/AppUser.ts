@@ -7,8 +7,6 @@ import {
     getAuth,
     signOut,
     onAuthStateChanged,
-    deleteUser ,
-    reauthenticateWithCredential,
     User
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
@@ -23,6 +21,7 @@ export default class AppUser {
         email:"",
         password:""
     } as UserInfo;
+    private static readonly serverAddress: string = "http://localhost:8085"
 
     public static setUserInfo(email: string, password: string){//フィールドuserInfoにプロパティを代入するメソッド
         const userInfo:UserInfo={} as UserInfo
@@ -43,15 +42,29 @@ export default class AppUser {
 
     public static async signUp(redirectLink?: string):Promise<void>{//サインアップするメソッド
         try {
-            const auth: Auth = getAuth()
+            const auth: Auth = getAuth();
+            const email: string = AppUser.userInfo.email;
+            const password: string = AppUser.userInfo.password;
+
+            // メールアドレスとパスワードでアカウントを登録する
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
-                AppUser.userInfo.email,
-                AppUser.userInfo.password
+                email,
+                password
             )
+            // アカウントが登録されたことをメールで通知する
             await sendEmailVerification(userCredential.user)
             console.log("email sended")
             // window.alert("メールアドレスに登録確認メールを送信しました。")
+
+            // データベースにアラートメール送信用のメールアドレスを登録する
+            const authState: User | null = await AppUser.getAuthState()
+            if(authState){
+                const uid: string = authState.uid;
+                await AppUser.registerEmail(uid, email);
+            }
+
+            // リダイレクトする
             if(redirectLink){
                 location.href = redirectLink
             }
@@ -98,7 +111,9 @@ export default class AppUser {
 
     public static async deleteUser(): Promise<void> {
         try{
-            await DbController.deleteUserData(AppUser.uid || "");
+            const uid: string = AppUser.uid || "";
+            await DbController.deleteUserData(uid);
+            await this.deleteEmail(uid);
             const auth = getAuth();
             const currentUser = auth.currentUser;
             await currentUser?.delete(); // ユーザーを削除する
@@ -146,7 +161,7 @@ export default class AppUser {
         }
     }
 
-    public static async checkPassword(password: string){
+    public static async checkPassword(password: string){ // 受け取ったパスワードがログイン中のアカウントのものと一致するかどうかチェックするメソッド
         try {
             const auth: Auth = getAuth()
             await signInWithEmailAndPassword(
@@ -157,6 +172,56 @@ export default class AppUser {
             return true;
         } catch (e) {
             return false;
+        }
+    }
+
+    public static async registerEmail(uid: string, email: string): Promise<void>{ // サーバーを通してメールアドレスを登録するメソッド
+        try{
+            const serverLink: string = `${AppUser.serverAddress}/register-email`
+            const emailData: {
+                uid: string,
+                email: string
+            } = {
+                uid,
+                email
+            };
+            const response = await fetch(serverLink, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+                body: JSON.stringify(emailData)
+            });
+            // const result = await response.text();
+            // console.log(result);
+        }catch(e){
+            console.log(e);
+            throw new Error("メールアドレスの登録に失敗しました");
+        }
+    }
+
+    public static async deleteEmail(uid: string): Promise<void>{ // サーバーを通してメールアドレスを削除するメソッド
+        try{
+            const serverLink: string = `${AppUser.serverAddress}/delete-email`
+            const sendData: {
+                uid: string
+            } = {
+                uid
+            };
+            const response = await fetch(serverLink, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+                body: JSON.stringify(sendData)
+            });
+            // const result = await response.text();
+            // console.log(result);
+        }catch(e){
+            console.log(e);
+            throw new Error("メールアドレスの削除に失敗しました");
         }
     }
 }
