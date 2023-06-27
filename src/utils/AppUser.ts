@@ -157,4 +157,25 @@ export default class AppUser {
             return false;
         }
     }
+
+    public static async registerEmail(email: string): Promise<void>{
+        const serverLink: string = "http://localhost:8085/register-email"
+        const emailData: {
+            uid: string,
+            email: string
+        } = {
+            uid: AppUser.uid || "",
+            email: email
+        };
+        const response = await fetch(serverLink, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors',
+            body: JSON.stringify(emailData)
+        });
+        // const result = await response.text();
+        // console.log(result);
+    }
 }

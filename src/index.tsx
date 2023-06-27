@@ -29,21 +29,7 @@ declare global {
     }
 }
 window.hoge = function (): void{
-    const serverLink: string = "http://localhost:8085/get-email"
-    async function uploadEmailToServer(emailData: {uid: string, email: string}){
-        const response = await fetch(serverLink, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
-            body: JSON.stringify(emailData)
-        });
-        const result = await response.text();
-        console.log(result);
-    }
-
     const email: string|null = window.prompt("enter your email");
     if(!email) return
-    uploadEmailToServer({uid: AppUser.uid || "", email: email})
+    AppUser.registerEmail(email)
 }
