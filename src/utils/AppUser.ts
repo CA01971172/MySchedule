@@ -113,7 +113,7 @@ export default class AppUser {
         try{
             const uid: string = AppUser.uid || "";
             await DbController.deleteUserData(uid);
-            await this.deleteEmail(uid);
+            await AppUser.deleteEmail(uid);
             const auth = getAuth();
             const currentUser = auth.currentUser;
             await currentUser?.delete(); // ユーザーを削除する
