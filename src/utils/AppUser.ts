@@ -7,8 +7,6 @@ import {
     getAuth,
     signOut,
     onAuthStateChanged,
-    deleteUser ,
-    reauthenticateWithCredential,
     User
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
