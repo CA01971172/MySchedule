@@ -12,9 +12,10 @@ import {
     User
 } from 'firebase/auth'
 import { FirebaseError } from '@firebase/util'
-import { IndexPageUrl, LoginPageUrl } from "./constants"
+import { IndexPageUrl, LoginPageUrl, RegisterPageUrl } from "./constants"
 import { UserInfo } from "./types"
 import QueryUtils from "./QueryUtils"
+import DbController from './DbController/DbController'
 
 export default class AppUser {
     public static uid: string|null = null;
@@ -50,7 +51,7 @@ export default class AppUser {
             )
             await sendEmailVerification(userCredential.user)
             console.log("email sended")
-            window.alert("メールアドレスに登録確認メールを送信しました。")
+            // window.alert("メールアドレスに登録確認メールを送信しました。")
             if(redirectLink){
                 location.href = redirectLink
             }
@@ -97,12 +98,14 @@ export default class AppUser {
 
     public static async deleteUser(): Promise<void> {
         try{
+            await DbController.deleteUserData(AppUser.uid || "");
             const auth = getAuth();
             const currentUser = auth.currentUser;
-            currentUser?.delete(); // ユーザーを削除する
+            await currentUser?.delete(); // ユーザーを削除する
         }catch(e){
-            console.log(e);
-            window.alert("ユーザーの削除に失敗しました");
+            console.log("failed to deleteUser", e);
+        }finally{
+            location.href = RegisterPageUrl;
         }
     }
 
@@ -140,6 +143,20 @@ export default class AppUser {
             //認証状態とページの組み合わせが正しい場合は処理を実行しない
             //ユーザーのuid等を取得しておく
             await AppUser.assignUserInfo()
+        }
+    }
+
+    public static async checkPassword(password: string){
+        try {
+            const auth: Auth = getAuth()
+            await signInWithEmailAndPassword(
+                auth,
+                AppUser.userInfo.email,
+                password
+            )
+            return true;
+        } catch (e) {
+            return false;
         }
     }
 }

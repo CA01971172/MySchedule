@@ -14,7 +14,7 @@ export default function CalendarAddButton() {
 
     return (
     <DropdownButton
-        id="dropdown-item-button"
+        id="dropdown-CalendarAddButton"
         title={<i className="bi bi-plus-lg"/>}
         size="lg"
         variant="primary"

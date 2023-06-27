@@ -118,8 +118,7 @@ export default class DbController { // Firebaseのデータを取り扱うため
             const url: string = `${DbController.baseDbUrl}/users/${uid}.json`;
             DbController.deleteData(url);
         }catch(e){
-            console.log(e);
-            window.alert("ユーザーデータの削除に失敗しました")
+            console.log("failed to deleteUserData", e);
         }
     }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import HamburgerMenuButton from "./HamburgerMenuButton"
 import DateDisplay from "./DateDisplay"
 import DateController from "./DateController"
+import SettingsButton from './SettingsButton';
 
 
 export default function CalendarUiBar() {
@@ -15,6 +16,9 @@ export default function CalendarUiBar() {
             </div>
             <div className="col">
                 <DateDisplay/>
+            </div>
+            <div className="col-auto p-0">
+                <SettingsButton/>
             </div>
         </div>
     );
