@@ -46,10 +46,12 @@ export function TaskHamburgerMenu() {
                 const newValue = !nowBool;
                 changeTaskSettings(newValue, undefined, undefined);
               }}
+              aria-describedby="alertHelp"
             />
             <label className="form-check-label user-select-none" htmlFor="enabledAlert">
               提出期限が迫ったら、アラートメールで通知する
             </label>
+            <div id="alertHelp" className="form-text">毎日正午に通知します<br/>※未実装の機能です</div>
           </div>
 
           <div className='mb-3 d-flex'>
