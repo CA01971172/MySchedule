@@ -29,7 +29,5 @@ declare global {
     }
 }
 window.hoge = function (): void{
-    const email: string|null = window.prompt("enter your email");
-    if(!email) return
-    AppUser.registerEmail(email)
+
 }

@@ -41,15 +41,29 @@ export default class AppUser {
 
     public static async signUp(redirectLink?: string):Promise<void>{//サインアップするメソッド
         try {
-            const auth: Auth = getAuth()
+            const auth: Auth = getAuth();
+            const email: string = AppUser.userInfo.email;
+            const password: string = AppUser.userInfo.password;
+
+            // メールアドレスとパスワードでアカウントを登録する
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
-                AppUser.userInfo.email,
-                AppUser.userInfo.password
+                email,
+                password
             )
+            // アカウントが登録されたことをメールで通知する
             await sendEmailVerification(userCredential.user)
             console.log("email sended")
             // window.alert("メールアドレスに登録確認メールを送信しました。")
+
+            // データベースにアラートメール送信用のメールアドレスを登録する
+            const authState: User | null = await AppUser.getAuthState()
+            if(authState){
+                const uid: string = authState.uid;
+                await AppUser.registerEmail(uid, email);
+            }
+
+            // リダイレクトする
             if(redirectLink){
                 location.href = redirectLink
             }
@@ -158,24 +172,31 @@ export default class AppUser {
         }
     }
 
-    public static async registerEmail(email: string): Promise<void>{
-        const serverLink: string = "http://localhost:8085/register-email"
-        const emailData: {
-            uid: string,
-            email: string
-        } = {
-            uid: AppUser.uid || "",
-            email: email
-        };
-        const response = await fetch(serverLink, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
-            body: JSON.stringify(emailData)
-        });
-        // const result = await response.text();
-        // console.log(result);
+    public static async registerEmail(uid: string, email: string): Promise<string|undefined>{
+        let result: string|undefined = undefined;
+        try{
+            const serverLink: string = "http://localhost:8085/register-email"
+            const emailData: {
+                uid: string,
+                email: string
+            } = {
+                uid,
+                email
+            };
+            const response = await fetch(serverLink, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+                body: JSON.stringify(emailData)
+            });
+            result = await response.text();
+        }catch(e){
+            console.log(e);
+            throw new Error("メールアドレスの登録に失敗しました");
+        }finally{
+            return result
+        }
     }
 }
