@@ -41,7 +41,7 @@ export default function EventHamburgerMenu() {
             }}
           />
           <label className="form-check-label user-select-none" htmlFor="hidePassedEvent">
-            過去の課題を非表示にする
+            過去の予定を非表示にする
           </label>
         </div>
       </div>
