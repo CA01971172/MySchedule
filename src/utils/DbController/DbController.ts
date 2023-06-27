@@ -112,6 +112,16 @@ export default class DbController { // Firebaseのデータを取り扱うため
         // const result = await response.json()
         // console.log(result)
     }
+
+    public static async deleteUserData(uid: string): Promise<void>{
+        try{
+            const url: string = `${DbController.baseDbUrl}/users/${uid}.json`;
+            DbController.deleteData(url);
+        }catch(e){
+            console.log(e);
+            window.alert("ユーザーデータの削除に失敗しました")
+        }
+    }
 }
 
 // オブジェクトを比較して、追加されたキーを取得する関数

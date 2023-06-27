@@ -7,6 +7,7 @@ import {
     getAuth,
     signOut,
     onAuthStateChanged,
+    deleteUser ,
     reauthenticateWithCredential,
     User
 } from 'firebase/auth'
@@ -95,19 +96,13 @@ export default class AppUser {
     }
 
     public static async deleteUser(): Promise<void> {
-        try {
-            const auth: Auth = getAuth();
-            const user = auth.currentUser;
-            if (user) {
-                await deleteDoc(doc(db, "users", user.uid)); // Firestoreのユーザードキュメントを削除する場合
-                await deleteAccount(auth, user.uid); // Firebase Authenticationのユーザーアカウントを削除する
-            // ユーザー削除後の処理（例: リダイレクトなど）
-        }
-        } catch (e) {
-            if (e instanceof FirebaseError) {
-                console.log(e);
-                window.alert("ユーザーの削除に失敗しました。");
-            }
+        try{
+            const auth = getAuth();
+            const currentUser = auth.currentUser;
+            currentUser?.delete(); // ユーザーを削除する
+        }catch(e){
+            console.log(e);
+            window.alert("ユーザーの削除に失敗しました");
         }
     }
 
