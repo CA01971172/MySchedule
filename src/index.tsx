@@ -36,6 +36,7 @@ window.hoge = function (): void{
             headers: {
                 'Content-Type': 'application/json'
             },
+            mode: 'cors',
             body: JSON.stringify(emailData)
         });
         const result = await response.text();
