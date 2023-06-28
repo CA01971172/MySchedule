@@ -28,6 +28,18 @@ declare global {
         hoge(): void;
     }
 }
-window.hoge = function (): void{
-
+window.hoge = async function (): Promise<void>{
+    const serverAddress: string = "https://myschedule.iti2022kawahara.com";
+    try{
+        const serverLink: string = `${serverAddress}`
+        const response = await fetch(serverLink, {
+            method: 'GET',
+            mode: 'cors',
+        });
+        const result = await response.text();
+        console.log(result);
+    }catch(e){
+        console.log(e);
+        throw new Error("サーバーへの接続に失敗しました");
+    }
 }
