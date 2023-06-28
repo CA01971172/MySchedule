@@ -29,7 +29,7 @@ declare global {
     }
 }
 window.hoge = async function (): Promise<void>{
-    const serverAddress: string = "https://myschedule.iti2022kawahara.com";
+    const serverAddress: string = "https://myscheduleserver.iti2022kawahara.com";
     try{
         const serverLink: string = `${serverAddress}`
         const response = await fetch(serverLink, {
