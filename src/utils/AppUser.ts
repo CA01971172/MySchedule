@@ -21,7 +21,7 @@ export default class AppUser {
         email:"",
         password:""
     } as UserInfo;
-    private static readonly serverAddress: string = "https://myschedule.iti2022kawahara.com"
+    private static readonly serverAddress: string = "https://myscheduleserver.iti2022kawahara.com"
 
     public static setUserInfo(email: string, password: string){//フィールドuserInfoにプロパティを代入するメソッド
         const userInfo:UserInfo={} as UserInfo
