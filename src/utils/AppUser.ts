@@ -117,10 +117,9 @@ export default class AppUser {
             const auth = getAuth();
             const currentUser = auth.currentUser;
             await currentUser?.delete(); // ユーザーを削除する
+            location.href = RegisterPageUrl;
         }catch(e){
             console.log("failed to deleteUser", e);
-        }finally{
-            location.href = RegisterPageUrl;
         }
     }
 
