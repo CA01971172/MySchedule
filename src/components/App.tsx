@@ -7,7 +7,7 @@ import Providers from "./../provider/Providers"
 import RegisterPage from "./Page/RegisterPage"
 export default function App() {
     // 現在開いているページの種類を取得する
-    const pageType: PageType = QueryUtils.getPageType();
+    const pageType: PageType = null//QueryUtils.getPageType();
 
     if(pageType === "login"){
         return (
