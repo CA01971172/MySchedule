@@ -121,6 +121,19 @@ export default class DbController { // Firebaseのデータを取り扱うため
             console.log("failed to deleteUserData", e);
         }
     }
+
+    public static async getIsAuthorized(uid: string): Promise<boolean|null>{
+        let result: boolean|null = null;
+        try{
+            const url: string = `${DbController.baseDbUrl}/users/${uid}/isAuthorized.json`;
+            const response = await fetch(url);
+            result = await response.json();
+        }catch(e){
+            console.log("failed to deleteUserData", e);
+        }finally{
+            return result;
+        }
+    }
 }
 
 // オブジェクトを比較して、追加されたキーを取得する関数
