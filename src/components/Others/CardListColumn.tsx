@@ -20,10 +20,19 @@ function sortEventByStartTime(events: Events): Event[]{
 }
 
 // 過去のDateかどうか判定する関数
-function getIsPassedDate(date: Date): boolean{
+function getIsPassedDate(date: Date, isAllDay: boolean): boolean{
     let result: boolean = false;
     const nowDate: Date = new Date();
-    if(date.getTime() < nowDate.getTime()){
+    let theDate: Date;
+    if(isAllDay){
+        const theYear: number = date.getFullYear();
+        const theMonth: number = date.getMonth();
+        const theDay: number = date.getDate();
+        theDate = new Date(theYear, theMonth, theDay+1);
+    }else{
+        theDate = date;
+    }
+    if(theDate.getTime() < nowDate.getTime()){
         result = true;
     }
     return result;
@@ -37,7 +46,7 @@ export default function CardListColumn({ pageType, data }: { pageType: "task" | 
     function getIsPassedEvent(data: Event): boolean{
         let result: boolean = false;
         const hidePassedEvent: boolean = eventSettings.hidePassedEvent;
-        const isPassedEvent: boolean = getIsPassedDate(new Date(data.startTime));
+        const isPassedEvent: boolean = getIsPassedDate(new Date(data.startTime), data.isAllDay);
         if(hidePassedEvent && isPassedEvent){
             result = true;
         }
