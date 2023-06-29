@@ -61,7 +61,7 @@ export default class AppUser {
             const authState: User | null = await AppUser.getAuthState()
             if(authState){
                 const uid: string = authState.uid;
-                await AppUser.registerEmail(uid, email);
+                // await AppUser.registerEmail(uid, email);
             }
 
             // リダイレクトする
@@ -113,7 +113,7 @@ export default class AppUser {
         try{
             const uid: string = AppUser.uid || "";
             await DbController.deleteUserData(uid);
-            await AppUser.deleteEmail(uid);
+            // await AppUser.deleteEmail(uid);
             const auth = getAuth();
             const currentUser = auth.currentUser;
             await currentUser?.delete(); // ユーザーを削除する
