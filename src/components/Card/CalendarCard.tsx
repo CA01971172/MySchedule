@@ -15,14 +15,14 @@ export default function CalendarCard({ cardType, data }: { cardType: "task"|"shi
         switch(cardType){
             case "task":
                 const taskData: Task = data as Task;
-                result = taskData.title;
+                result = taskData.title || "課題";
                 break;
             case "shift":
                 result = "バイト";
                 break;
             case "event":
                 const eventData: Event = data as Event;
-                result = eventData.title;
+                result = eventData.title || "予定";
                 break;
             default:
                 break;

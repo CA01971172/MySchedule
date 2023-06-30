@@ -14,6 +14,7 @@ import { IndexPageUrl, LoginPageUrl, RegisterPageUrl } from "./constants"
 import { UserInfo } from "./types"
 import QueryUtils from "./QueryUtils"
 import DbController from './DbController/DbController'
+import App from '../components/App'
 
 export default class AppUser {
     public static uid: string|null = null;
@@ -61,7 +62,7 @@ export default class AppUser {
             const authState: User | null = await AppUser.getAuthState()
             if(authState){
                 const uid: string = authState.uid;
-                // await AppUser.registerEmail(uid, email);
+                await AppUser.registerEmail(uid, email);
             }
 
             // リダイレクトする
@@ -113,7 +114,7 @@ export default class AppUser {
         try{
             const uid: string = AppUser.uid || "";
             await DbController.deleteUserData(uid);
-            // await AppUser.deleteEmail(uid);
+            await AppUser.deleteEmail(uid);
             const auth = getAuth();
             const currentUser = auth.currentUser;
             await currentUser?.delete(); // ユーザーを削除する
@@ -157,6 +158,10 @@ export default class AppUser {
             //認証状態とページの組み合わせが正しい場合は処理を実行しない
             //ユーザーのuid等を取得しておく
             await AppUser.assignUserInfo()
+            // メールアドレスの登録(サーバーサイド用)に失敗しているかもしれないので、失敗していたら再登録しておく
+            const uid: string = AppUser.uid || "";
+            const email: string = AppUser.userInfo.email;
+            await AppUser.reRegisterEmail(uid, email);
         }
     }
 
@@ -197,6 +202,18 @@ export default class AppUser {
         }catch(e){
             console.log(e);
             throw new Error("メールアドレスの登録に失敗しました");
+        }
+    }
+
+    public static async reRegisterEmail(uid: string, email: string): Promise<void>{ // 登録に失敗したメールアドレスを再登録するメソッド
+        try{
+            const isAuthorized: boolean|null = await DbController.getIsAuthorized(uid);
+            if(isAuthorized !== true){
+                AppUser.registerEmail(uid, email);
+            }
+        }catch(e){
+            console.log(e);
+            throw new Error("メールアドレスの再登録に失敗しました");
         }
     }
 
