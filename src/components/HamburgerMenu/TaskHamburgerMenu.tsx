@@ -51,7 +51,7 @@ export function TaskHamburgerMenu() {
             <label className="form-check-label user-select-none" htmlFor="enabledAlert">
               提出期限が迫ったら、アラートメールで通知する
             </label>
-            <div id="alertHelp" className="form-text">毎日正午に通知します</div>
+            <div id="alertHelp" className="form-text user-select-none">毎日正午に通知します</div>
           </div>
 
           <div className='mb-3 d-flex'>
