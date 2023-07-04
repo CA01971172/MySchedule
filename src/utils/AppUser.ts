@@ -120,7 +120,8 @@ export default class AppUser {
             await currentUser?.delete(); // ユーザーを削除する
             location.href = RegisterPageUrl;
         }catch(e){
-            console.log("failed to deleteUser", e);
+            window.alert("申し訳ございません。何らかの原因により、退会処理に失敗しました。\nサーバーに不具合が発生している恐れがあります。");
+            console.log("failed to deleteUser\n", e);
         }
     }
 
@@ -156,12 +157,16 @@ export default class AppUser {
             location.href=LoginPageUrl
         }else{
             //認証状態とページの組み合わせが正しい場合は処理を実行しない
-            //ユーザーのuid等を取得しておく
-            await AppUser.assignUserInfo()
-            // メールアドレスの登録(サーバーサイド用)に失敗しているかもしれないので、失敗していたら再登録しておく
-            const uid: string = AppUser.uid || "";
-            const email: string = AppUser.userInfo.email;
-            await AppUser.reRegisterEmail(uid, email);
+            if(authState){
+                // 認証状態の場合、
+                // メールアドレスの登録(サーバーサイド用)に失敗しているかもしれないので、失敗していたら再登録しておく
+                //ユーザーのuid等を取得しておく
+                await AppUser.assignUserInfo()
+                // 必要があればメールアドレスの再登録を行う
+                const uid: string = AppUser.uid || "";
+                const email: string = AppUser.userInfo.email;
+                await AppUser.reRegisterEmail(uid, email);
+            }
         }
     }
 
@@ -200,20 +205,15 @@ export default class AppUser {
             // const result = await response.text();
             // console.log(result);
         }catch(e){
-            console.log(e);
-            throw new Error("メールアドレスの登録に失敗しました");
+            console.error(e);
+            console.error("メールアドレスの登録に失敗しました");
         }
     }
 
     public static async reRegisterEmail(uid: string, email: string): Promise<void>{ // 登録に失敗したメールアドレスを再登録するメソッド
-        try{
-            const isAuthorized: boolean|null = await DbController.getIsAuthorized(uid);
-            if(isAuthorized !== true){
-                AppUser.registerEmail(uid, email);
-            }
-        }catch(e){
-            console.log(e);
-            throw new Error("メールアドレスの再登録に失敗しました");
+        const isAuthorized: boolean|null = await DbController.getIsAuthorized(uid);
+        if(isAuthorized !== true){
+            AppUser.registerEmail(uid, email);
         }
     }
 
