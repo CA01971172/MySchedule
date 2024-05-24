@@ -25,7 +25,8 @@ async function checkServerAccess(): Promise<boolean>{
 
 window.onload = async function(){
     // EC2サーバーにアクセスできるかどうかを取得する
-    const isServerRunning: boolean = await checkServerAccess();
+    // const isServerRunning: boolean = await checkServerAccess();
+    const isServerRunning: boolean = true; // TODO サーバーが復旧したら、サーバーアクセスエラーページも復活させる
 
     // firebaseを初期化する
     FirebaseInitializer.initialize();
