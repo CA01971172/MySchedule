@@ -52,7 +52,7 @@ export function TaskHamburgerMenu() {
               提出期限が迫ったら、アラートメールで通知する
             </label>
             <div id="alertHelp" className="form-text user-select-none">毎日正午に通知します</div>
-            <div id="alertHelp" className="form-text user-select-none" style={{color: "#FFAAAA"}}>※現在サーバー停止中のため、通知できません</div>
+            <div id="alertHelp" className="form-text user-select-none" style={{color: "#FF5555"}}>※現在サーバー停止中のため、通知できません</div>
           </div>
 
           <div className='mb-3 d-flex'>
